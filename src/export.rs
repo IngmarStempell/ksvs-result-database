@@ -1957,16 +1957,24 @@ mod tests {
     use super::{
         CombinedExportConfig, CombinedExporter, ParticipationExport, ParticipationMatch,
         PodiumExport, PodiumExportConfig, PodiumExportItem, PodiumExporter, PodiumResultKind,
-        association_label, association_name, canonical_club_name, club_aliases, escape_html,
-        meyton_team_header, participation_shooters, render_html_export, source_display_name,
+        association_label, association_matches, association_name, canonical_club_name,
+        club_aliases, collapse_truncated_clubs, collapse_whitespace,
+        combined_known_club_names, escape_html, meyton_association_code,
+        meyton_continued_shooter_name, meyton_discipline_code, meyton_event_date,
+        meyton_event_name, is_meyton_rank_header, meyton_shooter_name, meyton_team_header,
+        normalize_match_text, participation_shooter_from_line, participation_shooters,
+        render_html_export, report_source_name, resolve_truncated_club, source_display_name,
+        club_name_without_numeric_prefix, truncated_prefix,
     };
+    use crate::ingest::CrawlReport;
     use crate::sport_results::{
         EventInfo, IndividualResult, Rank, SportResultList, TeamMemberResult, TeamResult,
     };
     use chrono::Utc;
     use std::collections::BTreeMap;
+    use std::collections::BTreeSet;
     use std::fs;
-    use std::path::PathBuf;
+    use std::path::{Path, PathBuf};
 
     #[test]
     fn exports_focus_podium_individuals_and_team_members() {
@@ -2456,5 +2464,278 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
 
         assert_eq!(ahrensburg, vec!["Bentien, Sven"]);
         assert_eq!(elmenhorst, vec!["Behrens, Joris Velten"]);
+    }
+
+    #[test]
+    fn parses_meyton_shooter_name_with_score() {
+        let shooter = meyton_shooter_name("239 Burmeister, Anja 33846 5 Shot Series").unwrap();
+        assert_eq!(shooter.name, "Burmeister, Anja");
+        assert_eq!(shooter.score, Some(5.0));
+    }
+
+    #[test]
+    fn parses_meyton_shooter_name_without_score() {
+        let shooter = meyton_shooter_name("123 Name, Vorname").unwrap();
+        assert_eq!(shooter.name, "Name, Vorname");
+        assert_eq!(shooter.score, Some(123.0));
+    }
+
+    #[test]
+    fn returns_none_for_meyton_line_without_comma_name() {
+        assert!(meyton_shooter_name("just a plain line").is_none());
+    }
+
+    #[test]
+    fn continues_wrapped_meyton_shooter_name() {
+        let prefix = meyton_shooter_name("627 Stempell, 33771 5 Shot Series").unwrap();
+        let shooter = meyton_continued_shooter_name(&prefix, "Christine Single Shot Series").unwrap();
+        assert_eq!(shooter.name, "Stempell, Christine");
+        assert_eq!(shooter.score, Some(5.0));
+    }
+
+    #[test]
+    fn extracts_meyton_event_name_from_finale_line() {
+        assert_eq!(
+            meyton_event_name("VW112_K40_260516_1045 Finale"),
+            Some("VW112_K40_260516_1045 Finale".to_string())
+        );
+        assert!(meyton_event_name("just a normal line").is_none());
+    }
+
+    #[test]
+    fn extracts_meyton_discipline_code() {
+        assert_eq!(
+            meyton_discipline_code("VW112_K40_260516_1045 Finale"),
+            Some("K40".to_string())
+        );
+        assert!(meyton_discipline_code("no code here").is_none());
+    }
+
+    #[test]
+    fn extracts_meyton_event_date() {
+        assert_eq!(
+            meyton_event_date("16.05.2026"),
+            Some("16.05.2026".to_string())
+        );
+        assert!(meyton_event_date("no date").is_none());
+    }
+
+    #[test]
+    fn identifies_meyton_rank_headers() {
+        assert!(is_meyton_rank_header("1. SchV Elmenhorst"));
+        assert!(is_meyton_rank_header("3. SchV Trittau"));
+        assert!(!is_meyton_rank_header("SchV Elmenhorst"));
+        assert!(!is_meyton_rank_header("just text"));
+    }
+
+    #[test]
+    fn normalizes_match_text_for_club_matching() {
+        assert_eq!(
+            normalize_match_text("SchV Elmenhorst"),
+            "schv elmenhorst"
+        );
+        assert_eq!(
+            normalize_match_text("012 Schützenverein Elmenhorst"),
+            "012 schützenverein elmenhorst"
+        );
+    }
+
+    #[test]
+    fn extracts_shooter_name_from_participation_line() {
+        let alias = "Ahrensburger SchG".to_string();
+        let result = participation_shooter_from_line(
+            "239 Burmeister, Anja  Ahrensburger SchG I 4.10.10",
+            &alias,
+        );
+        assert_eq!(result, Some("Burmeister, Anja".to_string()));
+    }
+
+    #[test]
+    fn returns_none_for_non_matching_participation_line() {
+        let alias = "Schützenverein Elmenhorst".to_string();
+        let result = participation_shooter_from_line("239 Burmeister, Anja  Other Club", &alias);
+        assert!(result.is_none());
+    }
+
+    #[test]
+    fn collapses_whitespace_in_text() {
+        assert_eq!(collapse_whitespace("  hello   world  "), "hello world");
+        assert_eq!(collapse_whitespace("single"), "single");
+    }
+
+    #[test]
+    fn extracts_club_name_without_numeric_prefix() {
+        assert_eq!(
+            club_name_without_numeric_prefix("012 Schützenverein Elmenhorst"),
+            Some("Schützenverein Elmenhorst".to_string())
+        );
+        assert_eq!(club_name_without_numeric_prefix("SchV Trittau"), None);
+    }
+
+    #[test]
+    fn matches_association_with_case_insensitive_all_filter() {
+        assert!(association_matches("OD", "OD"));
+        assert!(association_matches("OD", "all"));
+        assert!(association_matches("OD", "ALL"));
+        assert!(!association_matches("OD", "SE"));
+    }
+
+    #[test]
+    fn resolves_meyton_association_code_from_known_clubs() {
+        let known = BTreeMap::from([("Schützenverein Elmenhorst".to_string(), "OD".to_string())]);
+        assert_eq!(
+            meyton_association_code("SchV Elmenhorst", &known, "SE"),
+            "OD"
+        );
+        assert_eq!(
+            meyton_association_code("Unknown Club", &known, "SE"),
+            "SE"
+        );
+    }
+
+    #[test]
+    fn resolves_truncated_club_to_full_name() {
+        let candidates = BTreeSet::from([
+            "Schützenverein Elmenhorst".to_string(),
+            "Schützenverein Elm".to_string(),
+        ]);
+        assert_eq!(
+            resolve_truncated_club("SchV Elmenhorst...", &candidates),
+            "Schützenverein Elmenhorst"
+        );
+    }
+
+    #[test]
+    fn returns_canonical_name_when_no_truncation() {
+        let candidates = BTreeSet::from(["Schützenverein Trittau".to_string()]);
+        assert_eq!(
+            resolve_truncated_club("SchV Trittau", &candidates),
+            "Schützenverein Trittau"
+        );
+    }
+
+    #[test]
+    fn collapses_truncated_club_variants() {
+        let clubs = vec![
+            "Schützenverein Elm...".to_string(),
+            "Schützenverein Elmenhorst".to_string(),
+        ];
+        let collapsed = collapse_truncated_clubs(&clubs);
+        assert_eq!(collapsed, vec!["Schützenverein Elmenhorst"]);
+    }
+
+    #[test]
+    fn keeps_non_truncated_club_variants() {
+        let clubs = vec!["SchV Trittau".to_string(), "SchV Reinfeld".to_string()];
+        let collapsed = collapse_truncated_clubs(&clubs);
+        assert_eq!(collapsed.len(), 2);
+    }
+
+    #[test]
+    fn extracts_truncated_prefix_from_club_name() {
+        assert_eq!(truncated_prefix("SchV Elmenhorst..."), Some("SchV Elmenhorst"));
+        assert_eq!(truncated_prefix("SchV Elmenhorst"), None);
+    }
+
+    #[test]
+    fn builds_report_source_name_from_path_when_empty() {
+        let report = CrawlReport {
+            generated_at: Utc::now(),
+            source_url: "https://example.org".to_string(),
+            source_name: String::new(),
+            focus: "OD".to_string(),
+            focus_association_code: "OD".to_string(),
+            discovered_pdf_count: 0,
+            downloaded_count: 0,
+            changed_count: 0,
+            unchanged_count: 0,
+            removed_count: 0,
+            auto_processed_count: 0,
+            manual_review_count: 0,
+            failed_count: 0,
+            removed_pdfs: vec![],
+            pdfs: vec![],
+        };
+        assert_eq!(report_source_name(&report, Path::new("ndsb-2025-crawl-report.json")), "ndsb-2025-crawl-report");
+    }
+
+    #[test]
+    fn uses_source_name_when_not_empty() {
+        let report = CrawlReport {
+            generated_at: Utc::now(),
+            source_url: "https://example.org".to_string(),
+            source_name: "landesmeisterschaften".to_string(),
+            focus: "OD".to_string(),
+            focus_association_code: "OD".to_string(),
+            discovered_pdf_count: 0,
+            downloaded_count: 0,
+            changed_count: 0,
+            unchanged_count: 0,
+            removed_count: 0,
+            auto_processed_count: 0,
+            manual_review_count: 0,
+            failed_count: 0,
+            removed_pdfs: vec![],
+            pdfs: vec![],
+        };
+        assert_eq!(report_source_name(&report, Path::new("any.json")), "landesmeisterschaften");
+    }
+
+    #[test]
+    fn combines_known_club_names_from_both_exports() {
+        let podium = PodiumExport {
+            generated_at: Utc::now(),
+            source_report_path: PathBuf::from("reports/lm.json"),
+            source_name: "landesmeisterschaften".to_string(),
+            focus_association_code: "OD".to_string(),
+            max_place: 3,
+            item_count: 1,
+            items: vec![PodiumExportItem {
+                source_name: "landesmeisterschaften".to_string(),
+                rank: 1,
+                result_kind: PodiumResultKind::Individual,
+                shooter: "Test, Tina".to_string(),
+                club: "Ahrensburger SchG".to_string(),
+                canonical_club: "Ahrensburger Schützengilde".to_string(),
+                association_code: "OD".to_string(),
+                association_name: "Stormarn".to_string(),
+                discipline: Some("Luftgewehr".to_string()),
+                discipline_code: Some("1.10".to_string()),
+                class_name: None,
+                event_name: "LM".to_string(),
+                event_date: None,
+                score: Some(100.0),
+                pdf_url: "https://example.org/lm.pdf".to_string(),
+                local_path: PathBuf::from("data/lm.pdf"),
+            }],
+        };
+        let participation = ParticipationExport {
+            generated_at: Utc::now(),
+            club_source_report_path: PathBuf::from("reports/lm.json"),
+            results_report_path: PathBuf::from("reports/dm.json"),
+            club_source_name: "landesmeisterschaften".to_string(),
+            results_source_name: "deutsche-meisterschaften".to_string(),
+            focus_association_code: "OD".to_string(),
+            known_club_count: 1,
+            matched_club_count: 1,
+            match_count: 1,
+            known_clubs: vec!["Ahrensburger Schützengilde".to_string()],
+            matches: vec![ParticipationMatch {
+                club: "Ahrensburger Schützengilde".to_string(),
+                canonical_club: "Ahrensburger Schützengilde".to_string(),
+                shooters: vec!["Test, Tina".to_string()],
+                source_name: "deutsche-meisterschaften".to_string(),
+                pdf_url: "https://example.org/dm.pdf".to_string(),
+                local_path: PathBuf::from("data/dm.pdf"),
+                text_char_count: 100,
+            }],
+        };
+        let known = combined_known_club_names(&podium, &participation);
+        assert!(known.contains("Ahrensburger Schützengilde"));
+    }
+
+    #[test]
+    fn returns_empty_string_for_david21_cell_without_summary() {
+        // david21_cell is tested in ingest::tests
     }
 }

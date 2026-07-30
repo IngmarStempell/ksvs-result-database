@@ -1230,15 +1230,19 @@ fn escape_html(value: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{
-        association_placement_data, david21_association_placements, david21_podium_associations,
-        escape_html, extract_year, is_david21_text, is_pdf_url, local_path_href, pdf_filename,
-        resolve_link, summarize_david21, summarize_david21_focus,
+use super::{
+        association_placement_data, build_report, david21_association_placements,
+        david21_podium_associations, escape_html, extract_year, is_david21_text,
+        is_http_url, is_pdf_url, link_html, local_path_href, manifest_scope, path_cell,
+        pdf_filename, podium_association_codes, resolve_link, sanitize_filename, source_slug,
+        status_class, summarize_david21, summarize_david21_focus, CrawlConfig,
+        PdfClassification, PdfChangeStatus, PdfReportItem,
     };
     use crate::sport_results::{
         EventInfo, IndividualResult, Rank, SportResultList, TeamMemberResult, TeamResult,
     };
-    use std::path::PathBuf;
+    use chrono::Utc;
+    use std::path::{Path, PathBuf};
     use url::Url;
 
     #[test]
@@ -1378,6 +1382,195 @@ mod tests {
         assert_eq!(
             association_placement_data(Some(&summary)),
             "OD:2 OD:3 OH:4 SE:4"
+        );
+    }
+
+    #[test]
+    fn sanitizes_filenames_by_replacing_special_characters() {
+        assert_eq!(
+            sanitize_filename("Ergebnis Liste 1.10.10.pdf"),
+            "Ergebnis_Liste_1.10.10.pdf"
+        );
+        assert_eq!(sanitize_filename("test<>&\"'file.pdf"), "test_____file.pdf");
+    }
+
+    #[test]
+    fn creates_lowercase_slug_from_source_name() {
+        assert_eq!(source_slug("deutsche-meisterschaften"), "deutsche-meisterschaften");
+        assert_eq!(source_slug("Landesmeisterschaften"), "landesmeisterschaften");
+        assert_eq!(source_slug("  OD  "), "od");
+        assert_eq!(source_slug("---"), "default");
+    }
+
+    #[test]
+    fn builds_manifest_scope_from_source_and_year() {
+        assert_eq!(manifest_scope("", None), "");
+        assert_eq!(manifest_scope("", Some("2026")), "2026");
+        assert_eq!(manifest_scope("landesmeisterschaften", None), "landesmeisterschaften");
+        assert_eq!(
+            manifest_scope("landesmeisterschaften", Some("2026")),
+            "landesmeisterschaften-2026"
+        );
+    }
+
+    #[test]
+    fn identifies_http_and_https_urls() {
+        assert!(is_http_url(&Url::parse("https://example.org").unwrap()));
+        assert!(is_http_url(&Url::parse("http://example.org").unwrap()));
+        assert!(!is_http_url(&Url::parse("ftp://example.org").unwrap()));
+    }
+
+    #[test]
+    fn counts_downloaded_and_classified_pdfs_in_report() {
+        let config = CrawlConfig {
+            source_url: "https://example.org".to_string(),
+            source_name: "test".to_string(),
+            state_dir: PathBuf::from(".pdf-explorer"),
+            download_dir: PathBuf::from("data/downloads"),
+            manual_review_dir: PathBuf::from("data/manual-review"),
+            report_path: PathBuf::from("reports/report.json"),
+            html_report_path: PathBuf::from("reports/report.html"),
+            focus: "Stormarn".to_string(),
+            focus_association_code: "OD".to_string(),
+            year: None,
+            extra_pdf_urls: Vec::new(),
+            max_depth: 1,
+            max_pages: 25,
+            min_text_chars: 80,
+        };
+        let item = PdfReportItem {
+            url: "https://example.org/file.pdf".to_string(),
+            status: PdfChangeStatus::New,
+            classification: PdfClassification::David21,
+            local_path: Some(PathBuf::from("data/downloads/file.pdf")),
+            manual_review_path: None,
+            etag: None,
+            last_modified: None,
+            sha256: None,
+            file_size_bytes: None,
+            text_char_count: None,
+            needs_ocr: None,
+            david21_summary: None,
+            error: None,
+        };
+        let report = build_report(&config, 1, vec![], vec![item], Utc::now());
+
+        assert_eq!(report.discovered_pdf_count, 1);
+        assert_eq!(report.downloaded_count, 1);
+        assert_eq!(report.auto_processed_count, 1);
+        assert_eq!(report.manual_review_count, 0);
+        assert_eq!(report.failed_count, 0);
+    }
+
+    #[test]
+    fn maps_change_status_to_css_class() {
+        assert_eq!(status_class(&PdfChangeStatus::New), "new");
+        assert_eq!(status_class(&PdfChangeStatus::Changed), "changed");
+        assert_eq!(status_class(&PdfChangeStatus::Unchanged), "unchanged");
+        assert_eq!(status_class(&PdfChangeStatus::Removed), "removed");
+        assert_eq!(status_class(&PdfChangeStatus::Failed), "failed");
+    }
+
+    #[test]
+    fn renders_html_link() {
+        assert_eq!(
+            link_html("https://example.org/file.pdf", "file.pdf"),
+            "<a href=\"https://example.org/file.pdf\">file.pdf</a>"
+        );
+    }
+
+    #[test]
+    fn renders_path_cell_with_local_file_link() {
+        let path = PathBuf::from("data/downloads/result.pdf");
+        let cell = path_cell(Some(&path), Some(Path::new("reports")));
+        assert!(cell.contains("data/downloads/result.pdf"));
+        assert!(cell.contains("href="));
+    }
+
+    #[test]
+    fn renders_path_cell_with_file_href_for_absolute_paths() {
+        let path = PathBuf::from("/absolute/path/result.pdf");
+        let cell = path_cell(Some(&path), Some(Path::new("reports")));
+        assert!(cell.contains("/absolute/path/result.pdf"));
+        assert!(cell.contains("href="));
+    }
+
+    #[test]
+    fn extracts_podium_association_codes_from_summary() {
+        let event = EventInfo {
+            name: "Event".to_string(),
+            date: None,
+            location: None,
+            system: None,
+            discipline_code: None,
+            discipline: None,
+            class_name: None,
+        };
+        let result_list = SportResultList {
+            event: event.clone(),
+            team_results: vec![TeamResult {
+                event: event.clone(),
+                rank: Some(1),
+                association: "OD".to_string(),
+                club: "SchV Trittau".to_string(),
+                total: 100.0,
+                members: Vec::new(),
+            }],
+            individual_results: vec![IndividualResult {
+                event,
+                rank: Rank::Place(2),
+                start_number: 1,
+                name: "Shooter".to_string(),
+                association: "OD".to_string(),
+                club: "SchV Trittau".to_string(),
+                series: Vec::new(),
+                total: 99.0,
+            }],
+            out_of_competition_team_results: Vec::new(),
+            out_of_competition_individual_results: Vec::new(),
+        };
+        let summary = summarize_david21(&result_list, "OD");
+        assert_eq!(podium_association_codes(Some(&summary)), vec!["OD"]);
+    }
+
+    #[test]
+    fn formats_association_placement_data() {
+        let event = EventInfo {
+            name: "Event".to_string(),
+            date: None,
+            location: None,
+            system: None,
+            discipline_code: None,
+            discipline: None,
+            class_name: None,
+        };
+        let result_list = SportResultList {
+            event: event.clone(),
+            team_results: vec![TeamResult {
+                event: event.clone(),
+                rank: Some(2),
+                association: "OD".to_string(),
+                club: "SchV Trittau".to_string(),
+                total: 100.0,
+                members: Vec::new(),
+            }],
+            individual_results: vec![IndividualResult {
+                event,
+                rank: Rank::Place(3),
+                start_number: 1,
+                name: "Shooter".to_string(),
+                association: "OH".to_string(),
+                club: "Other".to_string(),
+                series: Vec::new(),
+                total: 99.0,
+            }],
+            out_of_competition_team_results: Vec::new(),
+            out_of_competition_individual_results: Vec::new(),
+        };
+        let summary = summarize_david21(&result_list, "OD");
+        assert_eq!(
+            association_placement_data(Some(&summary)),
+            "OD:2 OH:3"
         );
     }
 }
