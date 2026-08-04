@@ -1,4 +1,7 @@
-use pdf_explorer::sport_results::{EventInfo, IndividualResult, Rank, SportResultList, SportResultsParser, TeamMemberResult, TeamResult};
+use pdf_explorer::sport_results::{
+    EventInfo, IndividualResult, Rank, SportResultList, SportResultsParser, TeamMemberResult,
+    TeamResult,
+};
 use std::path::PathBuf;
 
 #[test]
@@ -108,7 +111,9 @@ fn extract_options_default_is_80_chars() {
 
 #[test]
 fn pdf_extractor_constructs_with_custom_options() {
-    let options = pdf_explorer::pdf::ExtractOptions { min_text_chars: 120 };
+    let options = pdf_explorer::pdf::ExtractOptions {
+        min_text_chars: 120,
+    };
     let extractor = pdf_explorer::pdf::PdfExtractor::new(options);
     let _ = extractor;
 }

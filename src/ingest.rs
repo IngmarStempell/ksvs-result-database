@@ -392,8 +392,9 @@ impl CrawlReporter {
         url: &str,
         previous: Option<&PdfManifestEntry>,
     ) -> Result<DownloadedPdf> {
+        let previous_with_local_file = previous.filter(|entry| entry.local_path.is_file());
         let mut request = self.client.get(url);
-        if let Some(previous) = previous {
+        if let Some(previous) = previous_with_local_file {
             if let Some(etag) = &previous.etag {
                 request = request.header(IF_NONE_MATCH, etag);
             }
@@ -407,7 +408,7 @@ impl CrawlReporter {
             .with_context(|| format!("could not download PDF {url}"))?;
 
         if response.status() == StatusCode::NOT_MODIFIED {
-            let Some(previous) = previous else {
+            let Some(previous) = previous_with_local_file else {
                 bail!("server returned 304 without a previous manifest entry for {url}");
             };
 
@@ -435,7 +436,7 @@ impl CrawlReporter {
         fs::write(&local_path, &bytes)
             .with_context(|| format!("could not write {}", local_path.display()))?;
 
-        let change_status = match previous {
+        let change_status = match previous_with_local_file {
             None => PdfChangeStatus::New,
             Some(previous) if previous.sha256 == sha256 => PdfChangeStatus::Unchanged,
             Some(_) => PdfChangeStatus::Changed,
@@ -1230,13 +1231,12 @@ fn escape_html(value: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-use super::{
-        association_placement_data, build_report, david21_association_placements,
-        david21_podium_associations, escape_html, extract_year, is_david21_text,
-        is_http_url, is_pdf_url, link_html, local_path_href, manifest_scope, path_cell,
-        pdf_filename, podium_association_codes, resolve_link, sanitize_filename, source_slug,
-        status_class, summarize_david21, summarize_david21_focus, CrawlConfig,
-        PdfClassification, PdfChangeStatus, PdfReportItem,
+    use super::{
+        CrawlConfig, PdfChangeStatus, PdfClassification, PdfReportItem, association_placement_data,
+        build_report, david21_association_placements, david21_podium_associations, escape_html,
+        extract_year, is_david21_text, is_http_url, is_pdf_url, link_html, local_path_href,
+        manifest_scope, path_cell, pdf_filename, podium_association_codes, resolve_link,
+        sanitize_filename, source_slug, status_class, summarize_david21, summarize_david21_focus,
     };
     use crate::sport_results::{
         EventInfo, IndividualResult, Rank, SportResultList, TeamMemberResult, TeamResult,
@@ -1396,8 +1396,14 @@ use super::{
 
     #[test]
     fn creates_lowercase_slug_from_source_name() {
-        assert_eq!(source_slug("deutsche-meisterschaften"), "deutsche-meisterschaften");
-        assert_eq!(source_slug("Landesmeisterschaften"), "landesmeisterschaften");
+        assert_eq!(
+            source_slug("deutsche-meisterschaften"),
+            "deutsche-meisterschaften"
+        );
+        assert_eq!(
+            source_slug("Landesmeisterschaften"),
+            "landesmeisterschaften"
+        );
         assert_eq!(source_slug("  OD  "), "od");
         assert_eq!(source_slug("---"), "default");
     }
@@ -1406,7 +1412,10 @@ use super::{
     fn builds_manifest_scope_from_source_and_year() {
         assert_eq!(manifest_scope("", None), "");
         assert_eq!(manifest_scope("", Some("2026")), "2026");
-        assert_eq!(manifest_scope("landesmeisterschaften", None), "landesmeisterschaften");
+        assert_eq!(
+            manifest_scope("landesmeisterschaften", None),
+            "landesmeisterschaften"
+        );
         assert_eq!(
             manifest_scope("landesmeisterschaften", Some("2026")),
             "landesmeisterschaften-2026"
@@ -1568,9 +1577,6 @@ use super::{
             out_of_competition_individual_results: Vec::new(),
         };
         let summary = summarize_david21(&result_list, "OD");
-        assert_eq!(
-            association_placement_data(Some(&summary)),
-            "OD:2 OH:3"
-        );
+        assert_eq!(association_placement_data(Some(&summary)), "OD:2 OH:3");
     }
 }

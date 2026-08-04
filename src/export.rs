@@ -63,7 +63,19 @@ pub struct PodiumExport {
     pub focus_association_code: String,
     pub max_place: u32,
     pub item_count: usize,
+    #[serde(default)]
+    pub manual_review_count: usize,
+    #[serde(default)]
+    pub manual_review_pdfs: Vec<ManualReviewPdf>,
     pub items: Vec<PodiumExportItem>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ManualReviewPdf {
+    pub url: String,
+    pub reason: Option<String>,
+    pub text_char_count: Option<usize>,
+    pub needs_ocr: Option<bool>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -262,10 +274,12 @@ impl PodiumExporter {
         let export = PodiumExport {
             generated_at: Utc::now(),
             source_report_path: self.config.crawl_report_path.clone(),
-            source_name: crawl_report.source_name,
+            source_name: crawl_report.source_name.clone(),
             focus_association_code: self.config.focus_association_code.clone(),
             max_place: self.config.max_place,
             item_count: items.len(),
+            manual_review_count: crawl_report.manual_review_count,
+            manual_review_pdfs: manual_review_pdfs(&crawl_report),
             items,
         };
         self.write_json_export(&export)?;
@@ -1173,6 +1187,44 @@ const fn place_from_rank(rank: &Rank) -> Option<u32> {
     }
 }
 
+fn manual_review_pdfs(crawl_report: &CrawlReport) -> Vec<ManualReviewPdf> {
+    crawl_report
+        .pdfs
+        .iter()
+        .filter(|pdf| pdf.classification == PdfClassification::ManualReview)
+        .map(|pdf| ManualReviewPdf {
+            url: pdf.url.clone(),
+            reason: pdf.error.clone(),
+            text_char_count: pdf.text_char_count,
+            needs_ocr: pdf.needs_ocr,
+        })
+        .collect()
+}
+
+fn render_manual_review_rows(pdfs: &[ManualReviewPdf]) -> String {
+    let mut rows = String::new();
+    for pdf in pdfs {
+        let reason = pdf.reason.as_deref().unwrap_or("manuelle Kontrolle");
+        let text_char_count = pdf
+            .text_char_count
+            .map_or_else(|| "-".to_string(), |count| count.to_string());
+        let needs_ocr = match pdf.needs_ocr {
+            Some(true) => "ja",
+            Some(false) => "nein",
+            None => "-",
+        };
+        let _ = writeln!(
+            rows,
+            "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            link_html(&pdf.url, "Quelle"),
+            escape_html(reason),
+            escape_html(&text_char_count),
+            needs_ocr
+        );
+    }
+    rows
+}
+
 #[allow(clippy::too_many_lines)]
 fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> String {
     let html_items = export
@@ -1203,6 +1255,26 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
             link_html(&item.pdf_url, "Quelle")
         );
     }
+    let manual_review_rows = render_manual_review_rows(&export.manual_review_pdfs);
+    let manual_review_section = if export.manual_review_pdfs.is_empty() {
+        "<p class=\"muted\">Keine Dateien in manueller Nachbearbeitung.</p>".to_string()
+    } else {
+        format!(
+            r"<table>
+    <thead>
+      <tr>
+        <th>PDF Quelle</th>
+        <th>Grund</th>
+        <th>Textzeichen</th>
+        <th>OCR nötig</th>
+      </tr>
+    </thead>
+    <tbody>
+      {manual_review_rows}
+    </tbody>
+  </table>"
+        )
+    };
 
     format!(
         r##"<!doctype html>
@@ -1240,6 +1312,7 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
   <p class="muted">Ursprung: {source_name} - erzeugt: {generated_at} - Kreis: {focus_code} - Platz bis: {max_place}</p>
   <section class="summary">
     <div class="metric"><strong>{item_count}</strong>Schützen</div>
+    <div class="metric"><strong>{manual_review_count}</strong>manuelle Nachbearbeitung</div>
   </section>
   <section class="filters" aria-label="Exportfilter">
     <label>Suche
@@ -1300,6 +1373,10 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
       {rows}
     </tbody>
   </table>
+  <section class="manual-review">
+    <h2>Manuelle Nachbearbeitung</h2>
+    {manual_review_section}
+  </section>
 </main>
 <script>
   const items = {items_json};
@@ -1483,7 +1560,9 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
         focus_code = escape_html(&export.focus_association_code),
         max_place = export.max_place,
         item_count = export.item_count,
+        manual_review_count = export.manual_review_count,
         rows = rows,
+        manual_review_section = manual_review_section,
         items_json = items_json
     )
 }
@@ -1955,16 +2034,16 @@ fn escape_html(value: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::{
-        CombinedExportConfig, CombinedExporter, ParticipationExport, ParticipationMatch,
-        PodiumExport, PodiumExportConfig, PodiumExportItem, PodiumExporter, PodiumResultKind,
-        association_label, association_matches, association_name, canonical_club_name,
-        club_aliases, collapse_truncated_clubs, collapse_whitespace,
-        combined_known_club_names, escape_html, meyton_association_code,
-        meyton_continued_shooter_name, meyton_discipline_code, meyton_event_date,
-        meyton_event_name, is_meyton_rank_header, meyton_shooter_name, meyton_team_header,
-        normalize_match_text, participation_shooter_from_line, participation_shooters,
-        render_html_export, report_source_name, resolve_truncated_club, source_display_name,
-        club_name_without_numeric_prefix, truncated_prefix,
+        CombinedExportConfig, CombinedExporter, ManualReviewPdf, ParticipationExport,
+        ParticipationMatch, PodiumExport, PodiumExportConfig, PodiumExportItem, PodiumExporter,
+        PodiumResultKind, association_label, association_matches, association_name,
+        canonical_club_name, club_aliases, club_name_without_numeric_prefix,
+        collapse_truncated_clubs, collapse_whitespace, combined_known_club_names, escape_html,
+        is_meyton_rank_header, meyton_association_code, meyton_continued_shooter_name,
+        meyton_discipline_code, meyton_event_date, meyton_event_name, meyton_shooter_name,
+        meyton_team_header, normalize_match_text, participation_shooter_from_line,
+        participation_shooters, render_html_export, report_source_name, resolve_truncated_club,
+        source_display_name, truncated_prefix,
     };
     use crate::ingest::CrawlReport;
     use crate::sport_results::{
@@ -2287,6 +2366,8 @@ Christine Single Shot Series
             focus_association_code: "all".to_string(),
             max_place: 3,
             item_count: 0,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
             items: Vec::new(),
         };
 
@@ -2304,6 +2385,8 @@ Christine Single Shot Series
             focus_association_code: "all".to_string(),
             max_place: 3,
             item_count: 0,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
             items: Vec::new(),
         };
 
@@ -2321,6 +2404,35 @@ Christine Single Shot Series
     }
 
     #[test]
+    fn renders_manual_review_summary_in_podium_html() {
+        let export = PodiumExport {
+            generated_at: Utc::now(),
+            source_report_path: PathBuf::from("reports/lm.json"),
+            source_name: "landesmeisterschaften".to_string(),
+            focus_association_code: "all".to_string(),
+            max_place: 3,
+            item_count: 0,
+            manual_review_count: 1,
+            manual_review_pdfs: vec![ManualReviewPdf {
+                url: "https://example.org/manual.pdf".to_string(),
+                reason: Some("kein DAVID21+ Format".to_string()),
+                text_char_count: Some(42),
+                needs_ocr: Some(true),
+            }],
+            items: Vec::new(),
+        };
+
+        let html = render_html_export(&export, None);
+
+        assert!(html.contains("manuelle Nachbearbeitung"));
+        assert!(html.contains("Manuelle Nachbearbeitung"));
+        assert!(html.contains("https://example.org/manual.pdf"));
+        assert!(html.contains("kein DAVID21+ Format"));
+        assert!(html.contains("<td>42</td>"));
+        assert!(html.contains("<td>ja</td>"));
+    }
+
+    #[test]
     fn omits_local_file_column_from_podium_html() {
         let export = PodiumExport {
             generated_at: Utc::now(),
@@ -2329,6 +2441,8 @@ Christine Single Shot Series
             focus_association_code: "all".to_string(),
             max_place: 3,
             item_count: 1,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
             items: vec![PodiumExportItem {
                 source_name: "landesmeisterschaften".to_string(),
                 rank: 1,
@@ -2385,6 +2499,8 @@ Christine Single Shot Series
             focus_association_code: "OD".to_string(),
             max_place: 3,
             item_count: 1,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
             items: vec![PodiumExportItem {
                 source_name: "landesmeisterschaften".to_string(),
                 rank: 1,
@@ -2488,7 +2604,8 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
     #[test]
     fn continues_wrapped_meyton_shooter_name() {
         let prefix = meyton_shooter_name("627 Stempell, 33771 5 Shot Series").unwrap();
-        let shooter = meyton_continued_shooter_name(&prefix, "Christine Single Shot Series").unwrap();
+        let shooter =
+            meyton_continued_shooter_name(&prefix, "Christine Single Shot Series").unwrap();
         assert_eq!(shooter.name, "Stempell, Christine");
         assert_eq!(shooter.score, Some(5.0));
     }
@@ -2530,10 +2647,7 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
 
     #[test]
     fn normalizes_match_text_for_club_matching() {
-        assert_eq!(
-            normalize_match_text("SchV Elmenhorst"),
-            "schv elmenhorst"
-        );
+        assert_eq!(normalize_match_text("SchV Elmenhorst"), "schv elmenhorst");
         assert_eq!(
             normalize_match_text("012 Schützenverein Elmenhorst"),
             "012 schützenverein elmenhorst"
@@ -2587,10 +2701,7 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
             meyton_association_code("SchV Elmenhorst", &known, "SE"),
             "OD"
         );
-        assert_eq!(
-            meyton_association_code("Unknown Club", &known, "SE"),
-            "SE"
-        );
+        assert_eq!(meyton_association_code("Unknown Club", &known, "SE"), "SE");
     }
 
     #[test]
@@ -2633,7 +2744,10 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
 
     #[test]
     fn extracts_truncated_prefix_from_club_name() {
-        assert_eq!(truncated_prefix("SchV Elmenhorst..."), Some("SchV Elmenhorst"));
+        assert_eq!(
+            truncated_prefix("SchV Elmenhorst..."),
+            Some("SchV Elmenhorst")
+        );
         assert_eq!(truncated_prefix("SchV Elmenhorst"), None);
     }
 
@@ -2656,7 +2770,10 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
             removed_pdfs: vec![],
             pdfs: vec![],
         };
-        assert_eq!(report_source_name(&report, Path::new("ndsb-2025-crawl-report.json")), "ndsb-2025-crawl-report");
+        assert_eq!(
+            report_source_name(&report, Path::new("ndsb-2025-crawl-report.json")),
+            "ndsb-2025-crawl-report"
+        );
     }
 
     #[test]
@@ -2678,7 +2795,10 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
             removed_pdfs: vec![],
             pdfs: vec![],
         };
-        assert_eq!(report_source_name(&report, Path::new("any.json")), "landesmeisterschaften");
+        assert_eq!(
+            report_source_name(&report, Path::new("any.json")),
+            "landesmeisterschaften"
+        );
     }
 
     #[test]
@@ -2690,6 +2810,8 @@ Ahrensburger SchG I 4.10.10 10m Lfd. Scheibe Herren I 1245 13";
             focus_association_code: "OD".to_string(),
             max_place: 3,
             item_count: 1,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
             items: vec![PodiumExportItem {
                 source_name: "landesmeisterschaften".to_string(),
                 rank: 1,
