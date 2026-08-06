@@ -1084,7 +1084,7 @@ fn canonical_club_name(value: &str) -> String {
     if let Some(rest) = normalized.strip_prefix("BSchützengilde ") {
         return format!("Bürgerschützengilde {rest}");
     }
-    normalized
+    club_name_without_team_number_suffix(&normalized).unwrap_or(normalized)
 }
 
 fn club_aliases(club: &str) -> Vec<String> {
@@ -1118,6 +1118,17 @@ fn club_name_without_numeric_prefix(value: &str) -> Option<String> {
         .find_map(|(index, character)| (!character.is_ascii_digit()).then_some(index))?;
     let (prefix, club) = trimmed.split_at(first_non_digit);
     (!prefix.is_empty() && is_known_club_prefix(club)).then(|| club.trim().to_string())
+}
+
+fn club_name_without_team_number_suffix(value: &str) -> Option<String> {
+    let trimmed = value.trim();
+    let (club, team_number) = trimmed.rsplit_once(' ')?;
+    (team_number.len() == 1
+        && team_number
+            .chars()
+            .all(|character| character.is_ascii_digit())
+        && !club.trim().is_empty())
+    .then(|| club.trim_end_matches(" -").trim().to_string())
 }
 
 fn is_known_club_prefix(value: &str) -> bool {
@@ -2400,6 +2411,14 @@ Christine Single Shot Series
         assert_eq!(
             canonical_club_name("BSchützengilde Bad Oldesloe"),
             "Bürgerschützengilde Bad Oldesloe"
+        );
+        assert_eq!(
+            canonical_club_name("080 Schützenverein Reinfeld 1"),
+            "Schützenverein Reinfeld"
+        );
+        assert_eq!(
+            canonical_club_name("TSV Klausdorf - Schützenabteilung - 1"),
+            "TSV Klausdorf - Schützenabteilung"
         );
         assert!(club_aliases("Ahrensburger Schützengilde").contains(&"Ahrensburger SchG".into()));
         assert!(club_aliases("Schützenverein Sprenge").contains(&"Sprenge u.Umgegend".into()));
