@@ -84,11 +84,11 @@ impl SportResultsParser {
             )
             .expect("valid metadata regex"),
             team_regex: Regex::new(
-                r"^(?:(?P<rank>\d+)\s+)?(?P<association>[A-Z0-9]{2})\s+(?P<club>.+?)\s+(?P<total>\d+,\d)\s+Ringen$",
+                r"^(?:(?P<rank>\d+)\s+)?(?P<association>[A-Z0-9]{2})\s+(?P<club>.+?)\s+(?P<total>\d+(?:,\d)?)(?:\s+Ringen)?$",
             )
             .expect("valid team regex"),
             team_member_regex: Regex::new(
-                r"^(?P<start_number>\d+)\s+(?P<name>.+?)\s+(?P<total>\d+,\d)$",
+                r"^(?P<start_number>\d+)\s+(?P<name>.+?)\s+(?P<total>\d+(?:,\d)?)$",
             )
             .expect("valid team member regex"),
             individual_regex: Regex::new(
@@ -122,6 +122,7 @@ impl SportResultsParser {
         let mut section = Section::Unknown;
         let mut out_of_competition = false;
         let mut current_team: Option<TeamResult> = None;
+        let mut last_individual_place: Option<u32> = None;
 
         for line in lines {
             if line.starts_with("Ergebnisliste Mannschaft") {
@@ -135,6 +136,7 @@ impl SportResultsParser {
                 );
                 section = Section::Team;
                 out_of_competition = false;
+                last_individual_place = None;
                 continue;
             }
 
@@ -149,6 +151,7 @@ impl SportResultsParser {
                 );
                 section = Section::Individual;
                 out_of_competition = false;
+                last_individual_place = None;
                 continue;
             }
 
@@ -166,6 +169,7 @@ impl SportResultsParser {
                     &mut out_of_competition_team_results,
                 );
                 out_of_competition = true;
+                last_individual_place = None;
                 continue;
             }
 
@@ -187,11 +191,13 @@ impl SportResultsParser {
                 }
                 Section::Individual => {
                     if let Some(result) = self.parse_individual(&line, &current_event)? {
-                        if out_of_competition {
-                            out_of_competition_individual_results.push(result);
-                        } else {
-                            individual_results.push(result);
-                        }
+                        push_individual_result(
+                            result,
+                            out_of_competition,
+                            &mut last_individual_place,
+                            &mut individual_results,
+                            &mut out_of_competition_individual_results,
+                        );
                     }
                 }
                 Section::Unknown => {}
@@ -398,6 +404,38 @@ fn flush_team(
     }
 }
 
+fn push_individual_result(
+    mut result: IndividualResult,
+    out_of_competition: bool,
+    last_individual_place: &mut Option<u32>,
+    individual_results: &mut Vec<IndividualResult>,
+    out_of_competition_individual_results: &mut Vec<IndividualResult>,
+) {
+    inherit_tied_individual_rank(&mut result, out_of_competition, last_individual_place);
+    if out_of_competition {
+        out_of_competition_individual_results.push(result);
+    } else {
+        individual_results.push(result);
+    }
+}
+
+const fn inherit_tied_individual_rank(
+    result: &mut IndividualResult,
+    out_of_competition: bool,
+    last_individual_place: &mut Option<u32>,
+) {
+    if !out_of_competition
+        && matches!(result.rank, Rank::OutOfCompetition)
+        && let Some(rank) = *last_individual_place
+    {
+        result.rank = Rank::Place(rank);
+    }
+
+    if let Rank::Place(rank) = &result.rank {
+        *last_individual_place = Some(*rank);
+    }
+}
+
 fn parse_decimal(value: &str) -> Result<f32> {
     value
         .replace(',', ".")
@@ -411,9 +449,10 @@ fn parse_series(value: &str) -> Result<Vec<f32>> {
 
 fn normalize_club_name(value: &str) -> String {
     let trimmed = value.trim();
-    let without_extraction_prefix = trimmed
+    let collapsed = trimmed.split_whitespace().collect::<Vec<_>>().join(" ");
+    let without_extraction_prefix = collapsed
         .split_once("... ")
-        .map_or(trimmed, |(_, club)| club.trim());
+        .map_or(collapsed.as_str(), |(_, club)| club.trim());
 
     without_extraction_prefix
         .rsplit_once(' ')
@@ -470,6 +509,83 @@ Außer Konkurrenz haben geschossen:
     }
 
     #[test]
+    fn parses_team_rows_without_ringen_suffix() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 30.05.2026          in Kellinghusen                               DV-System DAVID21+
+Ergebnisliste Mannschaft                                                          1.15.20
+Luftgewehr Liegendkampf                            Schüler I                      Seite:   1
+Stand: 31.05.2026              11:37   Uhr                      Gesamt
+1   RZ 011       Schwarzenbeker SchG I                       937,4
+490 Arlt, Alexander                311,8
+491 Janshen, Gotje                 314,1
+492 Metzing, Emma                  311,5
+3   OD 080       SchV Elmenhorst                             603,8
+1039   Behrens, Joris Velten          0,0
+1040   Knolinski, Sofia             303,1
+1041   Roß, Liv                     300,7
+Ergebnisliste Einzel                                                                            1.15.21
+Luftgewehr Liegendkampf                            Schüler I weiblich                       Seite:    1
+1    491 Janshen, Gotje                RZ 011   Schwarzenbeker SchG I   105,0 105,1 104,0       314,1
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+
+        assert_eq!(result.team_results.len(), 2);
+        assert_eq!(result.team_results[0].rank, Some(1));
+        assert_eq!(result.team_results[0].association, "RZ");
+        assert_eq!(result.team_results[0].club, "011 Schwarzenbeker SchG");
+        assert_eq!(result.team_results[0].members.len(), 3);
+        assert_eq!(result.team_results[1].rank, Some(3));
+        assert_eq!(result.team_results[1].association, "OD");
+        assert_eq!(result.team_results[1].club, "080 SchV Elmenhorst");
+        assert_eq!(result.team_results[1].members.len(), 3);
+    }
+
+    #[test]
+    fn parses_team_rows_with_integer_totals() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 13.06.2026        in Kellinghusen                              DV-System DAVID21+
+Ergebnisliste Mannschaft                                                       1.20.20
+Luftgewehr-3-Stellung                            Schüler I                     Seite:   1
+Stand: 13.06.2026            17:48 Uhr                       Gesamt
+1   OD 080       SchV Elmenhorst                          1595 Ringen
+1039 Behrens, Joris Velten         503
+1040 Knolinski, Sofia              543
+1041 Roß, Liv                      549
+2   OH 080       Lensahner SchG                           1534 Ringen
+1193 Hamer, Theo                   519
+1194 Meisburger, Oliver Marvin     511
+1197 Schöning, Tjalf               504
+Außer Konkurrenz haben geschossen:
+OH 080       SSV Kassau                               1726 Ringen
+907 Arlt, Alexander               555
+908 Janshen, Gotje                589
+906 Metzing, Emma                 582
+Ergebnisliste Einzel                                                                                                    1.20.20
+Luftgewehr-3-Stellung                        Schüler I                                                                  Seite:   1
+1 1088 Gesswein, Malte         OD 012 SchV Reinfeld      89    86    175    95    95    190     88    90    178     543
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+
+        assert_eq!(result.team_results.len(), 2);
+        assert_eq!(result.team_results[0].rank, Some(1));
+        assert_eq!(result.team_results[0].association, "OD");
+        assert_eq!(result.team_results[0].club, "080 SchV Elmenhorst");
+        assert!((result.team_results[0].total - 1595.0).abs() < f32::EPSILON);
+        assert_eq!(result.team_results[0].members.len(), 3);
+        assert!((result.team_results[0].members[0].total - 503.0).abs() < f32::EPSILON);
+        assert_eq!(result.out_of_competition_team_results.len(), 1);
+        assert_eq!(
+            result.out_of_competition_team_results[0].club,
+            "080 SSV Kassau"
+        );
+        assert_eq!(result.out_of_competition_team_results[0].rank, None);
+    }
+
+    #[test]
     fn parses_individual_rows_with_variable_series_count() {
         let text = r"
 Landesmeisterschaft 2025
@@ -484,6 +600,31 @@ KK-Liegendkampf 50 m Jugend Seite: 1
         assert_eq!(result.individual_results.len(), 1);
         assert_eq!(result.individual_results[0].club, "SchV Reinfeld");
         assert_eq!(result.individual_results[0].series.len(), 6);
+    }
+
+    #[test]
+    fn parses_tied_individual_rows_without_repeated_rank() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 27.06.2026     in Kellinghusen DV-System DAVID21+
+Ergebnisliste Einzel 2.90.10
+NDSB-Pistole/-Revolver Herren I Seite: 1
+1 588 Peters, Helge       PI 013 SchV Quickborn-Renzel I 37 41 78
+2 589 Dau, Reiner         PI 013 SchV Quickborn-Renzel I 37 39 76
+1028 Scharnberg, Bettina  OD 012 SchV Bargteheide 37 39 76
+4 703 Reckendorf, Dirk    RD 004 Erster Eckernförder SchV 37 36 73
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+        let scharnberg = result
+            .individual_results
+            .iter()
+            .find(|result| result.name == "Scharnberg, Bettina")
+            .expect("tied individual result is parsed");
+
+        assert_eq!(scharnberg.rank, Rank::Place(2));
+        assert_eq!(scharnberg.association, "OD");
+        assert_eq!(scharnberg.club, "012 SchV Bargteheide");
     }
 
     #[test]

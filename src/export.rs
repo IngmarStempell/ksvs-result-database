@@ -1078,8 +1078,12 @@ fn canonical_club_name(value: &str) -> String {
     if normalized == "Sprenge u.Umgegend" {
         return "Schützenverein Sprenge".to_string();
     }
+    normalized = normalized.replace("BSchG", "Bürgerschützengilde");
     normalized = normalized.replace("SchG", "Schützengilde");
     normalized = normalized.replace("SchV", "Schützenverein");
+    if let Some(rest) = normalized.strip_prefix("BSchützengilde ") {
+        return format!("Bürgerschützengilde {rest}");
+    }
     normalized
 }
 
@@ -1101,9 +1105,29 @@ fn club_aliases(club: &str) -> Vec<String> {
 }
 
 fn club_name_without_numeric_prefix(value: &str) -> Option<String> {
-    let (prefix, club) = value.trim().split_once(' ')?;
-    (prefix.chars().all(|character| character.is_ascii_digit()) && !club.trim().is_empty())
-        .then(|| club.trim().to_string())
+    let trimmed = value.trim();
+    if let Some((prefix, club)) = trimmed.split_once(' ')
+        && prefix.chars().all(|character| character.is_ascii_digit())
+        && !club.trim().is_empty()
+    {
+        return Some(club.trim().to_string());
+    }
+
+    let first_non_digit = trimmed
+        .char_indices()
+        .find_map(|(index, character)| (!character.is_ascii_digit()).then_some(index))?;
+    let (prefix, club) = trimmed.split_at(first_non_digit);
+    (!prefix.is_empty() && is_known_club_prefix(club)).then(|| club.trim().to_string())
+}
+
+fn is_known_club_prefix(value: &str) -> bool {
+    matches!(
+        value.trim_start(),
+        club if club.starts_with("SchV")
+            || club.starts_with("SchG")
+            || club.starts_with("BSchG")
+            || club.starts_with("BSch")
+    )
 }
 
 fn combined_known_club_names(
@@ -1284,6 +1308,7 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
   <title>Podest Export</title>
   <style>
     :root {{ color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
+    * {{ box-sizing: border-box; }}
     body {{ margin: 32px; color: #1f2933; background: #f7f8fa; }}
     main {{ max-width: 1280px; margin: 0 auto; }}
     h1 {{ margin: 0 0 8px; font-size: 28px; }}
@@ -1293,17 +1318,48 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
     .metric {{ background: white; border: 1px solid #d8dde6; border-radius: 8px; padding: 14px; }}
     .metric strong {{ display: block; font-size: 24px; margin-bottom: 4px; }}
     .filters {{ display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 24px 0; padding: 16px; background: white; border: 1px solid #d8dde6; border-radius: 8px; }}
-    .filters label {{ display: grid; gap: 6px; font-size: 13px; font-weight: 700; }}
-    input, select {{ min-width: 150px; padding: 8px 10px; border: 1px solid #b9c2d0; border-radius: 6px; font-size: 14px; }}
+    .filters label {{ display: grid; flex: 1 1 150px; gap: 6px; min-width: 0; font-size: 13px; font-weight: 700; }}
+    input, select {{ width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid #b9c2d0; border-radius: 6px; font-size: 14px; }}
     table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid #d8dde6; }}
     th, td {{ padding: 10px; border-bottom: 1px solid #e5e9f0; text-align: left; vertical-align: top; font-size: 14px; }}
     th {{ background: #eef2f6; font-weight: 700; }}
+    td {{ overflow-wrap: anywhere; }}
     a {{ color: #175cd3; text-decoration: none; }}
     a:hover {{ text-decoration: underline; }}
     code {{ font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }}
     .group {{ margin: 18px 0; }}
     .group h2 {{ margin-bottom: 8px; }}
+    .manual-review {{ margin-top: 28px; }}
     .hidden {{ display: none; }}
+    @media (max-width: 760px) {{
+      body {{ margin: 16px; }}
+      h1 {{ font-size: 24px; }}
+      h2 {{ font-size: 17px; }}
+      .summary {{ grid-template-columns: 1fr; gap: 10px; margin: 18px 0; }}
+      .filters {{ display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0; padding: 12px; }}
+      .filters label {{ width: 100%; }}
+      .filters .muted, .filters a {{ display: block; }}
+      table, thead, tbody, tr, th, td {{ display: block; width: 100%; }}
+      table {{ border: 0; background: transparent; }}
+      thead {{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }}
+      tr {{ margin: 0 0 12px; border: 1px solid #d8dde6; border-radius: 8px; background: white; overflow: hidden; }}
+      td {{ display: grid; grid-template-columns: minmax(88px, 34%) 1fr; gap: 10px; padding: 9px 10px; border-bottom: 1px solid #e5e9f0; }}
+      td:last-child {{ border-bottom: 0; }}
+      td::before {{ color: #667085; font-weight: 700; }}
+      #resultTable td:nth-child(1)::before, .group td:nth-child(1)::before {{ content: "Rang"; }}
+      #resultTable td:nth-child(2)::before, .group td:nth-child(2)::before {{ content: "Ursprung"; }}
+      #resultTable td:nth-child(3)::before, .group td:nth-child(3)::before {{ content: "Kreis"; }}
+      #resultTable td:nth-child(4)::before, .group td:nth-child(4)::before {{ content: "Schütze"; }}
+      #resultTable td:nth-child(5)::before, .group td:nth-child(5)::before {{ content: "Verein"; }}
+      #resultTable td:nth-child(6)::before, .group td:nth-child(6)::before {{ content: "Disziplin"; }}
+      #resultTable td:nth-child(7)::before, .group td:nth-child(7)::before {{ content: "Ringe"; }}
+      #resultTable td:nth-child(8)::before, .group td:nth-child(8)::before {{ content: "Wertung"; }}
+      #resultTable td:nth-child(9)::before, .group td:nth-child(9)::before {{ content: "PDF"; }}
+      .manual-review td:nth-child(1)::before {{ content: "PDF"; }}
+      .manual-review td:nth-child(2)::before {{ content: "Grund"; }}
+      .manual-review td:nth-child(3)::before {{ content: "Textzeichen"; }}
+      .manual-review td:nth-child(4)::before {{ content: "OCR nötig"; }}
+    }}
   </style>
 </head>
 <body>
@@ -2333,6 +2389,18 @@ Christine Single Shot Series
             canonical_club_name("012 Ahrensburger SchG"),
             "Ahrensburger Schützengilde"
         );
+        assert_eq!(
+            canonical_club_name("080012SchV Bargteheide"),
+            "Schützenverein Bargteheide"
+        );
+        assert_eq!(
+            canonical_club_name("BSchG Bad Oldesloe"),
+            "Bürgerschützengilde Bad Oldesloe"
+        );
+        assert_eq!(
+            canonical_club_name("BSchützengilde Bad Oldesloe"),
+            "Bürgerschützengilde Bad Oldesloe"
+        );
         assert!(club_aliases("Ahrensburger Schützengilde").contains(&"Ahrensburger SchG".into()));
         assert!(club_aliases("Schützenverein Sprenge").contains(&"Sprenge u.Umgegend".into()));
         assert!(club_aliases("012 SchV Sprenge").contains(&"012 SchV Sprenge".into()));
@@ -2374,6 +2442,28 @@ Christine Single Shot Series
         let html = render_html_export(&export, None);
 
         assert!(html.contains("<option value=\"association\">Kreis</option>"));
+    }
+
+    #[test]
+    fn renders_responsive_podium_table_styles() {
+        let export = PodiumExport {
+            generated_at: Utc::now(),
+            source_report_path: PathBuf::from("reports/lm.json"),
+            source_name: "landesmeisterschaften".to_string(),
+            focus_association_code: "all".to_string(),
+            max_place: 3,
+            item_count: 0,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
+            items: Vec::new(),
+        };
+
+        let html = render_html_export(&export, None);
+
+        assert!(html.contains("@media (max-width: 760px)"));
+        assert!(html.contains("grid-template-columns: minmax(88px, 34%) 1fr"));
+        assert!(html.contains("content: \"Schütze\""));
+        assert!(html.contains(".manual-review td:nth-child(4)::before"));
     }
 
     #[test]
