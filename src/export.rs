@@ -312,10 +312,11 @@ impl PodiumExporter {
         let mut items = Vec::new();
         let code = self.config.focus_association_code.trim();
 
-        for team in result_list.team_results.iter().filter(|team| {
-            association_matches(&team.association, code)
-                && team.rank.is_some_and(|rank| rank <= self.config.max_place)
-        }) {
+        for team in result_list
+            .team_results
+            .iter()
+            .filter(|team| association_matches(&team.association, code) && team.rank.is_some())
+        {
             let rank = team.rank.expect("team rank checked above");
             for member in &team.members {
                 items.push(PodiumExportItem {
@@ -341,7 +342,7 @@ impl PodiumExporter {
 
         for result in result_list.individual_results.iter().filter(|result| {
             association_matches(&result.association, code)
-                && place_from_rank(&result.rank).is_some_and(|rank| rank <= self.config.max_place)
+                && place_from_rank(&result.rank).is_some()
         }) {
             let rank = place_from_rank(&result.rank).expect("individual rank checked above");
             items.push(PodiumExportItem {
@@ -402,7 +403,7 @@ impl PodiumExporter {
                 current_team = None;
                 pending_shooter = None;
             }
-            if let Some(team) = meyton_team_header(&line, known_clubs, self.config.max_place) {
+            if let Some(team) = meyton_team_header(&line, known_clubs) {
                 current_team = Some(team);
                 pending_shooter = None;
                 continue;
@@ -880,12 +881,9 @@ fn meyton_event_date(text: &str) -> Option<String> {
     })
 }
 
-fn meyton_team_header(line: &str, known_clubs: &[String], max_place: u32) -> Option<MeytonTeam> {
+fn meyton_team_header(line: &str, known_clubs: &[String]) -> Option<MeytonTeam> {
     let (rank, club) = line.split_once(". ")?;
     let rank = rank.parse::<u32>().ok()?;
-    if rank > max_place {
-        return None;
-    }
     let club = match_known_club(club, known_clubs)?;
 
     Some(MeytonTeam {
@@ -1267,6 +1265,12 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
         .iter()
         .map(PodiumHtmlItem::from)
         .collect::<Vec<_>>();
+    let highest_rank = export
+        .items
+        .iter()
+        .map(|item| item.rank)
+        .max()
+        .unwrap_or(export.max_place);
     let items_json = serde_json::to_string(&html_items).expect("podium html items serialize");
     let mut rows = String::new();
     for item in &export.items {
@@ -1408,7 +1412,7 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
       </select>
     </label>
     <label>Platz bis
-      <input id="maxRankFilter" type="number" min="1" step="1" value="{max_place}">
+      <input id="maxRankFilter" type="number" min="1" max="{highest_rank}" step="1" value="{max_place}">
     </label>
     <label>Gruppierung
       <select id="groupFilter">
@@ -1577,6 +1581,21 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
       }}
     }}
     control.value = value;
+    if (control.type === "number") {{
+      clampNumberControl(control);
+    }}
+  }}
+
+  function clampNumberControl(control) {{
+    const value = Number.parseInt(control.value, 10);
+    const min = Number.parseInt(control.min, 10);
+    const max = Number.parseInt(control.max, 10);
+    if (Number.isFinite(min) && Number.isFinite(value) && value < min) {{
+      control.value = String(min);
+    }}
+    if (Number.isFinite(max) && Number.isFinite(value) && value > max) {{
+      control.value = String(max);
+    }}
   }}
 
   function restoreFiltersFromUrl() {{
@@ -1626,6 +1645,7 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
         source_name = escape_html(source_display_name(&export.source_name)),
         focus_code = escape_html(&export.focus_association_code),
         max_place = export.max_place,
+        highest_rank = highest_rank,
         item_count = export.item_count,
         manual_review_count = export.manual_review_count,
         rows = rows,
@@ -2123,7 +2143,7 @@ mod tests {
     use std::path::{Path, PathBuf};
 
     #[test]
-    fn exports_focus_podium_individuals_and_team_members() {
+    fn exports_focus_placements_individuals_and_team_members() {
         let exporter = PodiumExporter::new(PodiumExportConfig {
             crawl_report_path: PathBuf::from("reports/input.json"),
             json_output_path: PathBuf::from("reports/export.json"),
@@ -2162,7 +2182,11 @@ mod tests {
                     association: "OD".to_string(),
                     club: "SchV Reinfeld".to_string(),
                     total: 90.0,
-                    members: Vec::new(),
+                    members: vec![TeamMemberResult {
+                        start_number: 4,
+                        name: "Team Rang Vier".to_string(),
+                        total: 90.0,
+                    }],
                 },
             ],
             individual_results: vec![
@@ -2175,6 +2199,16 @@ mod tests {
                     club: "SchV Elmenhorst".to_string(),
                     series: Vec::new(),
                     total: 99.0,
+                },
+                IndividualResult {
+                    event: event.clone(),
+                    rank: Rank::Place(4),
+                    start_number: 5,
+                    name: "Einzel Rang Vier".to_string(),
+                    association: "OD".to_string(),
+                    club: "SchV Reinfeld".to_string(),
+                    series: Vec::new(),
+                    total: 97.0,
                 },
                 IndividualResult {
                     event,
@@ -2198,9 +2232,11 @@ mod tests {
             &PathBuf::from("data/downloads/result.pdf"),
         );
 
-        assert_eq!(items.len(), 2);
+        assert_eq!(items.len(), 4);
         assert!(items.iter().any(|item| item.shooter == "Team Schütze"));
         assert!(items.iter().any(|item| item.shooter == "Einzel Schütze"));
+        assert!(items.iter().any(|item| item.shooter == "Team Rang Vier"));
+        assert!(items.iter().any(|item| item.shooter == "Einzel Rang Vier"));
         assert!(
             items
                 .iter()
@@ -2268,7 +2304,7 @@ mod tests {
     }
 
     #[test]
-    fn exports_meyton_mixed_team_podium_for_known_focus_clubs() {
+    fn exports_meyton_mixed_team_placements_for_known_focus_clubs() {
         let exporter = PodiumExporter::new(PodiumExportConfig {
             crawl_report_path: PathBuf::from("reports/input.json"),
             json_output_path: PathBuf::from("reports/export.json"),
@@ -2298,9 +2334,10 @@ VW112_K40_260516_1045 Finale
             &PathBuf::from("data/mixed.pdf"),
         );
 
-        assert_eq!(items.len(), 2);
+        assert_eq!(items.len(), 3);
         assert!(items.iter().any(|item| item.shooter == "Burmeister, Anja"));
         assert!(items.iter().any(|item| item.shooter == "Witt, Björn"));
+        assert!(items.iter().any(|item| item.shooter == "Spät, Nicht"));
         assert!(
             items
                 .iter()
@@ -2311,7 +2348,8 @@ VW112_K40_260516_1045 Finale
                 .iter()
                 .all(|item| matches!(item.result_kind, PodiumResultKind::Individual))
         );
-        assert!(items.iter().all(|item| item.rank == 1));
+        assert!(items.iter().any(|item| item.rank == 1));
+        assert!(items.iter().any(|item| item.rank == 4));
     }
 
     #[test]
@@ -2367,8 +2405,7 @@ Christine Single Shot Series
     #[test]
     fn matches_meyton_club_without_numeric_david_prefix() {
         let known_clubs = vec!["012 Schützenverein Elmenhorst".to_string()];
-        let team =
-            meyton_team_header("1. SchV Elmenhorst", &known_clubs, 3).expect("team is matched");
+        let team = meyton_team_header("1. SchV Elmenhorst", &known_clubs).expect("team is matched");
 
         assert_eq!(team.rank, 1);
         assert_eq!(team.club, "012 Schützenverein Elmenhorst");
@@ -2580,6 +2617,44 @@ Christine Single Shot Series
         assert!(!html.contains("local_path"));
         assert!(!html.contains("data/archive/2026/landesmeisterschaften/downloads"));
         assert!(html.contains("https://example.org/lm.pdf"));
+    }
+
+    #[test]
+    fn limits_rank_filter_to_highest_exported_rank() {
+        let export = PodiumExport {
+            generated_at: Utc::now(),
+            source_report_path: PathBuf::from("reports/lm.json"),
+            source_name: "landesmeisterschaften".to_string(),
+            focus_association_code: "all".to_string(),
+            max_place: 3,
+            item_count: 1,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::new(),
+            items: vec![PodiumExportItem {
+                source_name: "landesmeisterschaften".to_string(),
+                rank: 12,
+                result_kind: PodiumResultKind::Individual,
+                shooter: "Test, Tina".to_string(),
+                club: "Ahrensburger SchG".to_string(),
+                canonical_club: "Ahrensburger Schützengilde".to_string(),
+                association_code: "OD".to_string(),
+                association_name: "Stormarn".to_string(),
+                discipline: Some("Luftgewehr".to_string()),
+                discipline_code: Some("1.10".to_string()),
+                class_name: None,
+                event_name: "LM".to_string(),
+                event_date: None,
+                score: Some(100.0),
+                pdf_url: "https://example.org/lm.pdf".to_string(),
+                local_path: PathBuf::from("data/lm.pdf"),
+            }],
+        };
+
+        let html = render_html_export(&export, None);
+
+        assert!(html.contains("id=\"maxRankFilter\" type=\"number\" min=\"1\" max=\"12\""));
+        assert!(html.contains("value=\"3\""));
+        assert!(html.contains("clampNumberControl(control)"));
     }
 
     #[test]
