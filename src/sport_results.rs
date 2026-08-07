@@ -287,6 +287,10 @@ impl SportResultsParser {
     }
 
     fn parse_individual(&self, line: &str, event: &EventInfo) -> Result<Option<IndividualResult>> {
+        if let Some(result) = parse_ranked_individual_by_columns(line, event)? {
+            return Ok(Some(result));
+        }
+
         if let Some(captures) = self.individual_regex.captures(line) {
             return Ok(Some(IndividualResult {
                 event: event.clone(),
@@ -321,6 +325,10 @@ impl SportResultsParser {
             }));
         }
 
+        if let Some(result) = parse_unranked_individual_by_columns(line, event)? {
+            return Ok(Some(result));
+        }
+
         if let Some(captures) = self.individual_out_of_competition_regex.captures(line) {
             return Ok(Some(IndividualResult {
                 event: event.clone(),
@@ -344,6 +352,170 @@ impl Default for SportResultsParser {
     fn default() -> Self {
         Self::new()
     }
+}
+
+struct IndividualColumns {
+    name: String,
+    association: String,
+    club: String,
+    series: Vec<f32>,
+    total: f32,
+}
+
+fn parse_ranked_individual_by_columns(
+    line: &str,
+    event: &EventInfo,
+) -> Result<Option<IndividualResult>> {
+    let mut parts = line.splitn(3, char::is_whitespace);
+    let Some(rank) = parts.next().and_then(|value| value.parse::<u32>().ok()) else {
+        return Ok(None);
+    };
+    let Some(start_number) = parts
+        .next()
+        .and_then(|value| value.trim().parse::<u32>().ok())
+    else {
+        return Ok(None);
+    };
+    let Some(rest) = parts.next() else {
+        return Ok(None);
+    };
+    let Some(columns) = parse_individual_columns(rest)? else {
+        return Ok(None);
+    };
+
+    Ok(Some(IndividualResult {
+        event: event.clone(),
+        rank: Rank::Place(rank),
+        start_number,
+        name: columns.name,
+        association: columns.association,
+        club: columns.club,
+        series: columns.series,
+        total: columns.total,
+    }))
+}
+
+fn parse_unranked_individual_by_columns(
+    line: &str,
+    event: &EventInfo,
+) -> Result<Option<IndividualResult>> {
+    let mut parts = line.splitn(2, char::is_whitespace);
+    let Some(start_number) = parts.next().and_then(|value| value.parse::<u32>().ok()) else {
+        return Ok(None);
+    };
+    let Some(rest) = parts.next() else {
+        return Ok(None);
+    };
+    let Some(columns) = parse_individual_columns(rest)? else {
+        return Ok(None);
+    };
+
+    Ok(Some(IndividualResult {
+        event: event.clone(),
+        rank: Rank::OutOfCompetition,
+        start_number,
+        name: columns.name,
+        association: columns.association,
+        club: columns.club,
+        series: columns.series,
+        total: columns.total,
+    }))
+}
+
+fn parse_individual_columns(value: &str) -> Result<Option<IndividualColumns>> {
+    let tokens = value.split_whitespace().collect::<Vec<_>>();
+    let Some(series_start) = numeric_suffix_start(&tokens) else {
+        return Ok(None);
+    };
+    if series_start == 0 {
+        return Ok(None);
+    }
+
+    let series_tokens = &tokens[series_start..];
+    if series_tokens.len() < 2 {
+        return Ok(None);
+    }
+    let total = parse_decimal(series_tokens.last().expect("series tokens are non-empty"))?;
+    let series = series_tokens[..series_tokens.len() - 1]
+        .iter()
+        .map(|value| parse_decimal(value))
+        .collect::<Result<Vec<_>>>()?;
+
+    let Some((name, association, club)) = split_name_association_club(&tokens[..series_start])
+    else {
+        return Ok(None);
+    };
+
+    Ok(Some(IndividualColumns {
+        name,
+        association,
+        club: normalize_club_name(&club),
+        series,
+        total,
+    }))
+}
+
+fn numeric_suffix_start(tokens: &[&str]) -> Option<usize> {
+    let mut start = tokens.len();
+    while start > 0 && parse_decimal(tokens[start - 1]).is_ok() {
+        start -= 1;
+    }
+    (start < tokens.len()).then_some(start)
+}
+
+fn split_name_association_club(tokens: &[&str]) -> Option<(String, String, String)> {
+    for index in (0..tokens.len()).rev() {
+        let token = tokens[index];
+        if is_association_code(token) && index > 0 && index + 1 < tokens.len() {
+            return Some((
+                tokens[..index].join(" "),
+                token.to_string(),
+                tokens[index + 1..].join(" "),
+            ));
+        }
+        if let Some((name_part, association)) = split_truncated_name_association(token)
+            && index + 1 < tokens.len()
+        {
+            let name = tokens[..index]
+                .iter()
+                .copied()
+                .chain(std::iter::once(name_part))
+                .collect::<Vec<_>>()
+                .join(" ");
+            return Some((name, association.to_string(), tokens[index + 1..].join(" ")));
+        }
+    }
+    None
+}
+
+fn split_truncated_name_association(value: &str) -> Option<(&str, &str)> {
+    let split_index = value.char_indices().nth_back(1)?.0;
+    let (name, association) = value.split_at(split_index);
+    (name.ends_with("...") && is_association_code(association)).then_some((name, association))
+}
+
+fn is_association_code(value: &str) -> bool {
+    matches!(
+        value,
+        "SL" | "NF"
+            | "HE"
+            | "IZ"
+            | "RD"
+            | "PL"
+            | "SE"
+            | "OD"
+            | "HL"
+            | "OH"
+            | "RZ"
+            | "PI"
+            | "NM"
+            | "00"
+            | "14"
+            | "86"
+            | "88"
+            | "92"
+            | "Bu"
+    )
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -600,6 +772,92 @@ KK-Liegendkampf 50 m Jugend Seite: 1
         assert_eq!(result.individual_results.len(), 1);
         assert_eq!(result.individual_results[0].club, "SchV Reinfeld");
         assert_eq!(result.individual_results[0].series.len(), 6);
+    }
+
+    #[test]
+    fn parses_individual_rows_with_truncated_name_glued_to_association() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 20.06.2026     in Kellinghusen DV-System DAVID21+
+Ergebnisliste Einzel 1.80.42
+KK-Liegendkampf 50 m Junioren II Seite: 1
+1 1073 Kindt, Tamme            OD 012 SchV Reinfeld     99,0 96,6 97,6 97,6 98,4 100,9   590,1
+2 1096 Soares dos Reis, Maxim...OD 012 SchV Sprenge     96,3 99,9 99,0 95,0 98,5 96,3    585,0
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+        let soares = result
+            .individual_results
+            .iter()
+            .find(|result| result.start_number == 1096)
+            .expect("truncated glued row is parsed");
+
+        assert_eq!(soares.rank, Rank::Place(2));
+        assert_eq!(soares.name, "Soares dos Reis, Maxim...");
+        assert_eq!(soares.association, "OD");
+        assert_eq!(soares.club, "012 SchV Sprenge");
+        assert!((soares.total - 585.0).abs() < f32::EPSILON);
+    }
+
+    #[test]
+    fn parses_integer_individual_rows_with_truncated_name_glued_to_association() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 31.05.2026     in Kellinghusen DV-System DAVID21+
+Ergebnisliste Einzel 2.30.42
+25 m Schnellfeuerpistole Junioren II Seite: 1
+1 96 Schaarschmidt, Maximil...SL 003 Sportschützen Fahrdorf 88 80 28 196 86 88 58 232 428
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+        let schaarschmidt = result
+            .individual_results
+            .first()
+            .expect("integer glued row is parsed");
+
+        assert_eq!(schaarschmidt.name, "Schaarschmidt, Maximil...");
+        assert_eq!(schaarschmidt.association, "SL");
+        assert_eq!(schaarschmidt.club, "003 Sportschützen Fahrdorf");
+        assert_eq!(schaarschmidt.series.len(), 8);
+        assert!((schaarschmidt.total - 428.0).abs() < f32::EPSILON);
+    }
+
+    #[test]
+    fn keeps_club_abbreviations_from_becoming_association_codes() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 21.06.2026     in Kellinghusen DV-System DAVID21+
+Ergebnisliste Einzel 2.40.12
+25 m Pistole Herren II Seite: 1
+1 400 Zitzke, Frank RD 004 PC Rendsburg 95 93 94 91 96 94 563
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+        let zitzke = result
+            .individual_results
+            .first()
+            .expect("row with PC club is parsed");
+
+        assert_eq!(zitzke.name, "Zitzke, Frank");
+        assert_eq!(zitzke.association, "RD");
+        assert_eq!(zitzke.club, "004 PC Rendsburg");
+        assert!((zitzke.total - 563.0).abs() < f32::EPSILON);
+    }
+
+    #[test]
+    fn ignores_short_unicode_name_tokens_when_splitting_glued_associations() {
+        let text = r"
+Landesmeisterschaft 2026
+der am 21.06.2026     in Kellinghusen DV-System DAVID21+
+Ergebnisliste Einzel 2.40.12
+25 m Pistole Herren II Seite: 1
+1 400 Biß, Jo RD 004 PC Rendsburg 95 93 94 91 96 94 563
+";
+
+        let result = SportResultsParser::new().parse(text).unwrap();
+
+        assert_eq!(result.individual_results[0].name, "Biß, Jo");
+        assert_eq!(result.individual_results[0].association, "RD");
     }
 
     #[test]
