@@ -1338,6 +1338,12 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
     table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid #d8dde6; }}
     th, td {{ padding: 10px; border-bottom: 1px solid #e5e9f0; text-align: left; vertical-align: top; font-size: 14px; }}
     th {{ background: #eef2f6; font-weight: 700; }}
+    tbody tr:hover,
+    tbody tr.is-hovered {{ background: #fff4c2; }}
+    tbody tr:hover td,
+    tbody tr.is-hovered td {{ background: #fff4c2 !important; }}
+    tbody tr:hover td:first-child,
+    tbody tr.is-hovered td:first-child {{ box-shadow: inset 4px 0 0 #f2a900; }}
     td {{ overflow-wrap: anywhere; }}
     a {{ color: #175cd3; text-decoration: none; }}
     a:hover {{ text-decoration: underline; }}
@@ -1625,6 +1631,26 @@ fn render_html_export(export: &PodiumExport, _report_dir: Option<&Path>) -> Stri
     updateReportUrl();
     applyFilters();
   }}
+
+  document.addEventListener("mouseover", (event) => {{
+    const row = event.target.closest("tbody tr");
+    if (!row) {{
+      return;
+    }}
+    document.querySelectorAll("tbody tr.is-hovered").forEach((current) => {{
+      if (current !== row) {{
+        current.classList.remove("is-hovered");
+      }}
+    }});
+    row.classList.add("is-hovered");
+  }});
+
+  document.addEventListener("mouseout", (event) => {{
+    const row = event.target.closest("tbody tr");
+    if (row && !row.contains(event.relatedTarget)) {{
+      row.classList.remove("is-hovered");
+    }}
+  }});
 
   fillSelect(clubFilter, uniqueOptions(items, clubLabel));
   fillSelect(associationFilter, uniqueOptions(items, (item) => item.association_code, associationLabel));
@@ -2520,6 +2546,8 @@ Christine Single Shot Series
         assert!(html.contains("grid-template-columns: minmax(88px, 34%) 1fr"));
         assert!(html.contains("content: \"Schütze\""));
         assert!(html.contains(".manual-review td:nth-child(4)::before"));
+        assert!(html.contains("tbody tr.is-hovered { background: #fff4c2; }"));
+        assert!(html.contains("row.classList.add(\"is-hovered\")"));
     }
 
     #[test]
