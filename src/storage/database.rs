@@ -68,6 +68,16 @@ impl Database {
         })
     }
 
+    /// Opens the configured database after applying pending migrations.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the database cannot be opened or migrated.
+    pub async fn migrated_pool(&self) -> Result<sqlx::SqlitePool> {
+        self.migrate().await?;
+        self.connect(false).await
+    }
+
     async fn connect(&self, create_if_missing: bool) -> Result<sqlx::SqlitePool> {
         let options = SqliteConnectOptions::new()
             .filename(&self.config.path)

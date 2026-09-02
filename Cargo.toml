@@ -3,6 +3,18 @@ name = "pdf-explorer"
 version = "0.1.0"
 edition = "2024"
 
+[profile.dev]
+# 1. Schnellerer Linker durch Reduzierung der Debug-Infos
+debug = 1            # Reicht für Zeilennummern in Panics, halbiert oft die Link-Zeit
+
+# 2. Minimale Optimierung für Abhängigkeiten (beschleunigt Makros und KI-Code-Ausführung)
+opt-level = 0        # Deinen eigenen Code nicht optimieren (schnellstes Kompilieren)
+
+[profile.dev.package."*"]
+opt-level = 2        # Schwere Abhängigkeiten (z.B. syn, tokio, serde) einmalig optimieren.
+# Das verlangsamt das allererste Kompilieren, macht aber Folgelinks extrem schnell.
+
+
 [dependencies]
 anyhow = "1.0.104"
 chrono = { version = "0.4.45", features = ["serde"] }
