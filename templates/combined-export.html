@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Kombinierter Ergebnisexport</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 32px; color: #1f2933; background: #f7f8fa; }
+    main { max-width: 1280px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .muted { color: #667085; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 24px 0; }
+    .metric { background: white; border: 1px solid #d8dde6; border-radius: 8px; padding: 14px; }
+    .metric strong { display: block; font-size: 24px; margin-bottom: 4px; }
+    .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 24px 0; padding: 16px; background: white; border: 1px solid #d8dde6; border-radius: 8px; }
+    .filters label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+    input, select { min-width: 220px; padding: 8px 10px; border: 1px solid #b9c2d0; border-radius: 6px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #d8dde6; }
+    th, td { padding: 10px; border-bottom: 1px solid #e5e9f0; text-align: left; vertical-align: top; font-size: 14px; }
+    th { background: #eef2f6; font-weight: 700; }
+    a { color: #175cd3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Kombinierter Ergebnisexport</h1>
+  <p class="muted">Kreis: {{focus_code}} - erzeugt: {{generated_at}}</p>
+  <section class="summary">
+    <div class="metric"><strong>{{club_count}}</strong>Vereine</div>
+    <div class="metric"><strong>{{podium_item_count}}</strong>Podest-Einträge</div>
+    <div class="metric"><strong>{{participation_match_count}}</strong>Teilnahme-Treffer</div>
+  </section>
+  <section class="filters" aria-label="Kombinierter Exportfilter">
+    <label>Verein
+      <select id="clubFilter">
+        <option value="">Alle Vereine</option>
+        {{club_options}}
+      </select>
+    </label>
+    <label>Schütze
+      <select id="shooterFilter">
+        <option value="">Alle Schützen</option>
+        {{shooter_options}}
+      </select>
+    </label>
+    <label>Typ
+      <select id="typeFilter">
+        <option value="">Alle</option>
+        <option value="podium">Podest</option>
+        <option value="participation">Teilnahme</option>
+      </select>
+    </label>
+    <label>Gruppierung
+      <select id="groupFilter">
+        <option value="">Keine</option>
+        <option value="club">Verein</option>
+        <option value="shooter">Schütze</option>
+      </select>
+    </label>
+    <label>Suche
+      <input id="searchFilter" placeholder="Verein, Schütze, PDF">
+    </label>
+    <span class="muted"><span id="visibleRows">0</span> Treffer sichtbar</span>
+  </section>
+  <section id="groupedResults"></section>
+  <table id="combinedTable">
+    <thead>
+      <tr>
+        <th>Verein</th>
+        <th>Typ</th>
+        <th>Rang</th>
+        <th>Schütze</th>
+        <th>Disziplin / Ursprung</th>
+        <th>Wertung / PDF URL</th>
+        <th>Lokale Datei</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+</main>
+<script>
+  const clubFilter = document.getElementById("clubFilter");
+  const shooterFilter = document.getElementById("shooterFilter");
+  const typeFilter = document.getElementById("typeFilter");
+  const groupFilter = document.getElementById("groupFilter");
+  const searchFilter = document.getElementById("searchFilter");
+  const combinedTable = document.getElementById("combinedTable");
+  const groupedResults = document.getElementById("groupedResults");
+  const rows = Array.from(document.querySelectorAll("#combinedTable tbody tr"));
+  const visibleRows = document.getElementById("visibleRows");
+
+  function rowCellsHtml(row) {
+    return Array.from(row.children).map((cell) => `<td>${cell.innerHTML}</td>`).join("");
+  }
+
+  function renderGroups(filteredRows) {
+    const groupBy = groupFilter.value;
+    groupedResults.innerHTML = "";
+    combinedTable.classList.toggle("hidden", groupBy !== "");
+    if (groupBy === "") {
+      return;
+    }
+
+    const groups = new Map();
+    for (const row of filteredRows) {
+      const key = groupBy === "shooter" ? row.dataset.shooter : row.dataset.club;
+      const label = key || "Ohne Schütze";
+      const group = groups.get(label) || [];
+      group.push(row);
+      groups.set(label, group);
+    }
+
+    for (const [label, groupRows] of Array.from(groups.entries()).sort((left, right) => left[0].localeCompare(right[0]))) {
+      const section = document.createElement("section");
+      section.className = "group";
+      const heading = document.createElement("h2");
+      heading.textContent = `${label} (${groupRows.length})`;
+      section.appendChild(heading);
+      const table = document.createElement("table");
+      table.innerHTML = "<thead><tr><th>Verein</th><th>Typ</th><th>Rang</th><th>Schütze</th><th>Disziplin / Ursprung</th><th>Wertung / PDF URL</th><th>Lokale Datei</th></tr></thead>";
+      const body = document.createElement("tbody");
+      for (const row of groupRows) {
+        const copy = document.createElement("tr");
+        copy.innerHTML = rowCellsHtml(row);
+        body.appendChild(copy);
+      }
+      table.appendChild(body);
+      section.appendChild(table);
+      groupedResults.appendChild(section);
+    }
+  }
+
+  function applyFilters() {
+    const club = clubFilter.value;
+    const shooter = shooterFilter.value;
+    const type = typeFilter.value;
+    const query = searchFilter.value.trim().toLowerCase();
+    let visible = 0;
+    const filteredRows = [];
+    for (const row of rows) {
+      const clubMatches = club === "" || row.dataset.club === club;
+      const shooterMatches = shooter === "" || row.dataset.shooter === shooter;
+      const typeMatches = type === "" || row.dataset.type === type;
+      const queryMatches = query === "" || row.dataset.text.toLowerCase().includes(query);
+      const matches = clubMatches && shooterMatches && typeMatches && queryMatches;
+      row.classList.toggle("hidden", !matches);
+      if (matches) {
+        visible += 1;
+        filteredRows.push(row);
+      }
+    }
+    visibleRows.textContent = String(visible);
+    renderGroups(filteredRows);
+  }
+
+  [clubFilter, shooterFilter, typeFilter, groupFilter, searchFilter].forEach((control) => {
+    control.addEventListener("input", applyFilters);
+  });
+  applyFilters();
+</script>
+</body>
+</html>

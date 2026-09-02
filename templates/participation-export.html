@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Teilnahme-Abgleich Deutsche Meisterschaften</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 32px; color: #1f2933; background: #f7f8fa; }
+    main { max-width: 1280px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .muted { color: #667085; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 24px 0; }
+    .metric { background: white; border: 1px solid #d8dde6; border-radius: 8px; padding: 14px; }
+    .metric strong { display: block; font-size: 24px; margin-bottom: 4px; }
+    .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 24px 0; padding: 16px; background: white; border: 1px solid #d8dde6; border-radius: 8px; }
+    .filters label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+    input, select { min-width: 220px; padding: 8px 10px; border: 1px solid #b9c2d0; border-radius: 6px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #d8dde6; }
+    th, td { padding: 10px; border-bottom: 1px solid #e5e9f0; text-align: left; vertical-align: top; font-size: 14px; }
+    th { background: #eef2f6; font-weight: 700; }
+    a { color: #175cd3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    .group { margin: 18px 0; }
+    .group h2 { margin: 0 0 8px; font-size: 19px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Teilnahme-Abgleich Deutsche Meisterschaften</h1>
+  <p class="muted">Vereine aus: {{club_source_name}} - geprüft gegen: {{results_source_name}} - Kreis: {{focus_code}} - erzeugt: {{generated_at}}</p>
+  <section class="summary">
+    <div class="metric"><strong>{{known_club_count}}</strong>bekannte Kreisvereine</div>
+    <div class="metric"><strong>{{matched_club_count}}</strong>Vereine mit Treffer</div>
+    <div class="metric"><strong>{{match_count}}</strong>PDF-Treffer</div>
+  </section>
+  <section class="filters" aria-label="Teilnahmefilter">
+    <label>Verein
+      <select id="clubFilter">
+        <option value="">Alle Vereine</option>
+        {{club_options}}
+      </select>
+    </label>
+    <label>Suche
+      <input id="searchFilter" placeholder="Verein oder PDF">
+    </label>
+    <span class="muted"><span id="visibleRows">0</span> von {{match_count}} Treffern sichtbar</span>
+  </section>
+  <table>
+    <thead>
+      <tr>
+        <th>Verein</th>
+        <th>Schütze</th>
+        <th>Ursprung</th>
+        <th>PDF URL</th>
+        <th>Lokale Datei</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+</main>
+<script>
+  const clubFilter = document.getElementById("clubFilter");
+  const searchFilter = document.getElementById("searchFilter");
+  const rows = Array.from(document.querySelectorAll("tbody tr"));
+  const visibleRows = document.getElementById("visibleRows");
+
+  function applyFilters() {
+    const club = clubFilter.value;
+    const query = searchFilter.value.trim().toLowerCase();
+    let visible = 0;
+    for (const row of rows) {
+      const clubMatches = club === "" || row.dataset.club === club;
+      const queryMatches = query === "" || row.dataset.text.toLowerCase().includes(query);
+      const matches = clubMatches && queryMatches;
+      row.classList.toggle("hidden", !matches);
+      if (matches) {
+        visible += 1;
+      }
+    }
+    visibleRows.textContent = String(visible);
+  }
+
+  clubFilter.addEventListener("input", applyFilters);
+  searchFilter.addEventListener("input", applyFilters);
+  applyFilters();
+</script>
+</body>
+</html>

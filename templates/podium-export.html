@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Podest Export</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 32px; color: #1f2933; background: #f7f8fa; }
+    main { max-width: 1280px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin-top: 28px; font-size: 19px; }
+    .muted { color: #667085; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+    .metric { background: white; border: 1px solid #d8dde6; border-radius: 8px; padding: 14px; }
+    .metric strong { display: block; font-size: 24px; margin-bottom: 4px; }
+    .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 24px 0; padding: 16px; background: white; border: 1px solid #d8dde6; border-radius: 8px; }
+    .filters label { display: grid; flex: 1 1 150px; gap: 6px; min-width: 0; font-size: 13px; font-weight: 700; }
+    input, select { width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid #b9c2d0; border-radius: 6px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #d8dde6; }
+    th, td { padding: 10px; border-bottom: 1px solid #e5e9f0; text-align: left; vertical-align: top; font-size: 14px; }
+    th { background: #eef2f6; font-weight: 700; }
+    tbody tr:hover,
+    tbody tr.is-hovered { background: #fff4c2; }
+    tbody tr:hover td,
+    tbody tr.is-hovered td { background: #fff4c2 !important; }
+    tbody tr:hover td:first-child,
+    tbody tr.is-hovered td:first-child { box-shadow: inset 4px 0 0 #f2a900; }
+    td { overflow-wrap: anywhere; }
+    a { color: #175cd3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    .group { margin: 18px 0; }
+    .group h2 { margin-bottom: 8px; }
+    .manual-review { margin-top: 28px; }
+    .hidden { display: none; }
+    @media (max-width: 760px) {
+      body { margin: 16px; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 17px; }
+      .summary { grid-template-columns: 1fr; gap: 10px; margin: 18px 0; }
+      .filters { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0; padding: 12px; }
+      .filters label { width: 100%; }
+      .filters .muted, .filters a { display: block; }
+      table, thead, tbody, tr, th, td { display: block; width: 100%; }
+      table { border: 0; background: transparent; }
+      thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      tr { margin: 0 0 12px; border: 1px solid #d8dde6; border-radius: 8px; background: white; overflow: hidden; }
+      td { display: grid; grid-template-columns: minmax(88px, 34%) 1fr; gap: 10px; padding: 9px 10px; border-bottom: 1px solid #e5e9f0; }
+      td:last-child { border-bottom: 0; }
+      td::before { color: #667085; font-weight: 700; }
+      #resultTable td:nth-child(1)::before, .group td:nth-child(1)::before { content: "Rang"; }
+      #resultTable td:nth-child(2)::before, .group td:nth-child(2)::before { content: "Ursprung"; }
+      #resultTable td:nth-child(3)::before, .group td:nth-child(3)::before { content: "Kreis"; }
+      #resultTable td:nth-child(4)::before, .group td:nth-child(4)::before { content: "Schütze"; }
+      #resultTable td:nth-child(5)::before, .group td:nth-child(5)::before { content: "Verein"; }
+      #resultTable td:nth-child(6)::before, .group td:nth-child(6)::before { content: "Disziplin"; }
+      #resultTable td:nth-child(7)::before, .group td:nth-child(7)::before { content: "Ringe"; }
+      #resultTable td:nth-child(8)::before, .group td:nth-child(8)::before { content: "Wertung"; }
+      #resultTable td:nth-child(9)::before, .group td:nth-child(9)::before { content: "PDF"; }
+      .manual-review td:nth-child(1)::before { content: "PDF"; }
+      .manual-review td:nth-child(2)::before { content: "Grund"; }
+      .manual-review td:nth-child(3)::before { content: "Textzeichen"; }
+      .manual-review td:nth-child(4)::before { content: "OCR nötig"; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Podest Export</h1>
+  <p class="muted">Ursprung: {{source_name}} - erzeugt: {{generated_at}} - Kreis: {{focus_code}} - Platz bis: {{max_place}}</p>
+  <section class="summary">
+    <div class="metric"><strong>{{item_count}}</strong>Schützen</div>
+    <div class="metric"><strong>{{manual_review_count}}</strong>manuelle Nachbearbeitung</div>
+  </section>
+  <section class="filters" aria-label="Exportfilter">
+    <label>Suche
+      <input id="searchFilter" placeholder="Schütze, Verein, Disziplin">
+    </label>
+    <label>Wertung
+      <select id="kindFilter">
+        <option value="">Alle</option>
+        <option value="Einzel">Einzel</option>
+        <option value="Mannschaft">Mannschaft</option>
+      </select>
+    </label>
+    <label>Kreis
+      <select id="associationFilter">
+        <option value="">Alle Kreise</option>
+      </select>
+    </label>
+    <label>Verein
+      <select id="clubFilter">
+        <option value="">Alle Vereine</option>
+      </select>
+    </label>
+    <label>Schütze
+      <select id="shooterFilter">
+        <option value="">Alle Schützen</option>
+      </select>
+    </label>
+    <label>Platz bis
+      <input id="maxRankFilter" type="number" min="1" max="{{highest_rank}}" step="1" value="{{max_place}}">
+    </label>
+    <label>Gruppierung
+      <select id="groupFilter">
+        <option value="">Keine</option>
+        <option value="association">Kreis</option>
+        <option value="shooter">Schütze</option>
+        <option value="club">Verein</option>
+      </select>
+    </label>
+    <span class="muted"><span id="visibleCount">0</span> von {{item_count}} sichtbar</span>
+    <a id="permalink" href="#">Ansicht-Link</a>
+  </section>
+  <section id="groupedResults"></section>
+  <table id="resultTable">
+    <thead>
+      <tr>
+        <th>Rang</th>
+        <th>Ursprung</th>
+        <th>Kreis</th>
+        <th>Schütze</th>
+        <th>Verein</th>
+        <th>Disziplin</th>
+        <th>Ringe</th>
+        <th>Wertung</th>
+        <th>PDF Quelle</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+  <section class="manual-review">
+    <h2>Manuelle Nachbearbeitung</h2>
+    {{manual_review_section}}
+  </section>
+</main>
+<script>
+  const items = {{items_json}};
+  const rows = Array.from(document.querySelectorAll("#resultTable tbody tr"));
+  const resultTable = document.getElementById("resultTable");
+  const groupedResults = document.getElementById("groupedResults");
+  const searchFilter = document.getElementById("searchFilter");
+  const kindFilter = document.getElementById("kindFilter");
+  const associationFilter = document.getElementById("associationFilter");
+  const clubFilter = document.getElementById("clubFilter");
+  const shooterFilter = document.getElementById("shooterFilter");
+  const maxRankFilter = document.getElementById("maxRankFilter");
+  const groupFilter = document.getElementById("groupFilter");
+  const visibleCount = document.getElementById("visibleCount");
+  const permalink = document.getElementById("permalink");
+  const filterFields = [
+    { param: "suche", control: searchFilter, defaultValue: "" },
+    { param: "wertung", control: kindFilter, defaultValue: "" },
+    { param: "kreis", control: associationFilter, defaultValue: "" },
+    { param: "verein", control: clubFilter, defaultValue: "" },
+    { param: "schuetze", control: shooterFilter, defaultValue: "" },
+    { param: "platz_bis", control: maxRankFilter, defaultValue: "{{max_place}}" },
+    { param: "gruppe", control: groupFilter, defaultValue: "" }
+  ];
+
+  function clubLabel(item) {
+    return item.canonical_club || item.club;
+  }
+
+  function kindLabel(item) {
+    return item.result_kind === "team" ? "Mannschaft" : "Einzel";
+  }
+
+  function disciplineLabel(item) {
+    return [item.discipline_code, item.discipline, item.class_name].filter(Boolean).join(" - ");
+  }
+
+  function associationLabel(item) {
+    return item.association_name ? `${item.association_code} - ${item.association_name}` : item.association_code;
+  }
+
+  function matchesFilters(item) {
+    const query = searchFilter.value.trim().toLowerCase();
+    const kind = kindFilter.value;
+    const association = associationFilter.value;
+    const club = clubFilter.value;
+    const shooter = shooterFilter.value;
+    const maxRank = Number.parseInt(maxRankFilter.value, 10);
+    const text = [item.shooter, item.club, clubLabel(item), disciplineLabel(item)].join(" ").toLowerCase();
+    const queryMatches = query === "" || text.includes(query);
+    const kindMatches = kind === "" || kindLabel(item) === kind;
+    const associationMatches = association === "" || item.association_code === association;
+    const clubMatches = club === "" || clubLabel(item) === club;
+    const shooterMatches = shooter === "" || item.shooter === shooter;
+    const rankMatches = !Number.isFinite(maxRank) || item.rank <= maxRank;
+    return queryMatches && kindMatches && associationMatches && clubMatches && shooterMatches && rankMatches;
+  }
+
+  function renderGroups(filtered) {
+    const groupBy = groupFilter.value;
+    groupedResults.innerHTML = "";
+    resultTable.classList.toggle("hidden", groupBy !== "");
+    if (groupBy === "") {
+      return;
+    }
+    const groups = new Map();
+    for (const entry of filtered) {
+      const item = entry.item;
+      const key = groupBy === "shooter" ? item.shooter : groupBy === "association" ? associationLabel(item) : clubLabel(item);
+      const group = groups.get(key) || [];
+      group.push(entry);
+      groups.set(key, group);
+    }
+    for (const [key, groupItems] of Array.from(groups.entries()).sort((left, right) => left[0].localeCompare(right[0]))) {
+      const section = document.createElement("section");
+      section.className = "group";
+      const heading = document.createElement("h2");
+      heading.textContent = `${key} (${groupItems.length})`;
+      section.appendChild(heading);
+      const table = document.createElement("table");
+      table.innerHTML = document.querySelector("#resultTable thead").innerHTML;
+      const body = document.createElement("tbody");
+      for (const entry of groupItems) {
+        body.appendChild(entry.row.cloneNode(true));
+      }
+      table.appendChild(body);
+      section.appendChild(table);
+      groupedResults.appendChild(section);
+    }
+  }
+
+  function applyFilters() {
+    const filtered = [];
+    rows.forEach((row, index) => {
+      const item = items[index];
+      const matches = matchesFilters(item);
+      row.classList.toggle("hidden", !matches);
+      if (matches) {
+        filtered.push({ item, row });
+      }
+    });
+    visibleCount.textContent = String(filtered.length);
+    renderGroups(filtered);
+  }
+
+  function fillSelect(select, values) {
+    for (const entry of Array.from(values).sort((left, right) => left.label.localeCompare(right.label))) {
+      const option = document.createElement("option");
+      option.value = entry.value;
+      option.textContent = entry.label;
+      select.appendChild(option);
+    }
+  }
+
+  function uniqueOptions(items, valueFn, labelFn = valueFn) {
+    const options = new Map();
+    for (const item of items) {
+      const value = valueFn(item);
+      if (value) {
+        options.set(value, { value, label: labelFn(item) });
+      }
+    }
+    return options.values();
+  }
+
+  function setControlValue(control, value) {
+    if (control.tagName === "SELECT") {
+      const hasOption = Array.from(control.options).some((option) => option.value === value);
+      if (!hasOption) {
+        return;
+      }
+    }
+    control.value = value;
+    if (control.type === "number") {
+      clampNumberControl(control);
+    }
+  }
+
+  function clampNumberControl(control) {
+    const value = Number.parseInt(control.value, 10);
+    const min = Number.parseInt(control.min, 10);
+    const max = Number.parseInt(control.max, 10);
+    if (Number.isFinite(min) && Number.isFinite(value) && value < min) {
+      control.value = String(min);
+    }
+    if (Number.isFinite(max) && Number.isFinite(value) && value > max) {
+      control.value = String(max);
+    }
+  }
+
+  function restoreFiltersFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    for (const field of filterFields) {
+      if (params.has(field.param)) {
+        setControlValue(field.control, params.get(field.param) || "");
+      }
+    }
+  }
+
+  function updateReportUrl() {
+    const params = new URLSearchParams();
+    for (const field of filterFields) {
+      const value = field.control.value;
+      if (value !== field.defaultValue) {
+        params.set(field.param, value);
+      }
+    }
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? "?" + query : ""}${window.location.hash}`;
+    window.history.replaceState(null, "", nextUrl);
+    permalink.href = window.location.href;
+  }
+
+  function handleFilterInput() {
+    updateReportUrl();
+    applyFilters();
+  }
+
+  document.addEventListener("mouseover", (event) => {
+    const row = event.target.closest("tbody tr");
+    if (!row) {
+      return;
+    }
+    document.querySelectorAll("tbody tr.is-hovered").forEach((current) => {
+      if (current !== row) {
+        current.classList.remove("is-hovered");
+      }
+    });
+    row.classList.add("is-hovered");
+  });
+
+  document.addEventListener("mouseout", (event) => {
+    const row = event.target.closest("tbody tr");
+    if (row && !row.contains(event.relatedTarget)) {
+      row.classList.remove("is-hovered");
+    }
+  });
+
+  fillSelect(clubFilter, uniqueOptions(items, clubLabel));
+  fillSelect(associationFilter, uniqueOptions(items, (item) => item.association_code, associationLabel));
+  fillSelect(shooterFilter, uniqueOptions(items, (item) => item.shooter));
+  restoreFiltersFromUrl();
+  updateReportUrl();
+
+  filterFields.forEach((field) => {
+    field.control.addEventListener("input", handleFilterInput);
+    field.control.addEventListener("change", handleFilterInput);
+  });
+  applyFilters();
+</script>
+</body>
+</html>

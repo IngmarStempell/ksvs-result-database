@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>PDF Explorer Report</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 32px; color: #1f2933; background: #f7f8fa; }
+    main { max-width: 1280px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin-top: 32px; font-size: 20px; }
+    .muted { color: #667085; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+    .metric { background: white; border: 1px solid #d8dde6; border-radius: 8px; padding: 14px; }
+    .metric strong { display: block; font-size: 24px; margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #d8dde6; }
+    th, td { padding: 10px; border-bottom: 1px solid #e5e9f0; text-align: left; vertical-align: top; font-size: 14px; }
+    th { background: #eef2f6; font-weight: 700; }
+    a { color: #175cd3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .local-file code { color: inherit; }
+    .badge { display: inline-block; min-width: 82px; padding: 3px 8px; border-radius: 999px; background: #eef2f6; font-size: 12px; text-align: center; }
+    tr.new .badge { background: #dcfae6; }
+    tr.changed .badge { background: #fef0c7; }
+    tr.failed .badge { background: #fee4e2; }
+    .focus { margin-top: 4px; color: #175cd3; }
+    .podium { font-weight: 700; }
+    .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 24px 0; padding: 16px; background: white; border: 1px solid #d8dde6; border-radius: 8px; }
+    .filters label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+    .filters input { min-width: 120px; padding: 8px 10px; border: 1px solid #b9c2d0; border-radius: 6px; font-size: 14px; }
+    .filters button { padding: 8px 12px; border: 1px solid #b9c2d0; border-radius: 6px; background: #eef2f6; cursor: pointer; }
+    .hidden { display: none; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>PDF Explorer Report</h1>
+  <p class="muted">Ursprung: {{source_name}} · Quelle: {{source}} · erzeugt: {{generated_at}} · Fokus: {{focus}} ({{focus_code}})</p>
+
+  <section class="summary">
+    <div class="metric"><strong>{{discovered}}</strong>PDFs gefunden</div>
+    <div class="metric"><strong>{{downloaded}}</strong>neu/geändert</div>
+    <div class="metric"><strong>{{unchanged}}</strong>unverändert</div>
+    <div class="metric"><strong>{{removed}}</strong>Abgänge</div>
+    <div class="metric"><strong>{{auto}}</strong>automatisch verarbeitet</div>
+    <div class="metric"><strong>{{manual}}</strong>manuelle Kontrolle</div>
+    <div class="metric"><strong>{{failed}}</strong>Fehler</div>
+  </section>
+
+  <h2>PDFs</h2>
+  <section class="filters" aria-label="Reportfilter">
+    <label>Kreiscode
+      <input id="associationFilter" value="{{focus_code}}" placeholder="z.B. OD, SE, OH">
+    </label>
+    <label>Platz bis
+      <input id="maxPlaceFilter" type="number" min="1" step="1" value="3" placeholder="alle">
+    </label>
+    <button type="button" id="clearAssociationFilter">Alle Kreise</button>
+    <button type="button" id="clearPlaceFilter">Alle Plätze</button>
+    <span class="muted"><span id="visibleRows">0</span> von <span id="totalRows">0</span> Zeilen passend sichtbar</span>
+  </section>
+  <table>
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Format</th>
+        <th>URL</th>
+        <th>Lokal</th>
+        <th>Manuelle Kontrolle</th>
+        <th>Podest-Kreise</th>
+        <th>DAVID21+ / Fokus</th>
+        <th>Fehler</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+
+  <h2>Abgänge</h2>
+  {{removed_rows}}
+</main>
+<script>
+  const associationFilter = document.getElementById("associationFilter");
+  const maxPlaceFilter = document.getElementById("maxPlaceFilter");
+  const clearAssociationFilter = document.getElementById("clearAssociationFilter");
+  const clearPlaceFilter = document.getElementById("clearPlaceFilter");
+  const rows = Array.from(document.querySelectorAll("tbody tr"));
+  const visibleRows = document.getElementById("visibleRows");
+  const totalRows = document.getElementById("totalRows");
+
+  function applyAssociationFilter() {
+    const code = associationFilter.value.trim().toUpperCase();
+    const maxPlace = Number.parseInt(maxPlaceFilter.value, 10);
+    const hasPlaceLimit = Number.isFinite(maxPlace) && maxPlace > 0;
+    let visible = 0;
+    for (const row of rows) {
+      const placements = row.dataset.placements
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((value) => {
+          const [association, place] = value.split(":");
+          return { association: association.toUpperCase(), place: Number.parseInt(place, 10) };
+        })
+        .filter((placement) => Number.isFinite(placement.place));
+      const matches = code === "" && !hasPlaceLimit || placements.some((placement) => {
+        const codeMatches = code === "" || placement.association === code;
+        const placeMatches = !hasPlaceLimit || placement.place <= maxPlace;
+        return codeMatches && placeMatches;
+      });
+      row.classList.toggle("hidden", !matches);
+      if (matches) {
+        visible += 1;
+      }
+    }
+    visibleRows.textContent = String(visible);
+    totalRows.textContent = String(rows.length);
+  }
+
+  associationFilter.addEventListener("input", applyAssociationFilter);
+  maxPlaceFilter.addEventListener("input", applyAssociationFilter);
+  clearAssociationFilter.addEventListener("click", () => {
+    associationFilter.value = "";
+    applyAssociationFilter();
+  });
+  clearPlaceFilter.addEventListener("click", () => {
+    maxPlaceFilter.value = "";
+    applyAssociationFilter();
+  });
+  applyAssociationFilter();
+</script>
+</body>
+</html>
