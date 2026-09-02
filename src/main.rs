@@ -1,6 +1,7 @@
 mod app;
 mod cli;
 
-fn main() -> anyhow::Result<()> {
-    app::run()
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    app::run().await
 }

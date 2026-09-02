@@ -7,6 +7,7 @@ pub const DEFAULT_DOWNLOAD_DIR: &str = "data/downloads";
 pub const DEFAULT_MANUAL_REVIEW_DIR: &str = "data/manual-review";
 pub const DEFAULT_CRAWL_REPORT: &str = "reports/latest-crawl-report.json";
 pub const DEFAULT_CRAWL_HTML_REPORT: &str = "reports/latest-crawl-report.html";
+pub const DEFAULT_DATABASE_PATH: &str = "data/pdf-explorer.sqlite";
 
 #[derive(Debug, Parser)]
 #[command(name = "pdf-explorer")]
@@ -50,6 +51,8 @@ pub enum Commands {
     ExportCombined(Box<ExportCombinedArgs>),
     /// Remove generated state, downloads, manual-review files, and reports.
     Clean(CleanArgs),
+    /// Manage the local `SQLite` database.
+    Db(DbArgs),
 }
 
 #[derive(Debug, Parser)]
@@ -209,6 +212,27 @@ pub struct CleanArgs {
     /// Directory containing temporary generated files.
     #[arg(long, default_value = "tmp")]
     pub tmp_dir: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct DbArgs {
+    #[command(subcommand)]
+    pub command: DbCommands,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum DbCommands {
+    /// Create the `SQLite` database file if it does not exist.
+    Init(DatabaseArgs),
+    /// Apply all pending database migrations.
+    Migrate(DatabaseArgs),
+}
+
+#[derive(Debug, Parser)]
+pub struct DatabaseArgs {
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
 }
 
 #[derive(Clone, Copy, Debug, ValueEnum)]

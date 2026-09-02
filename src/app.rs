@@ -10,13 +10,15 @@ use pdf_explorer::export::{
 use pdf_explorer::ingest::{CrawlConfig, CrawlReporter};
 use pdf_explorer::pdf::{ExtractOptions, PdfExtractor};
 use pdf_explorer::sport_results::SportResultsParser;
+use pdf_explorer::storage::{Database, DatabaseConfig};
 
 use crate::cli::{
     CleanArgs, Cli, Commands, CrawlReportArgs, DEFAULT_CRAWL_HTML_REPORT, DEFAULT_CRAWL_REPORT,
-    DEFAULT_DOWNLOAD_DIR, DEFAULT_MANUAL_REVIEW_DIR, DEFAULT_SOURCE_NAME, OutputFormat,
+    DEFAULT_DOWNLOAD_DIR, DEFAULT_MANUAL_REVIEW_DIR, DEFAULT_SOURCE_NAME, DbArgs, DbCommands,
+    OutputFormat,
 };
 
-pub fn run() -> anyhow::Result<()> {
+pub async fn run() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
@@ -34,6 +36,7 @@ pub fn run() -> anyhow::Result<()> {
         Commands::ExportParticipation(args) => export_participation(*args),
         Commands::ExportCombined(args) => export_combined(*args),
         Commands::Clean(args) => clean_generated_data(&args),
+        Commands::Db(args) => manage_database(args).await,
     }
 }
 
@@ -174,6 +177,30 @@ fn clean_generated_data(args: &CleanArgs) -> anyhow::Result<()> {
         &args.tmp_dir,
     ] {
         remove_path_if_exists(path)?;
+    }
+    Ok(())
+}
+
+async fn manage_database(args: DbArgs) -> anyhow::Result<()> {
+    match args.command {
+        DbCommands::Init(args) => {
+            let database = Database::new(DatabaseConfig {
+                path: args.database.clone(),
+            });
+            database.init().await?;
+            println!("initialized database {}", args.database.display());
+        }
+        DbCommands::Migrate(args) => {
+            let database = Database::new(DatabaseConfig {
+                path: args.database.clone(),
+            });
+            let report = database.migrate().await?;
+            println!(
+                "migrated database {} ({} applied migrations recorded)",
+                report.database_path.display(),
+                report.applied_migration_count
+            );
+        }
     }
     Ok(())
 }
