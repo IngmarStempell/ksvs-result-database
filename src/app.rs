@@ -7,6 +7,7 @@ use pdf_explorer::export::{
     CombinedExportConfig, CombinedExporter, ParticipationExportConfig, ParticipationExporter,
     PodiumExportConfig, PodiumExporter,
 };
+use pdf_explorer::import::{PodiumImportConfig, PodiumImporter};
 use pdf_explorer::ingest::{CrawlConfig, CrawlReporter};
 use pdf_explorer::pdf::{ExtractOptions, PdfExtractor};
 use pdf_explorer::sport_results::SportResultsParser;
@@ -35,6 +36,7 @@ pub async fn run() -> anyhow::Result<()> {
         Commands::ExportPodium(args) => export_podium(*args),
         Commands::ExportParticipation(args) => export_participation(*args),
         Commands::ExportCombined(args) => export_combined(*args),
+        Commands::ImportPodium(args) => import_podium(args).await,
         Commands::Clean(args) => clean_generated_data(&args),
         Commands::Db(args) => manage_database(args).await,
     }
@@ -164,6 +166,18 @@ fn export_combined(args: crate::cli::ExportCombinedArgs) -> anyhow::Result<()> {
     let export = CombinedExporter::new(config).run()?;
 
     println!("{}", serde_json::to_string_pretty(&export)?);
+    Ok(())
+}
+
+async fn import_podium(args: crate::cli::ImportPodiumArgs) -> anyhow::Result<()> {
+    let report = PodiumImporter::new(PodiumImportConfig {
+        input_path: args.input,
+        database_path: args.database,
+    })
+    .run()
+    .await?;
+
+    println!("{}", serde_json::to_string_pretty(&report)?);
     Ok(())
 }
 

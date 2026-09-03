@@ -49,6 +49,8 @@ pub enum Commands {
     ExportParticipation(Box<ExportParticipationArgs>),
     /// Combine podium and participation exports into one club-oriented JSON and HTML report.
     ExportCombined(Box<ExportCombinedArgs>),
+    /// Import a podium export JSON into the local database.
+    ImportPodium(ImportPodiumArgs),
     /// Remove generated state, downloads, manual-review files, and reports.
     Clean(CleanArgs),
     /// Manage the local `SQLite` database.
@@ -184,6 +186,17 @@ pub struct ExportCombinedArgs {
     /// HTML output path for manual review.
     #[arg(long, default_value = "reports/latest-combined-export.html")]
     pub html_output: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ImportPodiumArgs {
+    /// JSON podium export created by export-podium.
+    #[arg(long, default_value = "reports/latest-podium-export.json")]
+    pub input: PathBuf,
+
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
 }
 
 #[derive(Debug, Parser)]

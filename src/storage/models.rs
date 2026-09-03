@@ -59,6 +59,7 @@ pub struct NewDiscipline {
 pub struct NewResult {
     pub import_run_id: Option<i64>,
     pub source_document_id: Option<i64>,
+    pub parsed_result_row_id: Option<i64>,
     pub competition_id: i64,
     pub athlete_id: Option<i64>,
     pub club_id: Option<i64>,
@@ -74,6 +75,55 @@ pub struct NewResult {
     pub raw_club_name: Option<String>,
     pub raw_discipline: Option<String>,
     pub raw_payload: Option<String>,
+    pub source_fingerprint: Option<String>,
+    pub canonical_fingerprint: Option<String>,
+    pub conflict_status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewParserRun {
+    pub import_run_id: Option<i64>,
+    pub source_name: String,
+    pub source_kind: String,
+    pub parser_name: String,
+    pub parser_version: String,
+    pub input_path: String,
+    pub input_hash: String,
+    pub source_report_path: Option<String>,
+    pub export_generated_at: Option<String>,
+    pub status: String,
+    pub error: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct NewParsedResultRow {
+    pub parser_run_id: i64,
+    pub source_document_id: Option<i64>,
+    pub row_index: i64,
+    pub row_fingerprint: String,
+    pub canonical_fingerprint: String,
+    pub source_name: String,
+    pub competition_year: i64,
+    pub competition_scope: String,
+    pub result_kind: String,
+    pub rank: Option<i64>,
+    pub score: Option<f64>,
+    pub raw_shooter_name: Option<String>,
+    pub normalized_shooter_name: Option<String>,
+    pub raw_club_name: Option<String>,
+    pub normalized_club_name: Option<String>,
+    pub association_code: Option<String>,
+    pub raw_discipline: Option<String>,
+    pub normalized_discipline: Option<String>,
+    pub discipline_code: Option<String>,
+    pub class_name: Option<String>,
+    pub event_name: Option<String>,
+    pub event_date: Option<String>,
+    pub pdf_url: Option<String>,
+    pub local_path: Option<String>,
+    pub raw_payload: Option<String>,
+    pub conflict_status: String,
+    pub conflict_result_id: Option<i64>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -85,4 +135,25 @@ pub struct StorageCounts {
     pub athletes: i64,
     pub disciplines: i64,
     pub results: i64,
+    pub parser_runs: i64,
+    pub parsed_result_rows: i64,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct StoredResult {
+    pub id: i64,
+    pub inserted: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct StoredParsedResultRow {
+    pub id: i64,
+    pub inserted: bool,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CanonicalResultReference {
+    pub id: i64,
+    pub source_fingerprint: Option<String>,
+    pub raw_payload: Option<String>,
 }

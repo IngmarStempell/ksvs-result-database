@@ -1,9 +1,10 @@
-use anyhow::Result;
+use anyhow::{Result, bail};
 use sqlx::SqlitePool;
 
 use super::models::{
-    NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewResult, NewSourceDocument,
-    StorageCounts,
+    CanonicalResultReference, NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun,
+    NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, StorageCounts,
+    StoredParsedResultRow, StoredResult,
 };
 
 pub struct StorageRepository<'a> {
@@ -76,6 +77,48 @@ impl<'a> StorageRepository<'a> {
         .bind(&run.parser_version)
         .bind(&run.input_path)
         .bind(&run.input_hash)
+        .bind(&run.status)
+        .bind(&run.error)
+        .fetch_one(self.pool)
+        .await?;
+
+        Ok(id)
+    }
+
+    /// Stores or reuses a parser run and returns its technical ID.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write fails.
+    pub async fn upsert_parser_run(&self, run: &NewParserRun) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO parser_runs (
+                import_run_id, source_name, source_kind, parser_name,
+                parser_version, input_path, input_hash, source_report_path,
+                export_generated_at, status, error
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(source_name, input_hash, parser_name, parser_version) DO UPDATE SET
+                import_run_id = excluded.import_run_id,
+                source_kind = excluded.source_kind,
+                input_path = excluded.input_path,
+                source_report_path = excluded.source_report_path,
+                export_generated_at = excluded.export_generated_at,
+                status = excluded.status,
+                error = excluded.error
+            RETURNING id
+            ",
+        )
+        .bind(run.import_run_id)
+        .bind(&run.source_name)
+        .bind(&run.source_kind)
+        .bind(&run.parser_name)
+        .bind(&run.parser_version)
+        .bind(&run.input_path)
+        .bind(&run.input_hash)
+        .bind(&run.source_report_path)
+        .bind(&run.export_generated_at)
         .bind(&run.status)
         .bind(&run.error)
         .fetch_one(self.pool)
@@ -200,16 +243,33 @@ impl<'a> StorageRepository<'a> {
     ///
     /// Returns an error when the database write fails.
     pub async fn insert_result(&self, result: &NewResult) -> Result<i64> {
+        Ok(self.insert_result_once(result).await?.id)
+    }
+
+    /// Stores a canonical result, reporting whether it was newly inserted.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write or duplicate lookup fails.
+    pub async fn insert_result_once(&self, result: &NewResult) -> Result<StoredResult> {
+        if result.source_fingerprint.is_none() {
+            return Ok(StoredResult {
+                id: self.insert_result_unchecked(result).await?,
+                inserted: true,
+            });
+        }
+
         let participation_only = i64::from(result.participation_only);
         let id = sqlx::query_scalar::<_, i64>(
             r"
-            INSERT INTO results (
+            INSERT OR IGNORE INTO results (
                 import_run_id, source_document_id, competition_id, athlete_id,
                 club_id, discipline_id, result_kind, rank, score, medal,
                 participation_only, event_class, stage, raw_shooter_name,
-                raw_club_name, raw_discipline, raw_payload
+                raw_club_name, raw_discipline, raw_payload, source_fingerprint,
+                parsed_result_row_id, canonical_fingerprint, conflict_status
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             RETURNING id
             ",
         )
@@ -230,9 +290,193 @@ impl<'a> StorageRepository<'a> {
         .bind(&result.raw_club_name)
         .bind(&result.raw_discipline)
         .bind(&result.raw_payload)
-        .fetch_one(self.pool)
+        .bind(&result.source_fingerprint)
+        .bind(result.parsed_result_row_id)
+        .bind(&result.canonical_fingerprint)
+        .bind(&result.conflict_status)
+        .fetch_optional(self.pool)
         .await?;
 
+        if let Some(id) = id {
+            return Ok(StoredResult { id, inserted: true });
+        }
+
+        let Some(fingerprint) = result.source_fingerprint.as_ref() else {
+            bail!("missing source fingerprint after duplicate insert was ignored");
+        };
+        let existing_id = self
+            .find_result_id_by_fingerprint(fingerprint, result.canonical_fingerprint.as_deref())
+            .await?;
+        Ok(StoredResult {
+            id: existing_id,
+            inserted: false,
+        })
+    }
+
+    async fn insert_result_unchecked(&self, result: &NewResult) -> Result<i64> {
+        let participation_only = i64::from(result.participation_only);
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO results (
+                import_run_id, source_document_id, competition_id, athlete_id,
+                club_id, discipline_id, result_kind, rank, score, medal,
+                participation_only, event_class, stage, raw_shooter_name,
+                raw_club_name, raw_discipline, raw_payload, source_fingerprint,
+                parsed_result_row_id, canonical_fingerprint, conflict_status
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            RETURNING id
+            ",
+        )
+        .bind(result.import_run_id)
+        .bind(result.source_document_id)
+        .bind(result.competition_id)
+        .bind(result.athlete_id)
+        .bind(result.club_id)
+        .bind(result.discipline_id)
+        .bind(&result.result_kind)
+        .bind(result.rank)
+        .bind(result.score)
+        .bind(&result.medal)
+        .bind(participation_only)
+        .bind(&result.event_class)
+        .bind(&result.stage)
+        .bind(&result.raw_shooter_name)
+        .bind(&result.raw_club_name)
+        .bind(&result.raw_discipline)
+        .bind(&result.raw_payload)
+        .bind(&result.source_fingerprint)
+        .bind(result.parsed_result_row_id)
+        .bind(&result.canonical_fingerprint)
+        .bind(&result.conflict_status)
+        .fetch_one(self.pool)
+        .await?;
+        Ok(id)
+    }
+
+    /// Stores a parsed row, reporting whether it was newly inserted.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write or duplicate lookup fails.
+    pub async fn insert_parsed_result_row_once(
+        &self,
+        row: &NewParsedResultRow,
+    ) -> Result<StoredParsedResultRow> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT OR IGNORE INTO parsed_result_rows (
+                parser_run_id, source_document_id, row_index, row_fingerprint,
+                canonical_fingerprint, source_name, competition_year, competition_scope,
+                result_kind, rank, score, raw_shooter_name, normalized_shooter_name,
+                raw_club_name, normalized_club_name, association_code, raw_discipline,
+                normalized_discipline, discipline_code, class_name, event_name, event_date,
+                pdf_url, local_path, raw_payload, conflict_status, conflict_result_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            RETURNING id
+            ",
+        )
+        .bind(row.parser_run_id)
+        .bind(row.source_document_id)
+        .bind(row.row_index)
+        .bind(&row.row_fingerprint)
+        .bind(&row.canonical_fingerprint)
+        .bind(&row.source_name)
+        .bind(row.competition_year)
+        .bind(&row.competition_scope)
+        .bind(&row.result_kind)
+        .bind(row.rank)
+        .bind(row.score)
+        .bind(&row.raw_shooter_name)
+        .bind(&row.normalized_shooter_name)
+        .bind(&row.raw_club_name)
+        .bind(&row.normalized_club_name)
+        .bind(&row.association_code)
+        .bind(&row.raw_discipline)
+        .bind(&row.normalized_discipline)
+        .bind(&row.discipline_code)
+        .bind(&row.class_name)
+        .bind(&row.event_name)
+        .bind(&row.event_date)
+        .bind(&row.pdf_url)
+        .bind(&row.local_path)
+        .bind(&row.raw_payload)
+        .bind(&row.conflict_status)
+        .bind(row.conflict_result_id)
+        .fetch_optional(self.pool)
+        .await?;
+
+        if let Some(id) = id {
+            return Ok(StoredParsedResultRow { id, inserted: true });
+        }
+
+        let existing_id = sqlx::query_scalar::<_, i64>(
+            "SELECT id FROM parsed_result_rows WHERE row_fingerprint = ?",
+        )
+        .bind(&row.row_fingerprint)
+        .fetch_one(self.pool)
+        .await?;
+        Ok(StoredParsedResultRow {
+            id: existing_id,
+            inserted: false,
+        })
+    }
+
+    /// Finds an existing canonical result for a logical parser row.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the lookup fails.
+    pub async fn find_canonical_result(
+        &self,
+        canonical_fingerprint: &str,
+    ) -> Result<Option<CanonicalResultReference>> {
+        let row = sqlx::query_as::<_, (i64, Option<String>, Option<String>)>(
+            r"
+            SELECT id, source_fingerprint, raw_payload
+            FROM results
+            WHERE canonical_fingerprint = ?
+            ",
+        )
+        .bind(canonical_fingerprint)
+        .fetch_optional(self.pool)
+        .await?;
+
+        Ok(row.map(
+            |(id, source_fingerprint, raw_payload)| CanonicalResultReference {
+                id,
+                source_fingerprint,
+                raw_payload,
+            },
+        ))
+    }
+
+    async fn find_result_id_by_fingerprint(
+        &self,
+        source_fingerprint: &str,
+        canonical_fingerprint: Option<&str>,
+    ) -> Result<i64> {
+        if let Some(canonical_fingerprint) = canonical_fingerprint {
+            let id = sqlx::query_scalar::<_, i64>(
+                r"
+                SELECT id
+                FROM results
+                WHERE source_fingerprint = ? OR canonical_fingerprint = ?
+                ",
+            )
+            .bind(source_fingerprint)
+            .bind(canonical_fingerprint)
+            .fetch_one(self.pool)
+            .await?;
+            return Ok(id);
+        }
+
+        let id =
+            sqlx::query_scalar::<_, i64>("SELECT id FROM results WHERE source_fingerprint = ?")
+                .bind(source_fingerprint)
+                .fetch_one(self.pool)
+                .await?;
         Ok(id)
     }
 
@@ -264,6 +508,14 @@ impl<'a> StorageRepository<'a> {
             results: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM results")
                 .fetch_one(self.pool)
                 .await?,
+            parser_runs: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM parser_runs")
+                .fetch_one(self.pool)
+                .await?,
+            parsed_result_rows: sqlx::query_scalar::<_, i64>(
+                "SELECT COUNT(*) FROM parsed_result_rows",
+            )
+            .fetch_one(self.pool)
+            .await?,
         })
     }
 }
@@ -273,8 +525,8 @@ mod tests {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     use super::{
-        NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewResult,
-        NewSourceDocument, StorageRepository,
+        NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewParsedResultRow,
+        NewParserRun, NewResult, NewSourceDocument, StorageRepository,
     };
     use crate::storage::{Database, DatabaseConfig};
 
@@ -293,6 +545,10 @@ mod tests {
             .insert_import_run(&import_run(source_document_id))
             .await
             .expect("import run is stored");
+        let parser_run_id = repository
+            .upsert_parser_run(&parser_run(import_run_id))
+            .await
+            .expect("parser run is stored");
         let competition_id = repository
             .upsert_competition(&competition())
             .await
@@ -309,11 +565,17 @@ mod tests {
             .upsert_discipline(&discipline())
             .await
             .expect("discipline is stored");
+        let parsed_row_id = repository
+            .insert_parsed_result_row_once(&parsed_result_row(parser_run_id, source_document_id))
+            .await
+            .expect("parsed row is stored")
+            .id;
 
         let result_id = repository
             .insert_result(&result(
                 import_run_id,
                 source_document_id,
+                parsed_row_id,
                 competition_id,
                 club_id,
                 athlete_id,
@@ -321,9 +583,22 @@ mod tests {
             ))
             .await
             .expect("result is stored");
+        let duplicated_result_id = repository
+            .insert_result(&result(
+                import_run_id,
+                source_document_id,
+                parsed_row_id,
+                competition_id,
+                club_id,
+                athlete_id,
+                discipline_id,
+            ))
+            .await
+            .expect("duplicate result resolves to existing id");
         let counts = repository.counts().await.expect("counts are readable");
 
         assert!(result_id > 0);
+        assert_eq!(duplicated_result_id, result_id);
         assert_eq!(counts.source_documents, 1);
         assert_eq!(counts.import_runs, 1);
         assert_eq!(counts.competitions, 1);
@@ -331,6 +606,8 @@ mod tests {
         assert_eq!(counts.athletes, 1);
         assert_eq!(counts.disciplines, 1);
         assert_eq!(counts.results, 1);
+        assert_eq!(counts.parser_runs, 1);
+        assert_eq!(counts.parsed_result_rows, 1);
 
         pool.close().await;
         remove_database_files(&path);
@@ -373,6 +650,22 @@ mod tests {
         }
     }
 
+    fn parser_run(import_run_id: i64) -> NewParserRun {
+        NewParserRun {
+            import_run_id: Some(import_run_id),
+            source_name: "LM".to_owned(),
+            source_kind: "podium-export".to_owned(),
+            parser_name: "podium-export-json".to_owned(),
+            parser_version: "test".to_owned(),
+            input_path: "reports/podium-export.json".to_owned(),
+            input_hash: "abc123".to_owned(),
+            source_report_path: Some("reports/crawl-report.json".to_owned()),
+            export_generated_at: Some("2026-09-03T00:00:00Z".to_owned()),
+            status: "success".to_owned(),
+            error: None,
+        }
+    }
+
     fn competition() -> NewCompetition {
         NewCompetition {
             code: "LM-2026".to_owned(),
@@ -409,9 +702,43 @@ mod tests {
         }
     }
 
+    fn parsed_result_row(parser_run_id: i64, source_document_id: i64) -> NewParsedResultRow {
+        NewParsedResultRow {
+            parser_run_id,
+            source_document_id: Some(source_document_id),
+            row_index: 0,
+            row_fingerprint: "abc123|0|Soares dos Reis, Maximilian".to_owned(),
+            canonical_fingerprint: "LM|2026|1.80.40|individual|2|Soares dos Reis, Maximilian"
+                .to_owned(),
+            source_name: "LM".to_owned(),
+            competition_year: 2026,
+            competition_scope: "LM".to_owned(),
+            result_kind: "individual".to_owned(),
+            rank: Some(2),
+            score: Some(621.7),
+            raw_shooter_name: Some("Soares dos Reis, Maximilian".to_owned()),
+            normalized_shooter_name: Some("Soares dos Reis, Maximilian".to_owned()),
+            raw_club_name: Some("Schützenverein Reinfeld 1".to_owned()),
+            normalized_club_name: Some("Schützenverein Reinfeld".to_owned()),
+            association_code: Some("OD".to_owned()),
+            raw_discipline: Some("1.80.40 KK liegend".to_owned()),
+            normalized_discipline: Some("KK liegend".to_owned()),
+            discipline_code: Some("1.80.40".to_owned()),
+            class_name: Some("Herren IV".to_owned()),
+            event_name: Some("Landesmeisterschaft 2026".to_owned()),
+            event_date: Some("2026-05-30".to_owned()),
+            pdf_url: Some("https://example.test/1.80.40.pdf".to_owned()),
+            local_path: Some("data/archive/2026/lm/1.80.40.pdf".to_owned()),
+            raw_payload: Some(r#"{"rank":2,"score":621.7}"#.to_owned()),
+            conflict_status: "none".to_owned(),
+            conflict_result_id: None,
+        }
+    }
+
     fn result(
         import_run_id: i64,
         source_document_id: i64,
+        parsed_result_row_id: i64,
         competition_id: i64,
         club_id: i64,
         athlete_id: i64,
@@ -420,6 +747,7 @@ mod tests {
         NewResult {
             import_run_id: Some(import_run_id),
             source_document_id: Some(source_document_id),
+            parsed_result_row_id: Some(parsed_result_row_id),
             competition_id,
             athlete_id: Some(athlete_id),
             club_id: Some(club_id),
@@ -435,6 +763,13 @@ mod tests {
             raw_club_name: Some("Schützenverein Reinfeld 1".to_owned()),
             raw_discipline: Some("1.80.40 KK liegend".to_owned()),
             raw_payload: Some(r#"{"rank":2,"score":621.7}"#.to_owned()),
+            source_fingerprint: Some(
+                "abc123|LM|2026|1.80.40|2|Soares dos Reis, Maximilian".to_owned(),
+            ),
+            canonical_fingerprint: Some(
+                "LM|2026|1.80.40|individual|2|Soares dos Reis, Maximilian".to_owned(),
+            ),
+            conflict_status: "none".to_owned(),
         }
     }
 
