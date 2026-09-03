@@ -50,6 +50,8 @@ Die Anwendung kann aktuell:
 - Deutsche Meisterschaften als eigene Competition importieren
 - DM-Teilnahmen ohne Platzierung als `participation_only`-Ergebnisse speichern
 - LM-Medaillen mit DM-Teilnahmen ueber eine Datenbank-View kombinieren
+- Podiums- und kombinierte HTML-/JSON-Reports optional aus der Datenbank erzeugen
+- Reportfilter wie Jahr, Wettbewerbsebene, Kreis und Platzierung direkt in Datenbankabfragen anwenden
 
 Die Modulgrenzen sind aktuell grob:
 
@@ -589,12 +591,27 @@ Noch offen:
 - kombinierte Auswertung als HTML-/GUI-Ansicht statt nur als SQLite-View anbieten
 - Teilnahme bei DM, WM und Olympia spaeter in ein allgemeines Wettbewerbsmodell ueberfuehren
 
-### Paket 8: HTML-/JSON-Reports aus Datenbank
+### Paket 8: HTML-/JSON-Reports aus Datenbank - erledigt
 
 - bisherige Reports optional aus Datenbank statt JSON-Dateien erzeugen
 - Filter auf Datenbankabfragen stuetzen
 - Exportformate stabil halten
 - alte JSON-Exporte weiterhin konsumierbar lassen
+
+Stand der Umsetzung:
+
+- `export-db-podium` erzeugt `PodiumExport` JSON und HTML aus kanonischen DB-Ergebnissen
+- `export-db-combined` erzeugt `CombinedExport` JSON und HTML aus LM-Ergebnissen und DM-Teilnahmen in SQLite
+- Filter fuer Jahr, Wettbewerbsebene, Kreis und Platz bis laufen in SQL-Abfragen
+- die bisherigen JSON-Datei-Exporter `export-podium`, `export-participation` und `export-combined` bleiben unveraendert nutzbar
+- die bestehenden HTML-Templates werden weiterverwendet
+
+Noch offen:
+
+- mehr DB-Filter, zum Beispiel Disziplin, Verein, Sportler und Wertungstyp
+- DB-Reports fuer reine Teilnahme- oder Konfliktlisten
+- UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
+- stabile API-Schicht fuer die spaetere GUI statt nur CLI-Exporter
 
 ### Paket 9: GUI-Grundlage
 

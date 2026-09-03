@@ -49,6 +49,10 @@ pub enum Commands {
     ExportParticipation(Box<ExportParticipationArgs>),
     /// Combine podium and participation exports into one club-oriented JSON and HTML report.
     ExportCombined(Box<ExportCombinedArgs>),
+    /// Export podium JSON and HTML from the local database.
+    ExportDbPodium(Box<ExportDbPodiumArgs>),
+    /// Export combined LM medal and DM participation JSON and HTML from the local database.
+    ExportDbCombined(Box<ExportDbCombinedArgs>),
     /// Import a podium export JSON into the local database.
     ImportPodium(ImportPodiumArgs),
     /// Import a participation export JSON into the local database.
@@ -193,6 +197,64 @@ pub struct ExportCombinedArgs {
 
     /// HTML output path for manual review.
     #[arg(long, default_value = "reports/latest-combined-export.html")]
+    pub html_output: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ExportDbPodiumArgs {
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+
+    /// Competition year to export.
+    #[arg(long)]
+    pub year: i64,
+
+    /// Competition scope to export, for example LM, DM, or KM.
+    #[arg(long, default_value = "LM")]
+    pub competition_scope: String,
+
+    /// Association/Kreis code to export, or "all".
+    #[arg(long, default_value = "OD")]
+    pub focus_association_code: String,
+
+    /// Highest rank exported from the database.
+    #[arg(long, default_value_t = 3)]
+    pub max_place: u32,
+
+    /// JSON output path for downstream processing.
+    #[arg(long, default_value = "reports/latest-db-podium-export.json")]
+    pub output: PathBuf,
+
+    /// HTML output path for manual review.
+    #[arg(long, default_value = "reports/latest-db-podium-export.html")]
+    pub html_output: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ExportDbCombinedArgs {
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+
+    /// Competition year to export.
+    #[arg(long)]
+    pub year: i64,
+
+    /// Association/Kreis code to export, or "all".
+    #[arg(long, default_value = "OD")]
+    pub focus_association_code: String,
+
+    /// Highest LM rank exported from the database.
+    #[arg(long, default_value_t = 3)]
+    pub max_place: u32,
+
+    /// JSON output path for downstream processing.
+    #[arg(long, default_value = "reports/latest-db-combined-export.json")]
+    pub output: PathBuf,
+
+    /// HTML output path for manual review.
+    #[arg(long, default_value = "reports/latest-db-combined-export.html")]
     pub html_output: PathBuf,
 }
 

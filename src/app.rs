@@ -4,8 +4,9 @@ use std::path::{Path, PathBuf};
 use anyhow::Context;
 use clap::Parser;
 use pdf_explorer::export::{
-    CombinedExportConfig, CombinedExporter, ManualNameOverrides, ParticipationExportConfig,
-    ParticipationExporter, PodiumExportConfig, PodiumExporter,
+    CombinedExportConfig, CombinedExporter, DatabaseCombinedExportConfig, DatabaseCombinedExporter,
+    DatabasePodiumExportConfig, DatabasePodiumExporter, ManualNameOverrides,
+    ParticipationExportConfig, ParticipationExporter, PodiumExportConfig, PodiumExporter,
 };
 use pdf_explorer::import::{
     ParticipationImportConfig, ParticipationImporter, PodiumImportConfig, PodiumImporter,
@@ -38,6 +39,8 @@ pub async fn run() -> anyhow::Result<()> {
         Commands::ExportPodium(args) => export_podium(*args).await,
         Commands::ExportParticipation(args) => export_participation(*args),
         Commands::ExportCombined(args) => export_combined(*args),
+        Commands::ExportDbPodium(args) => export_db_podium(*args).await,
+        Commands::ExportDbCombined(args) => export_db_combined(*args).await,
         Commands::ImportPodium(args) => import_podium(args).await,
         Commands::ImportParticipation(args) => import_participation(args).await,
         Commands::ManualOverride(args) => manage_manual_overrides(args).await,
@@ -200,6 +203,37 @@ fn export_combined(args: crate::cli::ExportCombinedArgs) -> anyhow::Result<()> {
         html_output_path: args.html_output,
     };
     let export = CombinedExporter::new(config).run()?;
+
+    println!("{}", serde_json::to_string_pretty(&export)?);
+    Ok(())
+}
+
+async fn export_db_podium(args: crate::cli::ExportDbPodiumArgs) -> anyhow::Result<()> {
+    let config = DatabasePodiumExportConfig {
+        database_path: args.database,
+        json_output_path: args.output,
+        html_output_path: args.html_output,
+        year: args.year,
+        competition_scope: args.competition_scope,
+        focus_association_code: args.focus_association_code,
+        max_place: args.max_place,
+    };
+    let export = DatabasePodiumExporter::new(config).run().await?;
+
+    println!("{}", serde_json::to_string_pretty(&export)?);
+    Ok(())
+}
+
+async fn export_db_combined(args: crate::cli::ExportDbCombinedArgs) -> anyhow::Result<()> {
+    let config = DatabaseCombinedExportConfig {
+        database_path: args.database,
+        json_output_path: args.output,
+        html_output_path: args.html_output,
+        year: args.year,
+        focus_association_code: args.focus_association_code,
+        max_place: args.max_place,
+    };
+    let export = DatabaseCombinedExporter::new(config).run().await?;
 
     println!("{}", serde_json::to_string_pretty(&export)?);
     Ok(())

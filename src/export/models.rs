@@ -58,6 +58,27 @@ pub struct CombinedExportConfig {
     pub html_output_path: PathBuf,
 }
 
+#[derive(Debug, Clone)]
+pub struct DatabasePodiumExportConfig {
+    pub database_path: PathBuf,
+    pub json_output_path: PathBuf,
+    pub html_output_path: PathBuf,
+    pub year: i64,
+    pub competition_scope: String,
+    pub focus_association_code: String,
+    pub max_place: u32,
+}
+
+#[derive(Debug, Clone)]
+pub struct DatabaseCombinedExportConfig {
+    pub database_path: PathBuf,
+    pub json_output_path: PathBuf,
+    pub html_output_path: PathBuf,
+    pub year: i64,
+    pub focus_association_code: String,
+    pub max_place: u32,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PodiumExport {
     pub generated_at: DateTime<Utc>,

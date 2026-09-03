@@ -241,6 +241,29 @@ sqlite3 data/pdf-explorer.sqlite "SELECT athlete_name, club_name, year, lm_medal
 
 Die View `lm_medals_with_dm_participation` zeigt LM-Medaillen und markiert, ob fuer denselben Sportler und Verein im selben Jahr eine DM-Teilnahme importiert wurde.
 
+### Paket 8: HTML-/JSON-Reports aus Datenbank
+
+Die bisherigen Datei-Exporte bleiben bestehen. Zusaetzlich koennen Podiums- und kombinierte Reports aus der Datenbank erzeugt werden.
+
+Podiumsreport aus kanonischen DB-Ergebnissen:
+
+```bash
+cargo run -- export-db-podium --database data/pdf-explorer.sqlite --year 2026 --competition-scope LM --focus-association-code OD --max-place 3 --output reports/archive/2026/landesmeisterschaften/db-podium-export.json --html-output reports/archive/2026/landesmeisterschaften/db-podium-export.html
+```
+
+Kombinierter LM-/DM-Report aus der Datenbank:
+
+```bash
+cargo run -- export-db-combined --database data/pdf-explorer.sqlite --year 2026 --focus-association-code OD --max-place 3 --output reports/archive/2026/db-combined-export.json --html-output reports/archive/2026/db-combined-export.html
+```
+
+Die Filter `--year`, `--competition-scope`, `--focus-association-code` und `--max-place` werden direkt als Datenbankfilter angewendet. Die erzeugten JSON-Strukturen bleiben kompatibel zu den bestehenden Exportformaten:
+
+```text
+export-db-podium   -> PodiumExport
+export-db-combined -> CombinedExport
+```
+
 Start over with a clean generated data foundation:
 
 ```bash
