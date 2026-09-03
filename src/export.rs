@@ -1,10 +1,14 @@
+mod database;
 mod exporters;
+pub(crate) mod html;
+pub(crate) mod matching;
 mod models;
 
-pub use exporters::{
-    CombinedExporter, DatabaseCombinedExporter, DatabasePodiumExporter, ParticipationExporter,
-    PodiumExporter,
-};
+#[cfg(test)]
+mod tests;
+
+pub use database::{DatabaseCombinedExporter, DatabasePodiumExporter};
+pub use exporters::{CombinedExporter, ParticipationExporter, PodiumExporter};
 pub use models::{
     CombinedClub, CombinedExport, CombinedExportConfig, DatabaseCombinedExportConfig,
     DatabasePodiumExportConfig, ManualNameOverrides, ManualReviewPdf, ParticipationExport,
