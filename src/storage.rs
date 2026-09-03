@@ -6,6 +6,7 @@ pub use database::{Database, DatabaseConfig, MigrationReport};
 pub use models::{
     CanonicalResultReference, ManualOverride, NewAthlete, NewClub, NewCompetition, NewDiscipline,
     NewImportRun, NewManualOverride, NewParsedResultRow, NewParserRun, NewResult,
-    NewSourceDocument, StorageCounts, StoredParsedResultRow, StoredResult,
+    NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember, StorageCounts,
+    StoredParsedResultRow, StoredResult,
 };
 pub use repository::StorageRepository;

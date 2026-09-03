@@ -80,6 +80,46 @@ pub struct NewResult {
     pub conflict_status: String,
 }
 
+#[derive(Debug, Clone, PartialEq)]
+pub struct NewTeam {
+    pub competition_id: i64,
+    pub club_id: Option<i64>,
+    pub discipline_id: Option<i64>,
+    pub source_document_id: Option<i64>,
+    pub parsed_result_row_id: Option<i64>,
+    pub canonical_name: String,
+    pub team_number: Option<String>,
+    pub raw_team_name: Option<String>,
+    pub rank: Option<i64>,
+    pub score: Option<f64>,
+    pub medal: Option<String>,
+    pub event_class: Option<String>,
+    pub source_fingerprint: Option<String>,
+    pub canonical_fingerprint: Option<String>,
+    pub conflict_status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewTeamMember {
+    pub team_id: i64,
+    pub athlete_id: Option<i64>,
+    pub member_order: i64,
+    pub display_name: String,
+    pub raw_name: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct NewTeamResultMember {
+    pub team_id: i64,
+    pub result_id: i64,
+    pub athlete_id: Option<i64>,
+    pub team_member_id: Option<i64>,
+    pub member_order: i64,
+    pub score: Option<f64>,
+    pub medal: Option<String>,
+    pub raw_name: Option<String>,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct NewParserRun {
     pub import_run_id: Option<i64>,
@@ -164,6 +204,9 @@ pub struct StorageCounts {
     pub parser_runs: i64,
     pub parsed_result_rows: i64,
     pub manual_overrides: i64,
+    pub teams: i64,
+    pub team_members: i64,
+    pub team_result_members: i64,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

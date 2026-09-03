@@ -4,7 +4,8 @@ use sqlx::SqlitePool;
 use super::models::{
     CanonicalResultReference, ManualOverride, NewAthlete, NewClub, NewCompetition, NewDiscipline,
     NewImportRun, NewManualOverride, NewParsedResultRow, NewParserRun, NewResult,
-    NewSourceDocument, StorageCounts, StoredParsedResultRow, StoredResult,
+    NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember, StorageCounts,
+    StoredParsedResultRow, StoredResult,
 };
 
 pub struct StorageRepository<'a> {
@@ -467,6 +468,147 @@ impl<'a> StorageRepository<'a> {
         Ok(id)
     }
 
+    /// Stores or reuses a team and returns its technical ID.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write or duplicate lookup fails.
+    pub async fn upsert_team(&self, team: &NewTeam) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO teams (
+                competition_id, club_id, discipline_id, source_document_id,
+                parsed_result_row_id, canonical_name, team_number, raw_team_name,
+                rank, score, medal, event_class, source_fingerprint,
+                canonical_fingerprint, conflict_status
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(canonical_fingerprint) WHERE canonical_fingerprint IS NOT NULL
+            DO UPDATE SET
+                club_id = COALESCE(excluded.club_id, teams.club_id),
+                discipline_id = COALESCE(excluded.discipline_id, teams.discipline_id),
+                source_document_id = COALESCE(excluded.source_document_id, teams.source_document_id),
+                parsed_result_row_id = COALESCE(excluded.parsed_result_row_id, teams.parsed_result_row_id),
+                canonical_name = excluded.canonical_name,
+                team_number = excluded.team_number,
+                raw_team_name = excluded.raw_team_name,
+                rank = excluded.rank,
+                score = excluded.score,
+                medal = excluded.medal,
+                event_class = excluded.event_class,
+                source_fingerprint = COALESCE(teams.source_fingerprint, excluded.source_fingerprint),
+                conflict_status = excluded.conflict_status
+            RETURNING id
+            ",
+        )
+        .bind(team.competition_id)
+        .bind(team.club_id)
+        .bind(team.discipline_id)
+        .bind(team.source_document_id)
+        .bind(team.parsed_result_row_id)
+        .bind(&team.canonical_name)
+        .bind(&team.team_number)
+        .bind(&team.raw_team_name)
+        .bind(team.rank)
+        .bind(team.score)
+        .bind(&team.medal)
+        .bind(&team.event_class)
+        .bind(&team.source_fingerprint)
+        .bind(&team.canonical_fingerprint)
+        .bind(&team.conflict_status)
+        .fetch_one(self.pool)
+        .await?;
+
+        Ok(id)
+    }
+
+    /// Stores or reuses a team member and returns its technical ID.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write or duplicate lookup fails.
+    pub async fn upsert_team_member(&self, member: &NewTeamMember) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT OR IGNORE INTO team_members (
+                team_id, athlete_id, member_order, display_name, raw_name
+            )
+            VALUES (?, ?, ?, ?, ?)
+            RETURNING id
+            ",
+        )
+        .bind(member.team_id)
+        .bind(member.athlete_id)
+        .bind(member.member_order)
+        .bind(&member.display_name)
+        .bind(&member.raw_name)
+        .fetch_optional(self.pool)
+        .await?;
+
+        if let Some(id) = id {
+            return Ok(id);
+        }
+
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            SELECT id
+            FROM team_members
+            WHERE team_id = ? AND athlete_id = ? AND member_order = ?
+            ",
+        )
+        .bind(member.team_id)
+        .bind(member.athlete_id)
+        .bind(member.member_order)
+        .fetch_one(self.pool)
+        .await?;
+        Ok(id)
+    }
+
+    /// Stores a member's result relation to a team.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write or duplicate lookup fails.
+    pub async fn upsert_team_result_member(&self, member: &NewTeamResultMember) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT OR IGNORE INTO team_result_members (
+                team_id, result_id, athlete_id, team_member_id, member_order,
+                score, medal, raw_name
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            RETURNING id
+            ",
+        )
+        .bind(member.team_id)
+        .bind(member.result_id)
+        .bind(member.athlete_id)
+        .bind(member.team_member_id)
+        .bind(member.member_order)
+        .bind(member.score)
+        .bind(&member.medal)
+        .bind(&member.raw_name)
+        .fetch_optional(self.pool)
+        .await?;
+
+        if let Some(id) = id {
+            return Ok(id);
+        }
+
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            SELECT id
+            FROM team_result_members
+            WHERE team_id = ? AND result_id = ?
+            ",
+        )
+        .bind(member.team_id)
+        .bind(member.result_id)
+        .fetch_one(self.pool)
+        .await?;
+        Ok(id)
+    }
+
     /// Stores a parsed row, reporting whether it was newly inserted.
     ///
     /// # Errors
@@ -632,6 +774,17 @@ impl<'a> StorageRepository<'a> {
             manual_overrides: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM manual_overrides")
                 .fetch_one(self.pool)
                 .await?,
+            teams: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM teams")
+                .fetch_one(self.pool)
+                .await?,
+            team_members: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM team_members")
+                .fetch_one(self.pool)
+                .await?,
+            team_result_members: sqlx::query_scalar::<_, i64>(
+                "SELECT COUNT(*) FROM team_result_members",
+            )
+            .fetch_one(self.pool)
+            .await?,
         })
     }
 }
@@ -642,7 +795,8 @@ mod tests {
 
     use super::{
         NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewManualOverride,
-        NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, StorageRepository,
+        NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, NewTeam, NewTeamMember,
+        NewTeamResultMember, StorageRepository,
     };
     use crate::storage::{Database, DatabaseConfig};
 
@@ -707,6 +861,17 @@ mod tests {
             ))
             .await
             .expect("result is stored");
+        store_team_fixture(
+            &repository,
+            source_document_id,
+            parsed_row_id,
+            result_id,
+            competition_id,
+            club_id,
+            athlete_id,
+            discipline_id,
+        )
+        .await;
         let duplicated_result_id = repository
             .insert_result(&result(
                 import_run_id,
@@ -733,11 +898,50 @@ mod tests {
         assert_eq!(counts.parser_runs, 1);
         assert_eq!(counts.parsed_result_rows, 1);
         assert_eq!(counts.manual_overrides, 1);
+        assert_eq!(counts.teams, 1);
+        assert_eq!(counts.team_members, 1);
+        assert_eq!(counts.team_result_members, 1);
         assert_eq!(overrides[0].old_value, "Schützenverein Reinfeld 1");
         assert_eq!(overrides[0].new_value, "Schützenverein Reinfeld");
 
         pool.close().await;
         remove_database_files(&path);
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    async fn store_team_fixture(
+        repository: &StorageRepository<'_>,
+        source_document_id: i64,
+        parsed_row_id: i64,
+        result_id: i64,
+        competition_id: i64,
+        club_id: i64,
+        athlete_id: i64,
+        discipline_id: i64,
+    ) {
+        let team_id = repository
+            .upsert_team(&team(
+                source_document_id,
+                parsed_row_id,
+                competition_id,
+                club_id,
+                discipline_id,
+            ))
+            .await
+            .expect("team is stored");
+        let team_member_id = repository
+            .upsert_team_member(&team_member(team_id, athlete_id))
+            .await
+            .expect("team member is stored");
+        repository
+            .upsert_team_result_member(&team_result_member(
+                team_id,
+                result_id,
+                athlete_id,
+                team_member_id,
+            ))
+            .await
+            .expect("team result member is stored");
     }
 
     fn temp_database_path() -> std::path::PathBuf {
@@ -841,6 +1045,60 @@ mod tests {
             new_value: "Schützenverein Reinfeld".to_owned(),
             reason: Some("Mannschaftsnummer am Vereinsnamen".to_owned()),
             status: "active".to_owned(),
+        }
+    }
+
+    fn team(
+        source_document_id: i64,
+        parsed_result_row_id: i64,
+        competition_id: i64,
+        club_id: i64,
+        discipline_id: i64,
+    ) -> NewTeam {
+        NewTeam {
+            competition_id,
+            club_id: Some(club_id),
+            discipline_id: Some(discipline_id),
+            source_document_id: Some(source_document_id),
+            parsed_result_row_id: Some(parsed_result_row_id),
+            canonical_name: "Schützenverein Reinfeld I".to_owned(),
+            team_number: Some("I".to_owned()),
+            raw_team_name: Some("Schützenverein Reinfeld 1".to_owned()),
+            rank: Some(2),
+            score: None,
+            medal: Some("silver".to_owned()),
+            event_class: Some("Herren IV".to_owned()),
+            source_fingerprint: Some("abc123|team|LM|2026|1.80.40|2|Reinfeld-I".to_owned()),
+            canonical_fingerprint: Some("LM|2026|1.80.40|team|2|Reinfeld-I".to_owned()),
+            conflict_status: "none".to_owned(),
+        }
+    }
+
+    fn team_member(team_id: i64, athlete_id: i64) -> NewTeamMember {
+        NewTeamMember {
+            team_id,
+            athlete_id: Some(athlete_id),
+            member_order: 0,
+            display_name: "Soares dos Reis, Maximilian".to_owned(),
+            raw_name: Some("Soares dos Reis, Maximilian".to_owned()),
+        }
+    }
+
+    fn team_result_member(
+        team_id: i64,
+        result_id: i64,
+        athlete_id: i64,
+        team_member_id: i64,
+    ) -> NewTeamResultMember {
+        NewTeamResultMember {
+            team_id,
+            result_id,
+            athlete_id: Some(athlete_id),
+            team_member_id: Some(team_member_id),
+            member_order: 0,
+            score: Some(621.7),
+            medal: Some("silver".to_owned()),
+            raw_name: Some("Soares dos Reis, Maximilian".to_owned()),
         }
     }
 

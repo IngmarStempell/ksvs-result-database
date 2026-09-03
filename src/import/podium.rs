@@ -11,7 +11,7 @@ use crate::export::{PodiumExport, PodiumExportItem, PodiumResultKind};
 use crate::storage::{
     CanonicalResultReference, Database, DatabaseConfig, NewAthlete, NewClub, NewCompetition,
     NewDiscipline, NewImportRun, NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument,
-    StorageRepository,
+    NewTeam, NewTeamMember, NewTeamResultMember, StorageRepository,
 };
 
 const IMPORT_KIND: &str = "podium-export-import";
@@ -285,6 +285,85 @@ async fn import_item(
     } else {
         imported.skipped_duplicate_results += 1;
     }
+    store_team_relations(
+        repository,
+        item,
+        row_index,
+        context,
+        TeamRelationReferences {
+            source_document: source_document_id,
+            parsed_result_row: stored_row.id,
+            result: stored.id,
+            club: club_id,
+            athlete: athlete_id,
+            discipline: discipline_id,
+        },
+        &canonical_club,
+        &canonical_athlete,
+        conflict_status,
+    )
+    .await?;
+    Ok(())
+}
+
+#[derive(Debug, Clone, Copy)]
+struct TeamRelationReferences {
+    source_document: i64,
+    parsed_result_row: i64,
+    result: i64,
+    club: i64,
+    athlete: i64,
+    discipline: i64,
+}
+
+#[allow(clippy::too_many_arguments)]
+async fn store_team_relations(
+    repository: &StorageRepository<'_>,
+    item: &PodiumExportItem,
+    row_index: i64,
+    context: ImportContext<'_>,
+    ids: TeamRelationReferences,
+    canonical_club: &str,
+    canonical_athlete: &str,
+    conflict_status: &str,
+) -> Result<()> {
+    if !matches!(item.result_kind, PodiumResultKind::Team) {
+        return Ok(());
+    }
+
+    let team_id = repository
+        .upsert_team(&team_from_item(
+            item,
+            ids.source_document,
+            ids.parsed_result_row,
+            context.competition_id,
+            ids.club,
+            ids.discipline,
+            canonical_club,
+            context.input_hash,
+            context.year,
+            conflict_status,
+        ))
+        .await?;
+    let team_member_id = repository
+        .upsert_team_member(&team_member_from_item(
+            item,
+            team_id,
+            ids.athlete,
+            row_index,
+            canonical_athlete,
+        ))
+        .await?;
+    repository
+        .upsert_team_result_member(&team_result_member_from_item(
+            item,
+            team_id,
+            ids.result,
+            ids.athlete,
+            team_member_id,
+            row_index,
+        ))
+        .await?;
     Ok(())
 }
 
@@ -550,6 +629,78 @@ fn result_from_item(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
+fn team_from_item(
+    item: &PodiumExportItem,
+    source_document_id: i64,
+    parsed_result_row_id: i64,
+    competition_id: i64,
+    club_id: i64,
+    discipline_id: i64,
+    canonical_club: &str,
+    input_hash: &str,
+    year: i64,
+    conflict_status: &str,
+) -> NewTeam {
+    let team_number = team_number_from_raw_club(&item.club);
+    let canonical_name = canonical_team_name(canonical_club, team_number.as_deref());
+    let canonical_fingerprint =
+        team_canonical_fingerprint(item, year, &canonical_name, team_number.as_deref());
+    NewTeam {
+        competition_id,
+        club_id: Some(club_id),
+        discipline_id: Some(discipline_id),
+        source_document_id: Some(source_document_id),
+        parsed_result_row_id: Some(parsed_result_row_id),
+        canonical_name,
+        team_number,
+        raw_team_name: Some(item.club.clone()),
+        rank: Some(i64::from(item.rank)),
+        score: None,
+        medal: medal_for_rank(item.rank).map(str::to_owned),
+        event_class: item.class_name.clone(),
+        source_fingerprint: Some(team_source_fingerprint(input_hash, &canonical_fingerprint)),
+        canonical_fingerprint: Some(canonical_fingerprint),
+        conflict_status: conflict_status.to_owned(),
+    }
+}
+
+fn team_member_from_item(
+    item: &PodiumExportItem,
+    team_id: i64,
+    athlete_id: i64,
+    row_index: i64,
+    canonical_athlete: &str,
+) -> NewTeamMember {
+    NewTeamMember {
+        team_id,
+        athlete_id: Some(athlete_id),
+        member_order: row_index,
+        display_name: canonical_athlete.to_owned(),
+        raw_name: Some(item.shooter.clone()),
+    }
+}
+
+fn team_result_member_from_item(
+    item: &PodiumExportItem,
+    team_id: i64,
+    result_id: i64,
+    athlete_id: i64,
+    team_member_id: i64,
+    row_index: i64,
+) -> NewTeamResultMember {
+    NewTeamResultMember {
+        team_id,
+        result_id,
+        athlete_id: Some(athlete_id),
+        team_member_id: Some(team_member_id),
+        member_order: row_index,
+        score: item.score,
+        medal: medal_for_rank(item.rank).map(str::to_owned),
+        raw_name: Some(item.shooter.clone()),
+    }
+}
+
 const fn result_kind(kind: &PodiumResultKind) -> &'static str {
     match kind {
         PodiumResultKind::Individual => "individual",
@@ -603,6 +754,60 @@ fn canonical_result_fingerprint(
     .join("|")
 }
 
+fn team_source_fingerprint(input_hash: &str, canonical_fingerprint: &str) -> String {
+    format!("{input_hash}|{canonical_fingerprint}")
+}
+
+fn team_canonical_fingerprint(
+    item: &PodiumExportItem,
+    year: i64,
+    canonical_team_name: &str,
+    team_number: Option<&str>,
+) -> String {
+    let discipline = item
+        .discipline_code
+        .as_deref()
+        .or(item.discipline.as_deref())
+        .unwrap_or_default();
+    [
+        &item.source_name,
+        &year.to_string(),
+        discipline,
+        "team",
+        &item.rank.to_string(),
+        canonical_team_name,
+        team_number.unwrap_or_default(),
+        item.class_name.as_deref().unwrap_or_default(),
+    ]
+    .join("|")
+}
+
+fn canonical_team_name(canonical_club: &str, team_number: Option<&str>) -> String {
+    team_number.map_or_else(
+        || canonical_club.to_owned(),
+        |number| format!("{canonical_club} {number}"),
+    )
+}
+
+fn team_number_from_raw_club(raw_club: &str) -> Option<String> {
+    let suffix = raw_club.split_whitespace().last()?.trim();
+    if is_team_number_suffix(suffix) {
+        Some(suffix.to_owned())
+    } else {
+        None
+    }
+}
+
+fn is_team_number_suffix(value: &str) -> bool {
+    let upper = value.trim_matches('.').to_ascii_uppercase();
+    let is_numeric = !upper.is_empty() && upper.chars().all(|character| character.is_ascii_digit());
+    let is_roman = matches!(
+        upper.as_str(),
+        "I" | "II" | "III" | "IV" | "V" | "VI" | "VII" | "VIII" | "IX" | "X"
+    );
+    is_numeric || is_roman
+}
+
 fn conflict_status(
     existing: Option<&CanonicalResultReference>,
     source_fingerprint: &str,
@@ -637,7 +842,7 @@ mod tests {
 
     use super::{
         PodiumImportConfig, PodiumImporter, canonical_result_fingerprint, first_four_digit_year,
-        item_year, source_result_fingerprint,
+        item_year, source_result_fingerprint, team_number_from_raw_club,
     };
     use crate::export::{ManualReviewPdf, PodiumExport, PodiumExportItem, PodiumResultKind};
     use crate::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
@@ -669,6 +874,19 @@ mod tests {
             canonical_result_fingerprint(&item(), 2026, "Soares dos Reis, Maximilian"),
             "landesmeisterschaften|2026|1.80.40|individual|2|Soares dos Reis, Maximilian"
         );
+    }
+
+    #[test]
+    fn extracts_team_number_from_raw_club_suffix() {
+        assert_eq!(
+            team_number_from_raw_club("Ahrensburger SchG I"),
+            Some("I".to_owned())
+        );
+        assert_eq!(
+            team_number_from_raw_club("080 Schützenverein Reinfeld 1"),
+            Some("1".to_owned())
+        );
+        assert_eq!(team_number_from_raw_club("Schützenverein Reinfeld"), None);
     }
 
     #[tokio::test]
@@ -791,6 +1009,73 @@ mod tests {
         let _ = fs::remove_dir_all(dir);
     }
 
+    #[tokio::test]
+    async fn imports_team_results_as_teams_and_member_medals() {
+        let dir = std::env::temp_dir().join(format!(
+            "pdf-explorer-import-team-test-{}",
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("system time is after unix epoch")
+                .as_nanos()
+        ));
+        fs::create_dir_all(&dir).expect("temp dir is created");
+        let input_path = dir.join("podium-export.json");
+        let database_path = dir.join("podium-import.sqlite");
+        fs::write(
+            &input_path,
+            serde_json::to_vec(&team_export()).expect("export serializes"),
+        )
+        .expect("export is written");
+
+        let importer = PodiumImporter::new(PodiumImportConfig {
+            input_path,
+            database_path: database_path.clone(),
+        });
+        importer.run().await.expect("import succeeds");
+
+        let database = Database::new(DatabaseConfig {
+            path: database_path.clone(),
+        });
+        let pool = database.migrated_pool().await.expect("database opens");
+        let team_count = sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM teams")
+            .fetch_one(&pool)
+            .await
+            .expect("team count is readable");
+        let member_count = sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM team_members")
+            .fetch_one(&pool)
+            .await
+            .expect("team member count is readable");
+        let result_member_count =
+            sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM team_result_members")
+                .fetch_one(&pool)
+                .await
+                .expect("team result member count is readable");
+        let team = sqlx::query_as::<_, (String, Option<String>, Option<String>, Option<String>)>(
+            "SELECT canonical_name, team_number, raw_team_name, medal FROM teams",
+        )
+        .fetch_one(&pool)
+        .await
+        .expect("team is readable");
+        let medal_count = sqlx::query_scalar::<_, i64>(
+            "SELECT COUNT(*) FROM team_result_members WHERE medal = 'silver'",
+        )
+        .fetch_one(&pool)
+        .await
+        .expect("medal count is readable");
+        pool.close().await;
+
+        assert_eq!(team_count, 1);
+        assert_eq!(member_count, 2);
+        assert_eq!(result_member_count, 2);
+        assert_eq!(team.0, "Ahrensburger Schützengilde I");
+        assert_eq!(team.1.as_deref(), Some("I"));
+        assert_eq!(team.2.as_deref(), Some("Ahrensburger SchG I"));
+        assert_eq!(team.3.as_deref(), Some("silver"));
+        assert_eq!(medal_count, 2);
+
+        let _ = fs::remove_dir_all(dir);
+    }
+
     fn item() -> PodiumExportItem {
         PodiumExportItem {
             source_name: "landesmeisterschaften".to_owned(),
@@ -824,6 +1109,33 @@ mod tests {
             manual_review_count: 0,
             manual_review_pdfs: Vec::<ManualReviewPdf>::new(),
             items: vec![item()],
+        }
+    }
+
+    fn team_export() -> PodiumExport {
+        let mut first = item();
+        first.result_kind = PodiumResultKind::Team;
+        first.rank = 2;
+        first.shooter = "Mannschaft, Eins".to_owned();
+        first.club = "Ahrensburger SchG I".to_owned();
+        first.canonical_club = "Ahrensburger Schützengilde".to_owned();
+        first.score = Some(200.0);
+
+        let mut second = first.clone();
+        second.shooter = "Mannschaft, Zwei".to_owned();
+        second.score = Some(199.0);
+
+        PodiumExport {
+            generated_at: Utc::now(),
+            source_report_path: "reports/archive/2026/landesmeisterschaften/crawl-report.json"
+                .into(),
+            source_name: "landesmeisterschaften".to_owned(),
+            focus_association_code: "OD".to_owned(),
+            max_place: 3,
+            item_count: 2,
+            manual_review_count: 0,
+            manual_review_pdfs: Vec::<ManualReviewPdf>::new(),
+            items: vec![first, second],
         }
     }
 }

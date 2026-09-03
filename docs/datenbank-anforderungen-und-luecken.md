@@ -45,6 +45,8 @@ Die Anwendung kann aktuell:
 - manuelle Korrekturen fuer Vereins- und Sportlernamen in SQLite speichern
 - Importe und optionale Exporte mit aktiven manuellen Korrekturen kanonisieren
 - Parser-Rohdaten trotz Korrekturen unveraendert erhalten
+- Mannschaften, Mannschaftsmitglieder und Mannschaftsmedaillen pro Mitglied in SQLite speichern
+- Mannschaftsnummern als eigene Team-Eigenschaft vom Vereinsnamen trennen
 
 Die Modulgrenzen sind aktuell grob:
 
@@ -276,6 +278,21 @@ teams
 team_members
 team_result_members
 ```
+
+Stand der Umsetzung:
+
+- `teams`, `team_members` und `team_result_members` sind vorhanden
+- `podium-export.json`-Importe erzeugen fuer Mannschaftszeilen eigene Teamdaten
+- Mannschaftsmedaillen werden pro Mitglied ueber `team_result_members.medal` auswertbar
+- Mannschaftsnummern wie `I`, `II` oder `1` werden als `team_number` gespeichert
+- der kanonische Verein bleibt getrennt vom Mannschaftsnamen
+
+Noch offen:
+
+- Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
+- Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
+- Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
+- GUI-Ansichten fuer Mannschaften und Mitglieder bauen
 
 ### Organisationen
 
@@ -538,11 +555,13 @@ Umgesetzt ist zunaechst der Weg ueber `podium-export.json`. Der direkte Parserla
 
 Umgesetzt ist zunaechst eine aktive globale Korrekturschicht fuer Vereins- und Sportlernamen. Die feinere fachliche Bearbeitung mit Statuswechseln, GUI-Pruefung, PDF-spezifischen Overrides und Alias-Tabellen bleibt Teil der folgenden Pakete.
 
-### Paket 6: Mannschaften
+### Paket 6: Mannschaften - erledigt
 
 - `teams`, `team_members`, `team_result_members` ergaenzen
 - Mannschaftsmedaillen pro Mitglied auswertbar machen
 - Mannschaftsnummern fachlich von Vereinsnamen trennen
+
+Umgesetzt ist zunaechst der Importpfad aus `podium-export.json`. Die Teamdaten werden aus bestehenden Mannschafts-Ergebniszeilen abgeleitet. Mannschaftsgesamtergebnisse koennen spaeter genauer werden, wenn der direkte Parserlauf aus den PDF-Strukturen nicht mehr ueber den reduzierten Podium-Export gehen muss.
 
 ### Paket 7: Deutsche Meisterschaften und Teilnahme
 
