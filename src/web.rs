@@ -1,11 +1,13 @@
+use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::path::PathBuf;
 
 use anyhow::{Context, Result};
+use percent_encoding::percent_decode_str;
 
-use crate::storage::{Database, DatabaseConfig};
+use crate::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
 use crate::template::render_template;
 
 const LAYOUT_TEMPLATE: &str = include_str!("../templates/web-layout.html");
@@ -15,6 +17,8 @@ const RESULTS_TEMPLATE: &str = include_str!("../templates/web-results.html");
 const ATHLETES_TEMPLATE: &str = include_str!("../templates/web-athletes.html");
 const CLUBS_TEMPLATE: &str = include_str!("../templates/web-clubs.html");
 const HONORS_TEMPLATE: &str = include_str!("../templates/web-honors.html");
+const CORRECTIONS_TEMPLATE: &str = include_str!("../templates/web-corrections.html");
+const PARSER_ISSUES_TEMPLATE: &str = include_str!("../templates/web-parser-issues.html");
 
 #[derive(Debug, Clone)]
 pub struct WebConfig {
@@ -78,6 +82,46 @@ struct ClubRow {
     latest_year: Option<i64>,
 }
 
+#[derive(Debug, sqlx::FromRow)]
+struct ManualOverrideWebRow {
+    id: i64,
+    scope: String,
+    entity_type: String,
+    field_name: String,
+    old_value: String,
+    new_value: String,
+    reason: Option<String>,
+    status: String,
+    created_at: String,
+    updated_at: String,
+}
+
+#[derive(Debug, sqlx::FromRow)]
+struct ParsedIssueRow {
+    id: i64,
+    source_name: String,
+    competition_year: i64,
+    competition_scope: String,
+    conflict_status: String,
+    raw_shooter_name: Option<String>,
+    normalized_shooter_name: Option<String>,
+    raw_club_name: Option<String>,
+    normalized_club_name: Option<String>,
+    raw_discipline: Option<String>,
+    discipline_code: Option<String>,
+    class_name: Option<String>,
+    event_name: Option<String>,
+    pdf_url: Option<String>,
+}
+
+#[derive(Debug)]
+struct HttpRequest {
+    method: String,
+    path: String,
+    query: BTreeMap<String, String>,
+    body: String,
+}
+
 enum WebResponse {
     Html(String),
     Redirect(&'static str),
@@ -121,29 +165,40 @@ impl WebServer {
 }
 
 async fn handle_stream(stream: &mut TcpStream, pool: &sqlx::SqlitePool) -> WebResponse {
-    let Ok(request) = read_request(stream) else {
+    let Ok(request) = read_http_request(stream) else {
         return WebResponse::MethodNotAllowed;
     };
-    let Some((method, path)) = parse_request_line(&request) else {
-        return WebResponse::NotFound;
-    };
-    if method != "GET" {
+    if !matches!(request.method.as_str(), "GET" | "POST") {
         return WebResponse::MethodNotAllowed;
     }
 
-    match route(path, pool).await {
+    match route(&request, pool).await {
         Ok(response) => response,
         Err(error) => WebResponse::InternalError(error.to_string()),
     }
 }
 
-async fn route(path: &str, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
+async fn route(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
+    if request.method == "POST" {
+        return route_post(request, pool).await;
+    }
+
+    route_get(&request.path, &request.query, pool).await
+}
+
+async fn route_get(
+    path: &str,
+    query: &BTreeMap<String, String>,
+    pool: &sqlx::SqlitePool,
+) -> Result<WebResponse> {
     match path {
         "/" => Ok(WebResponse::Redirect("/import-runs")),
         "/import-runs" => import_runs_page(pool).await.map(WebResponse::Html),
         "/results" => results_page(pool).await.map(WebResponse::Html),
         "/athletes" => athletes_page(pool).await.map(WebResponse::Html),
         "/clubs" => clubs_page(pool).await.map(WebResponse::Html),
+        "/corrections" => corrections_page(pool, query).await.map(WebResponse::Html),
+        "/corrections/issues" => parser_issues_page(pool).await.map(WebResponse::Html),
         "/honors" => Ok(WebResponse::Html(honors_page())),
         path if path.starts_with("/import-runs/") && path.ends_with("/results") => {
             let id = path
@@ -154,6 +209,25 @@ async fn route(path: &str, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
             import_run_results_page(pool, id)
                 .await
                 .map(WebResponse::Html)
+        }
+        _ => Ok(WebResponse::NotFound),
+    }
+}
+
+async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
+    match request.path.as_str() {
+        "/corrections" => {
+            create_manual_override(pool, &request.body).await?;
+            Ok(WebResponse::Redirect("/corrections"))
+        }
+        path if path.starts_with("/corrections/") && path.ends_with("/revoke") => {
+            let id = path
+                .trim_start_matches("/corrections/")
+                .trim_end_matches("/revoke")
+                .parse::<i64>()
+                .context("invalid manual override id")?;
+            revoke_manual_override(pool, id).await?;
+            Ok(WebResponse::Redirect("/corrections"))
         }
         _ => Ok(WebResponse::NotFound),
     }
@@ -322,6 +396,138 @@ async fn clubs_page(pool: &sqlx::SqlitePool) -> Result<String> {
     ))
 }
 
+async fn corrections_page(
+    pool: &sqlx::SqlitePool,
+    query: &BTreeMap<String, String>,
+) -> Result<String> {
+    let overrides = sqlx::query_as::<_, ManualOverrideWebRow>(
+        r"
+        SELECT
+            id, scope, entity_type, field_name, old_value, new_value,
+            reason, status, created_at, updated_at
+        FROM manual_overrides
+        ORDER BY updated_at DESC, id DESC
+        ",
+    )
+    .fetch_all(pool)
+    .await
+    .context("could not load manual overrides")?;
+
+    let active_count = overrides
+        .iter()
+        .filter(|manual_override| manual_override.status == "active")
+        .count();
+    let mut rows_html = String::new();
+    for row in &overrides {
+        let action = if row.status == "active" {
+            format!(
+                "<form class=\"inline\" method=\"post\" action=\"/corrections/{}/revoke\"><button type=\"submit\">Zuruecknehmen</button></form>",
+                row.id
+            )
+        } else {
+            String::new()
+        };
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            row.id,
+            entity_type_label(&row.entity_type),
+            escape_html(&row.field_name),
+            escape_html(&row.scope),
+            escape_html(&row.old_value),
+            escape_html(&row.new_value),
+            escape_optional(row.reason.as_deref()),
+            escape_html(&row.status),
+            escape_html(&row.created_at),
+            escape_html(&row.updated_at),
+            action
+        );
+    }
+
+    Ok(render_page(
+        "Korrekturen",
+        "corrections",
+        render_template(
+            CORRECTIONS_TEMPLATE,
+            &[
+                ("active_count", active_count.to_string()),
+                ("total_count", overrides.len().to_string()),
+                (
+                    "club_selected",
+                    selected_attr(query.get("entity_type"), "club"),
+                ),
+                (
+                    "athlete_selected",
+                    selected_attr(query.get("entity_type"), "athlete"),
+                ),
+                (
+                    "prefill_old_value",
+                    escape_html(query.get("old_value").map_or("", String::as_str)),
+                ),
+                ("rows", empty_rows(rows_html, 11)),
+            ],
+        ),
+    ))
+}
+
+async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
+    let rows = sqlx::query_as::<_, ParsedIssueRow>(
+        r"
+        SELECT
+            id, source_name, competition_year, competition_scope, conflict_status,
+            raw_shooter_name, normalized_shooter_name, raw_club_name,
+            normalized_club_name, raw_discipline, discipline_code, class_name,
+            event_name, pdf_url
+        FROM parsed_result_rows
+        WHERE conflict_status <> 'none'
+            OR normalized_shooter_name IS NULL
+            OR normalized_club_name IS NULL
+            OR normalized_discipline IS NULL
+        ORDER BY competition_year DESC, source_name, id DESC
+        ",
+    )
+    .fetch_all(pool)
+    .await
+    .context("could not load parser issues")?;
+
+    let mut rows_html = String::new();
+    for row in &rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            row.id,
+            escape_html(&row.source_name),
+            escape_html(&row.competition_scope),
+            row.competition_year,
+            escape_html(&row.conflict_status),
+            issue_name_cell(
+                row.raw_shooter_name.as_deref(),
+                row.normalized_shooter_name.as_deref()
+            ),
+            issue_name_cell(
+                row.raw_club_name.as_deref(),
+                row.normalized_club_name.as_deref()
+            ),
+            discipline_issue_cell(row),
+            escape_optional(row.event_name.as_deref()),
+            source_link(row.pdf_url.as_deref()),
+            correction_prefill_links(row)
+        );
+    }
+
+    Ok(render_page(
+        "Parserfaelle",
+        "corrections",
+        render_template(
+            PARSER_ISSUES_TEMPLATE,
+            &[
+                ("issue_count", rows.len().to_string()),
+                ("rows", empty_rows(rows_html, 10)),
+            ],
+        ),
+    ))
+}
+
 fn honors_page() -> String {
     render_page("Ehrungen", "honors", render_template(HONORS_TEMPLATE, &[]))
 }
@@ -426,16 +632,90 @@ fn render_page(title: &str, active: &str, content: String) -> String {
             ("active_results", active_class(active, "results")),
             ("active_athletes", active_class(active, "athletes")),
             ("active_clubs", active_class(active, "clubs")),
+            ("active_corrections", active_class(active, "corrections")),
             ("active_honors", active_class(active, "honors")),
             ("content", content),
         ],
     )
 }
 
+async fn create_manual_override(pool: &sqlx::SqlitePool, body: &str) -> Result<()> {
+    let form = parse_form_urlencoded(body);
+    let entity_type = form_value(&form, "entity_type")?;
+    let old_value = form_value(&form, "old_value")?;
+    let new_value = form_value(&form, "new_value")?;
+    let reason = form
+        .get("reason")
+        .map(String::as_str)
+        .map(str::trim)
+        .filter(|value| !value.is_empty())
+        .map(ToOwned::to_owned);
+
+    if !matches!(entity_type.as_str(), "club" | "athlete") {
+        anyhow::bail!("unknown correction type {entity_type}");
+    }
+
+    let repository = StorageRepository::new(pool);
+    repository
+        .upsert_manual_override(&NewManualOverride {
+            scope: "global".to_string(),
+            entity_type,
+            entity_id: None,
+            source_document_id: None,
+            parsed_result_row_id: None,
+            field_name: "canonical_name".to_string(),
+            old_value,
+            new_value,
+            reason,
+            status: "active".to_string(),
+        })
+        .await?;
+    Ok(())
+}
+
+async fn revoke_manual_override(pool: &sqlx::SqlitePool, id: i64) -> Result<()> {
+    sqlx::query(
+        r"
+        UPDATE manual_overrides
+        SET status = 'revoked', updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+        ",
+    )
+    .bind(id)
+    .execute(pool)
+    .await
+    .context("could not revoke manual override")?;
+    Ok(())
+}
+
+fn read_http_request(stream: &mut TcpStream) -> Result<HttpRequest> {
+    let request = read_request(stream)?;
+    let Some((method, path)) = parse_request_line(&request) else {
+        anyhow::bail!("invalid HTTP request line");
+    };
+    Ok(HttpRequest {
+        method: method.to_string(),
+        path: path.to_string(),
+        query: request_query(&request),
+        body: request_body(&request).to_string(),
+    })
+}
+
 fn read_request(stream: &mut TcpStream) -> Result<String> {
     let mut buffer = [0; 4096];
     let length = stream.read(&mut buffer).context("could not read request")?;
-    Ok(String::from_utf8_lossy(&buffer[..length]).to_string())
+    let mut request = String::from_utf8_lossy(&buffer[..length]).to_string();
+    let content_length = content_length(&request);
+    while request_body(&request).len() < content_length {
+        let length = stream
+            .read(&mut buffer)
+            .context("could not read request body")?;
+        if length == 0 {
+            break;
+        }
+        request.push_str(&String::from_utf8_lossy(&buffer[..length]));
+    }
+    Ok(request)
 }
 
 fn parse_request_line(request: &str) -> Option<(&str, &str)> {
@@ -444,6 +724,35 @@ fn parse_request_line(request: &str) -> Option<(&str, &str)> {
     let method = parts.next()?;
     let path = parts.next()?.split('?').next()?;
     Some((method, path))
+}
+
+fn request_query(request: &str) -> BTreeMap<String, String> {
+    let Some(line) = request.lines().next() else {
+        return BTreeMap::new();
+    };
+    let Some(target) = line.split_whitespace().nth(1) else {
+        return BTreeMap::new();
+    };
+    let Some((_, query)) = target.split_once('?') else {
+        return BTreeMap::new();
+    };
+    parse_form_urlencoded(query)
+}
+
+fn content_length(request: &str) -> usize {
+    request
+        .lines()
+        .find_map(|line| {
+            let (name, value) = line.split_once(':')?;
+            name.eq_ignore_ascii_case("content-length")
+                .then(|| value.trim().parse::<usize>().ok())
+                .flatten()
+        })
+        .unwrap_or(0)
+}
+
+fn request_body(request: &str) -> &str {
+    request.split_once("\r\n\r\n").map_or("", |(_, body)| body)
 }
 
 fn write_response(stream: &mut TcpStream, response: WebResponse) -> Result<()> {
@@ -491,6 +800,14 @@ fn active_class(active: &str, item: &str) -> String {
     }
 }
 
+fn selected_attr(value: Option<&String>, expected: &str) -> String {
+    if value.is_some_and(|value| value == expected) {
+        "selected".to_string()
+    } else {
+        String::new()
+    }
+}
+
 fn empty_rows(rows: String, column_count: usize) -> String {
     if rows.trim().is_empty() {
         format!(
@@ -513,6 +830,30 @@ fn format_score(score: f64) -> String {
     formatted.trim_end_matches(".0").to_string()
 }
 
+fn parse_form_urlencoded(body: &str) -> BTreeMap<String, String> {
+    body.split('&')
+        .filter_map(|pair| {
+            let (key, value) = pair.split_once('=')?;
+            Some((decode_form_value(key), decode_form_value(value)))
+        })
+        .collect()
+}
+
+fn decode_form_value(value: &str) -> String {
+    percent_decode_str(&value.replace('+', " "))
+        .decode_utf8_lossy()
+        .to_string()
+}
+
+fn form_value(form: &BTreeMap<String, String>, key: &str) -> Result<String> {
+    form.get(key)
+        .map(String::as_str)
+        .map(str::trim)
+        .filter(|value| !value.is_empty())
+        .map(ToOwned::to_owned)
+        .with_context(|| format!("missing form value {key}"))
+}
+
 fn parser_label(name: Option<&str>, version: Option<&str>) -> String {
     match (name, version) {
         (Some(name), Some(version)) if !version.is_empty() => {
@@ -520,6 +861,14 @@ fn parser_label(name: Option<&str>, version: Option<&str>) -> String {
         }
         (Some(name), _) => escape_html(name),
         _ => String::new(),
+    }
+}
+
+fn entity_type_label(entity_type: &str) -> &'static str {
+    match entity_type {
+        "club" => "Verein",
+        "athlete" => "Sportler",
+        _ => "Unbekannt",
     }
 }
 
@@ -535,12 +884,72 @@ fn result_type_label(row: &ResultRow) -> String {
     }
 }
 
+fn issue_name_cell(raw: Option<&str>, normalized: Option<&str>) -> String {
+    match (raw, normalized) {
+        (Some(raw), Some(normalized)) if raw != normalized => {
+            format!(
+                "{}<br><span class=\"muted\">{}</span>",
+                escape_html(raw),
+                escape_html(normalized)
+            )
+        }
+        (Some(raw), _) => escape_html(raw),
+        (_, Some(normalized)) => escape_html(normalized),
+        _ => String::new(),
+    }
+}
+
+fn discipline_issue_cell(row: &ParsedIssueRow) -> String {
+    [
+        row.discipline_code.as_deref(),
+        row.raw_discipline.as_deref(),
+        row.class_name.as_deref(),
+    ]
+    .into_iter()
+    .flatten()
+    .filter(|value| !value.trim().is_empty())
+    .map(escape_html)
+    .collect::<Vec<_>>()
+    .join(" ")
+}
+
+fn correction_prefill_links(row: &ParsedIssueRow) -> String {
+    let mut links = Vec::new();
+    if let Some(raw_club) = row
+        .raw_club_name
+        .as_deref()
+        .filter(|value| !value.is_empty())
+    {
+        links.push(prefill_link("club", raw_club));
+    }
+    if let Some(raw_shooter) = row
+        .raw_shooter_name
+        .as_deref()
+        .filter(|value| !value.is_empty())
+    {
+        links.push(prefill_link("athlete", raw_shooter));
+    }
+    links.join(" ")
+}
+
+fn prefill_link(entity_type: &str, old_value: &str) -> String {
+    format!(
+        "<a href=\"/corrections?entity_type={}&old_value={}\">Korrigieren</a>",
+        escape_html(entity_type),
+        url_encode(old_value)
+    )
+}
+
 fn source_link(source_url: Option<&str>) -> String {
     source_url
         .filter(|url| !url.is_empty())
         .map_or_else(String::new, |url| {
             format!("<a href=\"{}\">PDF</a>", escape_html(url))
         })
+}
+
+fn url_encode(value: &str) -> String {
+    percent_encoding::utf8_percent_encode(value, percent_encoding::NON_ALPHANUMERIC).to_string()
 }
 
 fn escape_optional(value: Option<&str>) -> String {

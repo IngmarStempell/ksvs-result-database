@@ -104,6 +104,57 @@
       text-align: right;
       white-space: nowrap;
     }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      margin-bottom: 18px;
+    }
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    input,
+    select,
+    button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--text);
+      font: inherit;
+      padding: 7px 9px;
+    }
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      font-weight: 650;
+    }
+    form.inline {
+      margin: 0;
+    }
+    form.inline button {
+      min-height: 30px;
+      padding: 4px 8px;
+      background: #ffffff;
+      color: var(--accent);
+    }
+    .span-2 {
+      grid-column: span 2;
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
     a {
       color: var(--accent);
     }
@@ -120,6 +171,12 @@
       table {
         min-width: 760px;
       }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .span-2 {
+        grid-column: auto;
+      }
     }
   </style>
 </head>
@@ -131,6 +188,7 @@
       <a class="{{active_results}}" href="/results">Ergebnisse</a>
       <a class="{{active_athletes}}" href="/athletes">Sportler</a>
       <a class="{{active_clubs}}" href="/clubs">Vereine</a>
+      <a class="{{active_corrections}}" href="/corrections">Korrekturen</a>
       <a class="{{active_honors}}" href="/honors">Ehrungen</a>
     </nav>
   </header>

@@ -608,7 +608,7 @@ Noch offen:
 - UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
 - stabile API-Schicht fuer die spaetere GUI statt nur CLI-Exporter
 
-### Paket 9: GUI-Grundlage
+### Paket 9: GUI-Grundlage - erledigt
 
 - lokale Weboberflaeche mit Rust Backend festlegen
 - serverseitig gerendertes HTML als erste UI-Technologie nutzen
@@ -619,7 +619,30 @@ Noch offen:
 - Ehrungen zunaechst nur als Platzhalter-Navigation aufnehmen
 - Schreibaktionen erst nach klarer Korrekturschicht freigeben
 
-### Paket 10: UI fuer Korrekturen
+Stand der Umsetzung:
+
+- `serve` startet eine lokale, lesende Weboberflaeche mit Rust Backend
+- die Datenbank wird ueber `--database` ausgewaehlt
+- der lokale Socket wird ueber `--bind` ausgewaehlt
+- `/` leitet auf `/import-runs`
+- `/import-runs` zeigt Importlaeufe als Einstiegspunkt
+- `/import-runs/<id>/results` zeigt die Ergebnisse eines Importlaufs
+- `/results` zeigt eine lesende Ergebnisliste
+- `/athletes` zeigt eine lesende Sportlerliste
+- `/clubs` zeigt eine lesende Vereinsliste
+- `/honors` ist als Platzhalter fuer die spaetere Ehrungslogik vorhanden
+- die GUI nutzt Template-Dateien unter `templates/web-*.html`
+- die Listen schneiden nicht still bei 500 Eintraegen ab
+
+Noch offen:
+
+- Filter und Suche in den GUI-Listen
+- Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen
+- Detailseiten fuer einzelne Sportler, Vereine, Importlaeufe und Quellen
+- weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung
+- echte Ehrungsvorschlaege; diese bleiben Teil von Paket 11
+
+### Paket 10: UI fuer Korrekturen - erledigt
 
 - grafische Oberflaeche fuer manuelle Korrekturen
 - Schreibaktionen fuer Korrekturen erst hier freigeben
@@ -628,6 +651,28 @@ Noch offen:
 - Korrekturen fuer Vereinsnamen und Sportlernamen bearbeiten
 - Korrekturen nachvollziehbar speichern, anzeigen und zuruecknehmen
 - Historie der Korrekturen anzeigen
+
+Stand der Umsetzung:
+
+- `/corrections` zeigt eine grafische Oberflaeche fuer manuelle Korrekturen
+- Korrekturen werden als `manual_overrides` gespeichert
+- Vereinsnamen und Sportlernamen koennen als globale Korrektur angelegt werden
+- aktive Korrekturen koennen ueber die GUI zurueckgenommen werden
+- die Tabelle zeigt aktive und zurueckgenommene Korrekturen als Historie
+- Anlage- und Aktualisierungszeit bleiben sichtbar
+- `/corrections/issues` zeigt auffaellige Parserzeilen mit Konfliktstatus oder fehlender Normalisierung
+- Parserfaelle bieten Links, um Korrekturformulare mit Rohwerten vorzubelegen
+- Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen
+- Parser-Rohdaten werden weiterhin nicht veraendert
+
+Noch offen:
+
+- echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
+- Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
+- fachliche Freigabe-/Pruefstatus fuer einzelne Parserzeilen
+- Konfliktauflösung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
+- UI-Validierung gegen bereits existierende Sportler- und Vereinsnamen
+- Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
 
 ### Paket 11: Sportlerehrungen
 

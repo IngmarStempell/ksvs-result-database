@@ -295,10 +295,36 @@ Verfuegbare lesende Ansichten:
 /results
 /athletes
 /clubs
+/corrections
+/corrections/issues
 /honors
 ```
 
-Manuelle Korrekturen werden bewusst nicht in der ersten GUI-Grundlage freigeschaltet. Schreibaktionen kommen spaeter in einem eigenen Paket fuer Korrekturen, damit Parserdaten, kanonische Daten und manuelle Eingriffe getrennt bleiben.
+### Paket 10: UI fuer Korrekturen
+
+Die lokale Weboberflaeche enthaelt jetzt erste Schreibaktionen fuer manuelle Korrekturen. Parserdaten werden dabei nicht veraendert; Korrekturen werden als `manual_overrides` gespeichert.
+
+Korrekturen oeffnen:
+
+```text
+http://127.0.0.1:7878/corrections
+```
+
+Parserfaelle mit Konfliktstatus oder fehlender Normalisierung:
+
+```text
+http://127.0.0.1:7878/corrections/issues
+```
+
+Moeglich ist aktuell:
+
+- globale Korrektur fuer Vereinsnamen speichern
+- globale Korrektur fuer Sportlernamen speichern
+- aktive Korrekturen zuruecknehmen
+- Korrekturhistorie ansehen
+- auffaellige Parserzeilen ansehen und Rohwerte ins Korrekturformular uebernehmen
+
+Die Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen. Echte ID-basierte Merge-Aktionen bleiben ein spaeterer Ausbau.
 
 Start over with a clean generated data foundation:
 
