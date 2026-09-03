@@ -1,3 +1,4 @@
+use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -50,6 +51,7 @@ struct ImportContext<'a> {
     parser_run_id: i64,
     input_hash: &'a str,
     year: i64,
+    manual_overrides: &'a ManualOverrideSet,
 }
 
 #[derive(Debug, Clone, Copy, Default)]
@@ -59,6 +61,45 @@ struct ImportedItems {
     imported_results: usize,
     skipped_duplicate_results: usize,
     conflict_count: usize,
+}
+
+#[derive(Debug, Clone, Default)]
+struct ManualOverrideSet {
+    clubs: BTreeMap<String, String>,
+    athletes: BTreeMap<String, String>,
+}
+
+impl ManualOverrideSet {
+    async fn load(repository: &StorageRepository<'_>) -> Result<Self> {
+        let clubs = repository
+            .active_manual_overrides("club", "canonical_name")
+            .await?
+            .into_iter()
+            .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+            .collect();
+        let athletes = repository
+            .active_manual_overrides("athlete", "canonical_name")
+            .await?
+            .into_iter()
+            .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+            .collect();
+        Ok(Self { clubs, athletes })
+    }
+
+    fn club_name(&self, raw_club: &str, parser_club: &str) -> String {
+        self.clubs
+            .get(parser_club)
+            .or_else(|| self.clubs.get(raw_club))
+            .cloned()
+            .unwrap_or_else(|| parser_club.to_owned())
+    }
+
+    fn athlete_name(&self, raw_athlete: &str) -> String {
+        self.athletes
+            .get(raw_athlete)
+            .cloned()
+            .unwrap_or_else(|| raw_athlete.to_owned())
+    }
 }
 
 impl PodiumImporter {
@@ -100,6 +141,7 @@ impl PodiumImporter {
                 &input_hash,
             ))
             .await?;
+        let manual_overrides = ManualOverrideSet::load(&repository).await?;
 
         let imported = import_items(
             &repository,
@@ -110,6 +152,7 @@ impl PodiumImporter {
                 parser_run_id,
                 input_hash: &input_hash,
                 year,
+                manual_overrides: &manual_overrides,
             },
         )
         .await?;
@@ -173,8 +216,13 @@ async fn import_item(
         .upsert_source_document(&source_document_from_item(item)?)
         .await?;
     let raw_payload = serde_json::to_string(item)?;
-    let canonical_fingerprint = canonical_result_fingerprint(item, context.year);
-    let source_fingerprint = source_result_fingerprint(item, context.input_hash, context.year);
+    let parser_club = canonical_club_name(item);
+    let canonical_club = context.manual_overrides.club_name(&item.club, &parser_club);
+    let canonical_athlete = context.manual_overrides.athlete_name(&item.shooter);
+    let canonical_fingerprint =
+        canonical_result_fingerprint(item, context.year, &canonical_athlete);
+    let source_fingerprint =
+        source_result_fingerprint(item, context.input_hash, context.year, &canonical_athlete);
     let conflict = repository
         .find_canonical_result(&canonical_fingerprint)
         .await?;
@@ -208,8 +256,12 @@ async fn import_item(
         imported.skipped_duplicate_parser_rows += 1;
     }
 
-    let club_id = repository.upsert_club(&club_from_item(item)).await?;
-    let athlete_id = repository.upsert_athlete(&athlete_from_item(item)).await?;
+    let club_id = repository
+        .upsert_club(&club_from_item(item, &canonical_club))
+        .await?;
+    let athlete_id = repository
+        .upsert_athlete(&athlete_from_name(&canonical_athlete))
+        .await?;
     let discipline_id = repository
         .upsert_discipline(&discipline_from_item(item))
         .await?;
@@ -389,18 +441,18 @@ fn local_file_size(path: &Path) -> Result<Option<i64>> {
     ))
 }
 
-fn club_from_item(item: &PodiumExportItem) -> NewClub {
+fn club_from_item(item: &PodiumExportItem, canonical_name: &str) -> NewClub {
     NewClub {
-        canonical_name: canonical_club_name(item),
+        canonical_name: canonical_name.to_owned(),
         association_code: Some(item.association_code.clone()),
         source: Some(item.source_name.clone()),
     }
 }
 
-fn athlete_from_item(item: &PodiumExportItem) -> NewAthlete {
+fn athlete_from_name(canonical_name: &str) -> NewAthlete {
     NewAthlete {
-        canonical_name: item.shooter.clone(),
-        sort_name: Some(item.shooter.clone()),
+        canonical_name: canonical_name.to_owned(),
+        sort_name: Some(canonical_name.to_owned()),
     }
 }
 
@@ -518,11 +570,23 @@ fn parsed_row_fingerprint(input_hash: &str, row_index: i64) -> String {
     format!("{input_hash}|row|{row_index}")
 }
 
-fn source_result_fingerprint(item: &PodiumExportItem, input_hash: &str, year: i64) -> String {
-    format!("{input_hash}|{}", canonical_result_fingerprint(item, year))
+fn source_result_fingerprint(
+    item: &PodiumExportItem,
+    input_hash: &str,
+    year: i64,
+    canonical_athlete: &str,
+) -> String {
+    format!(
+        "{input_hash}|{}",
+        canonical_result_fingerprint(item, year, canonical_athlete)
+    )
 }
 
-fn canonical_result_fingerprint(item: &PodiumExportItem, year: i64) -> String {
+fn canonical_result_fingerprint(
+    item: &PodiumExportItem,
+    year: i64,
+    canonical_athlete: &str,
+) -> String {
     let discipline = item
         .discipline_code
         .as_deref()
@@ -534,7 +598,7 @@ fn canonical_result_fingerprint(item: &PodiumExportItem, year: i64) -> String {
         discipline,
         result_kind(&item.result_kind),
         &item.rank.to_string(),
-        &item.shooter,
+        canonical_athlete,
     ]
     .join("|")
 }
@@ -576,6 +640,7 @@ mod tests {
         item_year, source_result_fingerprint,
     };
     use crate::export::{ManualReviewPdf, PodiumExport, PodiumExportItem, PodiumResultKind};
+    use crate::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
 
     #[test]
     fn extracts_year_from_event_name() {
@@ -593,7 +658,7 @@ mod tests {
     #[test]
     fn source_fingerprints_include_hash_source_year_discipline_rank_and_name() {
         assert_eq!(
-            source_result_fingerprint(&item(), "abc", 2026),
+            source_result_fingerprint(&item(), "abc", 2026, "Soares dos Reis, Maximilian"),
             "abc|landesmeisterschaften|2026|1.80.40|individual|2|Soares dos Reis, Maximilian"
         );
     }
@@ -601,7 +666,7 @@ mod tests {
     #[test]
     fn canonical_fingerprints_do_not_include_input_hash() {
         assert_eq!(
-            canonical_result_fingerprint(&item(), 2026),
+            canonical_result_fingerprint(&item(), 2026, "Soares dos Reis, Maximilian"),
             "landesmeisterschaften|2026|1.80.40|individual|2|Soares dos Reis, Maximilian"
         );
     }
@@ -638,6 +703,90 @@ mod tests {
         assert_eq!(second_report.imported_parser_rows, 0);
         assert_eq!(second_report.skipped_duplicate_results, 1);
         assert_eq!(second_report.skipped_duplicate_parser_rows, 1);
+
+        let _ = fs::remove_dir_all(dir);
+    }
+
+    #[tokio::test]
+    async fn imports_podium_export_with_manual_name_overrides() {
+        let dir = std::env::temp_dir().join(format!(
+            "pdf-explorer-import-override-test-{}",
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .expect("system time is after unix epoch")
+                .as_nanos()
+        ));
+        fs::create_dir_all(&dir).expect("temp dir is created");
+        let input_path = dir.join("podium-export.json");
+        let database_path = dir.join("podium-import.sqlite");
+        fs::write(
+            &input_path,
+            serde_json::to_vec(&export()).expect("export serializes"),
+        )
+        .expect("export is written");
+
+        let database = Database::new(DatabaseConfig {
+            path: database_path.clone(),
+        });
+        let pool = database.migrated_pool().await.expect("database migrates");
+        let repository = StorageRepository::new(&pool);
+        repository
+            .upsert_manual_override(&NewManualOverride {
+                scope: "global".to_owned(),
+                entity_type: "club".to_owned(),
+                entity_id: None,
+                source_document_id: None,
+                parsed_result_row_id: None,
+                field_name: "canonical_name".to_owned(),
+                old_value: "Schützenverein Reinfeld".to_owned(),
+                new_value: "Schützenverein Reinfeld e.V.".to_owned(),
+                reason: Some("test correction".to_owned()),
+                status: "active".to_owned(),
+            })
+            .await
+            .expect("club override is stored");
+        repository
+            .upsert_manual_override(&NewManualOverride {
+                scope: "global".to_owned(),
+                entity_type: "athlete".to_owned(),
+                entity_id: None,
+                source_document_id: None,
+                parsed_result_row_id: None,
+                field_name: "canonical_name".to_owned(),
+                old_value: "Soares dos Reis, Maximilian".to_owned(),
+                new_value: "Soares dos Reis, Max".to_owned(),
+                reason: Some("test correction".to_owned()),
+                status: "active".to_owned(),
+            })
+            .await
+            .expect("athlete override is stored");
+        pool.close().await;
+
+        let importer = PodiumImporter::new(PodiumImportConfig {
+            input_path,
+            database_path: database_path.clone(),
+        });
+        importer.run().await.expect("import succeeds");
+
+        let pool = database.migrated_pool().await.expect("database opens");
+        let club_name = sqlx::query_scalar::<_, String>("SELECT canonical_name FROM clubs")
+            .fetch_one(&pool)
+            .await
+            .expect("club exists");
+        let athlete_name = sqlx::query_scalar::<_, String>("SELECT canonical_name FROM athletes")
+            .fetch_one(&pool)
+            .await
+            .expect("athlete exists");
+        let raw_shooter =
+            sqlx::query_scalar::<_, String>("SELECT raw_shooter_name FROM parsed_result_rows")
+                .fetch_one(&pool)
+                .await
+                .expect("parsed row exists");
+        pool.close().await;
+
+        assert_eq!(club_name, "Schützenverein Reinfeld e.V.");
+        assert_eq!(athlete_name, "Soares dos Reis, Max");
+        assert_eq!(raw_shooter, "Soares dos Reis, Maximilian");
 
         let _ = fs::remove_dir_all(dir);
     }

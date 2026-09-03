@@ -2,13 +2,40 @@ use anyhow::{Result, bail};
 use sqlx::SqlitePool;
 
 use super::models::{
-    CanonicalResultReference, NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun,
-    NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, StorageCounts,
-    StoredParsedResultRow, StoredResult,
+    CanonicalResultReference, ManualOverride, NewAthlete, NewClub, NewCompetition, NewDiscipline,
+    NewImportRun, NewManualOverride, NewParsedResultRow, NewParserRun, NewResult,
+    NewSourceDocument, StorageCounts, StoredParsedResultRow, StoredResult,
 };
 
 pub struct StorageRepository<'a> {
     pool: &'a SqlitePool,
+}
+
+#[derive(sqlx::FromRow)]
+struct ManualOverrideRow {
+    id: i64,
+    scope: String,
+    entity_type: String,
+    field_name: String,
+    old_value: String,
+    new_value: String,
+    reason: Option<String>,
+    status: String,
+}
+
+impl From<ManualOverrideRow> for ManualOverride {
+    fn from(row: ManualOverrideRow) -> Self {
+        Self {
+            id: row.id,
+            scope: row.scope,
+            entity_type: row.entity_type,
+            field_name: row.field_name,
+            old_value: row.old_value,
+            new_value: row.new_value,
+            reason: row.reason,
+            status: row.status,
+        }
+    }
 }
 
 impl<'a> StorageRepository<'a> {
@@ -235,6 +262,92 @@ impl<'a> StorageRepository<'a> {
         .await?;
 
         Ok(id)
+    }
+
+    /// Stores or updates an active manual correction.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write fails.
+    pub async fn upsert_manual_override(&self, manual_override: &NewManualOverride) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO manual_overrides (
+                scope, entity_type, entity_id, source_document_id, parsed_result_row_id,
+                field_name, old_value, new_value, reason, status
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(entity_type, field_name, old_value, scope) WHERE status = 'active'
+            DO UPDATE SET
+                entity_id = excluded.entity_id,
+                source_document_id = excluded.source_document_id,
+                parsed_result_row_id = excluded.parsed_result_row_id,
+                new_value = excluded.new_value,
+                reason = excluded.reason,
+                updated_at = CURRENT_TIMESTAMP
+            RETURNING id
+            ",
+        )
+        .bind(&manual_override.scope)
+        .bind(&manual_override.entity_type)
+        .bind(manual_override.entity_id)
+        .bind(manual_override.source_document_id)
+        .bind(manual_override.parsed_result_row_id)
+        .bind(&manual_override.field_name)
+        .bind(&manual_override.old_value)
+        .bind(&manual_override.new_value)
+        .bind(&manual_override.reason)
+        .bind(&manual_override.status)
+        .fetch_one(self.pool)
+        .await?;
+
+        Ok(id)
+    }
+
+    /// Reads active manual corrections for an entity field.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database lookup fails.
+    pub async fn active_manual_overrides(
+        &self,
+        entity_type: &str,
+        field_name: &str,
+    ) -> Result<Vec<ManualOverride>> {
+        let rows = sqlx::query_as::<_, ManualOverrideRow>(
+            r"
+            SELECT id, scope, entity_type, field_name, old_value, new_value, reason, status
+            FROM manual_overrides
+            WHERE entity_type = ? AND field_name = ? AND status = 'active'
+            ORDER BY scope, old_value
+            ",
+        )
+        .bind(entity_type)
+        .bind(field_name)
+        .fetch_all(self.pool)
+        .await?;
+
+        Ok(rows.into_iter().map(ManualOverride::from).collect())
+    }
+
+    /// Reads all active manual corrections.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database lookup fails.
+    pub async fn all_active_manual_overrides(&self) -> Result<Vec<ManualOverride>> {
+        let rows = sqlx::query_as::<_, ManualOverrideRow>(
+            r"
+            SELECT id, scope, entity_type, field_name, old_value, new_value, reason, status
+            FROM manual_overrides
+            WHERE status = 'active'
+            ORDER BY entity_type, field_name, old_value
+            ",
+        )
+        .fetch_all(self.pool)
+        .await?;
+
+        Ok(rows.into_iter().map(ManualOverride::from).collect())
     }
 
     /// Stores a canonical result and returns its technical ID.
@@ -516,6 +629,9 @@ impl<'a> StorageRepository<'a> {
             )
             .fetch_one(self.pool)
             .await?,
+            manual_overrides: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM manual_overrides")
+                .fetch_one(self.pool)
+                .await?,
         })
     }
 }
@@ -525,8 +641,8 @@ mod tests {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     use super::{
-        NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewParsedResultRow,
-        NewParserRun, NewResult, NewSourceDocument, StorageRepository,
+        NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewManualOverride,
+        NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, StorageRepository,
     };
     use crate::storage::{Database, DatabaseConfig};
 
@@ -565,6 +681,14 @@ mod tests {
             .upsert_discipline(&discipline())
             .await
             .expect("discipline is stored");
+        repository
+            .upsert_manual_override(&manual_override())
+            .await
+            .expect("manual override is stored");
+        let overrides = repository
+            .active_manual_overrides("club", "canonical_name")
+            .await
+            .expect("manual overrides are loaded");
         let parsed_row_id = repository
             .insert_parsed_result_row_once(&parsed_result_row(parser_run_id, source_document_id))
             .await
@@ -608,6 +732,9 @@ mod tests {
         assert_eq!(counts.results, 1);
         assert_eq!(counts.parser_runs, 1);
         assert_eq!(counts.parsed_result_rows, 1);
+        assert_eq!(counts.manual_overrides, 1);
+        assert_eq!(overrides[0].old_value, "Schützenverein Reinfeld 1");
+        assert_eq!(overrides[0].new_value, "Schützenverein Reinfeld");
 
         pool.close().await;
         remove_database_files(&path);
@@ -699,6 +826,21 @@ mod tests {
         NewDiscipline {
             code: Some("1.80.40".to_owned()),
             name: "KK liegend".to_owned(),
+        }
+    }
+
+    fn manual_override() -> NewManualOverride {
+        NewManualOverride {
+            scope: "global".to_owned(),
+            entity_type: "club".to_owned(),
+            entity_id: None,
+            source_document_id: None,
+            parsed_result_row_id: None,
+            field_name: "canonical_name".to_owned(),
+            old_value: "Schützenverein Reinfeld 1".to_owned(),
+            new_value: "Schützenverein Reinfeld".to_owned(),
+            reason: Some("Mannschaftsnummer am Vereinsnamen".to_owned()),
+            status: "active".to_owned(),
         }
     }
 

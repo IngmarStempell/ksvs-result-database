@@ -4,19 +4,19 @@ use std::path::{Path, PathBuf};
 use anyhow::Context;
 use clap::Parser;
 use pdf_explorer::export::{
-    CombinedExportConfig, CombinedExporter, ParticipationExportConfig, ParticipationExporter,
-    PodiumExportConfig, PodiumExporter,
+    CombinedExportConfig, CombinedExporter, ManualNameOverrides, ParticipationExportConfig,
+    ParticipationExporter, PodiumExportConfig, PodiumExporter,
 };
 use pdf_explorer::import::{PodiumImportConfig, PodiumImporter};
 use pdf_explorer::ingest::{CrawlConfig, CrawlReporter};
 use pdf_explorer::pdf::{ExtractOptions, PdfExtractor};
 use pdf_explorer::sport_results::SportResultsParser;
-use pdf_explorer::storage::{Database, DatabaseConfig};
+use pdf_explorer::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
 
 use crate::cli::{
     CleanArgs, Cli, Commands, CrawlReportArgs, DEFAULT_CRAWL_HTML_REPORT, DEFAULT_CRAWL_REPORT,
     DEFAULT_DOWNLOAD_DIR, DEFAULT_MANUAL_REVIEW_DIR, DEFAULT_SOURCE_NAME, DbArgs, DbCommands,
-    OutputFormat,
+    ManualOverrideCommands, ManualOverrideValueArgs, OutputFormat,
 };
 
 pub async fn run() -> anyhow::Result<()> {
@@ -33,10 +33,11 @@ pub async fn run() -> anyhow::Result<()> {
             min_text_chars,
         } => parse_sport(&input, min_text_chars),
         Commands::CrawlReport(args) => crawl_report(*args),
-        Commands::ExportPodium(args) => export_podium(*args),
+        Commands::ExportPodium(args) => export_podium(*args).await,
         Commands::ExportParticipation(args) => export_participation(*args),
         Commands::ExportCombined(args) => export_combined(*args),
         Commands::ImportPodium(args) => import_podium(args).await,
+        Commands::ManualOverride(args) => manage_manual_overrides(args).await,
         Commands::Clean(args) => clean_generated_data(&args),
         Commands::Db(args) => manage_database(args).await,
     }
@@ -126,7 +127,12 @@ fn crawl_report(args: CrawlReportArgs) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn export_podium(args: crate::cli::ExportPodiumArgs) -> anyhow::Result<()> {
+async fn export_podium(args: crate::cli::ExportPodiumArgs) -> anyhow::Result<()> {
+    let manual_overrides = if let Some(path) = args.override_database.as_deref() {
+        load_manual_name_overrides(path).await?
+    } else {
+        ManualNameOverrides::default()
+    };
     let config = PodiumExportConfig {
         crawl_report_path: args.crawl_report,
         json_output_path: args.output,
@@ -134,11 +140,38 @@ fn export_podium(args: crate::cli::ExportPodiumArgs) -> anyhow::Result<()> {
         focus_association_code: args.focus_association_code,
         max_place: args.max_place,
         min_text_chars: args.min_text_chars,
+        manual_overrides,
     };
     let export = PodiumExporter::new(config).run()?;
 
     println!("{}", serde_json::to_string_pretty(&export)?);
     Ok(())
+}
+
+async fn load_manual_name_overrides(path: &Path) -> anyhow::Result<ManualNameOverrides> {
+    let database = Database::new(DatabaseConfig {
+        path: path.to_path_buf(),
+    });
+    let pool = database.migrated_pool().await?;
+    let repository = StorageRepository::new(&pool);
+    let club_names = repository
+        .active_manual_overrides("club", "canonical_name")
+        .await?
+        .into_iter()
+        .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+        .collect();
+    let athlete_names = repository
+        .active_manual_overrides("athlete", "canonical_name")
+        .await?
+        .into_iter()
+        .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+        .collect();
+    pool.close().await;
+
+    Ok(ManualNameOverrides {
+        club_names,
+        athlete_names,
+    })
 }
 
 fn export_participation(args: crate::cli::ExportParticipationArgs) -> anyhow::Result<()> {
@@ -178,6 +211,54 @@ async fn import_podium(args: crate::cli::ImportPodiumArgs) -> anyhow::Result<()>
     .await?;
 
     println!("{}", serde_json::to_string_pretty(&report)?);
+    Ok(())
+}
+
+async fn manage_manual_overrides(args: crate::cli::ManualOverrideArgs) -> anyhow::Result<()> {
+    match args.command {
+        ManualOverrideCommands::AddClub(args) => add_manual_override("club", args).await,
+        ManualOverrideCommands::AddAthlete(args) => add_manual_override("athlete", args).await,
+        ManualOverrideCommands::List(args) => {
+            let database = Database::new(DatabaseConfig {
+                path: args.database.clone(),
+            });
+            let pool = database.migrated_pool().await?;
+            let repository = StorageRepository::new(&pool);
+            let overrides = repository.all_active_manual_overrides().await?;
+            pool.close().await;
+
+            println!("{}", serde_json::to_string_pretty(&overrides)?);
+            Ok(())
+        }
+    }
+}
+
+async fn add_manual_override(
+    entity_type: &str,
+    args: ManualOverrideValueArgs,
+) -> anyhow::Result<()> {
+    let database = Database::new(DatabaseConfig {
+        path: args.database.clone(),
+    });
+    let pool = database.migrated_pool().await?;
+    let repository = StorageRepository::new(&pool);
+    let id = repository
+        .upsert_manual_override(&NewManualOverride {
+            scope: "global".to_owned(),
+            entity_type: entity_type.to_owned(),
+            entity_id: None,
+            source_document_id: None,
+            parsed_result_row_id: None,
+            field_name: "canonical_name".to_owned(),
+            old_value: args.from,
+            new_value: args.to,
+            reason: args.reason,
+            status: "active".to_owned(),
+        })
+        .await?;
+    pool.close().await;
+
+    println!("stored manual override {id}");
     Ok(())
 }
 

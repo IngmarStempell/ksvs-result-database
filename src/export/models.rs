@@ -1,3 +1,4 @@
+use std::collections::BTreeMap;
 use std::path::PathBuf;
 
 use chrono::{DateTime, Utc};
@@ -11,6 +12,32 @@ pub struct PodiumExportConfig {
     pub focus_association_code: String,
     pub max_place: u32,
     pub min_text_chars: usize,
+    pub manual_overrides: ManualNameOverrides,
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct ManualNameOverrides {
+    pub club_names: BTreeMap<String, String>,
+    pub athlete_names: BTreeMap<String, String>,
+}
+
+impl ManualNameOverrides {
+    #[must_use]
+    pub fn corrected_club_name(&self, raw_club: &str, canonical_club: &str) -> String {
+        self.club_names
+            .get(canonical_club)
+            .or_else(|| self.club_names.get(raw_club))
+            .cloned()
+            .unwrap_or_else(|| canonical_club.to_owned())
+    }
+
+    #[must_use]
+    pub fn corrected_athlete_name(&self, raw_athlete: &str) -> String {
+        self.athlete_names
+            .get(raw_athlete)
+            .cloned()
+            .unwrap_or_else(|| raw_athlete.to_owned())
+    }
 }
 
 #[derive(Debug, Clone)]

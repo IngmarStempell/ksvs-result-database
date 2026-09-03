@@ -14,9 +14,9 @@ use crate::sport_results::{Rank, SportResultList, SportResultsParser};
 use crate::template::render_template;
 
 use super::models::{
-    CombinedClub, CombinedExport, CombinedExportConfig, ManualReviewPdf, ParticipationExport,
-    ParticipationExportConfig, ParticipationMatch, PodiumExport, PodiumExportConfig,
-    PodiumExportItem, PodiumResultKind,
+    CombinedClub, CombinedExport, CombinedExportConfig, ManualNameOverrides, ManualReviewPdf,
+    ParticipationExport, ParticipationExportConfig, ParticipationMatch, PodiumExport,
+    PodiumExportConfig, PodiumExportItem, PodiumResultKind,
 };
 
 const PODIUM_EXPORT_TEMPLATE: &str = include_str!("../../templates/podium-export.html");
@@ -148,6 +148,8 @@ impl PodiumExporter {
                 local_path,
             ));
         }
+
+        apply_manual_overrides(&mut items, &self.config.manual_overrides);
 
         items.sort_by(|left, right| {
             left.shooter
@@ -358,6 +360,13 @@ impl PodiumExporter {
         let content = render_html_export(export, report_dir);
         fs::write(&self.config.html_output_path, content)
             .with_context(|| format!("could not write {}", self.config.html_output_path.display()))
+    }
+}
+
+fn apply_manual_overrides(items: &mut [PodiumExportItem], overrides: &ManualNameOverrides) {
+    for item in items {
+        item.shooter = overrides.corrected_athlete_name(&item.shooter);
+        item.canonical_club = overrides.corrected_club_name(&item.club, &item.canonical_club);
     }
 }
 
@@ -1440,16 +1449,17 @@ fn escape_html(value: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::{
-        CombinedExportConfig, CombinedExporter, ManualReviewPdf, ParticipationExport,
-        ParticipationMatch, PodiumExport, PodiumExportConfig, PodiumExportItem, PodiumExporter,
-        PodiumResultKind, association_label, association_matches, association_name,
-        canonical_club_name, club_aliases, club_name_without_numeric_prefix,
-        collapse_truncated_clubs, collapse_whitespace, combined_known_club_names, escape_html,
-        is_meyton_rank_header, meyton_association_code, meyton_continued_shooter_name,
-        meyton_discipline_code, meyton_event_date, meyton_event_name, meyton_shooter_name,
-        meyton_team_header, normalize_match_text, participation_shooter_from_line,
-        participation_shooters, render_html_export, report_source_name, resolve_truncated_club,
-        source_display_name, truncated_prefix,
+        CombinedExportConfig, CombinedExporter, ManualNameOverrides, ManualReviewPdf,
+        ParticipationExport, ParticipationMatch, PodiumExport, PodiumExportConfig,
+        PodiumExportItem, PodiumExporter, PodiumResultKind, apply_manual_overrides,
+        association_label, association_matches, association_name, canonical_club_name,
+        club_aliases, club_name_without_numeric_prefix, collapse_truncated_clubs,
+        collapse_whitespace, combined_known_club_names, escape_html, is_meyton_rank_header,
+        meyton_association_code, meyton_continued_shooter_name, meyton_discipline_code,
+        meyton_event_date, meyton_event_name, meyton_shooter_name, meyton_team_header,
+        normalize_match_text, participation_shooter_from_line, participation_shooters,
+        render_html_export, report_source_name, resolve_truncated_club, source_display_name,
+        truncated_prefix,
     };
     use crate::ingest::CrawlReport;
     use crate::sport_results::{
@@ -1470,6 +1480,7 @@ mod tests {
             focus_association_code: "OD".to_string(),
             max_place: 3,
             min_text_chars: 80,
+            manual_overrides: ManualNameOverrides::default(),
         });
         let event = EventInfo {
             name: "Landesmeisterschaft".to_string(),
@@ -1572,6 +1583,7 @@ mod tests {
             focus_association_code: "all".to_string(),
             max_place: 3,
             min_text_chars: 80,
+            manual_overrides: ManualNameOverrides::default(),
         });
         let event = EventInfo {
             name: "Landesmeisterschaft".to_string(),
@@ -1631,6 +1643,7 @@ mod tests {
             focus_association_code: "OD".to_string(),
             max_place: 3,
             min_text_chars: 80,
+            manual_overrides: ManualNameOverrides::default(),
         });
         let text = "\
 VW112_K40_260516_1045 Finale
@@ -1680,6 +1693,7 @@ VW112_K40_260516_1045 Finale
             focus_association_code: "OD".to_string(),
             max_place: 3,
             min_text_chars: 80,
+            manual_overrides: ManualNameOverrides::default(),
         });
         let text = "\
 VW212_K10_260516_0915 Finale
@@ -1981,6 +1995,44 @@ Christine Single Shot Series
     #[test]
     fn escapes_html_and_control_characters() {
         assert_eq!(escape_html("A&B<\0>"), "A&amp;B&lt; &gt;");
+    }
+
+    #[test]
+    fn applies_manual_name_overrides_to_podium_export_items() {
+        let mut items = vec![PodiumExportItem {
+            source_name: "landesmeisterschaften".to_string(),
+            rank: 1,
+            result_kind: PodiumResultKind::Individual,
+            shooter: "R hl, Eberhard".to_string(),
+            club: "080 Schützenverein Reinfeld 1".to_string(),
+            canonical_club: "Schützenverein Reinfeld".to_string(),
+            association_code: "OD".to_string(),
+            association_name: "Stormarn".to_string(),
+            discipline: Some("Luftgewehr".to_string()),
+            discipline_code: Some("1.10".to_string()),
+            class_name: None,
+            event_name: "LM".to_string(),
+            event_date: None,
+            score: Some(100.0),
+            pdf_url: "https://example.org/lm.pdf".to_string(),
+            local_path: PathBuf::from("data/lm.pdf"),
+        }];
+        let overrides = ManualNameOverrides {
+            club_names: BTreeMap::from([(
+                "Schützenverein Reinfeld".to_string(),
+                "Schützenverein Reinfeld e.V.".to_string(),
+            )]),
+            athlete_names: BTreeMap::from([(
+                "R hl, Eberhard".to_string(),
+                "Rühl, Eberhard".to_string(),
+            )]),
+        };
+
+        apply_manual_overrides(&mut items, &overrides);
+
+        assert_eq!(items[0].club, "080 Schützenverein Reinfeld 1");
+        assert_eq!(items[0].canonical_club, "Schützenverein Reinfeld e.V.");
+        assert_eq!(items[0].shooter, "Rühl, Eberhard");
     }
 
     #[test]

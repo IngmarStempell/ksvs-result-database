@@ -127,6 +127,32 @@ pub struct NewParsedResultRow {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewManualOverride {
+    pub scope: String,
+    pub entity_type: String,
+    pub entity_id: Option<i64>,
+    pub source_document_id: Option<i64>,
+    pub parsed_result_row_id: Option<i64>,
+    pub field_name: String,
+    pub old_value: String,
+    pub new_value: String,
+    pub reason: Option<String>,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+pub struct ManualOverride {
+    pub id: i64,
+    pub scope: String,
+    pub entity_type: String,
+    pub field_name: String,
+    pub old_value: String,
+    pub new_value: String,
+    pub reason: Option<String>,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct StorageCounts {
     pub source_documents: i64,
     pub import_runs: i64,
@@ -137,6 +163,7 @@ pub struct StorageCounts {
     pub results: i64,
     pub parser_runs: i64,
     pub parsed_result_rows: i64,
+    pub manual_overrides: i64,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

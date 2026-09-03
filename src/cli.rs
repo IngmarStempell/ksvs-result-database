@@ -51,6 +51,8 @@ pub enum Commands {
     ExportCombined(Box<ExportCombinedArgs>),
     /// Import a podium export JSON into the local database.
     ImportPodium(ImportPodiumArgs),
+    /// Manage manual name corrections used by database imports.
+    ManualOverride(ManualOverrideArgs),
     /// Remove generated state, downloads, manual-review files, and reports.
     Clean(CleanArgs),
     /// Manage the local `SQLite` database.
@@ -140,6 +142,10 @@ pub struct ExportPodiumArgs {
     /// Treat PDFs with very little extracted text as OCR candidates.
     #[arg(long, default_value_t = 80)]
     pub min_text_chars: usize,
+
+    /// `SQLite` database file containing active manual name corrections.
+    #[arg(long)]
+    pub override_database: Option<PathBuf>,
 }
 
 #[derive(Debug, Parser)]
@@ -194,6 +200,48 @@ pub struct ImportPodiumArgs {
     #[arg(long, default_value = "reports/latest-podium-export.json")]
     pub input: PathBuf,
 
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ManualOverrideArgs {
+    #[command(subcommand)]
+    pub command: ManualOverrideCommands,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum ManualOverrideCommands {
+    /// Store a manual club name correction.
+    AddClub(ManualOverrideValueArgs),
+    /// Store a manual athlete name correction.
+    AddAthlete(ManualOverrideValueArgs),
+    /// List active manual corrections.
+    List(ManualOverrideListArgs),
+}
+
+#[derive(Debug, Parser)]
+pub struct ManualOverrideValueArgs {
+    /// Value produced by the parser/export.
+    #[arg(long)]
+    pub from: String,
+
+    /// Canonical value that should be used from now on.
+    #[arg(long)]
+    pub to: String,
+
+    /// Optional note explaining the correction.
+    #[arg(long)]
+    pub reason: Option<String>,
+
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ManualOverrideListArgs {
     /// `SQLite` database file used by the application.
     #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
     pub database: PathBuf,
