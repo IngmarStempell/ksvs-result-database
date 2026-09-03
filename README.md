@@ -208,6 +208,39 @@ Mannschaftsmedaillen pro Sportler:
 sqlite3 data/pdf-explorer.sqlite "SELECT athletes.canonical_name, teams.canonical_name, teams.rank, team_result_members.medal FROM team_result_members JOIN teams ON teams.id = team_result_members.team_id LEFT JOIN athletes ON athletes.id = team_result_members.athlete_id ORDER BY athletes.canonical_name;"
 ```
 
+### Paket 7: Deutsche Meisterschaften und Teilnahme
+
+Zuerst werden wie bisher die LM- und DM-Reports erzeugt:
+
+```bash
+cargo run -- crawl-report "https://www.ndsb-sh.de/sport/landesmeisterschaften" --source-name landesmeisterschaften --year 2026 --focus Stormarn --focus-association-code OD
+cargo run -- crawl-report "https://www.ndsb-sh.de/sport/deutsche-meisterschaften" --source-name deutsche-meisterschaften --year 2026 --focus "Deutsche Meisterschaften" --focus-association-code OD --max-depth 0 --max-pages 1
+```
+
+Dann den LM-Podiumsreport und den DM-Teilnahmereport erzeugen:
+
+```bash
+cargo run -- export-podium --crawl-report reports/archive/2026/landesmeisterschaften/crawl-report.json --output reports/archive/2026/landesmeisterschaften/podium-export.json --html-output reports/archive/2026/landesmeisterschaften/podium-export.html --focus-association-code OD --max-place 3 --override-database data/pdf-explorer.sqlite
+cargo run -- export-participation --club-source-report reports/archive/2026/landesmeisterschaften/crawl-report.json --results-report reports/archive/2026/deutsche-meisterschaften/crawl-report.json --output reports/archive/2026/deutsche-meisterschaften/participation-export.json --html-output reports/archive/2026/deutsche-meisterschaften/participation-export.html --focus-association-code OD
+```
+
+Beide Exporte in die Datenbank importieren:
+
+```bash
+cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
+cargo run -- import-participation --input reports/archive/2026/deutsche-meisterschaften/participation-export.json --database data/pdf-explorer.sqlite
+```
+
+`import-participation` legt die Deutsche Meisterschaft als eigene `competition` mit `scope = DM` an. Die Treffer werden als Ergebnisse mit `participation_only = 1` gespeichert. Wenn im Teilnahmereport Schützennamen erkannt wurden, werden diese mit Sportlern verknüpft; ansonsten bleibt die Teilnahme auf Verein/Quelle nachvollziehbar.
+
+Kombinierte Auswertung LM-Medaille zu DM-Teilnahme:
+
+```bash
+sqlite3 data/pdf-explorer.sqlite "SELECT athlete_name, club_name, year, lm_medal, lm_rank, has_dm_participation FROM lm_medals_with_dm_participation ORDER BY club_name, athlete_name;"
+```
+
+Die View `lm_medals_with_dm_participation` zeigt LM-Medaillen und markiert, ob fuer denselben Sportler und Verein im selben Jahr eine DM-Teilnahme importiert wurde.
+
 Start over with a clean generated data foundation:
 
 ```bash

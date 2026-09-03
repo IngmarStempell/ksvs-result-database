@@ -51,6 +51,8 @@ pub enum Commands {
     ExportCombined(Box<ExportCombinedArgs>),
     /// Import a podium export JSON into the local database.
     ImportPodium(ImportPodiumArgs),
+    /// Import a participation export JSON into the local database.
+    ImportParticipation(ImportParticipationArgs),
     /// Manage manual name corrections used by database imports.
     ManualOverride(ManualOverrideArgs),
     /// Remove generated state, downloads, manual-review files, and reports.
@@ -198,6 +200,17 @@ pub struct ExportCombinedArgs {
 pub struct ImportPodiumArgs {
     /// JSON podium export created by export-podium.
     #[arg(long, default_value = "reports/latest-podium-export.json")]
+    pub input: PathBuf,
+
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ImportParticipationArgs {
+    /// JSON participation export created by export-participation.
+    #[arg(long, default_value = "reports/latest-participation-export.json")]
     pub input: PathBuf,
 
     /// `SQLite` database file used by the application.

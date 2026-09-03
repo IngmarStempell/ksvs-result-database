@@ -47,6 +47,9 @@ Die Anwendung kann aktuell:
 - Parser-Rohdaten trotz Korrekturen unveraendert erhalten
 - Mannschaften, Mannschaftsmitglieder und Mannschaftsmedaillen pro Mitglied in SQLite speichern
 - Mannschaftsnummern als eigene Team-Eigenschaft vom Vereinsnamen trennen
+- Deutsche Meisterschaften als eigene Competition importieren
+- DM-Teilnahmen ohne Platzierung als `participation_only`-Ergebnisse speichern
+- LM-Medaillen mit DM-Teilnahmen ueber eine Datenbank-View kombinieren
 
 Die Modulgrenzen sind aktuell grob:
 
@@ -563,12 +566,28 @@ Umgesetzt ist zunaechst eine aktive globale Korrekturschicht fuer Vereins- und S
 
 Umgesetzt ist zunaechst der Importpfad aus `podium-export.json`. Die Teamdaten werden aus bestehenden Mannschafts-Ergebniszeilen abgeleitet. Mannschaftsgesamtergebnisse koennen spaeter genauer werden, wenn der direkte Parserlauf aus den PDF-Strukturen nicht mehr ueber den reduzierten Podium-Export gehen muss.
 
-### Paket 7: Deutsche Meisterschaften und Teilnahme
+### Paket 7: Deutsche Meisterschaften und Teilnahme - erledigt
 
 - DM als eigene `competition` importieren
 - Teilnahme ohne Platzierung modellieren
 - vorhandene Vereinserkennung gegen bekannte Kreisvereine nutzen
 - kombinierte Auswertung LM-Medaille zu DM-Teilnahme erzeugen
+
+Stand der Umsetzung:
+
+- `participation-export.json` kann per `import-participation` in die Datenbank importiert werden
+- der Import legt eine Competition `DM-<Jahr>` mit `scope = DM` an
+- DM-Treffer werden als `results.participation_only = true` gespeichert
+- erkannte Schuetzennamen werden mit `athletes` verknuepft
+- Treffer ohne erkannte Schuetzen bleiben ueber Verein, Quelle und PDF nachvollziehbar
+- die View `lm_medals_with_dm_participation` kombiniert LM-Medaillen mit DM-Teilnahmen desselben Jahres
+
+Noch offen:
+
+- Teilnahme genauer nach Disziplin/Klasse modellieren, sobald DM-PDFs strukturierter geparst werden
+- Vereinsabgleich langfristig ueber `club_aliases` statt nur ueber Export-/Parserkanonisierung fuehren
+- kombinierte Auswertung als HTML-/GUI-Ansicht statt nur als SQLite-View anbieten
+- Teilnahme bei DM, WM und Olympia spaeter in ein allgemeines Wettbewerbsmodell ueberfuehren
 
 ### Paket 8: HTML-/JSON-Reports aus Datenbank
 
