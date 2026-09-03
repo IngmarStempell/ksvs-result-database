@@ -15,6 +15,7 @@ use pdf_explorer::ingest::{CrawlConfig, CrawlReporter};
 use pdf_explorer::pdf::{ExtractOptions, PdfExtractor};
 use pdf_explorer::sport_results::SportResultsParser;
 use pdf_explorer::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
+use pdf_explorer::web::{WebConfig, WebServer};
 
 use crate::cli::{
     CleanArgs, Cli, Commands, CrawlReportArgs, DEFAULT_CRAWL_HTML_REPORT, DEFAULT_CRAWL_REPORT,
@@ -46,6 +47,7 @@ pub async fn run() -> anyhow::Result<()> {
         Commands::ManualOverride(args) => manage_manual_overrides(args).await,
         Commands::Clean(args) => clean_generated_data(&args),
         Commands::Db(args) => manage_database(args).await,
+        Commands::Serve(args) => serve_web_ui(args).await,
     }
 }
 
@@ -347,6 +349,15 @@ async fn manage_database(args: DbArgs) -> anyhow::Result<()> {
         }
     }
     Ok(())
+}
+
+async fn serve_web_ui(args: crate::cli::ServeArgs) -> anyhow::Result<()> {
+    WebServer::new(WebConfig {
+        database_path: args.database,
+        bind: args.bind,
+    })
+    .run()
+    .await
 }
 
 fn remove_path_if_exists(path: &Path) -> anyhow::Result<()> {

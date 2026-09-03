@@ -5,3 +5,4 @@ pub mod pdf;
 pub mod sport_results;
 pub mod storage;
 pub(crate) mod template;
+pub mod web;

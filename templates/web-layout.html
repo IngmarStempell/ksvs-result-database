@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}} - PDF Explorer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --line: #d9dee7;
+      --text: #17202a;
+      --muted: #667085;
+      --accent: #0f766e;
+      --accent-soft: #dff7f3;
+      --hover: #fff4c2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 6px;
+    }
+    nav a:hover,
+    nav a.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    main {
+      width: min(1280px, calc(100vw - 32px));
+      margin: 22px auto 44px;
+    }
+    .page-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+    }
+    .muted,
+    .empty {
+      color: var(--muted);
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 880px;
+    }
+    th,
+    td {
+      padding: 9px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: #f1f4f8;
+    }
+    tbody tr:hover {
+      background: var(--hover);
+    }
+    .num {
+      text-align: right;
+      white-space: nowrap;
+    }
+    a {
+      color: var(--accent);
+    }
+    @media (max-width: 760px) {
+      header,
+      .page-head {
+        align-items: stretch;
+        flex-direction: column;
+      }
+      main {
+        width: min(100vw - 20px, 1280px);
+        margin-top: 14px;
+      }
+      table {
+        min-width: 760px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">PDF Explorer</div>
+    <nav aria-label="Hauptnavigation">
+      <a class="{{active_import_runs}}" href="/import-runs">Importlaeufe</a>
+      <a class="{{active_results}}" href="/results">Ergebnisse</a>
+      <a class="{{active_athletes}}" href="/athletes">Sportler</a>
+      <a class="{{active_clubs}}" href="/clubs">Vereine</a>
+      <a class="{{active_honors}}" href="/honors">Ehrungen</a>
+    </nav>
+  </header>
+  <main>
+    {{content}}
+  </main>
+</body>
+</html>

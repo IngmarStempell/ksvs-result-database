@@ -264,6 +264,42 @@ export-db-podium   -> PodiumExport
 export-db-combined -> CombinedExport
 ```
 
+### Paket 9: GUI-Grundlage
+
+Technische Basis:
+
+- Rust Backend
+- lokale Weboberflaeche
+- serverseitig gerendertes HTML
+- SQLite als Datenquelle
+
+Die erste GUI ist lesend. Der Einstiegspunkt sind Importlaeufe; von dort aus fuehrt die Navigation weiter zu Ergebnissen, Sportlern, Vereinen und spaeter Ehrungen. Ehrungen sind in Paket 9 zunaechst nur als Platzhalter vorgesehen.
+
+Lokale Weboberflaeche starten:
+
+```bash
+cargo run -- serve --database data/pdf-explorer.sqlite --bind 127.0.0.1:7878
+```
+
+Danach im Browser oeffnen:
+
+```text
+http://127.0.0.1:7878/import-runs
+```
+
+Verfuegbare lesende Ansichten:
+
+```text
+/import-runs
+/import-runs/<id>/results
+/results
+/athletes
+/clubs
+/honors
+```
+
+Manuelle Korrekturen werden bewusst nicht in der ersten GUI-Grundlage freigeschaltet. Schreibaktionen kommen spaeter in einem eigenen Paket fuer Korrekturen, damit Parserdaten, kanonische Daten und manuelle Eingriffe getrennt bleiben.
+
 Start over with a clean generated data foundation:
 
 ```bash

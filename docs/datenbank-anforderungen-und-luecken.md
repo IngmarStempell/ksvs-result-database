@@ -502,16 +502,11 @@ Das Regelwerk sollte zunaechst bewusst klein bleiben. Es muss nicht sofort eine 
 
 ### GUI-Technologie
 
-Die GUI-Technologie ist noch offen.
+Die GUI soll zunaechst als lokale Weboberflaeche mit Rust Backend umgesetzt werden. Die Seiten werden serverseitig als HTML gerendert. Das passt gut zu SQLite, den bestehenden Report-Templates und dem CLI-orientierten Importfluss.
 
-Moegliche Wege:
+Die erste GUI ist bewusst eine lesende Verwaltungsoberflaeche. Der Einstiegspunkt sind Importlaeufe. Von dort aus kann man zu den zugehoerigen Ergebnissen, Sportlern, Vereinen und spaeter zu Ehrungsvorschlaegen navigieren.
 
-- lokale Weboberflaeche mit Rust Backend, zum Beispiel `axum`
-- Desktop-App mit Web-Frontend, zum Beispiel Tauri
-- einfache serverseitige HTML-Oberflaeche mit Templates
-- spaeter API plus separates Frontend
-
-Fuer den Anfang ist eine lokale Weboberflaeche mit Rust Backend wahrscheinlich der pragmatischste Weg. Sie passt gut zu SQLite, HTML-Reports und den bestehenden Templates.
+Noch nicht Teil der GUI-Grundlage sind schreibende Korrekturen. Diese kommen spaeter in einem eigenen Paket, damit Parserdaten, kanonische Werte und manuelle Eingriffe fachlich sauber getrennt bleiben.
 
 ## Umsetzungsskizze
 
@@ -615,16 +610,23 @@ Noch offen:
 
 ### Paket 9: GUI-Grundlage
 
-- lokale Weboberflaeche oder Desktop-Huelle festlegen
+- lokale Weboberflaeche mit Rust Backend festlegen
+- serverseitig gerendertes HTML als erste UI-Technologie nutzen
 - Navigation fuer Importlaeufe, Ergebnisse, Sportler, Vereine und Ehrungen anlegen
+- Importlaeufe als Einstiegspunkt der Oberflaeche bauen
+- von Importlaeufen in die importierten Daten verzweigen
 - lesende Ansichten zuerst bauen
+- Ehrungen zunaechst nur als Platzhalter-Navigation aufnehmen
 - Schreibaktionen erst nach klarer Korrekturschicht freigeben
 
 ### Paket 10: UI fuer Korrekturen
 
 - grafische Oberflaeche fuer manuelle Korrekturen
+- Schreibaktionen fuer Korrekturen erst hier freigeben
 - Ansichten fuer ungepruefte Parserfaelle
 - Zusammenfuehrung von Sportlern und Vereinen
+- Korrekturen fuer Vereinsnamen und Sportlernamen bearbeiten
+- Korrekturen nachvollziehbar speichern, anzeigen und zuruecknehmen
 - Historie der Korrekturen anzeigen
 
 ### Paket 11: Sportlerehrungen

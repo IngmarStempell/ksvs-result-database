@@ -63,6 +63,8 @@ pub enum Commands {
     Clean(CleanArgs),
     /// Manage the local `SQLite` database.
     Db(DbArgs),
+    /// Start the local read-only web UI.
+    Serve(ServeArgs),
 }
 
 #[derive(Debug, Parser)]
@@ -369,6 +371,17 @@ pub struct DatabaseArgs {
     /// `SQLite` database file used by the application.
     #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
     pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ServeArgs {
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+
+    /// Local socket address used by the read-only web UI.
+    #[arg(long, default_value = "127.0.0.1:7878")]
+    pub bind: String,
 }
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
