@@ -7,7 +7,9 @@ use std::path::PathBuf;
 use anyhow::{Context, Result};
 use percent_encoding::percent_decode_str;
 
-use crate::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
+use crate::storage::{
+    Database, DatabaseConfig, NewClub, NewClubAlias, NewManualOverride, StorageRepository,
+};
 use crate::template::render_template;
 
 mod service;
@@ -33,6 +35,7 @@ const CLUB_DETAIL_TEMPLATE: &str = include_str!("../templates/web-club-detail.ht
 const PARSER_RUNS_TEMPLATE: &str = include_str!("../templates/web-parser-runs.html");
 const PARSER_RUN_DETAIL_TEMPLATE: &str = include_str!("../templates/web-parser-run-detail.html");
 const COMBINED_TEMPLATE: &str = include_str!("../templates/web-combined.html");
+const CLUB_ALIASES_TEMPLATE: &str = include_str!("../templates/web-club-aliases.html");
 
 #[derive(Debug, Clone)]
 pub struct WebConfig {
@@ -131,6 +134,7 @@ async fn route_get(
         "/sources" => sources_page(pool).await.map(WebResponse::Html),
         "/parser-runs" => parser_runs_page(pool).await.map(WebResponse::Html),
         "/combined" => combined_page(pool, query).await.map(WebResponse::Html),
+        "/club-aliases" => club_aliases_page(pool).await.map(WebResponse::Html),
         "/corrections" => corrections_page(pool, query).await.map(WebResponse::Html),
         "/corrections/issues" => parser_issues_page(pool).await.map(WebResponse::Html),
         "/honors" => Ok(WebResponse::Html(honors_page())),
@@ -183,6 +187,19 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
         "/corrections" => {
             create_manual_override(pool, &request.body).await?;
             Ok(WebResponse::Redirect("/corrections"))
+        }
+        "/club-aliases" => {
+            create_club_alias(pool, &request.body).await?;
+            Ok(WebResponse::Redirect("/club-aliases"))
+        }
+        path if path.starts_with("/club-aliases/") && path.ends_with("/deactivate") => {
+            let id = path
+                .trim_start_matches("/club-aliases/")
+                .trim_end_matches("/deactivate")
+                .parse::<i64>()
+                .context("invalid club alias id")?;
+            deactivate_club_alias(pool, id).await?;
+            Ok(WebResponse::Redirect("/club-aliases"))
         }
         path if path.starts_with("/corrections/") && path.ends_with("/revoke") => {
             let id = path
@@ -645,6 +662,46 @@ async fn combined_page(
     ))
 }
 
+async fn club_aliases_page(pool: &sqlx::SqlitePool) -> Result<String> {
+    let repository = StorageRepository::new(pool);
+    let aliases = repository.all_club_aliases().await?;
+    let mut rows_html = String::new();
+    for alias in aliases {
+        let action = if alias.status == "active" {
+            format!(
+                "<form class=\"inline\" method=\"post\" action=\"/club-aliases/{}/deactivate\"><button type=\"submit\">Deaktivieren</button></form>",
+                alias.id
+            )
+        } else {
+            String::new()
+        };
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\">{}</td><td>{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            alias.id,
+            escape_html(&alias.alias),
+            alias.club_id,
+            escape_html(&alias.canonical_name),
+            escape_optional(alias.association_code.as_deref()),
+            escape_optional(alias.source.as_deref()),
+            escape_html(&alias.status),
+            action
+        );
+    }
+    let club_options = datalist_options(&WebDataService::new(pool).club_names().await?);
+    Ok(render_page(
+        "Vereinsaliase",
+        "club-aliases",
+        render_template(
+            CLUB_ALIASES_TEMPLATE,
+            &[
+                ("club_options", club_options),
+                ("rows", empty_rows(rows_html, 7)),
+            ],
+        ),
+    ))
+}
+
 fn honors_page() -> String {
     render_page("Ehrungen", "honors", render_template(HONORS_TEMPLATE, &[]))
 }
@@ -704,6 +761,7 @@ fn render_page(title: &str, active: &str, content: String) -> String {
             ("active_sources", active_class(active, "sources")),
             ("active_parser_runs", active_class(active, "parser-runs")),
             ("active_combined", active_class(active, "combined")),
+            ("active_club_aliases", active_class(active, "club-aliases")),
             ("active_corrections", active_class(active, "corrections")),
             ("active_honors", active_class(active, "honors")),
             ("content", content),
@@ -876,6 +934,40 @@ async fn create_manual_override(pool: &sqlx::SqlitePool, body: &str) -> Result<(
         })
         .await?;
     Ok(())
+}
+
+async fn create_club_alias(pool: &sqlx::SqlitePool, body: &str) -> Result<()> {
+    let form = parse_form_urlencoded(body);
+    let alias = form_value(&form, "alias")?;
+    let club_name = form_value(&form, "club")?;
+    let association_code = non_empty_query(&form, "association_code");
+    let source = non_empty_query(&form, "source").or_else(|| Some("web".to_owned()));
+    let repository = StorageRepository::new(pool);
+    let club_id = if let Some(club_id) = repository.find_club_id_by_name(&club_name).await? {
+        club_id
+    } else {
+        repository
+            .upsert_club(&NewClub {
+                canonical_name: club_name,
+                association_code: association_code.clone(),
+                source: Some("web-alias".to_owned()),
+            })
+            .await?
+    };
+    repository
+        .upsert_club_alias(&NewClubAlias {
+            club_id,
+            alias,
+            association_code,
+            source,
+            status: "active".to_owned(),
+        })
+        .await?;
+    Ok(())
+}
+
+async fn deactivate_club_alias(pool: &sqlx::SqlitePool, id: i64) -> Result<()> {
+    StorageRepository::new(pool).deactivate_club_alias(id).await
 }
 
 async fn revoke_manual_override(pool: &sqlx::SqlitePool, id: i64) -> Result<()> {

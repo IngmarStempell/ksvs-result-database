@@ -14,13 +14,16 @@ use pdf_explorer::import::{
 use pdf_explorer::ingest::{CrawlConfig, CrawlReporter};
 use pdf_explorer::pdf::{ExtractOptions, PdfExtractor};
 use pdf_explorer::sport_results::SportResultsParser;
-use pdf_explorer::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
+use pdf_explorer::storage::{
+    Database, DatabaseConfig, NewClub, NewClubAlias, NewManualOverride, StorageRepository,
+};
 use pdf_explorer::web::{WebConfig, WebServer};
 
 use crate::cli::{
-    CleanArgs, Cli, Commands, CrawlReportArgs, DEFAULT_CRAWL_HTML_REPORT, DEFAULT_CRAWL_REPORT,
-    DEFAULT_DOWNLOAD_DIR, DEFAULT_MANUAL_REVIEW_DIR, DEFAULT_SOURCE_NAME, DbArgs, DbCommands,
-    ManualOverrideCommands, ManualOverrideValueArgs, OutputFormat,
+    CleanArgs, Cli, ClubAliasCommands, ClubAliasValueArgs, Commands, CrawlReportArgs,
+    DEFAULT_CRAWL_HTML_REPORT, DEFAULT_CRAWL_REPORT, DEFAULT_DOWNLOAD_DIR,
+    DEFAULT_MANUAL_REVIEW_DIR, DEFAULT_SOURCE_NAME, DbArgs, DbCommands, ManualOverrideCommands,
+    ManualOverrideValueArgs, OutputFormat,
 };
 
 pub async fn run() -> anyhow::Result<()> {
@@ -45,6 +48,7 @@ pub async fn run() -> anyhow::Result<()> {
         Commands::ImportPodium(args) => import_podium(args).await,
         Commands::ImportParticipation(args) => import_participation(args).await,
         Commands::ManualOverride(args) => manage_manual_overrides(args).await,
+        Commands::ClubAlias(args) => manage_club_aliases(args).await,
         Commands::Clean(args) => clean_generated_data(&args),
         Commands::Db(args) => manage_database(args).await,
         Commands::Serve(args) => serve_web_ui(args).await,
@@ -262,6 +266,73 @@ async fn import_participation(args: crate::cli::ImportParticipationArgs) -> anyh
     .await?;
 
     println!("{}", serde_json::to_string_pretty(&report)?);
+    Ok(())
+}
+
+async fn manage_club_aliases(args: crate::cli::ClubAliasArgs) -> anyhow::Result<()> {
+    match args.command {
+        ClubAliasCommands::Add(args) => add_club_alias(args).await,
+        ClubAliasCommands::List(args) => {
+            let database = Database::new(DatabaseConfig {
+                path: args.database.clone(),
+            });
+            let pool = database.migrated_pool().await?;
+            let repository = StorageRepository::new(&pool);
+            let aliases = if args.all {
+                repository.all_club_aliases().await?
+            } else {
+                repository.active_club_aliases().await?
+            };
+            pool.close().await;
+
+            println!("{}", serde_json::to_string_pretty(&aliases)?);
+            Ok(())
+        }
+        ClubAliasCommands::Deactivate(args) => {
+            let database = Database::new(DatabaseConfig {
+                path: args.database.clone(),
+            });
+            let pool = database.migrated_pool().await?;
+            StorageRepository::new(&pool)
+                .deactivate_club_alias(args.id)
+                .await?;
+            pool.close().await;
+
+            println!("deactivated club alias {}", args.id);
+            Ok(())
+        }
+    }
+}
+
+async fn add_club_alias(args: ClubAliasValueArgs) -> anyhow::Result<()> {
+    let database = Database::new(DatabaseConfig {
+        path: args.database.clone(),
+    });
+    let pool = database.migrated_pool().await?;
+    let repository = StorageRepository::new(&pool);
+    let club_id = if let Some(club_id) = repository.find_club_id_by_name(&args.club).await? {
+        club_id
+    } else {
+        repository
+            .upsert_club(&NewClub {
+                canonical_name: args.club.clone(),
+                association_code: args.association_code.clone(),
+                source: Some("manual-alias".to_owned()),
+            })
+            .await?
+    };
+    let alias_id = repository
+        .upsert_club_alias(&NewClubAlias {
+            club_id,
+            alias: args.alias,
+            association_code: args.association_code,
+            source: args.source.or_else(|| Some("manual".to_owned())),
+            status: "active".to_owned(),
+        })
+        .await?;
+    pool.close().await;
+
+    println!("stored club alias {alias_id}");
     Ok(())
 }
 

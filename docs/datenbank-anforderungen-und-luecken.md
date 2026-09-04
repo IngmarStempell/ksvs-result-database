@@ -292,8 +292,9 @@ Stand der Umsetzung:
 - Mannschaftsnummern wie `I`, `II` oder `1` werden als `team_number` gespeichert
 - der kanonische Verein bleibt getrennt vom Mannschaftsnamen
 - Roh- und Parser-Schreibweisen von Vereinen werden beim Import als `club_aliases` am kanonischen Verein gespeichert
+- Vereinsaliase koennen per CLI und Weboberflaeche angezeigt, angelegt und deaktiviert werden
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 7 fuer Alias-Ausbau sowie Spaeter 9-12 fuer Mannschaftsdetails.
+Offene Punkte: siehe zentrale Priorisierung, Spaeter 10-13 fuer Mannschaftsdetails.
 
 ### Organisationen
 
@@ -313,10 +314,21 @@ Noetige Modellierung:
 ```text
 organizations
 organization_aliases
-organization_relationships
+organizations.parent_id
 ```
 
 Verein, Kreisverband, Landesverband und Nation koennen langfristig als Organisationen mit Typ modelliert werden.
+
+Stand der Umsetzung:
+
+- `organizations` und `organization_aliases` sind vorhanden
+- Standardorganisationen fuer OD, NDSB, DSB, Deutschland, ISSF und IOC werden per Migration angelegt
+- Organisationen koennen ueber `parent_id` hierarchisch verbunden werden
+- `competitions.organizer_organization_id` kann auf den Veranstalter zeigen
+- `results.representing_organization_id` und `results.start_context` bereiten den Start fuer Verein, Verband oder Nation vor
+- neue Competitions werden fuer bekannte Scopes automatisch einem Veranstalter zugeordnet: KM -> OD, LM -> NDSB, DM -> DSB, WM -> ISSF, Olympia -> IOC
+
+Offene Punkte: siehe zentrale Priorisierung, Sofort 8 fuer fachlichen Ausbau und Spaeter 4 fuer genauere Teilnahmedaten.
 
 ### Manuelle Korrekturen
 
@@ -355,7 +367,7 @@ Stand der Umsetzung:
 - `export-podium` kann aktive Korrekturen optional schon fuer JSON-/HTML-Reports anwenden
 - Parserzeilen behalten die urspruenglichen Rohwerte aus dem Export
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 4 und 7 sowie Spaeter 7-8.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 4 und 6 sowie Spaeter 8-9.
 
 ### Parserlaeufe und Wiederholbarkeit
 
@@ -510,25 +522,25 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 3. Detailseiten fuer Sportler, Vereine, Importlaeufe und Quellen - in Arbeit, Detailseiten fuer Sportler, Vereine, Quellen und Importlauf-Ergebnisse umgesetzt
 4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste und Parserlauf-Detailseite umgesetzt
 5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - in Arbeit, Korrekturformular bietet vorhandene Namen als Vorschlaege an
-6. Teilnahme genauer nach Disziplin/Klasse modellieren
-7. Vereinsabgleich ueber `club_aliases` als Datenbasis - in Arbeit, Tabelle, Repository-Funktionen und automatische Befuellung aus Importen umgesetzt
-8. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
-9. Allgemeines Wettbewerbsmodell fuer DM, WM, Olympia usw.
+6. Vereinsabgleich ueber `club_aliases` als Datenbasis - in Arbeit, Tabelle, Repository-Funktionen, automatische Befuellung, CLI-Pflege und GUI-Pflege umgesetzt
+7. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
+8. Allgemeines Wettbewerbsmodell fuer DM, WM, Olympia usw. - in Arbeit, Organisationen, Organisationsaliase und Startkontext als Schema-Grundlage umgesetzt
 
 ### Spaeter
 
 1. DB-Reports fuer reine Teilnahme- oder Konfliktlisten
 2. UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
 3. Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen
-4. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
-5. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
-6. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
-7. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
-8. Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
-9. Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
-10. Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
-11. Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
-12. GUI-Ansichten fuer Mannschaften und Mitglieder bauen
+4. Teilnahme genauer nach Disziplin/Klasse modellieren
+5. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
+6. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
+7. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
+8. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
+9. Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
+10. Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
+11. Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
+12. Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
+13. GUI-Ansichten fuer Mannschaften und Mitglieder bauen
 
 ## Umsetzungsskizze
 
@@ -602,8 +614,9 @@ Stand der Umsetzung:
 - die View `lm_medals_with_dm_participation` kombiniert LM-Medaillen mit DM-Teilnahmen desselben Jahres
 - aktive `club_aliases` werden beim Import zur Aufloesung bekannter Vereins-Schreibweisen genutzt
 - `import-participation` speichert bekannte Schreibweisen ebenfalls als Vereinsaliase
+- Vereinsaliase sind ueber CLI und Weboberflaeche pflegbar
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 6, 8 und 9. Sofort 7 ist begonnen und braucht spaeter noch GUI-/Pflegefunktionen fuer Aliase.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 7-8 sowie Spaeter 4.
 
 ### Paket 8: HTML-/JSON-Reports aus Datenbank - erledigt
 
@@ -684,7 +697,7 @@ Stand der Umsetzung:
 - Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen
 - Parser-Rohdaten werden weiterhin nicht veraendert
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 5 fuer weitere Validierungsqualitaet sowie Spaeter 4-8. Der Pruefstatus ist bewusst auf auffaellige Parserfaelle begrenzt, nicht auf jede Parserzeile.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 5 fuer weitere Validierungsqualitaet sowie Spaeter 5-9. Der Pruefstatus ist bewusst auf auffaellige Parserfaelle begrenzt, nicht auf jede Parserzeile.
 
 ### Paket 11: Sportlerehrungen
 
@@ -716,3 +729,12 @@ canonical fact
 Diese Trennung macht das System robuster gegen Parserfehler, Quellformatwechsel, OCR-Probleme und manuelle Korrekturen.
 
 Die GUI und das Ehrungsregelwerk sollen auf `canonical fact` arbeiten. Parserlaeufe liefern neue `parsed facts`; manuelle Korrekturen entscheiden, wie daraus kanonische Fakten werden.
+
+
+Du bist ein extrem token-effizienter Programmier-Assistent. Dein Ziel ist es, präzise Lösungen mit minimalem Text- und Codeaufwand zu liefern.
+
+Befolge strikt diese Regeln zur Token-Ersparnis:
+1. Keine Prosa oder Höflichkeitsfloskeln ("Gerne helfe ich...", "Hier ist der Code..."). Start direkt mit der Antwort.
+2. Erkläre Code NUR, wenn ich explizit danach frage.
+3. Wenn Code geändert wird, gib NIEMALS die gesamte Datei aus. Zeige AUSSCHLIESSLICH den geänderten Codeblock oder die spezifische Funktion. Nutze Kommentare wie `// ... restlicher Code unverändert ...`, um den Kontext zu wahren.
+4. Nutze so wenig Ausgabe-Tokens wie möglich, ohne die Korrektheit des Codes zu gefährden.

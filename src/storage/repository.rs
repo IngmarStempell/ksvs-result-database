@@ -3,9 +3,9 @@ use sqlx::SqlitePool;
 
 use super::models::{
     CanonicalResultReference, ClubAlias, ManualOverride, NewAthlete, NewClub, NewClubAlias,
-    NewCompetition, NewDiscipline, NewImportRun, NewManualOverride, NewParsedResultRow,
-    NewParserRun, NewResult, NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember,
-    StorageCounts, StoredParsedResultRow, StoredResult,
+    NewCompetition, NewDiscipline, NewImportRun, NewManualOverride, NewOrganization,
+    NewOrganizationAlias, NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, NewTeam,
+    NewTeamMember, NewTeamResultMember, StorageCounts, StoredParsedResultRow, StoredResult,
 };
 
 pub struct StorageRepository<'a> {
@@ -26,17 +26,25 @@ struct ManualOverrideRow {
 
 #[derive(sqlx::FromRow)]
 struct ClubAliasRow {
+    id: i64,
     club_id: i64,
     alias: String,
     canonical_name: String,
+    association_code: Option<String>,
+    source: Option<String>,
+    status: String,
 }
 
 impl From<ClubAliasRow> for ClubAlias {
     fn from(row: ClubAliasRow) -> Self {
         Self {
+            id: row.id,
             club_id: row.club_id,
             alias: row.alias,
             canonical_name: row.canonical_name,
+            association_code: row.association_code,
+            source: row.source,
+            status: row.status,
         }
     }
 }
@@ -207,6 +215,26 @@ impl<'a> StorageRepository<'a> {
         .fetch_one(self.pool)
         .await?;
 
+        if let Some(organizer_code) = competition_organizer_code(competition) {
+            sqlx::query(
+                r"
+                UPDATE competitions
+                SET organizer_organization_id = (
+                    SELECT id
+                    FROM organizations
+                    WHERE code = ?
+                    ORDER BY id
+                    LIMIT 1
+                )
+                WHERE id = ?
+                ",
+            )
+            .bind(organizer_code)
+            .bind(id)
+            .execute(self.pool)
+            .await?;
+        }
+
         Ok(id)
     }
 
@@ -274,9 +302,13 @@ impl<'a> StorageRepository<'a> {
         let rows = sqlx::query_as::<_, ClubAliasRow>(
             r"
             SELECT
+                club_aliases.id,
                 club_aliases.club_id,
                 club_aliases.alias,
-                clubs.canonical_name
+                clubs.canonical_name,
+                club_aliases.association_code,
+                club_aliases.source,
+                club_aliases.status
             FROM club_aliases
             JOIN clubs ON clubs.id = club_aliases.club_id
             WHERE club_aliases.status = 'active'
@@ -287,6 +319,121 @@ impl<'a> StorageRepository<'a> {
         .await?;
 
         Ok(rows.into_iter().map(ClubAlias::from).collect())
+    }
+
+    /// Reads all club aliases including inactive rows.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database lookup fails.
+    pub async fn all_club_aliases(&self) -> Result<Vec<ClubAlias>> {
+        let rows = sqlx::query_as::<_, ClubAliasRow>(
+            r"
+            SELECT
+                club_aliases.id,
+                club_aliases.club_id,
+                club_aliases.alias,
+                clubs.canonical_name,
+                club_aliases.association_code,
+                club_aliases.source,
+                club_aliases.status
+            FROM club_aliases
+            JOIN clubs ON clubs.id = club_aliases.club_id
+            ORDER BY clubs.canonical_name, club_aliases.alias
+            ",
+        )
+        .fetch_all(self.pool)
+        .await?;
+
+        Ok(rows.into_iter().map(ClubAlias::from).collect())
+    }
+
+    /// Marks a club alias as inactive.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database update fails.
+    pub async fn deactivate_club_alias(&self, id: i64) -> Result<()> {
+        sqlx::query(
+            r"
+            UPDATE club_aliases
+            SET status = 'inactive', updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+            ",
+        )
+        .bind(id)
+        .execute(self.pool)
+        .await?;
+        Ok(())
+    }
+
+    /// Looks up a club by its canonical name.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database lookup fails.
+    pub async fn find_club_id_by_name(&self, canonical_name: &str) -> Result<Option<i64>> {
+        sqlx::query_scalar::<_, i64>("SELECT id FROM clubs WHERE canonical_name = ?")
+            .bind(canonical_name)
+            .fetch_optional(self.pool)
+            .await
+            .map_err(Into::into)
+    }
+
+    /// Stores or finds an organization and returns its technical ID.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write or lookup fails.
+    pub async fn upsert_organization(&self, organization: &NewOrganization) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO organizations (code, name, organization_type, parent_id, country_code)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(code, organization_type) DO UPDATE SET
+                name = excluded.name,
+                parent_id = excluded.parent_id,
+                country_code = excluded.country_code
+            RETURNING id
+            ",
+        )
+        .bind(&organization.code)
+        .bind(&organization.name)
+        .bind(&organization.organization_type)
+        .bind(organization.parent_id)
+        .bind(&organization.country_code)
+        .fetch_one(self.pool)
+        .await?;
+
+        Ok(id)
+    }
+
+    /// Stores or updates an active organization alias.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write fails.
+    pub async fn upsert_organization_alias(&self, alias: &NewOrganizationAlias) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO organization_aliases (organization_id, alias, source, status)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(alias) WHERE status = 'active'
+            DO UPDATE SET
+                organization_id = excluded.organization_id,
+                source = COALESCE(excluded.source, organization_aliases.source),
+                updated_at = CURRENT_TIMESTAMP
+            RETURNING id
+            ",
+        )
+        .bind(alias.organization_id)
+        .bind(&alias.alias)
+        .bind(&alias.source)
+        .bind(&alias.status)
+        .fetch_one(self.pool)
+        .await?;
+
+        Ok(id)
     }
 
     /// Stores or finds a canonical athlete and returns its technical ID.
@@ -848,6 +995,14 @@ impl<'a> StorageRepository<'a> {
             manual_overrides: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM manual_overrides")
                 .fetch_one(self.pool)
                 .await?,
+            organizations: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM organizations")
+                .fetch_one(self.pool)
+                .await?,
+            organization_aliases: sqlx::query_scalar::<_, i64>(
+                "SELECT COUNT(*) FROM organization_aliases",
+            )
+            .fetch_one(self.pool)
+            .await?,
             teams: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM teams")
                 .fetch_one(self.pool)
                 .await?,
@@ -863,14 +1018,26 @@ impl<'a> StorageRepository<'a> {
     }
 }
 
+fn competition_organizer_code(competition: &NewCompetition) -> Option<&str> {
+    match competition.scope.as_str() {
+        "KM" => competition.association_code.as_deref().or(Some("OD")),
+        "LM" => Some("NDSB"),
+        "DM" => Some("DSB"),
+        "WM" => Some("ISSF"),
+        "Olympia" | "OLY" => Some("IOC"),
+        _ => competition.organizer.as_deref(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     use super::{
         NewAthlete, NewClub, NewClubAlias, NewCompetition, NewDiscipline, NewImportRun,
-        NewManualOverride, NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, NewTeam,
-        NewTeamMember, NewTeamResultMember, StorageRepository,
+        NewManualOverride, NewOrganization, NewOrganizationAlias, NewParsedResultRow, NewParserRun,
+        NewResult, NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember,
+        StorageRepository,
     };
     use crate::storage::{Database, DatabaseConfig};
 
@@ -922,6 +1089,14 @@ mod tests {
             .upsert_manual_override(&manual_override())
             .await
             .expect("manual override is stored");
+        let organization_id = repository
+            .upsert_organization(&organization())
+            .await
+            .expect("organization is stored");
+        repository
+            .upsert_organization_alias(&organization_alias(organization_id))
+            .await
+            .expect("organization alias is stored");
         let overrides = repository
             .active_manual_overrides("club", "canonical_name")
             .await
@@ -982,6 +1157,8 @@ mod tests {
         assert_eq!(counts.parser_runs, 1);
         assert_eq!(counts.parsed_result_rows, 1);
         assert_eq!(counts.manual_overrides, 1);
+        assert!(counts.organizations >= 6);
+        assert!(counts.organization_aliases >= 6);
         assert_eq!(counts.teams, 1);
         assert_eq!(counts.team_members, 1);
         assert_eq!(counts.team_result_members, 1);
@@ -1140,6 +1317,25 @@ mod tests {
             old_value: "Schützenverein Reinfeld 1".to_owned(),
             new_value: "Schützenverein Reinfeld".to_owned(),
             reason: Some("Mannschaftsnummer am Vereinsnamen".to_owned()),
+            status: "active".to_owned(),
+        }
+    }
+
+    fn organization() -> NewOrganization {
+        NewOrganization {
+            code: "KM-OD".to_owned(),
+            name: "Kreismeisterschaft Stormarn".to_owned(),
+            organization_type: "competition_series".to_owned(),
+            parent_id: None,
+            country_code: Some("DE".to_owned()),
+        }
+    }
+
+    fn organization_alias(organization_id: i64) -> NewOrganizationAlias {
+        NewOrganizationAlias {
+            organization_id,
+            alias: "KM Stormarn".to_owned(),
+            source: Some("test".to_owned()),
             status: "active".to_owned(),
         }
     }

@@ -196,10 +196,54 @@ cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/po
 
 Dabei wird die Mannschaftsnummer aus dem Roh-Vereinsnamen getrennt gespeichert. Aus `Ahrensburger SchG I` wird also ein kanonischer Verein und eine Mannschaft mit `team_number = I`.
 
+Roh- und Parser-Schreibweisen von Vereinen werden zusaetzlich als aktive Aliase in `club_aliases` gespeichert. Dadurch kann ein spaeterer DM-/KM-Abgleich bekannte Schreibvarianten gegen den kanonischen Verein aufloesen, ohne Parser-Rohdaten zu veraendern.
+
 Eine einfache Kontrolle per SQLite:
 
 ```bash
 sqlite3 data/pdf-explorer.sqlite "SELECT canonical_name, team_number, rank, medal FROM teams ORDER BY canonical_name;"
+```
+
+Gespeicherte Vereinsaliase kontrollieren:
+
+```bash
+sqlite3 data/pdf-explorer.sqlite "SELECT club_aliases.alias, clubs.canonical_name FROM club_aliases JOIN clubs ON clubs.id = club_aliases.club_id ORDER BY clubs.canonical_name, club_aliases.alias;"
+```
+
+Vereinsalias per CLI pflegen:
+
+```bash
+cargo run -- club-alias add --alias "SchV Reinfeld 1" --club "Schützenverein Reinfeld" --association-code OD
+cargo run -- club-alias list
+cargo run -- club-alias list --all
+cargo run -- club-alias deactivate 12
+```
+
+In der lokalen Weboberflaeche koennen Aliase ebenfalls gepflegt werden:
+
+```text
+http://127.0.0.1:7878/club-aliases
+```
+
+### Wettbewerbsmodell
+
+Das Wettbewerbsmodell ist fuer KM, LM, DM, WM und Olympia vorbereitet. Neben `competitions.scope` gibt es jetzt Organisationen:
+
+```text
+organizations
+organization_aliases
+```
+
+Competitions koennen ueber `organizer_organization_id` auf den Veranstalter zeigen. Ergebnisse koennen ueber `representing_organization_id` und `start_context` spaeter unterscheiden, ob ein Sportler fuer Verein, Kreisverband, Landesverband, Nation oder eine andere Organisation startet.
+
+Beim Speichern bekannter Wettbewerbe wird der Veranstalter automatisch vorbereitet:
+
+```text
+KM      -> OD
+LM      -> NDSB
+DM      -> DSB
+WM      -> ISSF
+Olympia -> IOC
 ```
 
 Mannschaftsmedaillen pro Sportler:

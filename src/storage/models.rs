@@ -52,11 +52,32 @@ pub struct NewClubAlias {
     pub status: String,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
 pub struct ClubAlias {
+    pub id: i64,
     pub club_id: i64,
     pub alias: String,
     pub canonical_name: String,
+    pub association_code: Option<String>,
+    pub source: Option<String>,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewOrganization {
+    pub code: String,
+    pub name: String,
+    pub organization_type: String,
+    pub parent_id: Option<i64>,
+    pub country_code: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewOrganizationAlias {
+    pub organization_id: i64,
+    pub alias: String,
+    pub source: Option<String>,
+    pub status: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -221,6 +242,8 @@ pub struct StorageCounts {
     pub parser_runs: i64,
     pub parsed_result_rows: i64,
     pub manual_overrides: i64,
+    pub organizations: i64,
+    pub organization_aliases: i64,
     pub teams: i64,
     pub team_members: i64,
     pub team_result_members: i64,

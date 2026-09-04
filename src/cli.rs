@@ -59,6 +59,8 @@ pub enum Commands {
     ImportParticipation(ImportParticipationArgs),
     /// Manage manual name corrections used by database imports.
     ManualOverride(ManualOverrideArgs),
+    /// Manage canonical club aliases used by imports and matching.
+    ClubAlias(ClubAliasArgs),
     /// Remove generated state, downloads, manual-review files, and reports.
     Clean(CleanArgs),
     /// Manage the local `SQLite` database.
@@ -319,6 +321,66 @@ pub struct ManualOverrideValueArgs {
 
 #[derive(Debug, Parser)]
 pub struct ManualOverrideListArgs {
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ClubAliasArgs {
+    #[command(subcommand)]
+    pub command: ClubAliasCommands,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum ClubAliasCommands {
+    /// Store or update a club alias.
+    Add(ClubAliasValueArgs),
+    /// List club aliases.
+    List(ClubAliasListArgs),
+    /// Deactivate a club alias by ID.
+    Deactivate(ClubAliasDeactivateArgs),
+}
+
+#[derive(Debug, Parser)]
+pub struct ClubAliasValueArgs {
+    /// Alias found in parser/export data.
+    #[arg(long)]
+    pub alias: String,
+
+    /// Canonical club name.
+    #[arg(long)]
+    pub club: String,
+
+    /// Optional association/Kreis code.
+    #[arg(long)]
+    pub association_code: Option<String>,
+
+    /// Optional source note.
+    #[arg(long)]
+    pub source: Option<String>,
+
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ClubAliasListArgs {
+    /// Include inactive aliases.
+    #[arg(long)]
+    pub all: bool,
+
+    /// `SQLite` database file used by the application.
+    #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
+    pub database: PathBuf,
+}
+
+#[derive(Debug, Parser)]
+pub struct ClubAliasDeactivateArgs {
+    /// Alias ID to deactivate.
+    pub id: i64,
+
     /// `SQLite` database file used by the application.
     #[arg(long, default_value = DEFAULT_DATABASE_PATH)]
     pub database: PathBuf,
