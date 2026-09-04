@@ -1,0 +1,37 @@
+<div class="page-head">
+  <div>
+    <h1>{{team_name}}</h1>
+    <p class="muted">Mannschaft #{{team_id}} mit {{member_count}} Mitgliedern.</p>
+  </div>
+  <a href="/teams">Zurueck zu Mannschaften</a>
+</div>
+<div class="meta-grid">
+  <div class="meta"><strong>Verein</strong>{{club}}</div>
+  <div class="meta"><strong>Wettbewerb</strong>{{competition}}</div>
+  <div class="meta"><strong>Disziplin</strong>{{discipline}}</div>
+  <div class="meta"><strong>Klasse</strong>{{event_class}}</div>
+  <div class="meta"><strong>Rang</strong>{{rank}}</div>
+  <div class="meta"><strong>Ringe</strong>{{score}}</div>
+  <div class="meta"><strong>Medaille</strong>{{medal}}</div>
+  <div class="meta"><strong>Mannschaftsnummer</strong>{{team_number}}</div>
+  <div class="meta"><strong>Rohname</strong>{{raw_team_name}}</div>
+  <div class="meta"><strong>Quelle</strong>{{source}}</div>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Sportler</th>
+        <th>Anzeigename</th>
+        <th>Rohname</th>
+        <th>Ringe</th>
+        <th>Medaille</th>
+        <th>Ergebnis-ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+</div>

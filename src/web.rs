@@ -6,10 +6,11 @@ use std::path::PathBuf;
 
 use anyhow::{Context, Result};
 use percent_encoding::percent_decode_str;
+use url::form_urlencoded;
 
 use crate::application::{
-    ApplicationService, AthleteFilters, ClubFilters, CombinedEvaluationRow, ParsedIssueRow,
-    ResultFilters, ResultRow,
+    ApplicationService, AthleteFilters, ClubFilters, CombinedEvaluationRow, PageParams,
+    ParsedIssueRow, ResultFilters, ResultRow, TeamFilters, TeamMemberRow, TeamRow,
 };
 use crate::storage::{
     Database, DatabaseConfig, NewClub, NewClubAlias, NewManualOverride, StorageRepository,
@@ -22,6 +23,8 @@ const IMPORT_RUN_RESULTS_TEMPLATE: &str = include_str!("../templates/web-import-
 const RESULTS_TEMPLATE: &str = include_str!("../templates/web-results.html");
 const ATHLETES_TEMPLATE: &str = include_str!("../templates/web-athletes.html");
 const CLUBS_TEMPLATE: &str = include_str!("../templates/web-clubs.html");
+const TEAMS_TEMPLATE: &str = include_str!("../templates/web-teams.html");
+const TEAM_DETAIL_TEMPLATE: &str = include_str!("../templates/web-team-detail.html");
 const HONORS_TEMPLATE: &str = include_str!("../templates/web-honors.html");
 const CORRECTIONS_TEMPLATE: &str = include_str!("../templates/web-corrections.html");
 const PARSER_ISSUES_TEMPLATE: &str = include_str!("../templates/web-parser-issues.html");
@@ -33,6 +36,14 @@ const PARSER_RUNS_TEMPLATE: &str = include_str!("../templates/web-parser-runs.ht
 const PARSER_RUN_DETAIL_TEMPLATE: &str = include_str!("../templates/web-parser-run-detail.html");
 const COMBINED_TEMPLATE: &str = include_str!("../templates/web-combined.html");
 const CLUB_ALIASES_TEMPLATE: &str = include_str!("../templates/web-club-aliases.html");
+const DEFAULT_PAGE_SIZE: usize = 100;
+const PAGE_SIZE_OPTIONS: &[usize] = &[50, 100, 250, 500, 1_000];
+
+#[derive(Debug, Clone, Copy)]
+struct PageState {
+    page: usize,
+    page_size: usize,
+}
 
 #[derive(Debug, Clone)]
 pub struct WebConfig {
@@ -128,6 +139,7 @@ async fn route_get(
         "/results" => results_page(pool, query).await.map(WebResponse::Html),
         "/athletes" => athletes_page(pool, query).await.map(WebResponse::Html),
         "/clubs" => clubs_page(pool, query).await.map(WebResponse::Html),
+        "/teams" => teams_page(pool, query).await.map(WebResponse::Html),
         "/sources" => sources_page(pool).await.map(WebResponse::Html),
         "/parser-runs" => parser_runs_page(pool).await.map(WebResponse::Html),
         "/combined" => combined_page(pool, query).await.map(WebResponse::Html),
@@ -148,6 +160,13 @@ async fn route_get(
                 .parse::<i64>()
                 .context("invalid club id")?;
             club_detail_page(pool, id).await.map(WebResponse::Html)
+        }
+        path if path.starts_with("/teams/") => {
+            let id = path
+                .trim_start_matches("/teams/")
+                .parse::<i64>()
+                .context("invalid team id")?;
+            team_detail_page(pool, id).await.map(WebResponse::Html)
         }
         path if path.starts_with("/sources/") => {
             let id = path
@@ -215,7 +234,7 @@ async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
     let rows = ApplicationService::new(pool).import_runs().await?;
 
     let mut rows_html = String::new();
-    for row in rows {
+    for row in &rows {
         let _ = writeln!(
             rows_html,
             "<tr><td><a href=\"/import-runs/{}/results\">#{}</a></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td></tr>",
@@ -263,16 +282,22 @@ async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) ->
 }
 
 async fn results_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
-    let filters = result_filters(query);
-    let rows = ApplicationService::new(pool).results(&filters).await?;
+    let page = page_state(query);
+    let filters = result_filters(query, page);
+    let mut rows = ApplicationService::new(pool).results(&filters).await?;
+    let has_next = trim_page_rows(&mut rows, page);
     Ok(render_page(
         "Ergebnisse",
         "results",
         render_template(
             RESULTS_TEMPLATE,
             &[
-                ("filters", result_filter_form(&filters, "/results")),
+                ("filters", result_filter_form(&filters, "/results", page)),
                 ("rows", empty_rows(result_rows_html(&rows), 10)),
+                (
+                    "pagination",
+                    pagination_controls("/results", query, page, rows.len(), has_next),
+                ),
             ],
         ),
     ))
@@ -282,11 +307,13 @@ async fn athletes_page(
     pool: &sqlx::SqlitePool,
     query: &BTreeMap<String, String>,
 ) -> Result<String> {
-    let filters = athlete_filters(query);
-    let rows = ApplicationService::new(pool).athletes(&filters).await?;
+    let page = page_state(query);
+    let filters = athlete_filters(query, page);
+    let mut rows = ApplicationService::new(pool).athletes(&filters).await?;
+    let has_next = trim_page_rows(&mut rows, page);
 
     let mut rows_html = String::new();
-    for row in rows {
+    for row in &rows {
         let _ = writeln!(
             rows_html,
             "<tr><td class=\"num\">{}</td><td><a href=\"/athletes/{}\">{}</a></td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
@@ -306,19 +333,25 @@ async fn athletes_page(
         render_template(
             ATHLETES_TEMPLATE,
             &[
-                ("filters", athlete_filter_form(&filters, "/athletes")),
+                ("filters", athlete_filter_form(&filters, "/athletes", page)),
                 ("rows", empty_rows(rows_html, 5)),
+                (
+                    "pagination",
+                    pagination_controls("/athletes", query, page, rows.len(), has_next),
+                ),
             ],
         ),
     ))
 }
 
 async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
-    let filters = club_filters(query);
-    let rows = ApplicationService::new(pool).clubs(&filters).await?;
+    let page = page_state(query);
+    let filters = club_filters(query, page);
+    let mut rows = ApplicationService::new(pool).clubs(&filters).await?;
+    let has_next = trim_page_rows(&mut rows, page);
 
     let mut rows_html = String::new();
-    for row in rows {
+    for row in &rows {
         let _ = writeln!(
             rows_html,
             "<tr><td class=\"num\">{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
@@ -339,8 +372,35 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
         render_template(
             CLUBS_TEMPLATE,
             &[
-                ("filters", club_filter_form(&filters, "/clubs")),
+                ("filters", club_filter_form(&filters, "/clubs", page)),
                 ("rows", empty_rows(rows_html, 6)),
+                (
+                    "pagination",
+                    pagination_controls("/clubs", query, page, rows.len(), has_next),
+                ),
+            ],
+        ),
+    ))
+}
+
+async fn teams_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
+    let page = page_state(query);
+    let filters = team_filters(query, page);
+    let mut rows = ApplicationService::new(pool).teams(&filters).await?;
+    let has_next = trim_page_rows(&mut rows, page);
+
+    Ok(render_page(
+        "Mannschaften",
+        "teams",
+        render_template(
+            TEAMS_TEMPLATE,
+            &[
+                ("filters", team_filter_form(&filters, "/teams", page)),
+                ("rows", empty_rows(team_rows_html(&rows), 11)),
+                (
+                    "pagination",
+                    pagination_controls("/teams", query, page, rows.len(), has_next),
+                ),
             ],
         ),
     ))
@@ -565,6 +625,61 @@ async fn club_detail_page(pool: &sqlx::SqlitePool, club_id: i64) -> Result<Strin
     ))
 }
 
+async fn team_detail_page(pool: &sqlx::SqlitePool, team_id: i64) -> Result<String> {
+    let service = ApplicationService::new(pool);
+    let Some(team) = service.team(team_id).await? else {
+        return Ok(render_page(
+            "Mannschaft",
+            "teams",
+            "<h1>Mannschaft nicht gefunden</h1>".to_string(),
+        ));
+    };
+    let members = service.team_members(team_id).await?;
+    Ok(render_page(
+        &team.canonical_name,
+        "teams",
+        render_template(
+            TEAM_DETAIL_TEMPLATE,
+            &[
+                ("team_id", team.id.to_string()),
+                ("team_name", escape_html(&team.canonical_name)),
+                ("team_number", escape_optional(team.team_number.as_deref())),
+                (
+                    "raw_team_name",
+                    escape_optional(team.raw_team_name.as_deref()),
+                ),
+                (
+                    "club",
+                    detail_link("/clubs", team.club_id, team.club_name.as_deref()),
+                ),
+                (
+                    "competition",
+                    format!(
+                        "{} {} - {}",
+                        escape_html(&team.competition_scope),
+                        team.competition_year,
+                        escape_html(&team.competition_name)
+                    ),
+                ),
+                ("discipline", escape_optional(team.discipline.as_deref())),
+                ("event_class", escape_optional(team.event_class.as_deref())),
+                (
+                    "rank",
+                    team.rank.map_or_else(String::new, |rank| rank.to_string()),
+                ),
+                ("score", team.score.map_or_else(String::new, format_score)),
+                ("medal", escape_optional(team.medal.as_deref())),
+                (
+                    "source",
+                    source_detail_link(team.source_document_id, team.source_url.as_deref()),
+                ),
+                ("member_count", team.member_count.to_string()),
+                ("rows", empty_rows(team_member_rows_html(&members), 7)),
+            ],
+        ),
+    ))
+}
+
 async fn parser_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
     let rows = ApplicationService::new(pool).parser_runs().await?;
     let mut rows_html = String::new();
@@ -637,23 +752,33 @@ async fn combined_page(
     pool: &sqlx::SqlitePool,
     query: &BTreeMap<String, String>,
 ) -> Result<String> {
+    let page = page_state(query);
     let filters = ResultFilters {
         search: non_empty_query(query, "q"),
         year: query_i64(query, "year"),
         association_code: non_empty_query(query, "verein"),
+        page: PageParams {
+            limit: page_fetch_limit(page),
+            offset: page_offset(page),
+        },
         ..ResultFilters::default()
     };
-    let rows = ApplicationService::new(pool)
+    let mut rows = ApplicationService::new(pool)
         .combined_evaluation(&filters)
         .await?;
+    let has_next = trim_page_rows(&mut rows, page);
     Ok(render_page(
         "LM und DM",
         "combined",
         render_template(
             COMBINED_TEMPLATE,
             &[
-                ("filters", combined_filter_form(&filters, "/combined")),
+                ("filters", combined_filter_form(&filters, "/combined", page)),
                 ("rows", empty_rows(combined_rows_html(&rows), 9)),
+                (
+                    "pagination",
+                    pagination_controls("/combined", query, page, rows.len(), has_next),
+                ),
             ],
         ),
     ))
@@ -724,6 +849,49 @@ fn combined_rows_html(rows: &[CombinedEvaluationRow]) -> String {
     rows_html
 }
 
+fn team_rows_html(rows: &[TeamRow]) -> String {
+    let mut rows_html = String::new();
+    for row in rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\"><a href=\"/teams/{}\">{}</a></td><td><a href=\"/teams/{}\">{}</a></td><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td>{}</td></tr>",
+            row.id,
+            row.id,
+            row.id,
+            escape_html(&row.canonical_name),
+            detail_link("/clubs", row.club_id, row.club_name.as_deref()),
+            escape_optional(row.association_code.as_deref()),
+            escape_html(&row.competition_scope),
+            row.competition_year,
+            escape_optional(row.discipline.as_deref()),
+            escape_optional(row.event_class.as_deref()),
+            row.rank.map_or_else(String::new, |rank| rank.to_string()),
+            row.score.map_or_else(String::new, format_score),
+            row.member_count,
+            source_detail_link(row.source_document_id, row.source_url.as_deref())
+        );
+    }
+    rows_html
+}
+
+fn team_member_rows_html(rows: &[TeamMemberRow]) -> String {
+    let mut rows_html = String::new();
+    for row in rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td><td class=\"num\">{}</td></tr>",
+            row.member_order,
+            detail_link("/athletes", row.athlete_id, row.athlete_name.as_deref()),
+            escape_html(&row.display_name),
+            escape_optional(row.raw_name.as_deref()),
+            row.score.map_or_else(String::new, format_score),
+            escape_optional(row.medal.as_deref()),
+            row.result_id.map_or_else(String::new, |id| id.to_string())
+        );
+    }
+    rows_html
+}
+
 fn result_rows_html(rows: &[ResultRow]) -> String {
     let mut rows_html = String::new();
     for row in rows {
@@ -755,6 +923,7 @@ fn render_page(title: &str, active: &str, content: String) -> String {
             ("active_results", active_class(active, "results")),
             ("active_athletes", active_class(active, "athletes")),
             ("active_clubs", active_class(active, "clubs")),
+            ("active_teams", active_class(active, "teams")),
             ("active_sources", active_class(active, "sources")),
             ("active_parser_runs", active_class(active, "parser-runs")),
             ("active_combined", active_class(active, "combined")),
@@ -766,34 +935,59 @@ fn render_page(title: &str, active: &str, content: String) -> String {
     )
 }
 
-fn result_filters(query: &BTreeMap<String, String>) -> ResultFilters {
+fn result_filters(query: &BTreeMap<String, String>, page: PageState) -> ResultFilters {
     ResultFilters {
         search: non_empty_query(query, "q"),
         year: query_i64(query, "year"),
         scope: non_empty_query(query, "scope"),
         association_code: non_empty_query(query, "kreis"),
         result_kind: non_empty_query(query, "wertung"),
+        page: PageParams {
+            limit: page_fetch_limit(page),
+            offset: page_offset(page),
+        },
         ..ResultFilters::default()
     }
 }
 
-fn athlete_filters(query: &BTreeMap<String, String>) -> AthleteFilters {
+fn athlete_filters(query: &BTreeMap<String, String>, page: PageState) -> AthleteFilters {
     AthleteFilters {
         search: non_empty_query(query, "q"),
         club: non_empty_query(query, "verein"),
         year: query_i64(query, "year"),
+        page: PageParams {
+            limit: page_fetch_limit(page),
+            offset: page_offset(page),
+        },
     }
 }
 
-fn club_filters(query: &BTreeMap<String, String>) -> ClubFilters {
+fn club_filters(query: &BTreeMap<String, String>, page: PageState) -> ClubFilters {
     ClubFilters {
         search: non_empty_query(query, "q"),
         association_code: non_empty_query(query, "kreis"),
         year: query_i64(query, "year"),
+        page: PageParams {
+            limit: page_fetch_limit(page),
+            offset: page_offset(page),
+        },
     }
 }
 
-fn result_filter_form(filters: &ResultFilters, action: &str) -> String {
+fn team_filters(query: &BTreeMap<String, String>, page: PageState) -> TeamFilters {
+    TeamFilters {
+        search: non_empty_query(query, "q"),
+        year: query_i64(query, "year"),
+        scope: non_empty_query(query, "scope"),
+        association_code: non_empty_query(query, "kreis"),
+        page: PageParams {
+            limit: page_fetch_limit(page),
+            offset: page_offset(page),
+        },
+    }
+}
+
+fn result_filter_form(filters: &ResultFilters, action: &str, page: PageState) -> String {
     format!(
         r#"<form class="filter-bar" method="get" action="{action}">
   <label>Suche <input name="q" value="{search}"></label>
@@ -805,6 +999,7 @@ fn result_filter_form(filters: &ResultFilters, action: &str) -> String {
     <option value="individual" {individual_selected}>Einzel</option>
     <option value="team" {team_selected}>Mannschaft</option>
   </select></label>
+  <input type="hidden" name="page_size" value="{page_size}">
   <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
 </form>"#,
         search = escape_html(filters.search.as_deref().unwrap_or_default()),
@@ -815,15 +1010,17 @@ fn result_filter_form(filters: &ResultFilters, action: &str) -> String {
         kreis = escape_html(filters.association_code.as_deref().unwrap_or_default()),
         individual_selected = selected_str(filters.result_kind.as_deref(), "individual"),
         team_selected = selected_str(filters.result_kind.as_deref(), "team"),
+        page_size = page.page_size,
     )
 }
 
-fn athlete_filter_form(filters: &AthleteFilters, action: &str) -> String {
+fn athlete_filter_form(filters: &AthleteFilters, action: &str, page: PageState) -> String {
     format!(
         r#"<form class="filter-bar" method="get" action="{action}">
   <label>Suche <input name="q" value="{search}"></label>
   <label>Verein <input name="verein" value="{club}"></label>
   <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <input type="hidden" name="page_size" value="{page_size}">
   <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
 </form>"#,
         search = escape_html(filters.search.as_deref().unwrap_or_default()),
@@ -831,15 +1028,17 @@ fn athlete_filter_form(filters: &AthleteFilters, action: &str) -> String {
         year = filters
             .year
             .map_or_else(String::new, |year| year.to_string()),
+        page_size = page.page_size,
     )
 }
 
-fn club_filter_form(filters: &ClubFilters, action: &str) -> String {
+fn club_filter_form(filters: &ClubFilters, action: &str, page: PageState) -> String {
     format!(
         r#"<form class="filter-bar" method="get" action="{action}">
   <label>Suche <input name="q" value="{search}"></label>
   <label>Kreis <input name="kreis" value="{kreis}" placeholder="OD"></label>
   <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <input type="hidden" name="page_size" value="{page_size}">
   <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
 </form>"#,
         search = escape_html(filters.search.as_deref().unwrap_or_default()),
@@ -847,15 +1046,37 @@ fn club_filter_form(filters: &ClubFilters, action: &str) -> String {
         year = filters
             .year
             .map_or_else(String::new, |year| year.to_string()),
+        page_size = page.page_size,
     )
 }
 
-fn combined_filter_form(filters: &ResultFilters, action: &str) -> String {
+fn team_filter_form(filters: &TeamFilters, action: &str, page: PageState) -> String {
+    format!(
+        r#"<form class="filter-bar" method="get" action="{action}">
+  <label>Suche <input name="q" value="{search}"></label>
+  <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <label>Ursprung <input name="scope" value="{scope}" placeholder="LM, DM, KM"></label>
+  <label>Kreis <input name="kreis" value="{kreis}" placeholder="OD"></label>
+  <input type="hidden" name="page_size" value="{page_size}">
+  <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
+</form>"#,
+        search = escape_html(filters.search.as_deref().unwrap_or_default()),
+        year = filters
+            .year
+            .map_or_else(String::new, |year| year.to_string()),
+        scope = escape_html(filters.scope.as_deref().unwrap_or_default()),
+        kreis = escape_html(filters.association_code.as_deref().unwrap_or_default()),
+        page_size = page.page_size,
+    )
+}
+
+fn combined_filter_form(filters: &ResultFilters, action: &str, page: PageState) -> String {
     format!(
         r#"<form class="filter-bar" method="get" action="{action}">
   <label>Suche <input name="q" value="{search}"></label>
   <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
   <label>Verein <input name="verein" value="{club}"></label>
+  <input type="hidden" name="page_size" value="{page_size}">
   <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
 </form>"#,
         search = escape_html(filters.search.as_deref().unwrap_or_default()),
@@ -863,7 +1084,127 @@ fn combined_filter_form(filters: &ResultFilters, action: &str) -> String {
             .year
             .map_or_else(String::new, |year| year.to_string()),
         club = escape_html(filters.association_code.as_deref().unwrap_or_default()),
+        page_size = page.page_size,
     )
+}
+
+fn page_state(query: &BTreeMap<String, String>) -> PageState {
+    let page = query_usize(query, "page")
+        .filter(|page| *page > 0)
+        .unwrap_or(1);
+    let page_size = query_usize(query, "page_size")
+        .filter(|page_size| PAGE_SIZE_OPTIONS.contains(page_size))
+        .unwrap_or(DEFAULT_PAGE_SIZE);
+    PageState { page, page_size }
+}
+
+fn page_fetch_limit(page: PageState) -> i64 {
+    i64::try_from(page.page_size.saturating_add(1)).unwrap_or(1_001)
+}
+
+fn page_offset(page: PageState) -> i64 {
+    let offset = page.page.saturating_sub(1).saturating_mul(page.page_size);
+    i64::try_from(offset).unwrap_or(i64::MAX)
+}
+
+fn trim_page_rows<T>(rows: &mut Vec<T>, page: PageState) -> bool {
+    if rows.len() > page.page_size {
+        rows.truncate(page.page_size);
+        true
+    } else {
+        false
+    }
+}
+
+fn pagination_controls(
+    action: &str,
+    query: &BTreeMap<String, String>,
+    page: PageState,
+    item_count: usize,
+    has_next: bool,
+) -> String {
+    let first_item = if item_count == 0 {
+        0
+    } else {
+        page.page
+            .saturating_sub(1)
+            .saturating_mul(page.page_size)
+            .saturating_add(1)
+    };
+    let last_item = first_item.saturating_add(item_count.saturating_sub(1));
+    let previous = if page.page > 1 {
+        format!(
+            "<a href=\"{}\">Zurueck</a>",
+            page_url(action, query, page.page - 1, page.page_size)
+        )
+    } else {
+        "<span class=\"muted\">Zurueck</span>".to_string()
+    };
+    let next = if has_next {
+        format!(
+            "<a href=\"{}\">Weiter</a>",
+            page_url(action, query, page.page + 1, page.page_size)
+        )
+    } else {
+        "<span class=\"muted\">Weiter</span>".to_string()
+    };
+    format!(
+        r#"<div class="pager">
+  <div>{previous} <span>Seite {page_number}, Eintraege {first_item}-{last_item}</span> {next}</div>
+  <form method="get" action="{action}">
+    {hidden_inputs}
+    <label>Seitengroesse <select name="page_size" onchange="this.form.submit()">{page_size_options}</select></label>
+  </form>
+</div>"#,
+        page_number = page.page,
+        hidden_inputs = pagination_hidden_inputs(query),
+        page_size_options = page_size_options(page.page_size),
+    )
+}
+
+fn page_url(
+    action: &str,
+    query: &BTreeMap<String, String>,
+    page: usize,
+    page_size: usize,
+) -> String {
+    let mut serializer = form_urlencoded::Serializer::new(String::new());
+    for (key, value) in query {
+        if !matches!(key.as_str(), "page" | "page_size") && !value.trim().is_empty() {
+            serializer.append_pair(key, value);
+        }
+    }
+    serializer.append_pair("page", &page.to_string());
+    serializer.append_pair("page_size", &page_size.to_string());
+    let query = serializer.finish();
+    format!("{action}?{query}")
+}
+
+fn pagination_hidden_inputs(query: &BTreeMap<String, String>) -> String {
+    let mut inputs = String::from("<input type=\"hidden\" name=\"page\" value=\"1\">");
+    for (key, value) in query {
+        if !matches!(key.as_str(), "page" | "page_size") && !value.trim().is_empty() {
+            let _ = write!(
+                inputs,
+                "<input type=\"hidden\" name=\"{}\" value=\"{}\">",
+                escape_html(key),
+                escape_html(value)
+            );
+        }
+    }
+    inputs
+}
+
+fn page_size_options(selected: usize) -> String {
+    let mut options = String::new();
+    for size in PAGE_SIZE_OPTIONS {
+        let _ = write!(
+            options,
+            "<option value=\"{size}\" {}>{size}</option>",
+            if *size == selected { "selected" } else { "" }
+        );
+    }
+    options
 }
 
 fn datalist_options(values: &[String]) -> String {
@@ -889,6 +1230,10 @@ fn non_empty_query(query: &BTreeMap<String, String>, key: &str) -> Option<String
 
 fn query_i64(query: &BTreeMap<String, String>, key: &str) -> Option<i64> {
     non_empty_query(query, key).and_then(|value| value.parse::<i64>().ok())
+}
+
+fn query_usize(query: &BTreeMap<String, String>, key: &str) -> Option<usize> {
+    non_empty_query(query, key).and_then(|value| value.parse::<usize>().ok())
 }
 
 fn selected_str(value: Option<&str>, expected: &str) -> &'static str {

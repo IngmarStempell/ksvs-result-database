@@ -341,6 +341,8 @@ Verfuegbare lesende Ansichten:
 /athletes/<id>
 /clubs?q=&kreis=&year=
 /clubs/<id>
+/teams?q=&year=&scope=&kreis=&page=&page_size=
+/teams/<id>
 /sources
 /sources/<id>
 /parser-runs
@@ -352,6 +354,7 @@ Verfuegbare lesende Ansichten:
 ```
 
 Die Filter laufen serverseitig gegen SQLite. Die Parameter bleiben in der URL erhalten und koennen weitergegeben werden.
+Grosse Listen koennen ueber `page` und `page_size` geblaettert werden; die Weboberflaeche bietet dafuer Vor/Zurueck und eine Seitengroessen-Auswahl.
 
 ### Paket 10: UI fuer Korrekturen
 

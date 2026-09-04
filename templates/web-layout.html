@@ -183,6 +183,24 @@
       gap: 10px;
       flex-wrap: wrap;
     }
+    .pager {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-top: 0;
+      background: var(--panel);
+    }
+    .pager form,
+    .pager div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
     a {
       color: var(--accent);
     }
@@ -220,6 +238,7 @@
       <a class="{{active_results}}" href="/results">Ergebnisse</a>
       <a class="{{active_athletes}}" href="/athletes">Sportler</a>
       <a class="{{active_clubs}}" href="/clubs">Vereine</a>
+      <a class="{{active_teams}}" href="/teams">Mannschaften</a>
       <a class="{{active_sources}}" href="/sources">Quellen</a>
       <a class="{{active_parser_runs}}" href="/parser-runs">Parserlaeufe</a>
       <a class="{{active_combined}}" href="/combined">LM/DM</a>

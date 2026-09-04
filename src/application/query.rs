@@ -1,5 +1,20 @@
 use anyhow::{Context, Result};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PageParams {
+    pub limit: i64,
+    pub offset: i64,
+}
+
+impl Default for PageParams {
+    fn default() -> Self {
+        Self {
+            limit: 5_000,
+            offset: 0,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct ResultFilters {
     pub search: Option<String>,
@@ -11,6 +26,7 @@ pub struct ResultFilters {
     pub athlete_id: Option<i64>,
     pub club_id: Option<i64>,
     pub source_document_id: Option<i64>,
+    pub page: PageParams,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -18,6 +34,7 @@ pub struct AthleteFilters {
     pub search: Option<String>,
     pub club: Option<String>,
     pub year: Option<i64>,
+    pub page: PageParams,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -25,6 +42,16 @@ pub struct ClubFilters {
     pub search: Option<String>,
     pub association_code: Option<String>,
     pub year: Option<i64>,
+    pub page: PageParams,
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct TeamFilters {
+    pub search: Option<String>,
+    pub year: Option<i64>,
+    pub scope: Option<String>,
+    pub association_code: Option<String>,
+    pub page: PageParams,
 }
 
 #[derive(Debug, sqlx::FromRow)]
@@ -155,6 +182,40 @@ pub struct CombinedEvaluationRow {
     pub has_dm_participation: i64,
 }
 
+#[derive(Debug, sqlx::FromRow)]
+pub struct TeamRow {
+    pub id: i64,
+    pub canonical_name: String,
+    pub team_number: Option<String>,
+    pub raw_team_name: Option<String>,
+    pub club_id: Option<i64>,
+    pub club_name: Option<String>,
+    pub association_code: Option<String>,
+    pub discipline: Option<String>,
+    pub competition_name: String,
+    pub competition_scope: String,
+    pub competition_year: i64,
+    pub rank: Option<i64>,
+    pub score: Option<f64>,
+    pub medal: Option<String>,
+    pub event_class: Option<String>,
+    pub source_document_id: Option<i64>,
+    pub source_url: Option<String>,
+    pub member_count: i64,
+}
+
+#[derive(Debug, sqlx::FromRow)]
+pub struct TeamMemberRow {
+    pub result_id: Option<i64>,
+    pub athlete_id: Option<i64>,
+    pub athlete_name: Option<String>,
+    pub member_order: i64,
+    pub display_name: String,
+    pub raw_name: Option<String>,
+    pub score: Option<f64>,
+    pub medal: Option<String>,
+}
+
 pub struct ApplicationService<'a> {
     pool: &'a sqlx::SqlitePool,
 }
@@ -235,7 +296,7 @@ impl<'a> ApplicationService<'a> {
                     OR COALESCE(competitions.name, '') LIKE ?
                 )
             ORDER BY competitions.year DESC, competitions.scope, results.rank, athlete_name
-            LIMIT 5000
+            LIMIT ? OFFSET ?
             ",
         )
         .bind(filters.import_run_id)
@@ -261,6 +322,8 @@ impl<'a> ApplicationService<'a> {
         .bind(&search)
         .bind(&search)
         .bind(&search)
+        .bind(filters.page.limit)
+        .bind(filters.page.offset)
         .fetch_all(self.pool)
         .await
         .context("could not load results")
@@ -286,7 +349,7 @@ impl<'a> ApplicationService<'a> {
                 AND (? IS NULL OR competitions.year = ?)
             GROUP BY athletes.id
             ORDER BY athletes.canonical_name
-            LIMIT 5000
+            LIMIT ? OFFSET ?
             ",
         )
         .bind(&search)
@@ -295,6 +358,8 @@ impl<'a> ApplicationService<'a> {
         .bind(&club)
         .bind(filters.year)
         .bind(filters.year)
+        .bind(filters.page.limit)
+        .bind(filters.page.offset)
         .fetch_all(self.pool)
         .await
         .context("could not load athletes")
@@ -319,7 +384,7 @@ impl<'a> ApplicationService<'a> {
                 AND (? IS NULL OR competitions.year = ?)
             GROUP BY clubs.id
             ORDER BY clubs.canonical_name
-            LIMIT 5000
+            LIMIT ? OFFSET ?
             ",
         )
         .bind(&search)
@@ -328,6 +393,8 @@ impl<'a> ApplicationService<'a> {
         .bind(&filters.association_code)
         .bind(filters.year)
         .bind(filters.year)
+        .bind(filters.page.limit)
+        .bind(filters.page.offset)
         .fetch_all(self.pool)
         .await
         .context("could not load clubs")
@@ -517,7 +584,7 @@ impl<'a> ApplicationService<'a> {
                     OR COALESCE(lm_event_class, '') LIKE ?
                 )
             ORDER BY year DESC, club_name, athlete_name, lm_rank
-            LIMIT 5000
+            LIMIT ? OFFSET ?
             ",
         )
         .bind(filters.year)
@@ -534,9 +601,142 @@ impl<'a> ApplicationService<'a> {
         .bind(&search)
         .bind(&search)
         .bind(&search)
+        .bind(filters.page.limit)
+        .bind(filters.page.offset)
         .fetch_all(self.pool)
         .await
         .context("could not load combined evaluation")
+    }
+
+    pub async fn teams(&self, filters: &TeamFilters) -> Result<Vec<TeamRow>> {
+        let search = like_filter(filters.search.as_deref());
+        sqlx::query_as::<_, TeamRow>(
+            r"
+            SELECT
+                teams.id,
+                teams.canonical_name,
+                teams.team_number,
+                teams.raw_team_name,
+                teams.club_id,
+                clubs.canonical_name AS club_name,
+                clubs.association_code,
+                TRIM(COALESCE(NULLIF(disciplines.code, ''), '') || ' ' || COALESCE(disciplines.name, '')) AS discipline,
+                competitions.name AS competition_name,
+                competitions.scope AS competition_scope,
+                competitions.year AS competition_year,
+                teams.rank,
+                teams.score,
+                teams.medal,
+                teams.event_class,
+                teams.source_document_id,
+                source_documents.url AS source_url,
+                COUNT(team_members.id) AS member_count
+            FROM teams
+            JOIN competitions ON competitions.id = teams.competition_id
+            LEFT JOIN clubs ON clubs.id = teams.club_id
+            LEFT JOIN disciplines ON disciplines.id = teams.discipline_id
+            LEFT JOIN source_documents ON source_documents.id = teams.source_document_id
+            LEFT JOIN team_members ON team_members.team_id = teams.id
+            WHERE (? IS NULL OR competitions.year = ?)
+                AND (? IS NULL OR competitions.scope = ?)
+                AND (? IS NULL OR COALESCE(clubs.association_code, '') = ?)
+                AND (
+                    ? IS NULL
+                    OR teams.canonical_name LIKE ?
+                    OR COALESCE(teams.raw_team_name, '') LIKE ?
+                    OR COALESCE(clubs.canonical_name, '') LIKE ?
+                    OR COALESCE(disciplines.name, '') LIKE ?
+                    OR COALESCE(disciplines.code, '') LIKE ?
+                    OR COALESCE(teams.event_class, '') LIKE ?
+                    OR COALESCE(competitions.name, '') LIKE ?
+                )
+            GROUP BY teams.id
+            ORDER BY competitions.year DESC, competitions.scope, teams.rank, teams.canonical_name
+            LIMIT ? OFFSET ?
+            ",
+        )
+        .bind(filters.year)
+        .bind(filters.year)
+        .bind(&filters.scope)
+        .bind(&filters.scope)
+        .bind(&filters.association_code)
+        .bind(&filters.association_code)
+        .bind(&search)
+        .bind(&search)
+        .bind(&search)
+        .bind(&search)
+        .bind(&search)
+        .bind(&search)
+        .bind(&search)
+        .bind(&search)
+        .bind(filters.page.limit)
+        .bind(filters.page.offset)
+        .fetch_all(self.pool)
+        .await
+        .context("could not load teams")
+    }
+
+    pub async fn team(&self, id: i64) -> Result<Option<TeamRow>> {
+        sqlx::query_as::<_, TeamRow>(
+            r"
+            SELECT
+                teams.id,
+                teams.canonical_name,
+                teams.team_number,
+                teams.raw_team_name,
+                teams.club_id,
+                clubs.canonical_name AS club_name,
+                clubs.association_code,
+                TRIM(COALESCE(NULLIF(disciplines.code, ''), '') || ' ' || COALESCE(disciplines.name, '')) AS discipline,
+                competitions.name AS competition_name,
+                competitions.scope AS competition_scope,
+                competitions.year AS competition_year,
+                teams.rank,
+                teams.score,
+                teams.medal,
+                teams.event_class,
+                teams.source_document_id,
+                source_documents.url AS source_url,
+                COUNT(team_members.id) AS member_count
+            FROM teams
+            JOIN competitions ON competitions.id = teams.competition_id
+            LEFT JOIN clubs ON clubs.id = teams.club_id
+            LEFT JOIN disciplines ON disciplines.id = teams.discipline_id
+            LEFT JOIN source_documents ON source_documents.id = teams.source_document_id
+            LEFT JOIN team_members ON team_members.team_id = teams.id
+            WHERE teams.id = ?
+            GROUP BY teams.id
+            ",
+        )
+        .bind(id)
+        .fetch_optional(self.pool)
+        .await
+        .context("could not load team")
+    }
+
+    pub async fn team_members(&self, team_id: i64) -> Result<Vec<TeamMemberRow>> {
+        sqlx::query_as::<_, TeamMemberRow>(
+            r"
+            SELECT
+                team_result_members.result_id,
+                team_result_members.athlete_id,
+                athletes.canonical_name AS athlete_name,
+                team_result_members.member_order,
+                COALESCE(team_members.display_name, team_result_members.raw_name, '') AS display_name,
+                COALESCE(team_result_members.raw_name, team_members.raw_name) AS raw_name,
+                team_result_members.score,
+                team_result_members.medal
+            FROM team_result_members
+            LEFT JOIN athletes ON athletes.id = team_result_members.athlete_id
+            LEFT JOIN team_members ON team_members.id = team_result_members.team_member_id
+            WHERE team_result_members.team_id = ?
+            ORDER BY team_result_members.member_order, team_result_members.id
+            ",
+        )
+        .bind(team_id)
+        .fetch_all(self.pool)
+        .await
+        .context("could not load team members")
     }
 
     pub async fn club_names(&self) -> Result<Vec<String>> {

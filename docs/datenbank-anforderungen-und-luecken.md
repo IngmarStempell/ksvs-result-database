@@ -525,22 +525,22 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 6. Vereinsabgleich ueber `club_aliases` als Datenbasis - in Arbeit, Tabelle, Repository-Funktionen, automatische Befuellung, CLI-Pflege und GUI-Pflege umgesetzt
 7. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
 8. Allgemeines Wettbewerbsmodell fuer DM, WM, Olympia usw. - in Arbeit, Organisationen, Organisationsaliase und Startkontext als Schema-Grundlage umgesetzt
+9. Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen - in Arbeit, Web-Listen nutzen `page` und `page_size`
+10. GUI-Ansichten fuer Mannschaften und Mitglieder - in Arbeit, `/teams` und `/teams/<id>` zeigen Mannschaften und Mitglieder aus der Datenbank
 
 ### Spaeter
 
 1. DB-Reports fuer reine Teilnahme- oder Konfliktlisten
 2. UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
-3. Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen
-4. Teilnahme genauer nach Disziplin/Klasse modellieren
-5. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
-6. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
-7. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
-8. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
-9. Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
-10. Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
-11. Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
-12. Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
-13. GUI-Ansichten fuer Mannschaften und Mitglieder bauen
+3. Teilnahme genauer nach Disziplin/Klasse modellieren
+4. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
+5. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
+6. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
+7. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
+8. Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
+9. Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
+10. Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
+11. Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
 
 ## Umsetzungsskizze
 
@@ -659,8 +659,10 @@ Stand der Umsetzung:
 - `/results?q=&year=&scope=&kreis=&wertung=` zeigt eine filterbare Ergebnisliste
 - `/athletes?q=&verein=&year=` zeigt eine filterbare Sportlerliste
 - `/clubs?q=&kreis=&year=` zeigt eine filterbare Vereinsliste
+- `/teams?q=&year=&scope=&kreis=&page=&page_size=` zeigt eine filterbare Mannschaftsliste
 - `/athletes/<id>` zeigt Ergebnisse eines Sportlers
 - `/clubs/<id>` zeigt Ergebnisse eines Vereins
+- `/teams/<id>` zeigt Mannschaftsdetails und Mitglieder
 - `/sources` zeigt bekannte PDF-Quellen
 - `/sources/<id>` zeigt Quelle und verknuepfte Ergebnisse
 - `/parser-runs` zeigt Parserlaeufe und auffaellige Zeilen
@@ -669,9 +671,10 @@ Stand der Umsetzung:
 - `/honors` ist als Platzhalter fuer die spaetere Ehrungslogik vorhanden
 - die GUI nutzt Template-Dateien unter `templates/web-*.html`
 - die Listen schneiden nicht still bei 500 Eintraegen ab
+- grosse Listen besitzen steuerbare Seitengroessen und Seitenwechsel ueber URL-Parameter
 - Filterparameter bleiben in der URL erhalten und koennen weitergegeben werden
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 1, 3-4 und Spaeter 3 fuer weiteren Ausbau. Echte Ehrungsvorschlaege bleiben Paket 11.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 1, 3-4 und 9-10 fuer weiteren Ausbau. Echte Ehrungsvorschlaege bleiben Paket 11.
 
 ### Paket 10: UI fuer Korrekturen - erledigt
 
