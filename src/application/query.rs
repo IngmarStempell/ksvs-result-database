@@ -501,14 +501,14 @@ impl<'a> ApplicationService<'a> {
                 parser_runs.started_at,
                 parser_runs.finished_at,
                 COUNT(parsed_result_rows.id) AS parsed_row_count,
-                SUM(CASE
+                COALESCE(SUM(CASE
                     WHEN parsed_result_rows.conflict_status <> 'none'
                         OR parsed_result_rows.normalized_shooter_name IS NULL
                         OR parsed_result_rows.normalized_club_name IS NULL
                         OR parsed_result_rows.normalized_discipline IS NULL
                     THEN 1
                     ELSE 0
-                END) AS issue_count
+                END), 0) AS issue_count
             FROM parser_runs
             LEFT JOIN parsed_result_rows ON parsed_result_rows.parser_run_id = parser_runs.id
             GROUP BY parser_runs.id
@@ -534,14 +534,14 @@ impl<'a> ApplicationService<'a> {
                 parser_runs.started_at,
                 parser_runs.finished_at,
                 COUNT(parsed_result_rows.id) AS parsed_row_count,
-                SUM(CASE
+                COALESCE(SUM(CASE
                     WHEN parsed_result_rows.conflict_status <> 'none'
                         OR parsed_result_rows.normalized_shooter_name IS NULL
                         OR parsed_result_rows.normalized_club_name IS NULL
                         OR parsed_result_rows.normalized_discipline IS NULL
                     THEN 1
                     ELSE 0
-                END) AS issue_count
+                END), 0) AS issue_count
             FROM parser_runs
             LEFT JOIN parsed_result_rows ON parsed_result_rows.parser_run_id = parser_runs.id
             WHERE parser_runs.id = ?
@@ -552,6 +552,31 @@ impl<'a> ApplicationService<'a> {
         .fetch_optional(self.pool)
         .await
         .context("could not load parser run")
+    }
+
+    pub async fn parser_run_issues(&self, parser_run_id: i64) -> Result<Vec<ParsedIssueRow>> {
+        sqlx::query_as::<_, ParsedIssueRow>(
+            r"
+            SELECT
+                id, source_name, competition_year, competition_scope, conflict_status,
+                raw_shooter_name, normalized_shooter_name, raw_club_name,
+                normalized_club_name, raw_discipline, discipline_code, class_name,
+                event_name, pdf_url
+            FROM parsed_result_rows
+            WHERE parser_run_id = ?
+                AND (
+                    conflict_status <> 'none'
+                    OR normalized_shooter_name IS NULL
+                    OR normalized_club_name IS NULL
+                    OR normalized_discipline IS NULL
+                )
+            ORDER BY competition_year DESC, source_name, id DESC
+            ",
+        )
+        .bind(parser_run_id)
+        .fetch_all(self.pool)
+        .await
+        .context("could not load parser run issues")
     }
 
     pub async fn combined_evaluation(

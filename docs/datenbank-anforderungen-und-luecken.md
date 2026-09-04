@@ -520,7 +520,7 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 1. Mehr DB-Filter plus Filter/Suche in GUI-Listen - in Arbeit, erste serverseitige Filter fuer Ergebnisse, Sportler, Vereine und kombinierte Auswertung umgesetzt
 2. Stabile API-/Service-Schicht fuer CLI und GUI - in Arbeit, lesende Abfragen in `application::query` gebuendelt
 3. Detailseiten fuer Sportler, Vereine, Importlaeufe und Quellen - in Arbeit, Detailseiten fuer Sportler, Vereine, Quellen und Importlauf-Ergebnisse umgesetzt
-4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste und Parserlauf-Detailseite umgesetzt
+4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste, Parserlauf-Detailseite und auffaellige Parserzeilen je Parserlauf umgesetzt
 5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - in Arbeit, Korrekturformular bietet vorhandene Namen als Vorschlaege an
 6. Vereinsabgleich ueber `club_aliases` als Datenbasis - in Arbeit, Tabelle, Repository-Funktionen, automatische Befuellung, CLI-Pflege und GUI-Pflege umgesetzt
 7. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank

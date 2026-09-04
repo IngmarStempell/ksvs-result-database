@@ -477,31 +477,6 @@ async fn corrections_page(
 async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
     let rows = ApplicationService::new(pool).parser_issues().await?;
 
-    let mut rows_html = String::new();
-    for row in &rows {
-        let _ = writeln!(
-            rows_html,
-            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
-            row.id,
-            escape_html(&row.source_name),
-            escape_html(&row.competition_scope),
-            row.competition_year,
-            escape_html(&row.conflict_status),
-            issue_name_cell(
-                row.raw_shooter_name.as_deref(),
-                row.normalized_shooter_name.as_deref()
-            ),
-            issue_name_cell(
-                row.raw_club_name.as_deref(),
-                row.normalized_club_name.as_deref()
-            ),
-            discipline_issue_cell(row),
-            escape_optional(row.event_name.as_deref()),
-            source_link(row.pdf_url.as_deref()),
-            correction_prefill_links(row)
-        );
-    }
-
     Ok(render_page(
         "Parserfaelle",
         "corrections",
@@ -509,7 +484,7 @@ async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
             PARSER_ISSUES_TEMPLATE,
             &[
                 ("issue_count", rows.len().to_string()),
-                ("rows", empty_rows(rows_html, 10)),
+                ("rows", empty_rows(parser_issue_rows_html(&rows), 10)),
             ],
         ),
     ))
@@ -719,6 +694,7 @@ async fn parser_run_detail_page(pool: &sqlx::SqlitePool, parser_run_id: i64) -> 
             "<h1>Parserlauf nicht gefunden</h1>".to_string(),
         ));
     };
+    let issues = service.parser_run_issues(parser_run_id).await?;
     Ok(render_page(
         &format!("Parserlauf #{}", row.id),
         "parser-runs",
@@ -743,6 +719,10 @@ async fn parser_run_detail_page(pool: &sqlx::SqlitePool, parser_run_id: i64) -> 
                 ("input_path", escape_html(&row.input_path)),
                 ("parsed_row_count", row.parsed_row_count.to_string()),
                 ("issue_count", row.issue_count.to_string()),
+                (
+                    "issue_rows",
+                    empty_rows(parser_issue_rows_html(&issues), 10),
+                ),
             ],
         ),
     ))
@@ -887,6 +867,34 @@ fn team_member_rows_html(rows: &[TeamMemberRow]) -> String {
             row.score.map_or_else(String::new, format_score),
             escape_optional(row.medal.as_deref()),
             row.result_id.map_or_else(String::new, |id| id.to_string())
+        );
+    }
+    rows_html
+}
+
+fn parser_issue_rows_html(rows: &[ParsedIssueRow]) -> String {
+    let mut rows_html = String::new();
+    for row in rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            row.id,
+            escape_html(&row.source_name),
+            escape_html(&row.competition_scope),
+            row.competition_year,
+            escape_html(&row.conflict_status),
+            issue_name_cell(
+                row.raw_shooter_name.as_deref(),
+                row.normalized_shooter_name.as_deref()
+            ),
+            issue_name_cell(
+                row.raw_club_name.as_deref(),
+                row.normalized_club_name.as_deref()
+            ),
+            discipline_issue_cell(row),
+            escape_optional(row.event_name.as_deref()),
+            source_link(row.pdf_url.as_deref()),
+            correction_prefill_links(row)
         );
     }
     rows_html
