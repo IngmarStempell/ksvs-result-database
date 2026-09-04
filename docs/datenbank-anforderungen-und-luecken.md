@@ -66,9 +66,9 @@ Die Modulgrenzen sind aktuell grob:
 
 ## Planung akut
 
-Die Datenbank-Grundlage ist angelegt. Kurzfristig geht es jetzt darum, die fachliche Korrekturschicht und die spaetere GUI vorzubereiten.
+Die Datenbank-Grundlage, die erste Korrekturschicht und die GUI-Grundlage sind angelegt. Kurzfristig geht es jetzt darum, die priorisierten offenen Punkte aus der zentralen Sofort-Liste umzusetzen.
 
-Als naechste Datenobjekte sollten modelliert werden:
+Als Datenobjekte sind inzwischen im Kern modelliert oder fachlich vorgesehen:
 
 - Quellen und Dokumente
 - Importlaeufe
@@ -78,13 +78,13 @@ Als naechste Datenobjekte sollten modelliert werden:
 - Disziplinen
 - Mannschaften und Mannschaftsmitglieder
 - manuelle Korrekturen
-- Ehrungsregeln und Ehrungsvorschlaege
+- Ehrungsregeln und Ehrungsvorschlaege als naechster grosser Ausbau
 
 Der Import aus dem bestehenden `podium-export.json` ist umgesetzt. Dadurch bleibt der PDF-Parser unangetastet, und das Datenmodell kann bereits mit echten Daten validiert werden.
 
 Das Konzept der Parserlaeufe ist ebenfalls umgesetzt. Ein Parserlauf ist ein nachvollziehbarer Importvorgang mit Eingabedatei, Parserversion, Zeitpunkt, Ergebnisstatus und erzeugten Roh-Ergebniszeilen. Spaetere Parserverbesserungen duerfen neue Laeufe erzeugen, ohne alte Rohdaten unkontrolliert zu ueberschreiben.
 
-Die erste manuelle Korrekturschicht ist angelegt. Akut fehlt jetzt vor allem die fachliche Freigabelogik: Sie entscheidet, welche Parserzeilen geprueft sind, welche Konflikte offen bleiben und welche kanonischen Ergebnisse fuer Ehrungen belastbar sind.
+Die erste manuelle Korrekturschicht ist angelegt. Akut priorisiert sind Filter/Suche, eine stabile fachliche Service-Schicht, Detailseiten, bessere Statusansichten, UI-Validierung, praezisere Teilnahmemodellierung, Alias-Datenbasis, kombinierte Auswertung und ein allgemeineres Wettbewerbsmodell. Pruefstatus soll nur fuer auffaellige Parserfaelle gelten, nicht fuer jede Parserzeile.
 
 ## Planung Zukunft
 
@@ -123,7 +123,7 @@ Beispiele:
 
 Ergebnisse haengen dann an `competition_id`. Dadurch bleiben Abfragen ueber alle Ebenen moeglich, ohne spaeter Sondertabellen fuer DM, WM oder Olympia bauen zu muessen.
 
-Die GUI sollte auf derselben fachlichen Schicht arbeiten wie die Exporte. Sie darf nicht direkt Parser-Rohdaten veraendern, sondern soll Korrekturen, Zusammenfuehrungen und Freigaben speichern. Dadurch koennen Parserlaeufe jederzeit erneut ausgefuehrt und mit bestehenden manuellen Entscheidungen abgeglichen werden.
+Die GUI sollte auf derselben fachlichen Schicht arbeiten wie die Exporte. Sie darf nicht direkt Parser-Rohdaten veraendern, sondern soll Korrekturen, Zusammenfuehrungen und Pruefentscheidungen fuer auffaellige Faelle speichern. Dadurch koennen Parserlaeufe jederzeit erneut ausgefuehrt und mit bestehenden manuellen Entscheidungen abgeglichen werden.
 
 Fuer Sportlerehrungen sollte ein eigenes Regelwerk entstehen. Dieses Regelwerk berechnet aus den kanonischen Ergebnissen des laufenden Jahres Ehrungsvorschlaege, zum Beispiel nach Wettbewerbsebene, Platzierung, Medaille, Teilnahme, Mannschaftsbeteiligung, Verein oder Altersklasse. Die Vorschlaege sollen in der GUI sichtbar sein und dort bestaetigt, ausgeschlossen oder kommentiert werden koennen.
 
@@ -292,12 +292,7 @@ Stand der Umsetzung:
 - Mannschaftsnummern wie `I`, `II` oder `1` werden als `team_number` gespeichert
 - der kanonische Verein bleibt getrennt vom Mannschaftsnamen
 
-Noch offen:
-
-- Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
-- Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
-- Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
-- GUI-Ansichten fuer Mannschaften und Mitglieder bauen
+Offene Punkte: siehe zentrale Priorisierung, Spaeter 9-12.
 
 ### Organisationen
 
@@ -359,12 +354,7 @@ Stand der Umsetzung:
 - `export-podium` kann aktive Korrekturen optional schon fuer JSON-/HTML-Reports anwenden
 - Parserzeilen behalten die urspruenglichen Rohwerte aus dem Export
 
-Noch offen:
-
-- Korrekturen deaktivieren oder historisieren
-- Korrekturen auf ein konkretes PDF oder eine konkrete Parserzeile begrenzen
-- Konflikte und unklare Korrekturen in einer GUI pruefen
-- Aliase als eigene fachliche Tabellen von punktuellen Overrides trennen
+Offene Punkte: siehe zentrale Priorisierung, Sofort 4 und 7 sowie Spaeter 7-8.
 
 ### Parserlaeufe und Wiederholbarkeit
 
@@ -506,7 +496,38 @@ Die GUI soll zunaechst als lokale Weboberflaeche mit Rust Backend umgesetzt werd
 
 Die erste GUI ist bewusst eine lesende Verwaltungsoberflaeche. Der Einstiegspunkt sind Importlaeufe. Von dort aus kann man zu den zugehoerigen Ergebnissen, Sportlern, Vereinen und spaeter zu Ehrungsvorschlaegen navigieren.
 
-Noch nicht Teil der GUI-Grundlage sind schreibende Korrekturen. Diese kommen spaeter in einem eigenen Paket, damit Parserdaten, kanonische Werte und manuelle Eingriffe fachlich sauber getrennt bleiben.
+Schreibende Korrekturen sind inzwischen in Paket 10 in begrenzter Form freigegeben. Weitergehende Merge-, Pruef- und Ruecknahmefunktionen bleiben ueber die zentrale Priorisierung gesteuert, damit Parserdaten, kanonische Werte und manuelle Eingriffe fachlich sauber getrennt bleiben.
+
+## Priorisierung offener Punkte
+
+Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. Lokale Paketabschnitte verweisen auf diese Nummern, damit offene Punkte nicht an mehreren Stellen auseinanderlaufen.
+
+### Sofort
+
+1. Mehr DB-Filter plus Filter/Suche in GUI-Listen - in Arbeit, erste serverseitige Filter fuer Ergebnisse, Sportler, Vereine und kombinierte Auswertung umgesetzt
+2. Stabile API-/Service-Schicht fuer CLI und GUI - in Arbeit, lesende Web-Abfragen in `web::service` gebuendelt
+3. Detailseiten fuer Sportler, Vereine, Importlaeufe und Quellen - in Arbeit, Detailseiten fuer Sportler, Vereine, Quellen und Importlauf-Ergebnisse umgesetzt
+4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste und Parserlauf-Detailseite umgesetzt
+5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - in Arbeit, Korrekturformular bietet vorhandene Namen als Vorschlaege an
+6. Teilnahme genauer nach Disziplin/Klasse modellieren
+7. Vereinsabgleich ueber `club_aliases` als Datenbasis
+8. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
+9. Allgemeines Wettbewerbsmodell fuer DM, WM, Olympia usw.
+
+### Spaeter
+
+1. DB-Reports fuer reine Teilnahme- oder Konfliktlisten
+2. UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
+3. Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen
+4. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
+5. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
+6. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
+7. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
+8. Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
+9. Mannschaftsgesamtringe direkt aus der Mannschaftszeile speichern, sobald der Import nicht mehr nur den bisherigen Podium-Export konsumiert
+10. Reihenfolge der Mannschaftsmitglieder aus dem Originalparser stabiler uebernehmen
+11. Mannschaften in HTML-/DB-Reports explizit als eigene Gruppe anzeigen
+12. GUI-Ansichten fuer Mannschaften und Mitglieder bauen
 
 ## Umsetzungsskizze
 
@@ -579,12 +600,7 @@ Stand der Umsetzung:
 - Treffer ohne erkannte Schuetzen bleiben ueber Verein, Quelle und PDF nachvollziehbar
 - die View `lm_medals_with_dm_participation` kombiniert LM-Medaillen mit DM-Teilnahmen desselben Jahres
 
-Noch offen:
-
-- Teilnahme genauer nach Disziplin/Klasse modellieren, sobald DM-PDFs strukturierter geparst werden
-- Vereinsabgleich langfristig ueber `club_aliases` statt nur ueber Export-/Parserkanonisierung fuehren
-- kombinierte Auswertung als HTML-/GUI-Ansicht statt nur als SQLite-View anbieten
-- Teilnahme bei DM, WM und Olympia spaeter in ein allgemeines Wettbewerbsmodell ueberfuehren
+Offene Punkte: siehe zentrale Priorisierung, Sofort 6-9.
 
 ### Paket 8: HTML-/JSON-Reports aus Datenbank - erledigt
 
@@ -601,12 +617,7 @@ Stand der Umsetzung:
 - die bisherigen JSON-Datei-Exporter `export-podium`, `export-participation` und `export-combined` bleiben unveraendert nutzbar
 - die bestehenden HTML-Templates werden weiterverwendet
 
-Noch offen:
-
-- mehr DB-Filter, zum Beispiel Disziplin, Verein, Sportler und Wertungstyp
-- DB-Reports fuer reine Teilnahme- oder Konfliktlisten
-- UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
-- stabile API-Schicht fuer die spaetere GUI statt nur CLI-Exporter
+Offene Punkte: siehe zentrale Priorisierung, Sofort 1-2 sowie Spaeter 1-2.
 
 ### Paket 9: GUI-Grundlage - erledigt
 
@@ -630,17 +641,18 @@ Stand der Umsetzung:
 - `/results` zeigt eine lesende Ergebnisliste
 - `/athletes` zeigt eine lesende Sportlerliste
 - `/clubs` zeigt eine lesende Vereinsliste
+- `/athletes/<id>` zeigt Ergebnisse eines Sportlers
+- `/clubs/<id>` zeigt Ergebnisse eines Vereins
+- `/sources` zeigt bekannte PDF-Quellen
+- `/sources/<id>` zeigt Quelle und verknuepfte Ergebnisse
+- `/parser-runs` zeigt Parserlaeufe und auffaellige Zeilen
+- `/parser-runs/<id>` zeigt Statusdetails eines Parserlaufs
+- `/combined` zeigt LM-Medaillen mit DM-Teilnahme
 - `/honors` ist als Platzhalter fuer die spaetere Ehrungslogik vorhanden
 - die GUI nutzt Template-Dateien unter `templates/web-*.html`
 - die Listen schneiden nicht still bei 500 Eintraegen ab
 
-Noch offen:
-
-- Filter und Suche in den GUI-Listen
-- Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen
-- Detailseiten fuer einzelne Sportler, Vereine, Importlaeufe und Quellen
-- weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung
-- echte Ehrungsvorschlaege; diese bleiben Teil von Paket 11
+Offene Punkte: siehe zentrale Priorisierung, Sofort 1, 3-4 und Spaeter 3 fuer weiteren Ausbau. Echte Ehrungsvorschlaege bleiben Paket 11.
 
 ### Paket 10: UI fuer Korrekturen - erledigt
 
@@ -665,14 +677,7 @@ Stand der Umsetzung:
 - Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen
 - Parser-Rohdaten werden weiterhin nicht veraendert
 
-Noch offen:
-
-- echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
-- Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
-- fachliche Freigabe-/Pruefstatus fuer einzelne Parserzeilen
-- Konfliktauflösung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
-- UI-Validierung gegen bereits existierende Sportler- und Vereinsnamen
-- Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
+Offene Punkte: siehe zentrale Priorisierung, Sofort 5 sowie Spaeter 4-8. Der Pruefstatus ist bewusst auf auffaellige Parserfaelle begrenzt, nicht auf jede Parserzeile.
 
 ### Paket 11: Sportlerehrungen
 
