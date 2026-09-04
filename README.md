@@ -390,10 +390,13 @@ This removes `.pdf-explorer/`, `data/downloads/`, `data/manual-review/`, `data/a
 
 ## Current Structure
 
+- `src/application.rs`: application/query layer shared by web, GUI, and future CLI exports
 - `src/export.rs`: filtered JSON and HTML exports for downstream processing
 - `src/pdf.rs`: PDF extraction core
 - `src/ingest.rs`: URL crawling, PDF change detection, format classification, and reporting
 - `src/sport_results.rs`: first parser for DAVID21+ result lists
+- `src/storage.rs`: SQLite database, migrations, repositories, and persistence models
+- `src/web.rs`: local server-side rendered HTML interface
 - `src/main.rs`: CLI wrapper
 - `src/lib.rs`: shared library entry point for future OCR, scraper, storage, or UI layers
 

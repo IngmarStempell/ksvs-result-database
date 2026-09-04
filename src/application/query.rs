@@ -1,7 +1,7 @@
 use anyhow::{Context, Result};
 
 #[derive(Debug, Clone, Default)]
-pub(super) struct ResultFilters {
+pub struct ResultFilters {
     pub search: Option<String>,
     pub year: Option<i64>,
     pub scope: Option<String>,
@@ -14,21 +14,21 @@ pub(super) struct ResultFilters {
 }
 
 #[derive(Debug, Clone, Default)]
-pub(super) struct AthleteFilters {
+pub struct AthleteFilters {
     pub search: Option<String>,
     pub club: Option<String>,
     pub year: Option<i64>,
 }
 
 #[derive(Debug, Clone, Default)]
-pub(super) struct ClubFilters {
+pub struct ClubFilters {
     pub search: Option<String>,
     pub association_code: Option<String>,
     pub year: Option<i64>,
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct ImportRunRow {
+pub struct ImportRunRow {
     pub id: i64,
     pub source_name: String,
     pub run_kind: String,
@@ -42,7 +42,7 @@ pub(super) struct ImportRunRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct ResultRow {
+pub struct ResultRow {
     pub id: i64,
     pub athlete_id: Option<i64>,
     pub athlete_name: Option<String>,
@@ -63,7 +63,7 @@ pub(super) struct ResultRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct AthleteRow {
+pub struct AthleteRow {
     pub id: i64,
     pub canonical_name: String,
     pub result_count: i64,
@@ -72,7 +72,7 @@ pub(super) struct AthleteRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct ClubRow {
+pub struct ClubRow {
     pub id: i64,
     pub canonical_name: String,
     pub association_code: Option<String>,
@@ -82,7 +82,7 @@ pub(super) struct ClubRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct ManualOverrideWebRow {
+pub struct ManualOverrideRow {
     pub id: i64,
     pub scope: String,
     pub entity_type: String,
@@ -96,7 +96,7 @@ pub(super) struct ManualOverrideWebRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct ParsedIssueRow {
+pub struct ParsedIssueRow {
     pub id: i64,
     pub source_name: String,
     pub competition_year: i64,
@@ -114,7 +114,7 @@ pub(super) struct ParsedIssueRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct SourceDocumentRow {
+pub struct SourceDocumentRow {
     pub id: i64,
     pub source_name: String,
     pub url: String,
@@ -126,7 +126,7 @@ pub(super) struct SourceDocumentRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct ParserRunRow {
+pub struct ParserRunRow {
     pub id: i64,
     pub source_name: String,
     pub source_kind: String,
@@ -141,7 +141,7 @@ pub(super) struct ParserRunRow {
 }
 
 #[derive(Debug, sqlx::FromRow)]
-pub(super) struct CombinedEvaluationRow {
+pub struct CombinedEvaluationRow {
     pub athlete_id: Option<i64>,
     pub athlete_name: Option<String>,
     pub club_id: Option<i64>,
@@ -155,16 +155,16 @@ pub(super) struct CombinedEvaluationRow {
     pub has_dm_participation: i64,
 }
 
-pub(super) struct WebDataService<'a> {
+pub struct ApplicationService<'a> {
     pool: &'a sqlx::SqlitePool,
 }
 
-impl<'a> WebDataService<'a> {
-    pub(super) const fn new(pool: &'a sqlx::SqlitePool) -> Self {
+impl<'a> ApplicationService<'a> {
+    pub const fn new(pool: &'a sqlx::SqlitePool) -> Self {
         Self { pool }
     }
 
-    pub(super) async fn import_runs(&self) -> Result<Vec<ImportRunRow>> {
+    pub async fn import_runs(&self) -> Result<Vec<ImportRunRow>> {
         sqlx::query_as::<_, ImportRunRow>(
             r"
             SELECT
@@ -189,7 +189,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load import runs")
     }
 
-    pub(super) async fn results(&self, filters: &ResultFilters) -> Result<Vec<ResultRow>> {
+    pub async fn results(&self, filters: &ResultFilters) -> Result<Vec<ResultRow>> {
         let search = like_filter(filters.search.as_deref());
         sqlx::query_as::<_, ResultRow>(
             r"
@@ -266,7 +266,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load results")
     }
 
-    pub(super) async fn athletes(&self, filters: &AthleteFilters) -> Result<Vec<AthleteRow>> {
+    pub async fn athletes(&self, filters: &AthleteFilters) -> Result<Vec<AthleteRow>> {
         let search = like_filter(filters.search.as_deref());
         let club = like_filter(filters.club.as_deref());
         sqlx::query_as::<_, AthleteRow>(
@@ -300,7 +300,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load athletes")
     }
 
-    pub(super) async fn clubs(&self, filters: &ClubFilters) -> Result<Vec<ClubRow>> {
+    pub async fn clubs(&self, filters: &ClubFilters) -> Result<Vec<ClubRow>> {
         let search = like_filter(filters.search.as_deref());
         sqlx::query_as::<_, ClubRow>(
             r"
@@ -333,8 +333,8 @@ impl<'a> WebDataService<'a> {
         .context("could not load clubs")
     }
 
-    pub(super) async fn manual_overrides(&self) -> Result<Vec<ManualOverrideWebRow>> {
-        sqlx::query_as::<_, ManualOverrideWebRow>(
+    pub async fn manual_overrides(&self) -> Result<Vec<ManualOverrideRow>> {
+        sqlx::query_as::<_, ManualOverrideRow>(
             r"
             SELECT
                 id, scope, entity_type, field_name, old_value, new_value,
@@ -348,7 +348,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load manual overrides")
     }
 
-    pub(super) async fn parser_issues(&self) -> Result<Vec<ParsedIssueRow>> {
+    pub async fn parser_issues(&self) -> Result<Vec<ParsedIssueRow>> {
         sqlx::query_as::<_, ParsedIssueRow>(
             r"
             SELECT
@@ -369,7 +369,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load parser issues")
     }
 
-    pub(super) async fn source_documents(&self) -> Result<Vec<SourceDocumentRow>> {
+    pub async fn source_documents(&self) -> Result<Vec<SourceDocumentRow>> {
         sqlx::query_as::<_, SourceDocumentRow>(
             r"
             SELECT
@@ -394,7 +394,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load source documents")
     }
 
-    pub(super) async fn source_document(&self, id: i64) -> Result<Option<SourceDocumentRow>> {
+    pub async fn source_document(&self, id: i64) -> Result<Option<SourceDocumentRow>> {
         sqlx::query_as::<_, SourceDocumentRow>(
             r"
             SELECT
@@ -420,7 +420,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load source document")
     }
 
-    pub(super) async fn parser_runs(&self) -> Result<Vec<ParserRunRow>> {
+    pub async fn parser_runs(&self) -> Result<Vec<ParserRunRow>> {
         sqlx::query_as::<_, ParserRunRow>(
             r"
             SELECT
@@ -453,7 +453,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load parser runs")
     }
 
-    pub(super) async fn parser_run(&self, id: i64) -> Result<Option<ParserRunRow>> {
+    pub async fn parser_run(&self, id: i64) -> Result<Option<ParserRunRow>> {
         sqlx::query_as::<_, ParserRunRow>(
             r"
             SELECT
@@ -487,7 +487,7 @@ impl<'a> WebDataService<'a> {
         .context("could not load parser run")
     }
 
-    pub(super) async fn combined_evaluation(
+    pub async fn combined_evaluation(
         &self,
         filters: &ResultFilters,
     ) -> Result<Vec<CombinedEvaluationRow>> {
@@ -539,12 +539,12 @@ impl<'a> WebDataService<'a> {
         .context("could not load combined evaluation")
     }
 
-    pub(super) async fn club_names(&self) -> Result<Vec<String>> {
+    pub async fn club_names(&self) -> Result<Vec<String>> {
         self.names("SELECT canonical_name FROM clubs ORDER BY canonical_name")
             .await
     }
 
-    pub(super) async fn athlete_names(&self) -> Result<Vec<String>> {
+    pub async fn athlete_names(&self) -> Result<Vec<String>> {
         self.names("SELECT canonical_name FROM athletes ORDER BY canonical_name")
             .await
     }

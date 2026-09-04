@@ -518,7 +518,7 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 ### Sofort
 
 1. Mehr DB-Filter plus Filter/Suche in GUI-Listen - in Arbeit, erste serverseitige Filter fuer Ergebnisse, Sportler, Vereine und kombinierte Auswertung umgesetzt
-2. Stabile API-/Service-Schicht fuer CLI und GUI - in Arbeit, lesende Web-Abfragen in `web::service` gebuendelt
+2. Stabile API-/Service-Schicht fuer CLI und GUI - in Arbeit, lesende Abfragen in `application::query` gebuendelt
 3. Detailseiten fuer Sportler, Vereine, Importlaeufe und Quellen - in Arbeit, Detailseiten fuer Sportler, Vereine, Quellen und Importlauf-Ergebnisse umgesetzt
 4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste und Parserlauf-Detailseite umgesetzt
 5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - in Arbeit, Korrekturformular bietet vorhandene Namen als Vorschlaege an
@@ -631,7 +631,7 @@ Stand der Umsetzung:
 - `export-db-combined` erzeugt `CombinedExport` JSON und HTML aus LM-Ergebnissen und DM-Teilnahmen in SQLite
 - Filter fuer Jahr, Wettbewerbsebene, Kreis und Platz bis laufen in SQL-Abfragen
 - die Weboberflaeche nutzt fuer Ergebnis-, Sportler-, Vereins- und kombinierte Ansichten serverseitige SQLite-Filter
-- lesende Web-Abfragen sind in `web::service` gebuendelt und koennen schrittweise von CLI-Exporten wiederverwendet werden
+- lesende Abfragen sind in `application::query` gebuendelt und koennen schrittweise von Web, GUI und CLI-Exporten wiederverwendet werden
 - die bisherigen JSON-Datei-Exporter `export-podium`, `export-participation` und `export-combined` bleiben unveraendert nutzbar
 - die bestehenden HTML-Templates werden weiterverwendet
 

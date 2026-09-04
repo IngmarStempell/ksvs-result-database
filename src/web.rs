@@ -7,17 +7,14 @@ use std::path::PathBuf;
 use anyhow::{Context, Result};
 use percent_encoding::percent_decode_str;
 
+use crate::application::{
+    ApplicationService, AthleteFilters, ClubFilters, CombinedEvaluationRow, ParsedIssueRow,
+    ResultFilters, ResultRow,
+};
 use crate::storage::{
     Database, DatabaseConfig, NewClub, NewClubAlias, NewManualOverride, StorageRepository,
 };
 use crate::template::render_template;
-
-mod service;
-
-use service::{
-    AthleteFilters, ClubFilters, CombinedEvaluationRow, ParsedIssueRow, ResultFilters, ResultRow,
-    WebDataService,
-};
 
 const LAYOUT_TEMPLATE: &str = include_str!("../templates/web-layout.html");
 const IMPORT_RUNS_TEMPLATE: &str = include_str!("../templates/web-import-runs.html");
@@ -215,7 +212,7 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
 }
 
 async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = WebDataService::new(pool).import_runs().await?;
+    let rows = ApplicationService::new(pool).import_runs().await?;
 
     let mut rows_html = String::new();
     for row in rows {
@@ -245,7 +242,7 @@ async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
 }
 
 async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) -> Result<String> {
-    let rows = WebDataService::new(pool)
+    let rows = ApplicationService::new(pool)
         .results(&ResultFilters {
             import_run_id: Some(import_run_id),
             ..ResultFilters::default()
@@ -267,7 +264,7 @@ async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) ->
 
 async fn results_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
     let filters = result_filters(query);
-    let rows = WebDataService::new(pool).results(&filters).await?;
+    let rows = ApplicationService::new(pool).results(&filters).await?;
     Ok(render_page(
         "Ergebnisse",
         "results",
@@ -286,7 +283,7 @@ async fn athletes_page(
     query: &BTreeMap<String, String>,
 ) -> Result<String> {
     let filters = athlete_filters(query);
-    let rows = WebDataService::new(pool).athletes(&filters).await?;
+    let rows = ApplicationService::new(pool).athletes(&filters).await?;
 
     let mut rows_html = String::new();
     for row in rows {
@@ -318,7 +315,7 @@ async fn athletes_page(
 
 async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
     let filters = club_filters(query);
-    let rows = WebDataService::new(pool).clubs(&filters).await?;
+    let rows = ApplicationService::new(pool).clubs(&filters).await?;
 
     let mut rows_html = String::new();
     for row in rows {
@@ -353,7 +350,7 @@ async fn corrections_page(
     pool: &sqlx::SqlitePool,
     query: &BTreeMap<String, String>,
 ) -> Result<String> {
-    let service = WebDataService::new(pool);
+    let service = ApplicationService::new(pool);
     let overrides = service.manual_overrides().await?;
 
     let active_count = overrides
@@ -418,7 +415,7 @@ async fn corrections_page(
 }
 
 async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = WebDataService::new(pool).parser_issues().await?;
+    let rows = ApplicationService::new(pool).parser_issues().await?;
 
     let mut rows_html = String::new();
     for row in &rows {
@@ -459,7 +456,7 @@ async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
 }
 
 async fn sources_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = WebDataService::new(pool).source_documents().await?;
+    let rows = ApplicationService::new(pool).source_documents().await?;
     let mut rows_html = String::new();
     for row in rows {
         let _ = writeln!(
@@ -484,7 +481,7 @@ async fn sources_page(pool: &sqlx::SqlitePool) -> Result<String> {
 }
 
 async fn source_detail_page(pool: &sqlx::SqlitePool, source_id: i64) -> Result<String> {
-    let service = WebDataService::new(pool);
+    let service = ApplicationService::new(pool);
     let Some(source) = service.source_document(source_id).await? else {
         return Ok(render_page(
             "Quelle",
@@ -523,7 +520,7 @@ async fn athlete_detail_page(pool: &sqlx::SqlitePool, athlete_id: i64) -> Result
         athlete_id: Some(athlete_id),
         ..ResultFilters::default()
     };
-    let rows = WebDataService::new(pool).results(&filters).await?;
+    let rows = ApplicationService::new(pool).results(&filters).await?;
     let athlete_name = rows
         .iter()
         .find_map(|row| row.athlete_name.as_deref())
@@ -548,7 +545,7 @@ async fn club_detail_page(pool: &sqlx::SqlitePool, club_id: i64) -> Result<Strin
         club_id: Some(club_id),
         ..ResultFilters::default()
     };
-    let rows = WebDataService::new(pool).results(&filters).await?;
+    let rows = ApplicationService::new(pool).results(&filters).await?;
     let club_name = rows
         .iter()
         .find_map(|row| row.club_name.as_deref())
@@ -569,7 +566,7 @@ async fn club_detail_page(pool: &sqlx::SqlitePool, club_id: i64) -> Result<Strin
 }
 
 async fn parser_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = WebDataService::new(pool).parser_runs().await?;
+    let rows = ApplicationService::new(pool).parser_runs().await?;
     let mut rows_html = String::new();
     for row in rows {
         let _ = writeln!(
@@ -599,7 +596,7 @@ async fn parser_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
 }
 
 async fn parser_run_detail_page(pool: &sqlx::SqlitePool, parser_run_id: i64) -> Result<String> {
-    let service = WebDataService::new(pool);
+    let service = ApplicationService::new(pool);
     let Some(row) = service.parser_run(parser_run_id).await? else {
         return Ok(render_page(
             "Parserlauf",
@@ -646,7 +643,7 @@ async fn combined_page(
         association_code: non_empty_query(query, "verein"),
         ..ResultFilters::default()
     };
-    let rows = WebDataService::new(pool)
+    let rows = ApplicationService::new(pool)
         .combined_evaluation(&filters)
         .await?;
     Ok(render_page(
@@ -688,7 +685,7 @@ async fn club_aliases_page(pool: &sqlx::SqlitePool) -> Result<String> {
             action
         );
     }
-    let club_options = datalist_options(&WebDataService::new(pool).club_names().await?);
+    let club_options = datalist_options(&ApplicationService::new(pool).club_names().await?);
     Ok(render_page(
         "Vereinsaliase",
         "club-aliases",
