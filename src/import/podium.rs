@@ -9,9 +9,9 @@ use sha2::{Digest, Sha256};
 
 use crate::export::{PodiumExport, PodiumExportItem, PodiumResultKind};
 use crate::storage::{
-    CanonicalResultReference, Database, DatabaseConfig, NewAthlete, NewClub, NewCompetition,
-    NewDiscipline, NewImportRun, NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument,
-    NewTeam, NewTeamMember, NewTeamResultMember, StorageRepository,
+    CanonicalResultReference, Database, DatabaseConfig, NewAthlete, NewClub, NewClubAlias,
+    NewCompetition, NewDiscipline, NewImportRun, NewParsedResultRow, NewParserRun, NewResult,
+    NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember, StorageRepository,
 };
 
 const IMPORT_KIND: &str = "podium-export-import";
@@ -76,6 +76,13 @@ impl ManualOverrideSet {
             .await?
             .into_iter()
             .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+            .chain(
+                repository
+                    .active_club_aliases()
+                    .await?
+                    .into_iter()
+                    .map(|alias| (alias.alias, alias.canonical_name)),
+            )
             .collect();
         let athletes = repository
             .active_manual_overrides("athlete", "canonical_name")
@@ -259,6 +266,7 @@ async fn import_item(
     let club_id = repository
         .upsert_club(&club_from_item(item, &canonical_club))
         .await?;
+    store_club_aliases(repository, club_id, item, &parser_club).await?;
     let athlete_id = repository
         .upsert_athlete(&athlete_from_name(&canonical_athlete))
         .await?;
@@ -526,6 +534,29 @@ fn club_from_item(item: &PodiumExportItem, canonical_name: &str) -> NewClub {
         association_code: Some(item.association_code.clone()),
         source: Some(item.source_name.clone()),
     }
+}
+
+async fn store_club_aliases(
+    repository: &StorageRepository<'_>,
+    club_id: i64,
+    item: &PodiumExportItem,
+    parser_club: &str,
+) -> Result<()> {
+    for alias in [&item.club, parser_club, item.canonical_club.as_str()] {
+        let alias = alias.trim();
+        if !alias.is_empty() {
+            repository
+                .upsert_club_alias(&NewClubAlias {
+                    club_id,
+                    alias: alias.to_owned(),
+                    association_code: Some(item.association_code.clone()),
+                    source: Some("podium-export".to_owned()),
+                    status: "active".to_owned(),
+                })
+                .await?;
+        }
+    }
+    Ok(())
 }
 
 fn athlete_from_name(canonical_name: &str) -> NewAthlete {

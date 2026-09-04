@@ -1,0 +1,19 @@
+<div class="page-head">
+  <div>
+    <h1>Parserlauf #{{parser_run_id}}</h1>
+    <p class="muted">{{source_name}}</p>
+  </div>
+  <div class="actions">
+    <a href="/parser-runs">Zurueck zu Parserlaeufen</a>
+    <a href="/corrections/issues">Auffaellige Faelle</a>
+  </div>
+</div>
+<div class="meta-grid">
+  <div class="meta"><strong>Art</strong>{{source_kind}}</div>
+  <div class="meta"><strong>Parser</strong>{{parser}}</div>
+  <div class="meta"><strong>Status</strong>{{status}}</div>
+  <div class="meta"><strong>Zeit</strong>{{time_range}}</div>
+  <div class="meta"><strong>Parserzeilen</strong>{{parsed_row_count}}</div>
+  <div class="meta"><strong>Auffaellig</strong>{{issue_count}}</div>
+</div>
+<div class="meta"><strong>Eingabe</strong>{{input_path}}</div>

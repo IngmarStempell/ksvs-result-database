@@ -291,8 +291,9 @@ Stand der Umsetzung:
 - Mannschaftsmedaillen werden pro Mitglied ueber `team_result_members.medal` auswertbar
 - Mannschaftsnummern wie `I`, `II` oder `1` werden als `team_number` gespeichert
 - der kanonische Verein bleibt getrennt vom Mannschaftsnamen
+- Roh- und Parser-Schreibweisen von Vereinen werden beim Import als `club_aliases` am kanonischen Verein gespeichert
 
-Offene Punkte: siehe zentrale Priorisierung, Spaeter 9-12.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 7 fuer Alias-Ausbau sowie Spaeter 9-12 fuer Mannschaftsdetails.
 
 ### Organisationen
 
@@ -510,7 +511,7 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste und Parserlauf-Detailseite umgesetzt
 5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - in Arbeit, Korrekturformular bietet vorhandene Namen als Vorschlaege an
 6. Teilnahme genauer nach Disziplin/Klasse modellieren
-7. Vereinsabgleich ueber `club_aliases` als Datenbasis
+7. Vereinsabgleich ueber `club_aliases` als Datenbasis - in Arbeit, Tabelle, Repository-Funktionen und automatische Befuellung aus Importen umgesetzt
 8. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
 9. Allgemeines Wettbewerbsmodell fuer DM, WM, Olympia usw.
 
@@ -599,8 +600,10 @@ Stand der Umsetzung:
 - erkannte Schuetzennamen werden mit `athletes` verknuepft
 - Treffer ohne erkannte Schuetzen bleiben ueber Verein, Quelle und PDF nachvollziehbar
 - die View `lm_medals_with_dm_participation` kombiniert LM-Medaillen mit DM-Teilnahmen desselben Jahres
+- aktive `club_aliases` werden beim Import zur Aufloesung bekannter Vereins-Schreibweisen genutzt
+- `import-participation` speichert bekannte Schreibweisen ebenfalls als Vereinsaliase
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 6-9.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 6, 8 und 9. Sofort 7 ist begonnen und braucht spaeter noch GUI-/Pflegefunktionen fuer Aliase.
 
 ### Paket 8: HTML-/JSON-Reports aus Datenbank - erledigt
 
@@ -614,10 +617,12 @@ Stand der Umsetzung:
 - `export-db-podium` erzeugt `PodiumExport` JSON und HTML aus kanonischen DB-Ergebnissen
 - `export-db-combined` erzeugt `CombinedExport` JSON und HTML aus LM-Ergebnissen und DM-Teilnahmen in SQLite
 - Filter fuer Jahr, Wettbewerbsebene, Kreis und Platz bis laufen in SQL-Abfragen
+- die Weboberflaeche nutzt fuer Ergebnis-, Sportler-, Vereins- und kombinierte Ansichten serverseitige SQLite-Filter
+- lesende Web-Abfragen sind in `web::service` gebuendelt und koennen schrittweise von CLI-Exporten wiederverwendet werden
 - die bisherigen JSON-Datei-Exporter `export-podium`, `export-participation` und `export-combined` bleiben unveraendert nutzbar
 - die bestehenden HTML-Templates werden weiterverwendet
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 1-2 sowie Spaeter 1-2.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 1-2 fuer weiteren Filter-/Service-Ausbau sowie Spaeter 1-2.
 
 ### Paket 9: GUI-Grundlage - erledigt
 
@@ -638,19 +643,20 @@ Stand der Umsetzung:
 - `/` leitet auf `/import-runs`
 - `/import-runs` zeigt Importlaeufe als Einstiegspunkt
 - `/import-runs/<id>/results` zeigt die Ergebnisse eines Importlaufs
-- `/results` zeigt eine lesende Ergebnisliste
-- `/athletes` zeigt eine lesende Sportlerliste
-- `/clubs` zeigt eine lesende Vereinsliste
+- `/results?q=&year=&scope=&kreis=&wertung=` zeigt eine filterbare Ergebnisliste
+- `/athletes?q=&verein=&year=` zeigt eine filterbare Sportlerliste
+- `/clubs?q=&kreis=&year=` zeigt eine filterbare Vereinsliste
 - `/athletes/<id>` zeigt Ergebnisse eines Sportlers
 - `/clubs/<id>` zeigt Ergebnisse eines Vereins
 - `/sources` zeigt bekannte PDF-Quellen
 - `/sources/<id>` zeigt Quelle und verknuepfte Ergebnisse
 - `/parser-runs` zeigt Parserlaeufe und auffaellige Zeilen
 - `/parser-runs/<id>` zeigt Statusdetails eines Parserlaufs
-- `/combined` zeigt LM-Medaillen mit DM-Teilnahme
+- `/combined?q=&year=&verein=` zeigt LM-Medaillen mit DM-Teilnahme
 - `/honors` ist als Platzhalter fuer die spaetere Ehrungslogik vorhanden
 - die GUI nutzt Template-Dateien unter `templates/web-*.html`
 - die Listen schneiden nicht still bei 500 Eintraegen ab
+- Filterparameter bleiben in der URL erhalten und koennen weitergegeben werden
 
 Offene Punkte: siehe zentrale Priorisierung, Sofort 1, 3-4 und Spaeter 3 fuer weiteren Ausbau. Echte Ehrungsvorschlaege bleiben Paket 11.
 
@@ -674,10 +680,11 @@ Stand der Umsetzung:
 - Anlage- und Aktualisierungszeit bleiben sichtbar
 - `/corrections/issues` zeigt auffaellige Parserzeilen mit Konfliktstatus oder fehlender Normalisierung
 - Parserfaelle bieten Links, um Korrekturformulare mit Rohwerten vorzubelegen
+- das Korrekturformular bietet vorhandene Sportler- und Vereinsnamen als Vorschlaege an
 - Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen
 - Parser-Rohdaten werden weiterhin nicht veraendert
 
-Offene Punkte: siehe zentrale Priorisierung, Sofort 5 sowie Spaeter 4-8. Der Pruefstatus ist bewusst auf auffaellige Parserfaelle begrenzt, nicht auf jede Parserzeile.
+Offene Punkte: siehe zentrale Priorisierung, Sofort 5 fuer weitere Validierungsqualitaet sowie Spaeter 4-8. Der Pruefstatus ist bewusst auf auffaellige Parserfaelle begrenzt, nicht auf jede Parserzeile.
 
 ### Paket 11: Sportlerehrungen
 

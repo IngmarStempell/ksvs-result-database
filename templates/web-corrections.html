@@ -15,10 +15,10 @@
     </select>
   </label>
   <label>Rohwert oder alter kanonischer Wert
-    <input name="old_value" value="{{prefill_old_value}}" required>
+    <input name="old_value" value="{{prefill_old_value}}" list="known-old-values" required>
   </label>
   <label class="span-2">Neuer kanonischer Wert
-    <input name="new_value" required>
+    <input name="new_value" list="known-new-values" required>
   </label>
   <label class="span-2">Notiz
     <input name="reason">
@@ -27,6 +27,14 @@
     <button type="submit">Korrektur speichern</button>
   </div>
 </form>
+<datalist id="known-old-values">
+  {{club_options}}
+  {{athlete_options}}
+</datalist>
+<datalist id="known-new-values">
+  {{club_options}}
+  {{athlete_options}}
+</datalist>
 <div class="table-wrap">
   <table>
     <thead>

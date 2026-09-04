@@ -9,7 +9,7 @@ use sha2::{Digest, Sha256};
 
 use crate::export::{ParticipationExport, ParticipationMatch};
 use crate::storage::{
-    Database, DatabaseConfig, NewAthlete, NewClub, NewCompetition, NewImportRun,
+    Database, DatabaseConfig, NewAthlete, NewClub, NewClubAlias, NewCompetition, NewImportRun,
     NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, StorageRepository,
 };
 
@@ -73,6 +73,13 @@ impl ManualOverrideSet {
             .await?
             .into_iter()
             .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+            .chain(
+                repository
+                    .active_club_aliases()
+                    .await?
+                    .into_iter()
+                    .map(|alias| (alias.alias, alias.canonical_name)),
+            )
             .collect();
         let athletes = repository
             .active_manual_overrides("athlete", "canonical_name")
@@ -257,6 +264,7 @@ async fn import_participation(
     let club_id = repository
         .upsert_club(&club_from_match(item, &canonical_club))
         .await?;
+    store_club_aliases(repository, club_id, item, &canonical_club).await?;
     let athlete_id = if let Some(canonical_athlete) = canonical_athlete.as_deref() {
         Some(
             repository
@@ -409,6 +417,29 @@ fn club_from_match(item: &ParticipationMatch, canonical_name: &str) -> NewClub {
         association_code: Some("OD".to_owned()),
         source: Some(item.source_name.clone()),
     }
+}
+
+async fn store_club_aliases(
+    repository: &StorageRepository<'_>,
+    club_id: i64,
+    item: &ParticipationMatch,
+    canonical_club: &str,
+) -> Result<()> {
+    for alias in [item.club.as_str(), canonical_club] {
+        let alias = alias.trim();
+        if !alias.is_empty() {
+            repository
+                .upsert_club_alias(&NewClubAlias {
+                    club_id,
+                    alias: alias.to_owned(),
+                    association_code: None,
+                    source: Some("participation-export".to_owned()),
+                    status: "active".to_owned(),
+                })
+                .await?;
+        }
+    }
+    Ok(())
 }
 
 fn athlete_from_name(canonical_name: &str) -> NewAthlete {

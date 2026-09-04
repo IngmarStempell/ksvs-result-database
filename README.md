@@ -292,13 +292,22 @@ Verfuegbare lesende Ansichten:
 ```text
 /import-runs
 /import-runs/<id>/results
-/results
-/athletes
-/clubs
+/results?q=&year=&scope=&kreis=&wertung=
+/athletes?q=&verein=&year=
+/athletes/<id>
+/clubs?q=&kreis=&year=
+/clubs/<id>
+/sources
+/sources/<id>
+/parser-runs
+/parser-runs/<id>
+/combined?q=&year=&verein=
 /corrections
 /corrections/issues
 /honors
 ```
+
+Die Filter laufen serverseitig gegen SQLite. Die Parameter bleiben in der URL erhalten und koennen weitergegeben werden.
 
 ### Paket 10: UI fuer Korrekturen
 
@@ -320,6 +329,7 @@ Moeglich ist aktuell:
 
 - globale Korrektur fuer Vereinsnamen speichern
 - globale Korrektur fuer Sportlernamen speichern
+- Zielwerte gegen vorhandene Sportler- und Vereinsnamen vorschlagen lassen
 - aktive Korrekturen zuruecknehmen
 - Korrekturhistorie ansehen
 - auffaellige Parserzeilen ansehen und Rohwerte ins Korrekturformular uebernehmen

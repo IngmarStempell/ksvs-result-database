@@ -10,6 +10,13 @@ use percent_encoding::percent_decode_str;
 use crate::storage::{Database, DatabaseConfig, NewManualOverride, StorageRepository};
 use crate::template::render_template;
 
+mod service;
+
+use service::{
+    AthleteFilters, ClubFilters, CombinedEvaluationRow, ParsedIssueRow, ResultFilters, ResultRow,
+    WebDataService,
+};
+
 const LAYOUT_TEMPLATE: &str = include_str!("../templates/web-layout.html");
 const IMPORT_RUNS_TEMPLATE: &str = include_str!("../templates/web-import-runs.html");
 const IMPORT_RUN_RESULTS_TEMPLATE: &str = include_str!("../templates/web-import-run-results.html");
@@ -19,6 +26,13 @@ const CLUBS_TEMPLATE: &str = include_str!("../templates/web-clubs.html");
 const HONORS_TEMPLATE: &str = include_str!("../templates/web-honors.html");
 const CORRECTIONS_TEMPLATE: &str = include_str!("../templates/web-corrections.html");
 const PARSER_ISSUES_TEMPLATE: &str = include_str!("../templates/web-parser-issues.html");
+const SOURCES_TEMPLATE: &str = include_str!("../templates/web-sources.html");
+const SOURCE_DETAIL_TEMPLATE: &str = include_str!("../templates/web-source-detail.html");
+const ATHLETE_DETAIL_TEMPLATE: &str = include_str!("../templates/web-athlete-detail.html");
+const CLUB_DETAIL_TEMPLATE: &str = include_str!("../templates/web-club-detail.html");
+const PARSER_RUNS_TEMPLATE: &str = include_str!("../templates/web-parser-runs.html");
+const PARSER_RUN_DETAIL_TEMPLATE: &str = include_str!("../templates/web-parser-run-detail.html");
+const COMBINED_TEMPLATE: &str = include_str!("../templates/web-combined.html");
 
 #[derive(Debug, Clone)]
 pub struct WebConfig {
@@ -29,89 +43,6 @@ pub struct WebConfig {
 #[derive(Debug, Clone)]
 pub struct WebServer {
     config: WebConfig,
-}
-
-#[derive(Debug, sqlx::FromRow)]
-struct ImportRunRow {
-    id: i64,
-    source_name: String,
-    run_kind: String,
-    parser_name: Option<String>,
-    parser_version: Option<String>,
-    input_path: Option<String>,
-    status: String,
-    started_at: String,
-    finished_at: Option<String>,
-    result_count: i64,
-}
-
-#[derive(Debug, sqlx::FromRow)]
-struct ResultRow {
-    id: i64,
-    athlete_name: Option<String>,
-    club_name: Option<String>,
-    discipline: Option<String>,
-    competition_name: String,
-    competition_scope: String,
-    competition_year: i64,
-    result_kind: String,
-    rank: Option<i64>,
-    score: Option<f64>,
-    medal: Option<String>,
-    participation_only: i64,
-    event_class: Option<String>,
-    source_url: Option<String>,
-}
-
-#[derive(Debug, sqlx::FromRow)]
-struct AthleteRow {
-    id: i64,
-    canonical_name: String,
-    result_count: i64,
-    club_count: i64,
-    latest_year: Option<i64>,
-}
-
-#[derive(Debug, sqlx::FromRow)]
-struct ClubRow {
-    id: i64,
-    canonical_name: String,
-    association_code: Option<String>,
-    result_count: i64,
-    athlete_count: i64,
-    latest_year: Option<i64>,
-}
-
-#[derive(Debug, sqlx::FromRow)]
-struct ManualOverrideWebRow {
-    id: i64,
-    scope: String,
-    entity_type: String,
-    field_name: String,
-    old_value: String,
-    new_value: String,
-    reason: Option<String>,
-    status: String,
-    created_at: String,
-    updated_at: String,
-}
-
-#[derive(Debug, sqlx::FromRow)]
-struct ParsedIssueRow {
-    id: i64,
-    source_name: String,
-    competition_year: i64,
-    competition_scope: String,
-    conflict_status: String,
-    raw_shooter_name: Option<String>,
-    normalized_shooter_name: Option<String>,
-    raw_club_name: Option<String>,
-    normalized_club_name: Option<String>,
-    raw_discipline: Option<String>,
-    discipline_code: Option<String>,
-    class_name: Option<String>,
-    event_name: Option<String>,
-    pdf_url: Option<String>,
 }
 
 #[derive(Debug)]
@@ -194,12 +125,45 @@ async fn route_get(
     match path {
         "/" => Ok(WebResponse::Redirect("/import-runs")),
         "/import-runs" => import_runs_page(pool).await.map(WebResponse::Html),
-        "/results" => results_page(pool).await.map(WebResponse::Html),
-        "/athletes" => athletes_page(pool).await.map(WebResponse::Html),
-        "/clubs" => clubs_page(pool).await.map(WebResponse::Html),
+        "/results" => results_page(pool, query).await.map(WebResponse::Html),
+        "/athletes" => athletes_page(pool, query).await.map(WebResponse::Html),
+        "/clubs" => clubs_page(pool, query).await.map(WebResponse::Html),
+        "/sources" => sources_page(pool).await.map(WebResponse::Html),
+        "/parser-runs" => parser_runs_page(pool).await.map(WebResponse::Html),
+        "/combined" => combined_page(pool, query).await.map(WebResponse::Html),
         "/corrections" => corrections_page(pool, query).await.map(WebResponse::Html),
         "/corrections/issues" => parser_issues_page(pool).await.map(WebResponse::Html),
         "/honors" => Ok(WebResponse::Html(honors_page())),
+        path if path.starts_with("/athletes/") => {
+            let id = path
+                .trim_start_matches("/athletes/")
+                .parse::<i64>()
+                .context("invalid athlete id")?;
+            athlete_detail_page(pool, id).await.map(WebResponse::Html)
+        }
+        path if path.starts_with("/clubs/") => {
+            let id = path
+                .trim_start_matches("/clubs/")
+                .parse::<i64>()
+                .context("invalid club id")?;
+            club_detail_page(pool, id).await.map(WebResponse::Html)
+        }
+        path if path.starts_with("/sources/") => {
+            let id = path
+                .trim_start_matches("/sources/")
+                .parse::<i64>()
+                .context("invalid source document id")?;
+            source_detail_page(pool, id).await.map(WebResponse::Html)
+        }
+        path if path.starts_with("/parser-runs/") => {
+            let id = path
+                .trim_start_matches("/parser-runs/")
+                .parse::<i64>()
+                .context("invalid parser run id")?;
+            parser_run_detail_page(pool, id)
+                .await
+                .map(WebResponse::Html)
+        }
         path if path.starts_with("/import-runs/") && path.ends_with("/results") => {
             let id = path
                 .trim_start_matches("/import-runs/")
@@ -234,28 +198,7 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
 }
 
 async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = sqlx::query_as::<_, ImportRunRow>(
-        r"
-        SELECT
-            import_runs.id,
-            import_runs.source_name,
-            import_runs.run_kind,
-            import_runs.parser_name,
-            import_runs.parser_version,
-            import_runs.input_path,
-            import_runs.status,
-            import_runs.started_at,
-            import_runs.finished_at,
-            COUNT(results.id) AS result_count
-        FROM import_runs
-        LEFT JOIN results ON results.import_run_id = import_runs.id
-        GROUP BY import_runs.id
-        ORDER BY import_runs.started_at DESC, import_runs.id DESC
-        ",
-    )
-    .fetch_all(pool)
-    .await
-    .context("could not load import runs")?;
+    let rows = WebDataService::new(pool).import_runs().await?;
 
     let mut rows_html = String::new();
     for row in rows {
@@ -285,7 +228,12 @@ async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
 }
 
 async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) -> Result<String> {
-    let rows = result_rows(pool, Some(import_run_id)).await?;
+    let rows = WebDataService::new(pool)
+        .results(&ResultFilters {
+            import_run_id: Some(import_run_id),
+            ..ResultFilters::default()
+        })
+        .await?;
     let rows_html = result_rows_html(&rows);
     Ok(render_page(
         &format!("Importlauf #{import_run_id}"),
@@ -300,43 +248,35 @@ async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) ->
     ))
 }
 
-async fn results_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = result_rows(pool, None).await?;
+async fn results_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
+    let filters = result_filters(query);
+    let rows = WebDataService::new(pool).results(&filters).await?;
     Ok(render_page(
         "Ergebnisse",
         "results",
         render_template(
             RESULTS_TEMPLATE,
-            &[("rows", empty_rows(result_rows_html(&rows), 10))],
+            &[
+                ("filters", result_filter_form(&filters, "/results")),
+                ("rows", empty_rows(result_rows_html(&rows), 10)),
+            ],
         ),
     ))
 }
 
-async fn athletes_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = sqlx::query_as::<_, AthleteRow>(
-        r"
-        SELECT
-            athletes.id,
-            athletes.canonical_name,
-            COUNT(results.id) AS result_count,
-            COUNT(DISTINCT results.club_id) AS club_count,
-            MAX(competitions.year) AS latest_year
-        FROM athletes
-        LEFT JOIN results ON results.athlete_id = athletes.id
-        LEFT JOIN competitions ON competitions.id = results.competition_id
-        GROUP BY athletes.id
-        ORDER BY athletes.canonical_name
-        ",
-    )
-    .fetch_all(pool)
-    .await
-    .context("could not load athletes")?;
+async fn athletes_page(
+    pool: &sqlx::SqlitePool,
+    query: &BTreeMap<String, String>,
+) -> Result<String> {
+    let filters = athlete_filters(query);
+    let rows = WebDataService::new(pool).athletes(&filters).await?;
 
     let mut rows_html = String::new();
     for row in rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            "<tr><td class=\"num\">{}</td><td><a href=\"/athletes/{}\">{}</a></td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            row.id,
             row.id,
             escape_html(&row.canonical_name),
             row.result_count,
@@ -349,36 +289,26 @@ async fn athletes_page(pool: &sqlx::SqlitePool) -> Result<String> {
     Ok(render_page(
         "Sportler",
         "athletes",
-        render_template(ATHLETES_TEMPLATE, &[("rows", empty_rows(rows_html, 5))]),
+        render_template(
+            ATHLETES_TEMPLATE,
+            &[
+                ("filters", athlete_filter_form(&filters, "/athletes")),
+                ("rows", empty_rows(rows_html, 5)),
+            ],
+        ),
     ))
 }
 
-async fn clubs_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = sqlx::query_as::<_, ClubRow>(
-        r"
-        SELECT
-            clubs.id,
-            clubs.canonical_name,
-            clubs.association_code,
-            COUNT(results.id) AS result_count,
-            COUNT(DISTINCT results.athlete_id) AS athlete_count,
-            MAX(competitions.year) AS latest_year
-        FROM clubs
-        LEFT JOIN results ON results.club_id = clubs.id
-        LEFT JOIN competitions ON competitions.id = results.competition_id
-        GROUP BY clubs.id
-        ORDER BY clubs.canonical_name
-        ",
-    )
-    .fetch_all(pool)
-    .await
-    .context("could not load clubs")?;
+async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
+    let filters = club_filters(query);
+    let rows = WebDataService::new(pool).clubs(&filters).await?;
 
     let mut rows_html = String::new();
     for row in rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            "<tr><td class=\"num\">{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            row.id,
             row.id,
             escape_html(&row.canonical_name),
             escape_optional(row.association_code.as_deref()),
@@ -392,7 +322,13 @@ async fn clubs_page(pool: &sqlx::SqlitePool) -> Result<String> {
     Ok(render_page(
         "Vereine",
         "clubs",
-        render_template(CLUBS_TEMPLATE, &[("rows", empty_rows(rows_html, 6))]),
+        render_template(
+            CLUBS_TEMPLATE,
+            &[
+                ("filters", club_filter_form(&filters, "/clubs")),
+                ("rows", empty_rows(rows_html, 6)),
+            ],
+        ),
     ))
 }
 
@@ -400,18 +336,8 @@ async fn corrections_page(
     pool: &sqlx::SqlitePool,
     query: &BTreeMap<String, String>,
 ) -> Result<String> {
-    let overrides = sqlx::query_as::<_, ManualOverrideWebRow>(
-        r"
-        SELECT
-            id, scope, entity_type, field_name, old_value, new_value,
-            reason, status, created_at, updated_at
-        FROM manual_overrides
-        ORDER BY updated_at DESC, id DESC
-        ",
-    )
-    .fetch_all(pool)
-    .await
-    .context("could not load manual overrides")?;
+    let service = WebDataService::new(pool);
+    let overrides = service.manual_overrides().await?;
 
     let active_count = overrides
         .iter()
@@ -443,6 +369,8 @@ async fn corrections_page(
             action
         );
     }
+    let club_options = datalist_options(&service.club_names().await?);
+    let athlete_options = datalist_options(&service.athlete_names().await?);
 
     Ok(render_page(
         "Korrekturen",
@@ -464,6 +392,8 @@ async fn corrections_page(
                     "prefill_old_value",
                     escape_html(query.get("old_value").map_or("", String::as_str)),
                 ),
+                ("club_options", club_options),
+                ("athlete_options", athlete_options),
                 ("rows", empty_rows(rows_html, 11)),
             ],
         ),
@@ -471,24 +401,7 @@ async fn corrections_page(
 }
 
 async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
-    let rows = sqlx::query_as::<_, ParsedIssueRow>(
-        r"
-        SELECT
-            id, source_name, competition_year, competition_scope, conflict_status,
-            raw_shooter_name, normalized_shooter_name, raw_club_name,
-            normalized_club_name, raw_discipline, discipline_code, class_name,
-            event_name, pdf_url
-        FROM parsed_result_rows
-        WHERE conflict_status <> 'none'
-            OR normalized_shooter_name IS NULL
-            OR normalized_club_name IS NULL
-            OR normalized_discipline IS NULL
-        ORDER BY competition_year DESC, source_name, id DESC
-        ",
-    )
-    .fetch_all(pool)
-    .await
-    .context("could not load parser issues")?;
+    let rows = WebDataService::new(pool).parser_issues().await?;
 
     let mut rows_html = String::new();
     for row in &rows {
@@ -528,77 +441,233 @@ async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
     ))
 }
 
+async fn sources_page(pool: &sqlx::SqlitePool) -> Result<String> {
+    let rows = WebDataService::new(pool).source_documents().await?;
+    let mut rows_html = String::new();
+    for row in rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\">{}</td><td><a href=\"/sources/{}\">{}</a></td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            row.id,
+            row.id,
+            escape_html(&row.source_name),
+            source_link(Some(&row.url)),
+            escape_html(&row.classification),
+            escape_optional(row.sha256.as_deref()),
+            row.result_count,
+            row.parser_row_count
+        );
+    }
+
+    Ok(render_page(
+        "Quellen",
+        "sources",
+        render_template(SOURCES_TEMPLATE, &[("rows", empty_rows(rows_html, 7))]),
+    ))
+}
+
+async fn source_detail_page(pool: &sqlx::SqlitePool, source_id: i64) -> Result<String> {
+    let service = WebDataService::new(pool);
+    let Some(source) = service.source_document(source_id).await? else {
+        return Ok(render_page(
+            "Quelle",
+            "sources",
+            "<h1>Quelle nicht gefunden</h1>".to_string(),
+        ));
+    };
+    let rows = service
+        .results(&ResultFilters {
+            source_document_id: Some(source_id),
+            ..ResultFilters::default()
+        })
+        .await?;
+    Ok(render_page(
+        &format!("Quelle #{}", source.id),
+        "sources",
+        render_template(
+            SOURCE_DETAIL_TEMPLATE,
+            &[
+                ("source_id", source.id.to_string()),
+                ("source_name", escape_html(&source.source_name)),
+                ("source_url", source_link(Some(&source.url))),
+                ("local_path", escape_optional(source.local_path.as_deref())),
+                ("classification", escape_html(&source.classification)),
+                ("sha256", escape_optional(source.sha256.as_deref())),
+                ("result_count", source.result_count.to_string()),
+                ("parser_row_count", source.parser_row_count.to_string()),
+                ("rows", empty_rows(result_rows_html(&rows), 10)),
+            ],
+        ),
+    ))
+}
+
+async fn athlete_detail_page(pool: &sqlx::SqlitePool, athlete_id: i64) -> Result<String> {
+    let filters = ResultFilters {
+        athlete_id: Some(athlete_id),
+        ..ResultFilters::default()
+    };
+    let rows = WebDataService::new(pool).results(&filters).await?;
+    let athlete_name = rows
+        .iter()
+        .find_map(|row| row.athlete_name.as_deref())
+        .map_or_else(|| format!("#{athlete_id}"), ToOwned::to_owned);
+    Ok(render_page(
+        &athlete_name,
+        "athletes",
+        render_template(
+            ATHLETE_DETAIL_TEMPLATE,
+            &[
+                ("athlete_id", athlete_id.to_string()),
+                ("athlete_name", escape_html(&athlete_name)),
+                ("result_count", rows.len().to_string()),
+                ("rows", empty_rows(result_rows_html(&rows), 10)),
+            ],
+        ),
+    ))
+}
+
+async fn club_detail_page(pool: &sqlx::SqlitePool, club_id: i64) -> Result<String> {
+    let filters = ResultFilters {
+        club_id: Some(club_id),
+        ..ResultFilters::default()
+    };
+    let rows = WebDataService::new(pool).results(&filters).await?;
+    let club_name = rows
+        .iter()
+        .find_map(|row| row.club_name.as_deref())
+        .map_or_else(|| format!("#{club_id}"), ToOwned::to_owned);
+    Ok(render_page(
+        &club_name,
+        "clubs",
+        render_template(
+            CLUB_DETAIL_TEMPLATE,
+            &[
+                ("club_id", club_id.to_string()),
+                ("club_name", escape_html(&club_name)),
+                ("result_count", rows.len().to_string()),
+                ("rows", empty_rows(result_rows_html(&rows), 10)),
+            ],
+        ),
+    ))
+}
+
+async fn parser_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
+    let rows = WebDataService::new(pool).parser_runs().await?;
+    let mut rows_html = String::new();
+    for row in rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td class=\"num\"><a href=\"/parser-runs/{}\">{}</a></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            row.id,
+            row.id,
+            escape_html(&row.source_name),
+            escape_html(&row.source_kind),
+            parser_label(Some(&row.parser_name), Some(&row.parser_version)),
+            escape_html(&row.status),
+            escape_html(&format_time_range(
+                &row.started_at,
+                row.finished_at.as_deref()
+            )),
+            escape_html(&row.input_path),
+            row.parsed_row_count,
+            row.issue_count
+        );
+    }
+
+    Ok(render_page(
+        "Parserlaeufe",
+        "parser-runs",
+        render_template(PARSER_RUNS_TEMPLATE, &[("rows", empty_rows(rows_html, 9))]),
+    ))
+}
+
+async fn parser_run_detail_page(pool: &sqlx::SqlitePool, parser_run_id: i64) -> Result<String> {
+    let service = WebDataService::new(pool);
+    let Some(row) = service.parser_run(parser_run_id).await? else {
+        return Ok(render_page(
+            "Parserlauf",
+            "parser-runs",
+            "<h1>Parserlauf nicht gefunden</h1>".to_string(),
+        ));
+    };
+    Ok(render_page(
+        &format!("Parserlauf #{}", row.id),
+        "parser-runs",
+        render_template(
+            PARSER_RUN_DETAIL_TEMPLATE,
+            &[
+                ("parser_run_id", row.id.to_string()),
+                ("source_name", escape_html(&row.source_name)),
+                ("source_kind", escape_html(&row.source_kind)),
+                (
+                    "parser",
+                    parser_label(Some(&row.parser_name), Some(&row.parser_version)),
+                ),
+                ("status", escape_html(&row.status)),
+                (
+                    "time_range",
+                    escape_html(&format_time_range(
+                        &row.started_at,
+                        row.finished_at.as_deref(),
+                    )),
+                ),
+                ("input_path", escape_html(&row.input_path)),
+                ("parsed_row_count", row.parsed_row_count.to_string()),
+                ("issue_count", row.issue_count.to_string()),
+            ],
+        ),
+    ))
+}
+
+async fn combined_page(
+    pool: &sqlx::SqlitePool,
+    query: &BTreeMap<String, String>,
+) -> Result<String> {
+    let filters = ResultFilters {
+        search: non_empty_query(query, "q"),
+        year: query_i64(query, "year"),
+        association_code: non_empty_query(query, "verein"),
+        ..ResultFilters::default()
+    };
+    let rows = WebDataService::new(pool)
+        .combined_evaluation(&filters)
+        .await?;
+    Ok(render_page(
+        "LM und DM",
+        "combined",
+        render_template(
+            COMBINED_TEMPLATE,
+            &[
+                ("filters", combined_filter_form(&filters, "/combined")),
+                ("rows", empty_rows(combined_rows_html(&rows), 9)),
+            ],
+        ),
+    ))
+}
+
 fn honors_page() -> String {
     render_page("Ehrungen", "honors", render_template(HONORS_TEMPLATE, &[]))
 }
 
-async fn result_rows(
-    pool: &sqlx::SqlitePool,
-    import_run_id: Option<i64>,
-) -> Result<Vec<ResultRow>> {
-    if let Some(import_run_id) = import_run_id {
-        sqlx::query_as::<_, ResultRow>(
-            r"
-            SELECT
-                results.id,
-                athletes.canonical_name AS athlete_name,
-                clubs.canonical_name AS club_name,
-                TRIM(COALESCE(NULLIF(disciplines.code, ''), '') || ' ' || COALESCE(disciplines.name, '')) AS discipline,
-                competitions.name AS competition_name,
-                competitions.scope AS competition_scope,
-                competitions.year AS competition_year,
-                results.result_kind,
-                results.rank,
-                results.score,
-                results.medal,
-                results.participation_only,
-                results.event_class,
-                source_documents.url AS source_url
-            FROM results
-            JOIN competitions ON competitions.id = results.competition_id
-            LEFT JOIN athletes ON athletes.id = results.athlete_id
-            LEFT JOIN clubs ON clubs.id = results.club_id
-            LEFT JOIN disciplines ON disciplines.id = results.discipline_id
-            LEFT JOIN source_documents ON source_documents.id = results.source_document_id
-            WHERE results.import_run_id = ?
-            ORDER BY competitions.year DESC, competitions.scope, results.rank, athlete_name
-            ",
-        )
-        .bind(import_run_id)
-        .fetch_all(pool)
-        .await
-        .context("could not load results")
-    } else {
-        sqlx::query_as::<_, ResultRow>(
-            r"
-            SELECT
-                results.id,
-                athletes.canonical_name AS athlete_name,
-                clubs.canonical_name AS club_name,
-                TRIM(COALESCE(NULLIF(disciplines.code, ''), '') || ' ' || COALESCE(disciplines.name, '')) AS discipline,
-                competitions.name AS competition_name,
-                competitions.scope AS competition_scope,
-                competitions.year AS competition_year,
-                results.result_kind,
-                results.rank,
-                results.score,
-                results.medal,
-                results.participation_only,
-                results.event_class,
-                source_documents.url AS source_url
-            FROM results
-            JOIN competitions ON competitions.id = results.competition_id
-            LEFT JOIN athletes ON athletes.id = results.athlete_id
-            LEFT JOIN clubs ON clubs.id = results.club_id
-            LEFT JOIN disciplines ON disciplines.id = results.discipline_id
-            LEFT JOIN source_documents ON source_documents.id = results.source_document_id
-            ORDER BY competitions.year DESC, competitions.scope, results.rank, athlete_name
-            ",
-        )
-        .fetch_all(pool)
-        .await
-        .context("could not load results")
+fn combined_rows_html(rows: &[CombinedEvaluationRow]) -> String {
+    let mut rows_html = String::new();
+    for row in rows {
+        let _ = writeln!(
+            rows_html,
+            "<tr><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td></tr>",
+            detail_link("/athletes", row.athlete_id, row.athlete_name.as_deref()),
+            detail_link("/clubs", row.club_id, row.club_name.as_deref()),
+            row.year,
+            escape_optional(row.lm_discipline.as_deref()),
+            escape_optional(row.lm_event_class.as_deref()),
+            result_kind_label(&row.lm_result_kind),
+            row.lm_rank
+                .map_or_else(String::new, |rank| rank.to_string()),
+            escape_optional(row.lm_medal.as_deref()),
+            yes_no(row.has_dm_participation == 1)
+        );
     }
+    rows_html
 }
 
 fn result_rows_html(rows: &[ResultRow]) -> String {
@@ -608,8 +677,8 @@ fn result_rows_html(rows: &[ResultRow]) -> String {
             rows_html,
             "<tr><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td></tr>",
             row.id,
-            escape_optional(row.athlete_name.as_deref()),
-            escape_optional(row.club_name.as_deref()),
+            detail_link("/athletes", row.athlete_id, row.athlete_name.as_deref()),
+            detail_link("/clubs", row.club_id, row.club_name.as_deref()),
             escape_html(&row.competition_scope),
             row.competition_year,
             escape_html(&row.competition_name),
@@ -617,7 +686,7 @@ fn result_rows_html(rows: &[ResultRow]) -> String {
             row.rank.map_or_else(String::new, |rank| rank.to_string()),
             row.score.map_or_else(String::new, format_score),
             result_type_label(row),
-            source_link(row.source_url.as_deref())
+            source_detail_link(row.source_document_id, row.source_url.as_deref())
         );
     }
     rows_html
@@ -632,11 +701,147 @@ fn render_page(title: &str, active: &str, content: String) -> String {
             ("active_results", active_class(active, "results")),
             ("active_athletes", active_class(active, "athletes")),
             ("active_clubs", active_class(active, "clubs")),
+            ("active_sources", active_class(active, "sources")),
+            ("active_parser_runs", active_class(active, "parser-runs")),
+            ("active_combined", active_class(active, "combined")),
             ("active_corrections", active_class(active, "corrections")),
             ("active_honors", active_class(active, "honors")),
             ("content", content),
         ],
     )
+}
+
+fn result_filters(query: &BTreeMap<String, String>) -> ResultFilters {
+    ResultFilters {
+        search: non_empty_query(query, "q"),
+        year: query_i64(query, "year"),
+        scope: non_empty_query(query, "scope"),
+        association_code: non_empty_query(query, "kreis"),
+        result_kind: non_empty_query(query, "wertung"),
+        ..ResultFilters::default()
+    }
+}
+
+fn athlete_filters(query: &BTreeMap<String, String>) -> AthleteFilters {
+    AthleteFilters {
+        search: non_empty_query(query, "q"),
+        club: non_empty_query(query, "verein"),
+        year: query_i64(query, "year"),
+    }
+}
+
+fn club_filters(query: &BTreeMap<String, String>) -> ClubFilters {
+    ClubFilters {
+        search: non_empty_query(query, "q"),
+        association_code: non_empty_query(query, "kreis"),
+        year: query_i64(query, "year"),
+    }
+}
+
+fn result_filter_form(filters: &ResultFilters, action: &str) -> String {
+    format!(
+        r#"<form class="filter-bar" method="get" action="{action}">
+  <label>Suche <input name="q" value="{search}"></label>
+  <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <label>Ursprung <input name="scope" value="{scope}" placeholder="LM, DM, KM"></label>
+  <label>Kreis <input name="kreis" value="{kreis}" placeholder="OD"></label>
+  <label>Wertung <select name="wertung">
+    <option value="">Alle</option>
+    <option value="individual" {individual_selected}>Einzel</option>
+    <option value="team" {team_selected}>Mannschaft</option>
+  </select></label>
+  <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
+</form>"#,
+        search = escape_html(filters.search.as_deref().unwrap_or_default()),
+        year = filters
+            .year
+            .map_or_else(String::new, |year| year.to_string()),
+        scope = escape_html(filters.scope.as_deref().unwrap_or_default()),
+        kreis = escape_html(filters.association_code.as_deref().unwrap_or_default()),
+        individual_selected = selected_str(filters.result_kind.as_deref(), "individual"),
+        team_selected = selected_str(filters.result_kind.as_deref(), "team"),
+    )
+}
+
+fn athlete_filter_form(filters: &AthleteFilters, action: &str) -> String {
+    format!(
+        r#"<form class="filter-bar" method="get" action="{action}">
+  <label>Suche <input name="q" value="{search}"></label>
+  <label>Verein <input name="verein" value="{club}"></label>
+  <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
+</form>"#,
+        search = escape_html(filters.search.as_deref().unwrap_or_default()),
+        club = escape_html(filters.club.as_deref().unwrap_or_default()),
+        year = filters
+            .year
+            .map_or_else(String::new, |year| year.to_string()),
+    )
+}
+
+fn club_filter_form(filters: &ClubFilters, action: &str) -> String {
+    format!(
+        r#"<form class="filter-bar" method="get" action="{action}">
+  <label>Suche <input name="q" value="{search}"></label>
+  <label>Kreis <input name="kreis" value="{kreis}" placeholder="OD"></label>
+  <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
+</form>"#,
+        search = escape_html(filters.search.as_deref().unwrap_or_default()),
+        kreis = escape_html(filters.association_code.as_deref().unwrap_or_default()),
+        year = filters
+            .year
+            .map_or_else(String::new, |year| year.to_string()),
+    )
+}
+
+fn combined_filter_form(filters: &ResultFilters, action: &str) -> String {
+    format!(
+        r#"<form class="filter-bar" method="get" action="{action}">
+  <label>Suche <input name="q" value="{search}"></label>
+  <label>Jahr <input name="year" inputmode="numeric" value="{year}"></label>
+  <label>Verein <input name="verein" value="{club}"></label>
+  <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
+</form>"#,
+        search = escape_html(filters.search.as_deref().unwrap_or_default()),
+        year = filters
+            .year
+            .map_or_else(String::new, |year| year.to_string()),
+        club = escape_html(filters.association_code.as_deref().unwrap_or_default()),
+    )
+}
+
+fn datalist_options(values: &[String]) -> String {
+    let mut options = String::new();
+    for value in values {
+        let _ = writeln!(
+            options,
+            "<option value=\"{}\"></option>",
+            escape_html(value)
+        );
+    }
+    options
+}
+
+fn non_empty_query(query: &BTreeMap<String, String>, key: &str) -> Option<String> {
+    query
+        .get(key)
+        .map(String::as_str)
+        .map(str::trim)
+        .filter(|value| !value.is_empty())
+        .map(ToOwned::to_owned)
+}
+
+fn query_i64(query: &BTreeMap<String, String>, key: &str) -> Option<i64> {
+    non_empty_query(query, key).and_then(|value| value.parse::<i64>().ok())
+}
+
+fn selected_str(value: Option<&str>, expected: &str) -> &'static str {
+    if value.is_some_and(|value| value == expected) {
+        "selected"
+    } else {
+        ""
+    }
 }
 
 async fn create_manual_override(pool: &sqlx::SqlitePool, body: &str) -> Result<()> {
@@ -884,6 +1089,18 @@ fn result_type_label(row: &ResultRow) -> String {
     }
 }
 
+fn result_kind_label(kind: &str) -> &'static str {
+    match kind {
+        "team" => "Mannschaft",
+        "individual" => "Einzel",
+        _ => "Unbekannt",
+    }
+}
+
+const fn yes_no(value: bool) -> &'static str {
+    if value { "ja" } else { "nein" }
+}
+
 fn issue_name_cell(raw: Option<&str>, normalized: Option<&str>) -> String {
     match (raw, normalized) {
         (Some(raw), Some(normalized)) if raw != normalized => {
@@ -946,6 +1163,23 @@ fn source_link(source_url: Option<&str>) -> String {
         .map_or_else(String::new, |url| {
             format!("<a href=\"{}\">PDF</a>", escape_html(url))
         })
+}
+
+fn source_detail_link(source_document_id: Option<i64>, source_url: Option<&str>) -> String {
+    source_document_id.map_or_else(
+        || source_link(source_url),
+        |id| format!("<a href=\"/sources/{id}\">PDF</a>"),
+    )
+}
+
+fn detail_link(base_path: &str, id: Option<i64>, label: Option<&str>) -> String {
+    match (id, label) {
+        (Some(id), Some(label)) if !label.is_empty() => {
+            format!("<a href=\"{base_path}/{id}\">{}</a>", escape_html(label))
+        }
+        (_, Some(label)) => escape_html(label),
+        _ => String::new(),
+    }
 }
 
 fn url_encode(value: &str) -> String {

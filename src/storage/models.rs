@@ -44,6 +44,22 @@ pub struct NewClub {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewClubAlias {
+    pub club_id: i64,
+    pub alias: String,
+    pub association_code: Option<String>,
+    pub source: Option<String>,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ClubAlias {
+    pub club_id: i64,
+    pub alias: String,
+    pub canonical_name: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct NewAthlete {
     pub canonical_name: String,
     pub sort_name: Option<String>,
@@ -198,6 +214,7 @@ pub struct StorageCounts {
     pub import_runs: i64,
     pub competitions: i64,
     pub clubs: i64,
+    pub club_aliases: i64,
     pub athletes: i64,
     pub disciplines: i64,
     pub results: i64,

@@ -1,10 +1,12 @@
 <div class="page-head">
   <div>
-    <h1>Ergebnisse</h1>
-    <p class="muted">Aktuelle kanonische Ergebnisliste aus der Datenbank.</p>
+    <h1>{{athlete_name}}</h1>
+    <p class="muted">Sportler #{{athlete_id}} mit {{result_count}} Ergebnissen.</p>
+  </div>
+  <div class="actions">
+    <a href="/athletes">Zurueck zu Sportlern</a>
   </div>
 </div>
-{{filters}}
 <div class="table-wrap">
   <table>
     <thead>

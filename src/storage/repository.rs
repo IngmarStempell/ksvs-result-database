@@ -2,10 +2,10 @@ use anyhow::{Result, bail};
 use sqlx::SqlitePool;
 
 use super::models::{
-    CanonicalResultReference, ManualOverride, NewAthlete, NewClub, NewCompetition, NewDiscipline,
-    NewImportRun, NewManualOverride, NewParsedResultRow, NewParserRun, NewResult,
-    NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember, StorageCounts,
-    StoredParsedResultRow, StoredResult,
+    CanonicalResultReference, ClubAlias, ManualOverride, NewAthlete, NewClub, NewClubAlias,
+    NewCompetition, NewDiscipline, NewImportRun, NewManualOverride, NewParsedResultRow,
+    NewParserRun, NewResult, NewSourceDocument, NewTeam, NewTeamMember, NewTeamResultMember,
+    StorageCounts, StoredParsedResultRow, StoredResult,
 };
 
 pub struct StorageRepository<'a> {
@@ -22,6 +22,23 @@ struct ManualOverrideRow {
     new_value: String,
     reason: Option<String>,
     status: String,
+}
+
+#[derive(sqlx::FromRow)]
+struct ClubAliasRow {
+    club_id: i64,
+    alias: String,
+    canonical_name: String,
+}
+
+impl From<ClubAliasRow> for ClubAlias {
+    fn from(row: ClubAliasRow) -> Self {
+        Self {
+            club_id: row.club_id,
+            alias: row.alias,
+            canonical_name: row.canonical_name,
+        }
+    }
 }
 
 impl From<ManualOverrideRow> for ManualOverride {
@@ -216,6 +233,60 @@ impl<'a> StorageRepository<'a> {
         .await?;
 
         Ok(id)
+    }
+
+    /// Stores or updates an active alias for a canonical club.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database write fails.
+    pub async fn upsert_club_alias(&self, alias: &NewClubAlias) -> Result<i64> {
+        let id = sqlx::query_scalar::<_, i64>(
+            r"
+            INSERT INTO club_aliases (club_id, alias, association_code, source, status)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(alias) WHERE status = 'active'
+            DO UPDATE SET
+                club_id = excluded.club_id,
+                association_code = COALESCE(excluded.association_code, club_aliases.association_code),
+                source = COALESCE(excluded.source, club_aliases.source),
+                updated_at = CURRENT_TIMESTAMP
+            RETURNING id
+            ",
+        )
+        .bind(alias.club_id)
+        .bind(&alias.alias)
+        .bind(&alias.association_code)
+        .bind(&alias.source)
+        .bind(&alias.status)
+        .fetch_one(self.pool)
+        .await?;
+
+        Ok(id)
+    }
+
+    /// Reads active club aliases mapped to canonical club names.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the database lookup fails.
+    pub async fn active_club_aliases(&self) -> Result<Vec<ClubAlias>> {
+        let rows = sqlx::query_as::<_, ClubAliasRow>(
+            r"
+            SELECT
+                club_aliases.club_id,
+                club_aliases.alias,
+                clubs.canonical_name
+            FROM club_aliases
+            JOIN clubs ON clubs.id = club_aliases.club_id
+            WHERE club_aliases.status = 'active'
+            ORDER BY club_aliases.alias
+            ",
+        )
+        .fetch_all(self.pool)
+        .await?;
+
+        Ok(rows.into_iter().map(ClubAlias::from).collect())
     }
 
     /// Stores or finds a canonical athlete and returns its technical ID.
@@ -754,6 +825,9 @@ impl<'a> StorageRepository<'a> {
             clubs: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM clubs")
                 .fetch_one(self.pool)
                 .await?,
+            club_aliases: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM club_aliases")
+                .fetch_one(self.pool)
+                .await?,
             athletes: sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM athletes")
                 .fetch_one(self.pool)
                 .await?,
@@ -794,12 +868,13 @@ mod tests {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     use super::{
-        NewAthlete, NewClub, NewCompetition, NewDiscipline, NewImportRun, NewManualOverride,
-        NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, NewTeam, NewTeamMember,
-        NewTeamResultMember, StorageRepository,
+        NewAthlete, NewClub, NewClubAlias, NewCompetition, NewDiscipline, NewImportRun,
+        NewManualOverride, NewParsedResultRow, NewParserRun, NewResult, NewSourceDocument, NewTeam,
+        NewTeamMember, NewTeamResultMember, StorageRepository,
     };
     use crate::storage::{Database, DatabaseConfig};
 
+    #[allow(clippy::too_many_lines)]
     #[tokio::test]
     async fn stores_canonical_entities_and_raw_result_values() {
         let path = temp_database_path();
@@ -827,6 +902,14 @@ mod tests {
             .upsert_club(&club())
             .await
             .expect("club is stored");
+        repository
+            .upsert_club_alias(&club_alias(club_id))
+            .await
+            .expect("club alias is stored");
+        let aliases = repository
+            .active_club_aliases()
+            .await
+            .expect("club aliases are loaded");
         let athlete_id = repository
             .upsert_athlete(&athlete())
             .await
@@ -892,6 +975,7 @@ mod tests {
         assert_eq!(counts.import_runs, 1);
         assert_eq!(counts.competitions, 1);
         assert_eq!(counts.clubs, 1);
+        assert_eq!(counts.club_aliases, 1);
         assert_eq!(counts.athletes, 1);
         assert_eq!(counts.disciplines, 1);
         assert_eq!(counts.results, 1);
@@ -903,6 +987,8 @@ mod tests {
         assert_eq!(counts.team_result_members, 1);
         assert_eq!(overrides[0].old_value, "Schützenverein Reinfeld 1");
         assert_eq!(overrides[0].new_value, "Schützenverein Reinfeld");
+        assert_eq!(aliases[0].alias, "SchV Reinfeld");
+        assert_eq!(aliases[0].canonical_name, "Schützenverein Reinfeld");
 
         pool.close().await;
         remove_database_files(&path);
@@ -1016,6 +1102,16 @@ mod tests {
             canonical_name: "Schützenverein Reinfeld".to_owned(),
             association_code: Some("OD".to_owned()),
             source: Some("parser".to_owned()),
+        }
+    }
+
+    fn club_alias(club_id: i64) -> NewClubAlias {
+        NewClubAlias {
+            club_id,
+            alias: "SchV Reinfeld".to_owned(),
+            association_code: Some("OD".to_owned()),
+            source: Some("parser".to_owned()),
+            status: "active".to_owned(),
         }
     }
 

@@ -1,0 +1,38 @@
+<div class="page-head">
+  <div>
+    <h1>Quelle #{{source_id}}</h1>
+    <p class="muted">{{source_name}}</p>
+  </div>
+  <div class="actions">
+    <a href="/sources">Zurueck zu Quellen</a>
+  </div>
+</div>
+<div class="meta-grid">
+  <div class="meta"><strong>Remote</strong>{{source_url}}</div>
+  <div class="meta"><strong>Lokal</strong>{{local_path}}</div>
+  <div class="meta"><strong>Format</strong>{{classification}}</div>
+  <div class="meta"><strong>SHA-256</strong>{{sha256}}</div>
+  <div class="meta"><strong>Ergebnisse</strong>{{result_count}}</div>
+  <div class="meta"><strong>Parserzeilen</strong>{{parser_row_count}}</div>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Sportler</th>
+        <th>Verein</th>
+        <th>Wettbewerb</th>
+        <th>Veranstaltung</th>
+        <th>Disziplin</th>
+        <th>Rang</th>
+        <th>Ringe</th>
+        <th>Wertung</th>
+        <th>Quelle</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{rows}}
+    </tbody>
+  </table>
+</div>
