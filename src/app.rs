@@ -39,7 +39,9 @@ pub async fn run() -> anyhow::Result<()> {
             input,
             min_text_chars,
         } => parse_sport(&input, min_text_chars),
-        Commands::CrawlReport(args) => crawl_report(*args),
+        Commands::CrawlReport(args) => tokio::task::spawn_blocking(move || crawl_report(*args))
+            .await
+            .context("crawl task failed")?,
         Commands::ExportPodium(args) => export_podium(*args).await,
         Commands::ExportParticipation(args) => export_participation(*args),
         Commands::ExportCombined(args) => export_combined(*args),

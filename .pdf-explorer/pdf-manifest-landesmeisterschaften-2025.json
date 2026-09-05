@@ -1,0 +1,2548 @@
+{
+  "pdfs": {
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_auflage_2025/9.30.68.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/cbf4015c2573-9.30.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cbf4015c2573227186182e6703ab973821da50d86e9550d22de98f2b2d5d3c59",
+      "file_size_bytes": 2985,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_auflage_2025/9.30.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3c412796dd3e-9.30.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3c412796dd3e057c0b326a96c706dc6a07c66bcbc9fcffb35094cba2d2e1dbb9",
+      "file_size_bytes": 2668,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_auflage_2025/9.30.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9ea9d60bf24e-9.30.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9ea9d60bf24eaf85bc5a46f45901b6d3357cd79f9041553555878e5e76002ee6",
+      "file_size_bytes": 3552,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_auflage_2025/9.58.68G.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0a760378fff3-9.58.68G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0a760378fff35a8090b33a3274dbf3d310feb936327091bf7ee5df69e1445539",
+      "file_size_bytes": 5277,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_auflage_2025/9.58.68O.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c7dd66c8e7b6-9.58.68O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c7dd66c8e7b6d4565cb2f1c6a7606c440d840568e6dce0dde361f679340b338a",
+      "file_size_bytes": 5176,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0034c873c8d5-12.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0034c873c8d53cf466385b9881b0b9668463e854f46d1368b5be1210af627a12",
+      "file_size_bytes": 2512,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/fec21191a8e0-12.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fec21191a8e062647d947f759b31b1db92cb203e4190755c4c871e0f5745c2ae",
+      "file_size_bytes": 2616,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d7692259ae80-12.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d7692259ae806a06907501fe823fc712c78d7c576688064f427031bce096f860",
+      "file_size_bytes": 3131,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/85b78250bbce-12.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "85b78250bbcefec573ca8ca071b553ebeb800d3b89d352f78e9b6eb279e4b99a",
+      "file_size_bytes": 2877,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2227253b8de0-12.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2227253b8de0a30f089a3d38d1a3bad3146dc9772c81806cd8fb6cf096dc0217",
+      "file_size_bytes": 3413,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4d9ad4859500-12.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4d9ad48595002f75f5069ec77d0e632145fc26975367655a855028160988ef45",
+      "file_size_bytes": 3491,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8eb08963356c-12.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8eb08963356c2f45c4fdff189ec5f4153ec2116cde70fa77d458bf0c68ae97a3",
+      "file_size_bytes": 3319,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.17.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/75d7822246f1-12.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "75d7822246f17795b3c12c534925ee0b27c7c444d9e7f55027f64a30923af390",
+      "file_size_bytes": 3051,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4dd3382d56cf-12.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4dd3382d56cfa2c3bed2bd4860b65db79893cb472c05a9ec51b26a4a37254dbc",
+      "file_size_bytes": 2759,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.19.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2f2d881537a0-12.10.19.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2f2d881537a0f6ba0429c9d1fa77d1389d77225660721c5a4cc41524abe4ca11",
+      "file_size_bytes": 2449,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.22.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/bedfe0b77c0d-12.10.22.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bedfe0b77c0da75d201d08f4705edf9ddd32ce8bfef817d8e90ff2190ae92116",
+      "file_size_bytes": 2576,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.24.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/68c64518e498-12.10.24.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "68c64518e4983dcc68832cd3bca9d29e7178d0b257bfbaad17aee78ec8bd9acf",
+      "file_size_bytes": 2889,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2928043a82c5-12.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2928043a82c524fc2841ba6c987cebaa56a89d0406861ef0465de4e6e3c1dcd5",
+      "file_size_bytes": 2511,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_blasrohr_2025/12.10.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/fdd07420fc32-12.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fdd07420fc3217e7e7004898b5b0e0080ea85848095ba7d6b8bddc0c06093300",
+      "file_size_bytes": 2481,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3434966b6d26-1.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3434966b6d2622ccd388fb0e8342a78b3b7f76a0e98752d961b7adee2cb2c0b0",
+      "file_size_bytes": 6958,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e92a9b134887-1.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e92a9b134887e3a20e7114debe24bd328b453e57b4a63a22e002bfe2ff39fc87",
+      "file_size_bytes": 6603,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8fbcfcc91740-1.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8fbcfcc91740b3dab70da727942fad0636735ca6571320f461613fdf2a9e9279",
+      "file_size_bytes": 2334,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c99428b0b5de-1.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c99428b0b5de270732cd2adb1df0856dcc77468f4eadac43805a7d19ed0df1e2",
+      "file_size_bytes": 2398,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1b3cdf0f70ab-1.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1b3cdf0f70ab13d600d9b193f91b2b946a4047cbea446ffb6f32a03d4e935baa",
+      "file_size_bytes": 3445,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/dd1ad4082186-1.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dd1ad4082186f60d0910cb92a49ed42dd4c7f87498745b456b519734a6a1f416",
+      "file_size_bytes": 3217,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f935daaca066-1.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f935daaca066447677c0317e8fb5af2a98f7b573bebe7727b5e737e84abba809",
+      "file_size_bytes": 2364,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.17.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/518e943df965-1.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "518e943df96546f5d44416570bd3f6be57fb0039623486aa979da48bf3e5cd0c",
+      "file_size_bytes": 1809,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e2d05da86c6a-1.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e2d05da86c6a776a7524a2f1145e5e85cdf2c5f7a5b73111715015fc23556de6",
+      "file_size_bytes": 2143,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.19.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8695cde88d8d-1.10.19.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8695cde88d8dfa18552c079e8e15bd89bb781c5f830d5cc01e358f543c94d485",
+      "file_size_bytes": 1909,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.20.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8f2e0073b9eb-1.10.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8f2e0073b9eb3ac923a51c3d8f63205575f2c4522b76422263f3e3898c93d170",
+      "file_size_bytes": 5095,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.21.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/64df8ca011a5-1.10.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "64df8ca011a5034efedc025df3760e73560cfb18370c8a85f9131c29d757fef3",
+      "file_size_bytes": 3126,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1e3191976549-1.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1e31919765496b4b43dda42662f68e15abd6345519b3588568f74ebfccd0cdfe",
+      "file_size_bytes": 3844,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/da509cbf4a2f-1.10.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "da509cbf4a2ffae5217e83bef6484d5a0e3db24a0d730e55aae7a8dd1f479b44",
+      "file_size_bytes": 3086,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8723dbbd2521-1.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8723dbbd2521176dca50642742e6414929d22e9faea888a15c8a6cdd51f73b66",
+      "file_size_bytes": 3666,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/45785505dab6-1.10.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "45785505dab6fcf2e595c85e03aa7d4004d0e72ee4cf8c1981859b83a510d52f",
+      "file_size_bytes": 3898,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.42.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/de3ef16e1db3-1.10.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "de3ef16e1db3824cea8b92308d103a16241394df1fb8c5f10f872a499cd0d416",
+      "file_size_bytes": 2731,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.43.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/843f77a4f729-1.10.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "843f77a4f729985bc47aa3278185e82de57a8b1caab4518c8b7d2d68eff4d4aa",
+      "file_size_bytes": 2947,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.90.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9b8a8e897770-1.10.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9b8a8e8977700b395420c897f0fa7997dac02c1d9a8b5155592b90811846cfa9",
+      "file_size_bytes": 2206,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.10.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3a7a80883dfa-1.10.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3a7a80883dfa7e4c4cdf604ae28f289d7ee621175ca1b90b246331dfe21ef3c4",
+      "file_size_bytes": 1823,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.68.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5013ef8ec241-1.11.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5013ef8ec241e9ae73c4e33603e12cd72153bb2ea1d7dad2046a81704ad0ae9e",
+      "file_size_bytes": 5066,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.69.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b7cea9bdaf52-1.11.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b7cea9bdaf52e7bb239062e6e0c138658b62390e231aabe799a008623ec3736d",
+      "file_size_bytes": 3943,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/456ac54eaa6b-1.11.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "456ac54eaa6b0a5855a1a0abeb33f4367ed6b17301f21b7ce8e2a98c51e9047d",
+      "file_size_bytes": 9255,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.71.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d088ec52fb79-1.11.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d088ec52fb791e9b9b0508498a6dc00d5a6efae2352da1ee17f2e8423024bf83",
+      "file_size_bytes": 5822,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.72.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/98ac661a889d-1.11.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "98ac661a889dfa7ccffa56e72f99cbd3ec12b6e7d879c34f3db839d566a873ce",
+      "file_size_bytes": 3695,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.73.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d3179f844563-1.11.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d3179f8445631ff5b98fae22a69dc987bdd9dc0ae2b0c4c83b407d82fc755363",
+      "file_size_bytes": 2577,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d32247f90559-1.11.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d32247f905598da3eff0fddfdd90cbbfdb7ddc55a13b4bfe9483f7261408926c",
+      "file_size_bytes": 7610,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.75.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0a0384d3662e-1.11.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0a0384d3662e53a24a9f55cacb47f3d8ecc3065916aa473b162e25d8e0a49547",
+      "file_size_bytes": 3162,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.76.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/fe242b64a83f-1.11.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fe242b64a83f4e9db7c62d570b8cc28da9ccc2c5ac06208f37d33a9ea7fc61d1",
+      "file_size_bytes": 3461,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.77.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/707bea0007a3-1.11.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "707bea0007a3e20fffaaf48624394c671a5b529005588a9c9d659771186fc449",
+      "file_size_bytes": 2773,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.78.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/abd85531178e-1.11.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "abd85531178e0b5c6aa28643b093ab79642a435638b4b5ca3a4b3df00c7111d2",
+      "file_size_bytes": 3419,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.79.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/db89b5b8ae27-1.11.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "db89b5b8ae27ba2e05d27d24ee7a387e5d5d098d2dd51697106df41c122e8404",
+      "file_size_bytes": 2127,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.80.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ae89b8e037b0-1.11.80.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ae89b8e037b0d675c9d1697d268bc452a5147cc462a5ed3398c8718cd5fac2dd",
+      "file_size_bytes": 2469,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.11.81.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/611e140bd31c-1.11.81.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "611e140bd31cd7bf613bc3263dd1e17afdfa5ea379587b46107d83d228036655",
+      "file_size_bytes": 1899,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.12.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/fdf030d17f67-1.12.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fdf030d17f67a073292dae8312a3258b7ff0e1117faab0b0b71e2750585861b1",
+      "file_size_bytes": 6409,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.12.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/746a885f43c5-1.12.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "746a885f43c5f7a7f450c3bc8fdda032b4d11a963054d33d6d3dd0b3da490158",
+      "file_size_bytes": 4868,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.15.20.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0546d37df437-1.15.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0546d37df4378b0f6202b2fd6d3683db4a8a06a9ce07f3bb92e0f2027d124aa6",
+      "file_size_bytes": 3299,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.15.21.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/631f6e801e77-1.15.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "631f6e801e77406aa3ada214615c0416d1732eb0033a93b19823af1abcac09d0",
+      "file_size_bytes": 2392,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.15.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/61cdecc1a57a-1.15.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "61cdecc1a57a53d27263a330afc179798922a5512af5a4ef607e821da4018f14",
+      "file_size_bytes": 2283,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.15.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0d0b8d21ed96-1.15.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0d0b8d21ed96fceb7871b4ed66b4b70d2ce3b4d3010991eec6bf8fb29f81ebae",
+      "file_size_bytes": 2177,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.18.90.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/171c37ce4bca-1.18.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "171c37ce4bcace049e2132ac49a65fbac66ab28363b09e2548dd3523a3efbc0b",
+      "file_size_bytes": 1931,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.18.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/43c14cfe718e-1.18.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "43c14cfe718efda746d4d68eabedbb4bf5567ba5d16ae36f2971d749bbbe3854",
+      "file_size_bytes": 1717,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.20.20.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/252e69e409b7-1.20.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "252e69e409b766993f1f1151e0c7e21ae9a0e7e56b4fadcd835d6d99892f5318",
+      "file_size_bytes": 3495,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.20.21.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3e8c913fbb73-1.20.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3e8c913fbb737eed66a13d214c73c582ca54e97d82984d691eeeb55858871b1a",
+      "file_size_bytes": 2721,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.20.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b1528163ca27-1.20.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b1528163ca272f49072bbb4f7811afe207d2acb3d2ac0ee4f0a26db0c7d54295",
+      "file_size_bytes": 3334,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.20.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/77a1f226720c-1.20.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "77a1f226720cc57f7fae0118a059a205ee4501f51dca4499e64d854070774d0e",
+      "file_size_bytes": 2515,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/418423ed61c5-1.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "418423ed61c5a71da56c32d9623b7897c5c57b0f94ce3cc349627c6397cc64c4",
+      "file_size_bytes": 347582,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b5909212a1b1-1.30.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b5909212a1b172f324815cdb208a99abbf90130565726e2e19e06ad5909e8690",
+      "file_size_bytes": 177134,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1554884b3a09-1.30.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1554884b3a09949955b7aa13ce54d20860c47bef72815086d7e4da4c4e023008",
+      "file_size_bytes": 176649,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4e61b0d94351-1.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4e61b0d94351e32a92b799b237af0ff288fcb7d5799658bb0574acf2528cd2cb",
+      "file_size_bytes": 352340,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/496e0ceddb88-1.30.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "496e0ceddb882b825dc0f5a435377a2b9658b8c64d835be5fd6a87880912beb8",
+      "file_size_bytes": 177022,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/6c87f2ade1bc-1.30.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6c87f2ade1bcdc24291d5a07a4687155667c872bd1dfb5684f1c52b0b9b0cefa",
+      "file_size_bytes": 178997,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.30.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ac282af2e1c6-1.30.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ac282af2e1c63512c079559bef7fc76e0c2a507c24c6a9a85622afa2c620386c",
+      "file_size_bytes": 178137,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/35c03591cf6a-1.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "35c03591cf6a19db17a17bb23e4daf2d6c7bd83071ca55992e991054eb7a9d81",
+      "file_size_bytes": 4089,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/20ec9e963369-1.35.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "20ec9e96336996f23be1bbf989f07fe018d0ca90863c48fa5f3e6b9c7984b46b",
+      "file_size_bytes": 2299,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/cf115de5f819-1.35.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cf115de5f819ab8f140477c9d6b83a596a0779dd7a36cbbb9732960a6266a729",
+      "file_size_bytes": 2075,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/43b93812466b-1.35.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "43b93812466b5919e7956d2d028e5317a29fa571af86107791c6893d98baae9a",
+      "file_size_bytes": 1910,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b23aac680bd2-1.35.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b23aac680bd265bfbf4dfb4904a04c04ec4c21bd31c21e21274904458480c0e7",
+      "file_size_bytes": 3184,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3b984e944b5c-1.35.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3b984e944b5c2a73a9954d3e256199a8327cfd586c97f701d2f5525d3ad6b1ae",
+      "file_size_bytes": 2104,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/bf7de36a07e1-1.35.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bf7de36a07e1d71992bff149dea9991321e71ceb5e3205ceb432d8e4172dd0e3",
+      "file_size_bytes": 2064,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/39c18c60018c-1.35.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "39c18c60018c79690c87434cea7c5f89bbf4b5c0de977184423a36298e31c73c",
+      "file_size_bytes": 1904,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/eb4eb10aef14-1.35.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "eb4eb10aef1452f22f2eba563c71324dcbd8b6528c0179a7c6405891bdc8d603",
+      "file_size_bytes": 2069,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.90.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/74bbc33cdd50-1.35.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "74bbc33cdd507505c9d8fd1268d07c41bb79cf2874175953274574dacb2dfe1a",
+      "file_size_bytes": 2005,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.35.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/442a69bf2eb8-1.35.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "442a69bf2eb8599d4a6cfe79d4816e08b5469c91735297d381bcae07ce161d65",
+      "file_size_bytes": 1822,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.68.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/00ba4b57e025-1.36.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "00ba4b57e0258d27a3f0ec2c2d2023a0f5fd1f039f095bf26f3baf56db693939",
+      "file_size_bytes": 3739,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.69.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1ffbc8817085-1.36.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1ffbc8817085e3df8fdb77903909ed5a0c1ffff45bfb0a259c1d226e6c326d4a",
+      "file_size_bytes": 2470,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/20b3eccd6eb5-1.36.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "20b3eccd6eb5c5dd8f85700ad9c29d0def7d9abc6bf5f15feed50f33898b9b75",
+      "file_size_bytes": 6116,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.71.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/733b4a0f8d22-1.36.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "733b4a0f8d223ce7a86cebe7e2a6bcfed46280b90c0854d708bd097644bd9ccb",
+      "file_size_bytes": 3709,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.72.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a1df0484aa0a-1.36.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a1df0484aa0ae9a5a5230dd436dbc40562535cd11b76ce15749592d406786cff",
+      "file_size_bytes": 3217,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.73.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/82cdee04aa99-1.36.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "82cdee04aa99a08a684d1c5d50beb2631af4f33a86bd33d3e4b894d1e12692ac",
+      "file_size_bytes": 2114,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/db972200ef04-1.36.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "db972200ef0471a9f85d23b647c4cd98e38e0990b6d460140850fb4988820b65",
+      "file_size_bytes": 4162,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.75.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7d0cfffe482a-1.36.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7d0cfffe482a5bc15184f210e3b8e632ac4e80dace61c0ddef9c649308695477",
+      "file_size_bytes": 2215,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.76.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f75baf948538-1.36.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f75baf948538289eaa8162b8d944d7c723e404efb1dac41e8338b7b88e4c0223",
+      "file_size_bytes": 2596,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.77.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c0be1b12e114-1.36.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c0be1b12e1148ff5eb627febbe2536da467f95ff01bd71fb92cdd28c279644e1",
+      "file_size_bytes": 2031,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.78.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1dfaf4d18cb6-1.36.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1dfaf4d18cb61f9aca67a74ee01a605cb1b048880aad63e01cb5b638cd07683d",
+      "file_size_bytes": 2447,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.79.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b8156739eea4-1.36.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b8156739eea41e2a3cfd6149f5801024ac8beaa213e86a8cc24cf8a0e695b2a2",
+      "file_size_bytes": 1949,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.36.80.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8fafe686e578-1.36.80.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8fafe686e57821cd20d6596944d0a2ebd6daec1b4ff22bebe32cb228672114f1",
+      "file_size_bytes": 2346,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/63b86ead683b-1.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "63b86ead683b735e667792422eb9b17faf68d0b79e462065b2c8d8de84256878",
+      "file_size_bytes": 2090,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0fa8aa4c111a-1.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0fa8aa4c111a7865a2e624944a5e162dfeb0593bdb71dde9ddbbf1196c977429",
+      "file_size_bytes": 4072,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e7229d46315b-1.40.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e7229d46315b26cd4bef8ac47ebe5a9194dc35bdb6719e0331f60661b27a0a77",
+      "file_size_bytes": 2233,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2aa2e3e4d9e3-1.40.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2aa2e3e4d9e3ea5f9c254bef62e245c9f5dafca36a08b51b1d8ab7509b3da500",
+      "file_size_bytes": 2190,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d74e90940ded-1.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d74e90940ded0225d8ea3fdc0691a3e1d76dba4481f451ef85c2b9580277c60d",
+      "file_size_bytes": 3456,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/21945573fa96-1.40.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "21945573fa96d5377f7b89698ba89ac1d40369eb5ff4b8a4bc8e31e7d89f2b71",
+      "file_size_bytes": 2071,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7e3556751882-1.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7e35567518824c05d65464421384fda3d2d5d2960b71f26579acdcabba86f839",
+      "file_size_bytes": 2217,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f056fcf73b35-1.40.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f056fcf73b35866d2b6e0d6e177e7be3a01c70e7d388ef7a040da7284882b5a4",
+      "file_size_bytes": 1832,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c4548301a502-1.40.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c4548301a5021d15df4d16557c531421d0cd0e4600fbb09b4bad5b92ea726676",
+      "file_size_bytes": 3004,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ae0d1db555b8-1.40.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ae0d1db555b8291d27e925497b110241a11fe0fc387c334e9c588a7431604231",
+      "file_size_bytes": 2252,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2ecdbf4ecf52-1.40.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2ecdbf4ecf52110cfda0aaae627e7ea78f4d1dfd015d8737197064f075fc3502",
+      "file_size_bytes": 2209,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a8f64d6a0bae-1.40.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a8f64d6a0bae94e469da32a336933aca48f73d0abe2df239f34ec281ecf4db1a",
+      "file_size_bytes": 2880,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.42.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5c20becaefd5-1.40.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5c20becaefd5615e9bdcf2b3c844778bdbe13f03ec817b3e6af5a1b6f9edafeb",
+      "file_size_bytes": 2088,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.40.43.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/bcb518e4ac41-1.40.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bcb518e4ac41a58bcfec28bc8e27a2f22f1c96153a4f1e0d660c887124f9ce02",
+      "file_size_bytes": 2216,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.68.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f5193dd91852-1.41.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f5193dd918523f61b586c57327e7a84302c4809619c77a03bd919c0b8685828a",
+      "file_size_bytes": 4450,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.69.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f814a8995cca-1.41.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f814a8995cca3a1b381c4913bb12fbf8f7d082a56158eb15a940cd454c3e5aba",
+      "file_size_bytes": 2625,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b175ed890055-1.41.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b175ed89005525104f4880b93f4024ba20b7c70e63a25762856e576bf2b2b407",
+      "file_size_bytes": 6126,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.71.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f54c77919598-1.41.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f54c779195987371af8ac9792d9dfb7551388f1b9c01f46c73f4fb60a68ab0d9",
+      "file_size_bytes": 3376,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.72.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0198f70d4bb4-1.41.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0198f70d4bb4c6f39c05ca4404b8e087a6ffc1ddae8ebbb45f01c00d08da387f",
+      "file_size_bytes": 2720,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.73.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/05c04b6e3b9b-1.41.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "05c04b6e3b9bbeaa9b86e793add275f170c45a4474483a055e20be92c1beb2c4",
+      "file_size_bytes": 2297,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/da48a0fe0210-1.41.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "da48a0fe02103619b3c5faa82fe0de6a1f46cdba8e0ec1c37a96160d8bbe12f6",
+      "file_size_bytes": 5543,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.75.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9b12a4075f86-1.41.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9b12a4075f86106e4461a5451d7961aaf548063a7abe83a26ed45e912f43f783",
+      "file_size_bytes": 2504,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.76.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c23bb8450ddb-1.41.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c23bb8450ddbc57f23ba306442760065192f82dc849ee2bc15b2d95f677d772d",
+      "file_size_bytes": 2804,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.77.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/be7ade05e771-1.41.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "be7ade05e77199789770583c6c0cf4bcc2c694f90697088bf9a6b9f4f63e416c",
+      "file_size_bytes": 2139,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.78.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/520d1e774b44-1.41.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "520d1e774b449b48281c670c50ee779fab1f82ff65d1a5d1eba577a4c8aee326",
+      "file_size_bytes": 2578,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.79.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/6de71ea37211-1.41.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6de71ea372112e2a5e52abeb2bc7d2a09bfcf30a106758693f2b63ab5c68d8d5",
+      "file_size_bytes": 2059,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.41.80.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/752b3ef063a2-1.41.80.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "752b3ef063a252aaee467a1158eb416b2ae9dc67e61edd42040ad17c2b8d5389",
+      "file_size_bytes": 2529,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.42.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a5313cf0cac2-1.42.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a5313cf0cac23882a69fa1ce7203fa0b50267b4b64578e0292e7049e045d9356",
+      "file_size_bytes": 4115,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.42.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8b5c78b6ab91-1.42.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8b5c78b6ab91ff00c417d0254fd77429b6cb2b9412fb41576e681fb737c64e6c",
+      "file_size_bytes": 2938,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.46.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/55f35564684f-1.46.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "55f35564684f6410c746e355144db31a7504027cf97388acb2f0333648064dc0",
+      "file_size_bytes": 11560,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.49.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2177b3135fc2-1.49.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2177b3135fc25c0c3acabbf7e15f2db7241aeead4dea6ba0a018504aa96a7faf",
+      "file_size_bytes": 12207,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.56.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0d06883f24c6-1.56.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0d06883f24c6862442b485e9014410455157adb076ebb91477b2d3261cce8f88",
+      "file_size_bytes": 2878,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.56.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/345dae7eedb9-1.56.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "345dae7eedb9de2c50cba8c8bd1b1746b4d305e3aefdebb1e2754ef23ddd64b0",
+      "file_size_bytes": 1919,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.56.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e26a0f389000-1.56.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e26a0f389000f444fc4a1fb2348568f6def69f02c08815630a6272e11c0ee42e",
+      "file_size_bytes": 2006,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.56.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/58c13858caa7-1.56.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "58c13858caa76ee9db70c97580c6b239858a2de07b67b8a5aca0125f74e14900",
+      "file_size_bytes": 1897,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.57.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3bea9f203170-1.57.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3bea9f2031703127313bf8afa9c948d81927fb7976cc902d5432b9719c2b91f9",
+      "file_size_bytes": 10154,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.10G.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4c8516511c92-1.58.10G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4c8516511c9296b447fc106e93d367d6ac6cc9c4e8288e68233d1ec091eddf09",
+      "file_size_bytes": 2360,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.10O.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/02d1c38fb05c-1.58.10O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "02d1c38fb05cf80c79e1292e4da0f153c369fa147e4e13fb87fe9ce34b5c896e",
+      "file_size_bytes": 8430,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.12G.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ffbf05fc78b6-1.58.12G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ffbf05fc78b6a7283c2bd9b642ec4a9b294a9f5d865e4f3442db7db52d438a4d",
+      "file_size_bytes": 2376,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.12O.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/eb7ff099211e-1.58.12O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "eb7ff099211e9cdafc619cb4e7e0fc7ec2822b131f1cbc51334cf4be47528cb0",
+      "file_size_bytes": 2464,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.14G.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9ccafbe8d986-1.58.14G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9ccafbe8d98648497448a9a0ac9dbe79be5f937238a54f6c2375fc38cf211dce",
+      "file_size_bytes": 2845,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.14O.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5955b54362db-1.58.14O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5955b54362db4079c3427d698a8d29fefaed82fc50ae0e21ac3bc817f0c40249",
+      "file_size_bytes": 3010,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.16G.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7020a2ef6883-1.58.16G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7020a2ef688348171d624db45a02298cdbed256bf60aab604dcf6a5729b1fff7",
+      "file_size_bytes": 2651,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.58.16O.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/acfb0fa07fbb-1.58.16O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "acfb0fa07fbbcdc82ab685a364926b97a0ce91596d72254aa8dde72ec5c460c6",
+      "file_size_bytes": 3265,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.60.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9b0556c5442d-1.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9b0556c5442d49b8531267be24bc9ce59361ff47c9946d94082bd2c60fc8c7e5",
+      "file_size_bytes": 3298,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.60.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/051bb9eba8d8-1.60.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "051bb9eba8d8a2e2d6422ebb8c0dbfacb197bf3d6691ebb8de9b53eb19373e33",
+      "file_size_bytes": 2267,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.60.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/cd0b77e8d93f-1.60.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cd0b77e8d93f44302651f71da1268a3b8be3be168d41d58ac3a91c21a56e6750",
+      "file_size_bytes": 2417,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.60.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/24db5c37c7ce-1.60.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "24db5c37c7ce7f5eeddc7d24192618ddd7894f9e6850526477c03cbc8043050f",
+      "file_size_bytes": 2091,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.60.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a1ed3f20d0ad-1.60.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a1ed3f20d0ad535ae85c9359e6589e077df9157039e108eac70be20a63dac911",
+      "file_size_bytes": 1938,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/dc3162d442d8-1.80.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dc3162d442d88dcc519c5796bc68e264539f732a11f69d7cbf04d8bc3c02ba20",
+      "file_size_bytes": 4180,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a291ff245c98-1.80.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a291ff245c9872bed0a7e5e40aa6ffc649711d32b64a187d2c847409eeb510dd",
+      "file_size_bytes": 4175,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/68b4365e10c1-1.80.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "68b4365e10c141cd52affd887afde485175c4b1f4baa566e62d69006169dfd07",
+      "file_size_bytes": 2161,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/41ea82eb6068-1.80.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "41ea82eb6068154046478dd4d48a30571d5e1b5fac0b5949fd74e5b24ddaf103",
+      "file_size_bytes": 2313,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ecc0aa0bd69d-1.80.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ecc0aa0bd69d45a1eaac1c97d42d67261e7c54a42652d4676ffe91ad6d0e155e",
+      "file_size_bytes": 4096,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2cf76337502f-1.80.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2cf76337502f4d250c863aa97157a403d2bd90f7879221817872c6f151eea366",
+      "file_size_bytes": 2475,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f69d076aa44f-1.80.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f69d076aa44fb64f230e050948951b81edc8965760f5caada35a170ab0b80d40",
+      "file_size_bytes": 2366,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/cab975c5e480-1.80.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cab975c5e4801e7edd1b77b8cd51573a3fd23b1822c97eb4c6862df2fb94b0c2",
+      "file_size_bytes": 2162,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e25336f1c39d-1.80.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e25336f1c39d5de3f4d0e947d5382540108ee561ec7f23dced936d03b88a56ff",
+      "file_size_bytes": 2979,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a6003bf211cc-1.80.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a6003bf211cc950b2d3502a8599f7774acdc91f6960fe717a51193c0d1263b98",
+      "file_size_bytes": 2065,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e982165ad30a-1.80.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e982165ad30a87b335af92f910997e1c9c7a0876caa1495415f16851a47d819a",
+      "file_size_bytes": 2334,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/486f7c4ab2f1-1.80.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "486f7c4ab2f15899e98cf4bbfbe8b348f1b162d9599217c9a8c1d8ba83082ea8",
+      "file_size_bytes": 3061,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.42.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/fde9dc527dae-1.80.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fde9dc527daec178522d67afcd6da807b335eafecb5f56ade8ce2d8fec709c13",
+      "file_size_bytes": 2168,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.43.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b9fcf5c85186-1.80.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b9fcf5c8518611072be4e79b0dc21595a15f44306cc46d56e9398ab00cc79910",
+      "file_size_bytes": 2402,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/1.80.90.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2706063477f2-1.80.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2706063477f221ad4795fbb4af3ea4feacc8d3d6ddf93b0400de88735fa6ffb8",
+      "file_size_bytes": 2038,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9298ea54bc41-2.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9298ea54bc4145d33bbbf40f5eb47323e350773c70c187410371eb4e3379bce8",
+      "file_size_bytes": 5359,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/100de81b8a7c-2.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "100de81b8a7c51628a42c0136b6cb8cc2dd7aae53a1a8c87385652572645c0b7",
+      "file_size_bytes": 3953,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4e5b491cf1cb-2.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4e5b491cf1cb192acef772997ab3d1da762edc18b590ac4f33d4e61f12dc839b",
+      "file_size_bytes": 3093,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8823b118fec8-2.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8823b118fec898a9abdcd9f409fb74bd4e681fbadb4fa9268eccdfa7ac12f9f5",
+      "file_size_bytes": 2062,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ac7809e8c445-2.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ac7809e8c445becd6a5ce59d5d4755bfed06d190959bcbb24347b33ca6948429",
+      "file_size_bytes": 5004,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3198b5d5bb8c-2.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3198b5d5bb8cc8e4a6e5aee1f5aaffe9c0dc90b641e5c519ae0a780d1fe4b14d",
+      "file_size_bytes": 3251,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8fee15da1402-2.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8fee15da1402e9a9e34087e4ea596c3d798e30c561ba9ad765da43d8b9829798",
+      "file_size_bytes": 2956,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.17.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e114a8fd9712-2.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e114a8fd9712a21261d15feb0d75da783f4be56a6ab040f8b68268f60998a70d",
+      "file_size_bytes": 2337,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/168a462ce079-2.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "168a462ce079acd38aae6883af2004e654dd3d28119c2302ac0ef42de3267380",
+      "file_size_bytes": 2234,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.20.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5b847366ea45-2.10.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5b847366ea456b32b5491a1a234c96c5ba8a7fe85e5e272c0b772baa567c8237",
+      "file_size_bytes": 2100,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.21.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c7ae740a39fb-2.10.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c7ae740a39fbfe413b8178f71c2947d989d97f828b08c4491def062f1aa32e36",
+      "file_size_bytes": 1895,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/53ac22714e09-2.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "53ac22714e09be2b9481b5d4ad72e900ccaa5ff81a121f0eefa2a528dc990a4f",
+      "file_size_bytes": 2069,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2b9ef87e3347-2.10.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2b9ef87e33471efba29e0dcda428f5691072479b6e2aafbabb70362a3e55c44d",
+      "file_size_bytes": 1908,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b86f89b73f4e-2.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b86f89b73f4e904e9cb1e4b2bf48bf1e242a2ee3f0a22d5866bc04de14033a4c",
+      "file_size_bytes": 2273,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f1c8a13433cb-2.10.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f1c8a13433cb99fabe05eff8fe5e96b535fe9b62a0b1ffb3dfd736b5e32a9dd9",
+      "file_size_bytes": 1983,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.42.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8ad3157a497b-2.10.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8ad3157a497bfe5e95cf68a0a6ea0e59785f9cc306962e0b0e97d9880d52a831",
+      "file_size_bytes": 2149,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.43.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2d0e5e9641e0-2.10.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2d0e5e9641e04d89166b5953c204c231c21ad6bca77d1528370e32d1ffb7e639",
+      "file_size_bytes": 2048,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.10.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/dd2e7f02e9e0-2.10.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dd2e7f02e9e0e234482bc7c9535a6cc04e972b84126f2cfd03dfe143bcc58943",
+      "file_size_bytes": 1787,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8016a63c31c7-2.11.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8016a63c31c7e41dd667a9ef765c35ab1f47db7c201a323469f151442e2e3260",
+      "file_size_bytes": 4925,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.71.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a5d951a26deb-2.11.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a5d951a26deb88449d5d171fbc06c0fab052363ec11a878d40161c8b6fe70e25",
+      "file_size_bytes": 2553,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.72.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b9d9e70a2e43-2.11.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b9d9e70a2e4316b81aaac57d7c6799863caec28f4c16726a243d9fa78b36d5f4",
+      "file_size_bytes": 2670,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.73.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/6f22fb54aca3-2.11.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6f22fb54aca37a6c62f9be0beddd2590da8c3662fe3f8030a0f591836ef90bd3",
+      "file_size_bytes": 2211,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/611f99e27c19-2.11.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "611f99e27c19dd3b1f460e479132f72bdce70e60c173d01fbe4da1aa8fecd115",
+      "file_size_bytes": 5276,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.75.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/755acbb51a95-2.11.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "755acbb51a95f4350ef73c02489fe4d0d21fba10ff68ab2a726f98ec4858c311",
+      "file_size_bytes": 2119,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.76.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/59a859bea965-2.11.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "59a859bea9654dc11b39892c77cb35cf021cde5b61f4df9382edeb65ec3d7a35",
+      "file_size_bytes": 2614,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.77.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f82bb25a4713-2.11.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f82bb25a47135c0aa69f8ed63a3737be3c66702648b570e3f1d0583e6646470d",
+      "file_size_bytes": 2054,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.78.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5b2badb2ab8b-2.11.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5b2badb2ab8b4a0d2b023f179c1904266b4ef0aac97f8196f5f171779235924f",
+      "file_size_bytes": 2440,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.79.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/93032881e164-2.11.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "93032881e1643dd4a4462afd1666fbe5c6e8d46fb82c6c937f986a8d024ca1d1",
+      "file_size_bytes": 1846,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.80.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/6ff4da739c7a-2.11.80.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6ff4da739c7adda8d7807a2d0541667cf35a3bd93e0771963d9de7748bc9cffa",
+      "file_size_bytes": 2439,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.11.81.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/db0b6e0f0774-2.11.81.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "db0b6e0f077468df3b3ded92515f43ff3b3714bb376c3575856024e34835d9f3",
+      "file_size_bytes": 2136,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.12.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e01ffabda8a4-2.12.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e01ffabda8a4450884d81e1cbe29421461451fb6e8235a8c825f49e16b8d96bf",
+      "file_size_bytes": 7809,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.12.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/67c7024cc6a9-2.12.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "67c7024cc6a90e6ae70e98716d3bead1a22c36f225a2ac77d6133797c443d575",
+      "file_size_bytes": 3461,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.17.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ab4be8b3642c-2.17.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ab4be8b3642cad64f2d972abb77a9d538037d547286111c7623368392602c2cb",
+      "file_size_bytes": 2497,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.17.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/59326cac2a27-2.17.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "59326cac2a27fb1500b5657e658730282ba2c885826527b3809eeede05a8160b",
+      "file_size_bytes": 1885,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.18.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/abf288cc5292-2.18.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "abf288cc52925978585c453ba111394f1f124f544a3e62584b4e9f022d53aafe",
+      "file_size_bytes": 2479,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.18.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/26a36a035126-2.18.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "26a36a0351269efd51f5f72dfd00501c985c991854e6f518dc3dc217d98acada",
+      "file_size_bytes": 1793,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.18.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/93ee0e1215f4-2.18.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "93ee0e1215f4ea60e9e81d6a38e8076c00d00ea299cc5bae641be819f5ce897d",
+      "file_size_bytes": 1881,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.20.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ea578b792e53-2.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ea578b792e53da1f8509a127cb018648e75fd0519aae740296113f2291e3f2b0",
+      "file_size_bytes": 2101,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.20.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e8ba667d9dca-2.20.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e8ba667d9dca5d22cc152378594d935a87b5bdfefb3aede9d71fde7ffd7d4943",
+      "file_size_bytes": 2241,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.20.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2a8ba253e5d5-2.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2a8ba253e5d5419978d87e1eeeeae6b92a7d50dd369231ab469dbc4d9f6f5c72",
+      "file_size_bytes": 3061,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.20.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8ea3283971e6-2.20.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8ea3283971e6618e5a1c7b16811857d54512649da189966ccada1a333e10bee0",
+      "file_size_bytes": 2140,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.20.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9085c5ff174d-2.20.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9085c5ff174d97c22c0c0468d35f510ce5116fe744e010a199abf62c49462d1c",
+      "file_size_bytes": 2031,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.20.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0d986459e24f-2.20.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0d986459e24ff9c41f1cdb9d2ecba9a2e18e24c794867cd86e93530507481cb1",
+      "file_size_bytes": 1900,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.21.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2a3172b6dc21-2.21.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2a3172b6dc2180e7954d40f258887441bf60cc099f7b1d9ffb913ba735e794fb",
+      "file_size_bytes": 2924,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.21.72.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/da5fa30550f1-2.21.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "da5fa30550f124c94e1c55ed922a8cd5c2af881fa6f84c0f6fed728f36e9c865",
+      "file_size_bytes": 2130,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.21.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2e15d840db6a-2.21.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2e15d840db6ab62117741dda89c8d0a6ba934d4b0185abdc16a97f352c67a2f9",
+      "file_size_bytes": 3210,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.21.76.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d56b0193f1f0-2.21.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d56b0193f1f0239ab1be5926f339fb31fec18ad25ae403093043cf889e208bee",
+      "file_size_bytes": 2009,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.21.78.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f8449770743c-2.21.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f8449770743c76ba8a8c986d60860a1a58cdaaa625de66875373ea12e7524c2d",
+      "file_size_bytes": 2076,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.30.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1cf78ee9bcc7-2.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1cf78ee9bcc714887b4df5e7dc79c22432eff9491c3c4acf13870974ef9ca0a6",
+      "file_size_bytes": 3247,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.30.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1f8e83312e5f-2.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1f8e83312e5feb7ea5d0680a585040ceae7f219f4b325ba4582ffa288d47bf91",
+      "file_size_bytes": 2680,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.30.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/892aaf9e11cb-2.30.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "892aaf9e11cbac24a8dfc773a244e64d51d25fb1fecda2c7117f51b4185a0a2e",
+      "file_size_bytes": 1804,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.30.42.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7c86d4076f7a-2.30.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7c86d4076f7a5024560d71704b64a49bbd3144cdb964d7e8a691159ad6ec83d0",
+      "file_size_bytes": 1797,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/13d1324f9a6c-2.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "13d1324f9a6c16484de71d9dd4d265f1ec27662b241e7ff620f92d0c326b4ee0",
+      "file_size_bytes": 3668,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7316a6c4f970-2.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7316a6c4f970b0189ba7d2009fa09f05629e0217c64e2b97631dd5232e5f7ea2",
+      "file_size_bytes": 2980,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/26bbc603468a-2.40.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "26bbc603468aae9821c16c38c5bf11f3802832550d72e08d547f5d81167dfde6",
+      "file_size_bytes": 3616,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ecefa77a1dbd-2.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ecefa77a1dbd110eb1a56a0c644ca589bf2f7e9c73a17ea23d5334f7df98fb7a",
+      "file_size_bytes": 3681,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.15.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/77aff94121d5-2.40.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "77aff94121d560b7599c7646fa5b6637e7229c801c2ebfcb211beb987c123b12",
+      "file_size_bytes": 2073,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/24e30c7d7b8c-2.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "24e30c7d7b8c5802ce2accadef3a2305dc6432e775b64a5c5e62113d081033d3",
+      "file_size_bytes": 2416,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a35b90311247-2.40.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a35b90311247f3dae696b431919e94a7d83a07cd6f671172fb0c1cd4b830ff87",
+      "file_size_bytes": 2456,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.30.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3e86e0eba77d-2.40.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3e86e0eba77dc3e0cd137ba04a160ffb1869916faa4730d33e398334f1898a41",
+      "file_size_bytes": 1926,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.31.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/20f4f5c5b167-2.40.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "20f4f5c5b167813a8a03afa89d8bd2b6995496df8c638b415c650190b8c96d47",
+      "file_size_bytes": 1964,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.40.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3de86de6d3b1-2.40.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3de86de6d3b19795cf833da042bdaf3a07d736a8226ba5bcb814e60ff7053f92",
+      "file_size_bytes": 2233,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5347a4db0c5a-2.40.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5347a4db0c5ac66a47609d94fc4307d20aa13fade88d7583b2923ec90245ed0a",
+      "file_size_bytes": 1834,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.43.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/e54a412559e8-2.40.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e54a412559e8941daa13c299f1abda47b0156242936270462ebc0460b1ebda64",
+      "file_size_bytes": 2024,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.40.92.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/272881fa4bbf-2.40.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "272881fa4bbf8b3f3adca5485288ad66fefe368d57b47a645d890e4ce1f19b21",
+      "file_size_bytes": 1817,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3e6b1c1ab6bd-2.42.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3e6b1c1ab6bdc7c51810acf58a822d989978292b2ae4294b9e09231d9928e208",
+      "file_size_bytes": 2870,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.71.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5f212400210c-2.42.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5f212400210cb3c0cab70baa2bf1ea6bfe40fe5dce1b157148919772a6cca684",
+      "file_size_bytes": 1836,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.72.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9f9ae3a30c86-2.42.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9f9ae3a30c86f9f17aae6caaa391faaaafdcf28f78b5402380b82ab88d8343b8",
+      "file_size_bytes": 1977,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.74.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/20472d715585-2.42.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "20472d71558541ea5ca0f81c34060f72ea185826a4664a11872964c94bd86ffc",
+      "file_size_bytes": 3586,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.76.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8a5af0ea1eb2-2.42.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8a5af0ea1eb290e784b807295e50d3f1abd77cb222ebe21b213fbbaeb607e850",
+      "file_size_bytes": 2245,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.78.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2aff90dbd4e2-2.42.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2aff90dbd4e2bc06496c2072610291daa44ef14ed5013106fe67dac0d10b653b",
+      "file_size_bytes": 2184,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.42.80.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4ca0f9ed694f-2.42.80.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4ca0f9ed694f808e99a614bd5b61b147801d6e71eda3791448015795a3465065",
+      "file_size_bytes": 1934,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.45.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b8fde68e24cd-2.45.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b8fde68e24cd6935c4ba837ae52f8576b361bdfb6b41c031f31b96ec3e049d9c",
+      "file_size_bytes": 182593,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.45.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/96d846976999-2.45.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "96d846976999370f78f7d95b38917dac9cea4f5dc85c2894c7ac335b3a26f308",
+      "file_size_bytes": 2285,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.45.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2cd1f086aa9a-2.45.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2cd1f086aa9a572f0f19e0d33acf0066b7b17a0fcc1c13286938b94ca0bd4e4c",
+      "file_size_bytes": 3081,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.45.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/31a4e3835693-2.45.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "31a4e383569363bf888b2b5d22a282ee9a6a8c69a3d13fd28bbd23dc1dab12cb",
+      "file_size_bytes": 2831,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.53.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/975e244d943c-2.53.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "975e244d943ce735813db0c2ebd221672fe4e9b0f24b640655d7e98d8b3d7c03",
+      "file_size_bytes": 4317,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.53.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/46ef60390f2c-2.53.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "46ef60390f2c52acc8971ec443172dc5e992d4f1695fb1cacf0e9f3f646e883e",
+      "file_size_bytes": 3869,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.53.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/06c58a95e54c-2.53.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "06c58a95e54c29a7fa01f0ae7ad96bdd0441e5947276dc2d06e893739c888675",
+      "file_size_bytes": 3158,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.53.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/57c1376e1784-2.53.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "57c1376e17842461ed55c9d6cad0bbb304f3f6c0a52dc5b4195ca9196d611c85",
+      "file_size_bytes": 2711,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.55.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/63925fbb96b7-2.55.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "63925fbb96b70efb3fbbf5f9feb51c70629a2656ee0754e12124176829bef000",
+      "file_size_bytes": 5669,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.55.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d10be23ce338-2.55.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d10be23ce3380bb29fcb1433adbd697e05a061fc79e3719ca500a32e5b4b86ba",
+      "file_size_bytes": 3211,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.55.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/294e47d87249-2.55.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "294e47d87249c73281af909fb3939e92c41afc1b7ddc93d23b19ae148592281e",
+      "file_size_bytes": 3243,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.55.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/977ac0e00cda-2.55.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "977ac0e00cda9c529ed5c4601b377395959d07bb0f31650c85b14acb484630f9",
+      "file_size_bytes": 2515,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.58.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/71747a8a6659-2.58.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "71747a8a66597ebd44cc2db8cb13d3c13e98daeccac0aa35485479b4d875ce69",
+      "file_size_bytes": 2833,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.58.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/bbdcdb9860b8-2.58.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bbdcdb9860b8a8d3e9a602d880de3995939cff92cce7e77aa757fe2576f4f51c",
+      "file_size_bytes": 2236,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.58.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4a57eba00c90-2.58.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4a57eba00c905fd3cee23f6deb422ab77ed6260a003b40b64db5b8d16608cc31",
+      "file_size_bytes": 1953,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.58.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/67842f2dd95c-2.58.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "67842f2dd95ce0ff7f9b39c3c724dc1c80cf7a5724a2d6fa4bac8bc394f6cb3d",
+      "file_size_bytes": 2400,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.59.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9f779b25834c-2.59.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9f779b25834c5b668d985e8bd560e3758019ac65ae0a1b521c61410074107b43",
+      "file_size_bytes": 4221,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.59.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0bc283bbce3b-2.59.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0bc283bbce3bbc3aee21b084333764f8b12fe4dad3530c2d2e82c37a9bbe092e",
+      "file_size_bytes": 3064,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.59.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a5870574238c-2.59.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a5870574238c7194d3898a747eda58effccceed6e2c6bd36d0c21cf5328f14c7",
+      "file_size_bytes": 3229,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.59.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/637563a03bb1-2.59.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "637563a03bb1ad7ff9745befa382cecf9e1573b9556a8ea24696a4e4d60880d8",
+      "file_size_bytes": 3038,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.60.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/42f8a7ac0450-2.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "42f8a7ac04504c84f02302c20511836551f255b9d9e5a3856414dd489c713de7",
+      "file_size_bytes": 3383,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.60.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9f83634d779b-2.60.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9f83634d779b34622eedacecf0d04439945a74bdc7d98dc28bc7bb3e82d1a371",
+      "file_size_bytes": 2654,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.60.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d80b23f29e23-2.60.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d80b23f29e232e9f917f8070aa62dd5f619a4a37ccd283a5d318a60282bbca22",
+      "file_size_bytes": 2849,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.60.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/eeb1e5d9336a-2.60.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "eeb1e5d9336a03eb17eda2f33f67c67054f59352a7a521e29b4c9659bbe22a01",
+      "file_size_bytes": 2653,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/2.90.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/d34161f31e05-2.90.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d34161f31e053e69d556ed08e94646ced5b4121be051cf3a1d98382e5fe899fe",
+      "file_size_bytes": 114754,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/67f2655c2ed4-3.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "67f2655c2ed4def9321048105a09d925188400a3d617ce35ace99d57a817e7a3",
+      "file_size_bytes": 178032,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.10.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/27db0cb46056-3.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "27db0cb46056bb9466dcd71e958b167852f62efec4dc646dc802a4c6315f4f45",
+      "file_size_bytes": 2648,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.10.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/966998231bae-3.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "966998231bae2c9c064bf66dad80dac2a3139ab5a93995cef12e26412b4a3423",
+      "file_size_bytes": 2567,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.10.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/10d49259f795-3.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "10d49259f795beb0870d91a0863a8c0807295238dfe39c73babb6ba745101476",
+      "file_size_bytes": 175527,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.10.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a56b7eca7f4a-3.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a56b7eca7f4a77e41700f4dcd574a2fabe8b1c8b3440ff95c61cf9760f54c969",
+      "file_size_bytes": 3191,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.10.41.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b0f5a381b133-3.10.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b0f5a381b133575d0a101b1ea77add9ff903ba3582275c6778b452eb99f32aff",
+      "file_size_bytes": 2434,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.15.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/cc48ccd8f339-3.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cc48ccd8f33923ac1ea9793d0c6f8e205fbf4a7a0cda6f7c351a1a25932d9707",
+      "file_size_bytes": 3026,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.15.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/112f0376e498-3.15.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "112f0376e4986ee17c47faa4bd10cab52ed7b5ed19b62aec1ff914f14048038b",
+      "file_size_bytes": 2310,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.15.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/debce15b7909-3.15.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "debce15b790929790f0767a27155867b6f7c50b9d026823e092d4dd149fde013",
+      "file_size_bytes": 3466,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.15.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1db925884b88-3.15.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1db925884b88466de3e1a36f61f078cc903d526daf3dceaa8375e93dbab466bb",
+      "file_size_bytes": 3032,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.20.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c2212f9762d6-3.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c2212f9762d6ac22c447d22a2c28b79fe455667bbdc75d757a3b4c36ca77df55",
+      "file_size_bytes": 346149,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.20.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/80f7d3b4bde3-3.20.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "80f7d3b4bde338a44916b2038a4678408c5f401bb0e8e38b55413ca9a2cefbb8",
+      "file_size_bytes": 174367,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.20.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/efb5ce48b6a9-3.20.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "efb5ce48b6a9f03bdc6960638d8d1c8d331b0b6ce3a6878f01bdeeae5629a839",
+      "file_size_bytes": 177797,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.20.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8bc0a233dcc3-3.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8bc0a233dcc33c6f4bd6222e2690ad69cbbe761085ad05f3489fbca543710d76",
+      "file_size_bytes": 346596,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/3.20.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2b9696094225-3.20.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2b9696094225e9c4025c51bf4dbf0afdd6d8c2280662863fe0cb6f5b27eaf56e",
+      "file_size_bytes": 176278,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/4.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/92af02a14ae5-4.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "92af02a14ae52b65e10dbcf124ffa9474e0d35f330013a594453538325ef4a7e",
+      "file_size_bytes": 179436,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/4.15.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/8a63cf95c7ec-4.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8a63cf95c7ec05b3d228cad553ca591eb402ec2999301be75247c1df9505c7fc",
+      "file_size_bytes": 355475,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/4.20.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a747cf9d4986-4.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a747cf9d49865e9597b9dcb15e62b53ef310723db67ae3324f3264485a01a35d",
+      "file_size_bytes": 178726,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/4.25.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/f9cb829320ee-4.25.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f9cb829320ee67daa8d3d573888af01a16166c8cb9c092e569e1be73b1d7cfe2",
+      "file_size_bytes": 357138,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/023f18b522ce-5.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "023f18b522ce0afa23e87dc9e20bab113e3633bfa348ba89700a98bbe159c013",
+      "file_size_bytes": 354342,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.10.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/9aae776b3a4f-5.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9aae776b3a4f18278fe4f0cd74db46d2af89ccd506329ea9f4441573ce33dc60",
+      "file_size_bytes": 2364,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.10.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/ebb78e28d867-5.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ebb78e28d8677ee9ae9b598bf42a44fef3ed6b0063c043d478152ee26a6ce1be",
+      "file_size_bytes": 359930,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.10.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5b109c2193ad-5.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5b109c2193ad26691d37beac4503384e51fd97d90fee7e4db9df1b9cf268a392",
+      "file_size_bytes": 176972,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.20.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/733169116e3b-5.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "733169116e3bb70ce1183b839218350583c7c35bc153eaa1aef85665f216ee25",
+      "file_size_bytes": 183856,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.20.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1dc1e2c247c3-5.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1dc1e2c247c32d6ffb8bc020e90fd369da5d32b64616d943a3dc1f8f01a79056",
+      "file_size_bytes": 2824,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/5.31.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/379c1110f66d-5.31.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "379c1110f66d86de4b349d415f3d4f56a0f252d60a878d775cf7d951ed13440d",
+      "file_size_bytes": 2639,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.10.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/37a26454e06e-7.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "37a26454e06e9358233db717ecbe7e71a9312976834196889f0d7b9912558457",
+      "file_size_bytes": 8722,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.10.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/87b3750dda7b-7.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "87b3750dda7beff9ce6c34711c27da683115fc3e1f8096f6893592937b607ce5",
+      "file_size_bytes": 2297,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.10.13.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7285582d8503-7.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7285582d8503762f4233f4a587f5639d5b4958fff48172ade8a504ee1f3630fe",
+      "file_size_bytes": 2587,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.10.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/a455537a7ffa-7.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a455537a7ffa5afcc07ea5f6399263ea52de1b3933215a1ce7ed12b332eb00b0",
+      "file_size_bytes": 3355,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.10.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/639f99b5b6f7-7.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "639f99b5b6f720e7ec08184b26c276a101e13a92205618b8ef39f83486afaad0",
+      "file_size_bytes": 3710,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.10.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/48b3d0271a8e-7.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "48b3d0271a8ea0b15f3f40f4798c32359c24e9cda610be180bb2943ac51e8fb9",
+      "file_size_bytes": 2606,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.15.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c0ccfe597f0f-7.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c0ccfe597f0f972e56f9213a468b216483a74e98c3d96f3a35564cad48a11708",
+      "file_size_bytes": 8172,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.15.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b6385d7aa19b-7.15.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b6385d7aa19b63ec3bef9dde38e06aeca903d8e99151b3003a2a387b3e7a3de7",
+      "file_size_bytes": 3310,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.20.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7a59dcf4beb1-7.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7a59dcf4beb103f7dd2a26fefef5918531ed8247ce28ce041e8e9d8d870b2982",
+      "file_size_bytes": 2767,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.20.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b3152f1f2c04-7.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b3152f1f2c042d656df67ff25ea19703dea3c86b5385c5974c2008908f4a3df5",
+      "file_size_bytes": 3288,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.21.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/6529b8a2f19a-7.21.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6529b8a2f19a82ed2b9baf20e078ebf9286f02320267b9d7b59ec4c6d719a412",
+      "file_size_bytes": 3242,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.30.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/cabd5014928b-7.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cabd5014928b531c00a13531bfd5afc63db26ed4ca815045921a1d27b09b48c1",
+      "file_size_bytes": 2970,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.30.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/592e7b549d35-7.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "592e7b549d359190c546486b20d7878e0170497b7e1c96d662e2a83aa02fc0b7",
+      "file_size_bytes": 3378,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.31.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c500babd78aa-7.31.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c500babd78aaff0c144b45bfeb61273994dd80aaceede2f36a97b1799ea00342",
+      "file_size_bytes": 3020,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.35.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/855200da40c4-7.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "855200da40c44edd88b2e37c83553848f9f5221978d0429923003a4e3e317d5f",
+      "file_size_bytes": 2935,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.40.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0b2c1eb5128e-7.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0b2c1eb5128e02a5c22d586fcde5cfbf36109f7717c082652d8a1714b4d42d39",
+      "file_size_bytes": 9008,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.40.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/13bff5e4e0a4-7.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "13bff5e4e0a48eaf0e53bb98ec4d47aa8df28340b35bc57dc069258d42503d3c",
+      "file_size_bytes": 3167,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.40.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/28b3bc9b9780-7.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "28b3bc9b9780b0931e5425a00d785f51994830bd9f676cc8bbe0c10c97bc81e0",
+      "file_size_bytes": 3532,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.40.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/18a8a12b3021-7.40.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "18a8a12b30214714ba1f16de3ebf354fa6deb80cee4b4ec8e5c0043e954647fa",
+      "file_size_bytes": 2697,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.50.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/dbf523db4622-7.50.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dbf523db4622bb69dbb3f2d081121ef8192daf9cd5c1f95ef5c6701ceb47c9ae",
+      "file_size_bytes": 9078,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.50.11.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/7454bd06c662-7.50.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7454bd06c6625356c58f3a48d906bf651448fbe549476c8c20c5d27319726173",
+      "file_size_bytes": 2733,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.50.12.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/1cd115a2efd5-7.50.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1cd115a2efd5718a7a81c94e5435614f5e16e620e3179089df3a013a25e58965",
+      "file_size_bytes": 2835,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.50.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/b8c60806d70a-7.50.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b8c60806d70a133c20e15dde0d6efa2f95cce0f12c787974b550b5bfc9129593",
+      "file_size_bytes": 3394,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.50.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/38fb4b2eca5c-7.50.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "38fb4b2eca5ce1087665749a4596cdf0c2d9169b15c3c2e0c5bfcbea5e0430bf",
+      "file_size_bytes": 3776,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.50.18.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/2c4dfbf8871f-7.50.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2c4dfbf8871faa920792ad271a84ba99dd6d3f16de8c204f40b92bb67df8df8b",
+      "file_size_bytes": 3111,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.60.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/5ae91d5b3183-7.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5ae91d5b31831d8ac215d590eb8692082d75d9399c18b4d0bef57de584feb4d3",
+      "file_size_bytes": 3035,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.60.14.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/3624fbd1791b-7.60.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3624fbd1791b78390a8741fdd0ccdf0d091c52e74925ec515153f0716b644170",
+      "file_size_bytes": 2576,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.60.16.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/4db9e0104540-7.60.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4db9e0104540a449e596f6135b3c04ff9b40728752680ebbb6056584cb24b82a",
+      "file_size_bytes": 3511,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.71.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/c3cb9964fec5-7.71.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c3cb9964fec5cd9f50af34670fb4a17acc885198ac244d09a1f2959a00cf03f5",
+      "file_size_bytes": 8681,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/7.72.10.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/80fde949cb0b-7.72.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "80fde949cb0b4ae1bcc87d5779b6ee818c0d87485132f7f2f5c761853a58a2a2",
+      "file_size_bytes": 8316,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ergeb_haupt_2025/9.70.70.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/506d1e98a83c-9.70.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "506d1e98a83caac234b0dcf3d6712afccb0fa635f2f7efbd00c60693dd6336bc",
+      "file_size_bytes": 3317,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/ergebnisse/ndsb_LM_Bogen.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/20e603598015-ndsb_LM_Bogen.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "20e60359801503234b3e6b7c81fdde1cae5da8894fb63d88d40c71d1154d734b",
+      "file_size_bytes": 886150,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/limit/limitliste_2025.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/feaf1bace9af-limitliste_2025.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "feaf1bace9af8770c9a9e8c82b425dcc6d14c0b6c90b8a322fe2874eeb986fcd",
+      "file_size_bytes": 212364,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/limit/limitliste_auflage_2025.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/fe396534f961-limitliste_auflage_2025.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fe396534f961881509a50ad2f2e5770589484cd5aef29d201dbfa0b54a2c8692",
+      "file_size_bytes": 2744,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2025/limit/limitliste_vorderlader2025.pdf": {
+      "local_path": "data/archive/2025/landesmeisterschaften/downloads/0ca21b52f6ad-limitliste_vorderlader2025.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0ca21b52f6ad1cebda172cea518159ce5ad95c0538cfc7103495b187c12dbdbd",
+      "file_size_bytes": 22048,
+      "last_seen_at": "2026-09-05T17:49:50.540279Z"
+    }
+  }
+}

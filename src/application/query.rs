@@ -68,7 +68,7 @@ pub struct ImportRunRow {
     pub result_count: i64,
 }
 
-#[derive(Debug, sqlx::FromRow)]
+#[derive(Debug, Clone, sqlx::FromRow)]
 pub struct ResultRow {
     pub id: i64,
     pub athlete_id: Option<i64>,
@@ -214,6 +214,25 @@ pub struct TeamMemberRow {
     pub raw_name: Option<String>,
     pub score: Option<f64>,
     pub medal: Option<String>,
+}
+
+#[derive(Debug, sqlx::FromRow)]
+pub struct ClubIdentity {
+    pub id: i64,
+    pub canonical_name: String,
+}
+
+#[derive(Debug, sqlx::FromRow)]
+pub struct EditableClubAlias {
+    pub id: i64,
+    pub alias: String,
+    pub status: String,
+}
+
+#[derive(Debug, sqlx::FromRow)]
+pub struct ClubOption {
+    pub id: i64,
+    pub canonical_name: String,
 }
 
 pub struct ApplicationService<'a> {
@@ -762,6 +781,40 @@ impl<'a> ApplicationService<'a> {
         .fetch_all(self.pool)
         .await
         .context("could not load team members")
+    }
+
+    /// Loads a club independently of its results.
+    ///
+    /// # Errors
+    /// Returns an error when the database lookup fails.
+    pub async fn club(&self, id: i64) -> Result<Option<ClubIdentity>> {
+        sqlx::query_as("SELECT id, canonical_name FROM clubs WHERE id = ?")
+            .bind(id)
+            .fetch_optional(self.pool)
+            .await
+            .context("could not load club")
+    }
+
+    /// Loads the aliases belonging to one club, including inactive entries.
+    ///
+    /// # Errors
+    /// Returns an error when the database lookup fails.
+    pub async fn club_aliases(&self, id: i64) -> Result<Vec<EditableClubAlias>> {
+        sqlx::query_as(
+            "SELECT id, alias, status FROM club_aliases WHERE club_id = ? ORDER BY status, alias",
+        )
+        .bind(id)
+        .fetch_all(self.pool)
+        .await
+        .context("could not load club aliases")
+    }
+
+    pub async fn club_options(&self, exclude_id: i64) -> Result<Vec<ClubOption>> {
+        sqlx::query_as("SELECT id, canonical_name FROM clubs WHERE id != ? ORDER BY canonical_name")
+            .bind(exclude_id)
+            .fetch_all(self.pool)
+            .await
+            .context("could not load club options")
     }
 
     pub async fn club_names(&self) -> Result<Vec<String>> {

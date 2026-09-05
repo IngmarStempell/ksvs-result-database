@@ -1,3 +1,5 @@
+mod club_editor;
+
 use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::io::{Read, Write};
@@ -66,7 +68,7 @@ struct HttpRequest {
 
 enum WebResponse {
     Html(String),
-    Redirect(&'static str),
+    Redirect(String),
     NotFound,
     MethodNotAllowed,
     InternalError(String),
@@ -134,7 +136,7 @@ async fn route_get(
     pool: &sqlx::SqlitePool,
 ) -> Result<WebResponse> {
     match path {
-        "/" => Ok(WebResponse::Redirect("/import-runs")),
+        "/" => Ok(WebResponse::Redirect("/import-runs".to_owned())),
         "/import-runs" => import_runs_page(pool).await.map(WebResponse::Html),
         "/results" => results_page(pool, query).await.map(WebResponse::Html),
         "/athletes" => athletes_page(pool, query).await.map(WebResponse::Html),
@@ -159,7 +161,9 @@ async fn route_get(
                 .trim_start_matches("/clubs/")
                 .parse::<i64>()
                 .context("invalid club id")?;
-            club_detail_page(pool, id).await.map(WebResponse::Html)
+            club_detail_page(pool, id, query)
+                .await
+                .map(WebResponse::Html)
         }
         path if path.starts_with("/teams/") => {
             let id = path
@@ -200,13 +204,16 @@ async fn route_get(
 
 async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
     match request.path.as_str() {
+        path if path.starts_with("/clubs/") && path.ends_with("/edit") => {
+            club_editor::post(request, pool).await
+        }
         "/corrections" => {
             create_manual_override(pool, &request.body).await?;
-            Ok(WebResponse::Redirect("/corrections"))
+            Ok(WebResponse::Redirect("/corrections".to_owned()))
         }
         "/club-aliases" => {
             create_club_alias(pool, &request.body).await?;
-            Ok(WebResponse::Redirect("/club-aliases"))
+            Ok(WebResponse::Redirect("/club-aliases".to_owned()))
         }
         path if path.starts_with("/club-aliases/") && path.ends_with("/deactivate") => {
             let id = path
@@ -215,7 +222,7 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
                 .parse::<i64>()
                 .context("invalid club alias id")?;
             deactivate_club_alias(pool, id).await?;
-            Ok(WebResponse::Redirect("/club-aliases"))
+            Ok(WebResponse::Redirect("/club-aliases".to_owned()))
         }
         path if path.starts_with("/corrections/") && path.ends_with("/revoke") => {
             let id = path
@@ -224,7 +231,7 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
                 .parse::<i64>()
                 .context("invalid manual override id")?;
             revoke_manual_override(pool, id).await?;
-            Ok(WebResponse::Redirect("/corrections"))
+            Ok(WebResponse::Redirect("/corrections".to_owned()))
         }
         _ => Ok(WebResponse::NotFound),
     }
@@ -286,14 +293,19 @@ async fn results_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>)
     let filters = result_filters(query, page);
     let mut rows = ApplicationService::new(pool).results(&filters).await?;
     let has_next = trim_page_rows(&mut rows, page);
+    let grouped = non_empty_query(query, "gruppe");
+    let rows_html = grouped_result_rows_html(&rows, grouped.as_deref());
     Ok(render_page(
         "Ergebnisse",
         "results",
         render_template(
             RESULTS_TEMPLATE,
             &[
-                ("filters", result_filter_form(&filters, "/results", page)),
-                ("rows", empty_rows(result_rows_html(&rows), 10)),
+                (
+                    "filters",
+                    result_filter_form(&filters, "/results", page, grouped.as_deref()),
+                ),
+                ("rows", empty_rows(rows_html, 10)),
                 (
                     "pagination",
                     pagination_controls("/results", query, page, rows.len(), has_next),
@@ -350,11 +362,21 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
     let mut rows = ApplicationService::new(pool).clubs(&filters).await?;
     let has_next = trim_page_rows(&mut rows, page);
 
+    let editor = if let Some(id) = query.get("edit").and_then(|id| id.parse::<i64>().ok()) {
+        club_editor::render(pool, id, query, false).await?
+    } else {
+        String::new()
+    };
     let mut rows_html = String::new();
     for row in &rows {
+        let mut edit_query = query.clone();
+        edit_query
+            .retain(|key, _| matches!(key.as_str(), "q" | "kreis" | "year" | "page" | "page_size"));
+        edit_query.insert("edit".to_owned(), row.id.to_string());
+        let edit_url = format!("{}#club-editor", club_editor::url("/clubs", &edit_query));
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            "<tr><td class=\"num\">{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td><a href=\"{}\">Bearbeiten</a></td></tr>",
             row.id,
             row.id,
             escape_html(&row.canonical_name),
@@ -362,7 +384,8 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
             row.result_count,
             row.athlete_count,
             row.latest_year
-                .map_or_else(String::new, |year| year.to_string())
+                .map_or_else(String::new, |year| year.to_string()),
+            escape_html(&edit_url)
         );
     }
 
@@ -372,8 +395,9 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
         render_template(
             CLUBS_TEMPLATE,
             &[
+                ("editor", editor),
                 ("filters", club_filter_form(&filters, "/clubs", page)),
-                ("rows", empty_rows(rows_html, 6)),
+                ("rows", empty_rows(rows_html, 7)),
                 (
                     "pagination",
                     pagination_controls("/clubs", query, page, rows.len(), has_next),
@@ -575,16 +599,30 @@ async fn athlete_detail_page(pool: &sqlx::SqlitePool, athlete_id: i64) -> Result
     ))
 }
 
-async fn club_detail_page(pool: &sqlx::SqlitePool, club_id: i64) -> Result<String> {
+async fn club_detail_page(
+    pool: &sqlx::SqlitePool,
+    club_id: i64,
+    query: &BTreeMap<String, String>,
+) -> Result<String> {
     let filters = ResultFilters {
         club_id: Some(club_id),
         ..ResultFilters::default()
     };
     let rows = ApplicationService::new(pool).results(&filters).await?;
-    let club_name = rows
-        .iter()
-        .find_map(|row| row.club_name.as_deref())
-        .map_or_else(|| format!("#{club_id}"), ToOwned::to_owned);
+    let service = ApplicationService::new(pool);
+    let Some(club) = service.club(club_id).await? else {
+        return Ok(render_page(
+            "Verein",
+            "clubs",
+            "<h1>Verein nicht gefunden</h1>".to_owned(),
+        ));
+    };
+    let club_name = club.canonical_name;
+    let editor = if query.contains_key("edit") {
+        club_editor::render(pool, club_id, query, true).await?
+    } else {
+        String::new()
+    };
     Ok(render_page(
         &club_name,
         "clubs",
@@ -592,6 +630,7 @@ async fn club_detail_page(pool: &sqlx::SqlitePool, club_id: i64) -> Result<Strin
             CLUB_DETAIL_TEMPLATE,
             &[
                 ("club_id", club_id.to_string()),
+                ("editor", editor),
                 ("club_name", escape_html(&club_name)),
                 ("result_count", rows.len().to_string()),
                 ("rows", empty_rows(result_rows_html(&rows), 10)),
@@ -958,6 +997,40 @@ fn result_filters(query: &BTreeMap<String, String>, page: PageState) -> ResultFi
     }
 }
 
+fn grouped_result_rows_html(rows: &[ResultRow], group_by: Option<&str>) -> String {
+    let Some(group_by) = group_by.filter(|value| matches!(*value, "club" | "athlete")) else {
+        return result_rows_html(rows);
+    };
+    let mut groups: BTreeMap<String, Vec<ResultRow>> = BTreeMap::new();
+    for row in rows {
+        let label = if group_by == "club" {
+            row.club_name.as_deref().unwrap_or("Ohne Verein")
+        } else {
+            row.athlete_name.as_deref().unwrap_or("Ohne Sportler")
+        };
+        groups
+            .entry(label.to_owned())
+            .or_default()
+            .push(row.clone());
+    }
+    let mut html = String::new();
+    for (label, group_rows) in groups {
+        let heading = if group_by == "club" {
+            "Verein"
+        } else {
+            "Sportler"
+        };
+        let _ = writeln!(
+            html,
+            "<tr class=\"group-heading\"><td colspan=\"10\"><strong>{heading}: {}</strong> <span class=\"muted\">({} Ergebnisse)</span></td></tr>",
+            escape_html(&label),
+            group_rows.len()
+        );
+        html.push_str(&result_rows_html(&group_rows));
+    }
+    html
+}
+
 fn athlete_filters(query: &BTreeMap<String, String>, page: PageState) -> AthleteFilters {
     AthleteFilters {
         search: non_empty_query(query, "q"),
@@ -995,7 +1068,12 @@ fn team_filters(query: &BTreeMap<String, String>, page: PageState) -> TeamFilter
     }
 }
 
-fn result_filter_form(filters: &ResultFilters, action: &str, page: PageState) -> String {
+fn result_filter_form(
+    filters: &ResultFilters,
+    action: &str,
+    page: PageState,
+    group_by: Option<&str>,
+) -> String {
     format!(
         r#"<form class="filter-bar" method="get" action="{action}">
   <label>Suche <input name="q" value="{search}"></label>
@@ -1006,6 +1084,11 @@ fn result_filter_form(filters: &ResultFilters, action: &str, page: PageState) ->
     <option value="">Alle</option>
     <option value="individual" {individual_selected}>Einzel</option>
     <option value="team" {team_selected}>Mannschaft</option>
+  </select></label>
+  <label>Gruppierung <select name="gruppe">
+    <option value="">Keine</option>
+    <option value="club" {club_group_selected}>Verein</option>
+    <option value="athlete" {athlete_group_selected}>Sportler</option>
   </select></label>
   <input type="hidden" name="page_size" value="{page_size}">
   <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
@@ -1018,6 +1101,8 @@ fn result_filter_form(filters: &ResultFilters, action: &str, page: PageState) ->
         kreis = escape_html(filters.association_code.as_deref().unwrap_or_default()),
         individual_selected = selected_str(filters.result_kind.as_deref(), "individual"),
         team_selected = selected_str(filters.result_kind.as_deref(), "team"),
+        club_group_selected = selected_str(group_by, "club"),
+        athlete_group_selected = selected_str(group_by, "athlete"),
         page_size = page.page_size,
     )
 }
@@ -1650,7 +1735,9 @@ fn escape_html(value: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{empty_rows, escape_html, format_score, parse_request_line};
+    use super::{
+        empty_rows, escape_html, format_score, grouped_result_rows_html, parse_request_line,
+    };
 
     #[test]
     fn parses_get_request_path_without_query() {
@@ -1674,5 +1761,52 @@ mod tests {
     #[test]
     fn renders_empty_table_row() {
         assert!(empty_rows(String::new(), 3).contains("colspan=\"3\""));
+    }
+
+    #[test]
+    fn groups_results_by_club_and_keeps_unassigned_rows_together() {
+        let rows = vec![
+            super::ResultRow {
+                id: 1,
+                athlete_id: None,
+                athlete_name: None,
+                club_id: None,
+                club_name: Some("B Verein".to_owned()),
+                discipline: None,
+                competition_name: "LM".to_owned(),
+                competition_scope: "LM".to_owned(),
+                competition_year: 2025,
+                result_kind: "individual".to_owned(),
+                rank: Some(1),
+                score: None,
+                medal: None,
+                participation_only: 0,
+                event_class: None,
+                source_document_id: None,
+                source_url: None,
+            },
+            super::ResultRow {
+                id: 2,
+                athlete_id: None,
+                athlete_name: None,
+                club_id: None,
+                club_name: None,
+                discipline: None,
+                competition_name: "LM".to_owned(),
+                competition_scope: "LM".to_owned(),
+                competition_year: 2025,
+                result_kind: "individual".to_owned(),
+                rank: Some(2),
+                score: None,
+                medal: None,
+                participation_only: 0,
+                event_class: None,
+                source_document_id: None,
+                source_url: None,
+            },
+        ];
+        let html = grouped_result_rows_html(&rows, Some("club"));
+        assert!(html.contains("Verein: B Verein"));
+        assert!(html.contains("Verein: Ohne Verein"));
     }
 }

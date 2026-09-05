@@ -1,0 +1,2396 @@
+{
+  "pdfs": {
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.68.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2fe22c60c8de-9.10.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2fe22c60c8deb5b3479d95dc98583d0315a29dbfa0c9409175a889953ad410c0",
+      "file_size_bytes": 369764,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.69.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/11111665ad3a-9.10.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "11111665ad3a73a4f2c15ba89d4e95071afc016e5ea4ea737b805be56f43c818",
+      "file_size_bytes": 367867,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/7f273c7eabfc-9.10.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7f273c7eabfc2d996ce6b027c25125f1218f556a3f602af6623301c77edcb82f",
+      "file_size_bytes": 384494,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/57b3a56fe6ad-9.10.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "57b3a56fe6ad4624f1b7aa19d876b294594f987fe416906879286f076513b786",
+      "file_size_bytes": 378853,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/92aebee4c8c3-9.10.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "92aebee4c8c36243de0ad6c8854caa24454a3a22c61650d5edb750b7b40c3bdf",
+      "file_size_bytes": 188152,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4a409464e78d-9.10.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4a409464e78d7fb732ea0dbc61c61d4334005057d97a30d34ba9275174022d53",
+      "file_size_bytes": 184938,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e9a6129e78b0-9.10.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e9a6129e78b023e332c9d6495fb74b0a2c8df3e29c649e39c41d6eada822792b",
+      "file_size_bytes": 10533,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/75233deefab1-9.10.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "75233deefab12e7ec6b08d6ddd7f77d5797e861867627c1b35eb300b8162317e",
+      "file_size_bytes": 365294,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b18c8174cdbe-9.10.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b18c8174cdbe0240dc6762e2f10eb74f4b3c5ce2ecff8afaf2f4110ab827044a",
+      "file_size_bytes": 5008,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/907b5c3fc706-9.10.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "907b5c3fc706b0eba7693f255dcfefc4f9bab6eda00f648c495ff13252eea9f2",
+      "file_size_bytes": 185375,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f49713e76e27-9.10.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f49713e76e2750c31ad6c1e7400412735a57e3c148cc50b0f71b31a17ede1c94",
+      "file_size_bytes": 5967,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.10.79.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c255acfc8152-9.10.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c255acfc815250ad0d9836e50c22516acfecc521b08bc04adbc0cdd0a26a06f0",
+      "file_size_bytes": 187605,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.30.68.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3e518025bdea-9.30.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3e518025bdead8f5f2ff48ab59e02a2c57356e70410e5f842247e124548a2818",
+      "file_size_bytes": 362765,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.30.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/01081cb9dda9-9.30.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "01081cb9dda90bc69652348db3d6a936a549858ccac7c7a030b66bdd808d9dd0",
+      "file_size_bytes": 181691,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.30.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b045fef23f08-9.30.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b045fef23f0848a5d65836ce61be09aefed62569892ee52a8ab81d1f4986a9c9",
+      "file_size_bytes": 182755,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.68.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1ab8497e96d7-9.35.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1ab8497e96d713088afb813ec89a8b9b999318bfa58dee451c6c68801c0df1b5",
+      "file_size_bytes": 366796,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.69.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6761af61b182-9.35.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6761af61b182dbb1fbe1729108a81983f4daa8a1b15ee09d11bbbe9f9675ea01",
+      "file_size_bytes": 368016,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9c36f1e14068-9.35.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9c36f1e14068302ea078c2dd2893df86da09fc8a50738943f9a723903bc574e4",
+      "file_size_bytes": 374157,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6fe6c0d221c8-9.35.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6fe6c0d221c8e8dc982b97c2c1e9f551237caaec42d4bdad780b57ef1f8827b2",
+      "file_size_bytes": 6665,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8efafcb55868-9.35.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8efafcb558688722944146594a9bbf51231b5097414ef9c66dae774689057af8",
+      "file_size_bytes": 187702,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/86096888ee58-9.35.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "86096888ee58be241b88472508eadc77106e97eedfb2b24f741405f352159cda",
+      "file_size_bytes": 2954,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/18e3a1be0179-9.35.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "18e3a1be01793465e13333585ce6d543d9a92d54a48933921f31048a9d06cf2a",
+      "file_size_bytes": 374744,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6d8ac36e41d7-9.35.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6d8ac36e41d704c6b5a3ea863f1bd81ae983a3dd8958fa4648cc9cce7dc6458f",
+      "file_size_bytes": 4987,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/448a2be1fdeb-9.35.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "448a2be1fdebd071d97013e6168869e5ab758cf0ade3f14229b07c95a128e150",
+      "file_size_bytes": 194216,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.35.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8d554d725b71-9.35.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8d554d725b71026474f202a5efca9e6e5ac6db5b1476d7b94eb4744f9ec8990e",
+      "file_size_bytes": 3704,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.68.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9906d71f0167-9.40.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9906d71f01679e696b5fa225d2b8421a1940d5d8e3888be216e316daa5cbbc01",
+      "file_size_bytes": 369235,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.69.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c353cd9a6264-9.40.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c353cd9a6264f64f3b0bd99628ec67991bae8ba636f75fb7990e6d4aa245a1b2",
+      "file_size_bytes": 186663,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/10c71d91b7a0-9.40.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "10c71d91b7a06b411818c86a75f149817bfc3f3b9f64293655c106052275e7c8",
+      "file_size_bytes": 374770,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/170276ba6a10-9.40.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "170276ba6a10cb4d47101d346b37a196fe4ff366b12842cead046462ebf701e0",
+      "file_size_bytes": 375461,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6be1214bbb74-9.40.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6be1214bbb743fd42ce803e55010550cbd21bf74a4ded277539215ac93016d4b",
+      "file_size_bytes": 188650,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0f666def5e6a-9.40.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0f666def5e6ae5463b1d71474a976e9d73857e86754e2dcfa86df2581f01c62e",
+      "file_size_bytes": 186470,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/91088efa83fb-9.40.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "91088efa83fb39df9d2e98a699dc45bd91b787c96b35a99cdc7044211657c92b",
+      "file_size_bytes": 7684,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1196c43cc6b9-9.40.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1196c43cc6b996071ee7082df52a7529dbef66cfb4a7800abcda27ffe8197fad",
+      "file_size_bytes": 368313,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/868c3d581e16-9.40.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "868c3d581e16d8fc0d0e2e52335c7d9177c8f4d3a305f7c0e4f26014fb6ddc4f",
+      "file_size_bytes": 4569,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b0c58187b32b-9.40.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b0c58187b32b90dc3daa5e3c9a50ad95239e58b8b3403ccaadcaa2959ef6086e",
+      "file_size_bytes": 183568,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ccd93dafa393-9.40.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ccd93dafa3930178ba62d9ea15ab36521aadd3daa50eaf5d3c8d9847ebf727fb",
+      "file_size_bytes": 3715,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.40.79.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/5ec55b2582a7-9.40.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5ec55b2582a7671365e4b39b70b5ca841a0204b78657d0cd102189cd7034620c",
+      "file_size_bytes": 185332,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.58.68g.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ae0dcb5dfa0e-9.58.68g.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ae0dcb5dfa0e1e4d2cf893779d91656ea7b8fb55f2b6527fabd20777e174d8e5",
+      "file_size_bytes": 18052,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_auflage_2023/9.58.68o.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/780750f8158e-9.58.68o.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "780750f8158e6c0f8e1785cdd1c664954d16d85f02d7cca57869439997f1e067",
+      "file_size_bytes": 17595,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_blasrohr_2023.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/37fe79e09f5c-ergeb_blasrohr_2023.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "37fe79e09f5c971c87dbab6585f19e7ae67e538b2a1741fac112a5516cdf3436",
+      "file_size_bytes": 86464,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/a1bff4cebe14-1.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a1bff4cebe145b05113807c7e44ed49dcfc8bf54b69857a6b9f544df991950c7",
+      "file_size_bytes": 367997,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0218500f55aa-1.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0218500f55aae190d2f515f4d41c48534c1a9533d8fbf396bef7edb29d240879",
+      "file_size_bytes": 368764,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3e950b0d55c8-1.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3e950b0d55c8b13fb1e7da4a9a386c2e008d8df1268d59e1e19ca0415f00518c",
+      "file_size_bytes": 178641,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.13.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fee96700dffc-1.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fee96700dffcce76d93ca29be5f7ba997b928c52c76221befac8c7bc05c87e5d",
+      "file_size_bytes": 179387,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c936a1b6a2fb-1.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c936a1b6a2fb321d01a4551ba892d18b4e933a42cd3dd2328e30d5185cba4743",
+      "file_size_bytes": 355436,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4d1571ad216e-1.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4d1571ad216e3a3126c541b1136acac5c3f238f324fb80e8c9ffd69eed86be3e",
+      "file_size_bytes": 350533,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e0a4fe130b47-1.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e0a4fe130b47c150b6a8309b0b579d450b1e38c801b432b5b4f68b85d8f235b9",
+      "file_size_bytes": 352019,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.17.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b59e9a819972-1.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b59e9a8199725cdb0a7d23973d75e3006ec551088feafc18383ce8e327d45142",
+      "file_size_bytes": 176528,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.18.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/83e523df4da9-1.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "83e523df4da9082f39f0af6136db12fa957fa6926b6a37cd25cc0cd6ed3c9b35",
+      "file_size_bytes": 175744,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.20.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e97c4cdbac5d-1.10.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e97c4cdbac5d20e84196e880cee807393d81b18f9a1f4b576e27067c57231dfb",
+      "file_size_bytes": 360806,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.21.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/20fea3760a05-1.10.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "20fea3760a0593aac312d94853fbe0b0d6ef0e1c4125f210bc7a240572c4b6f2",
+      "file_size_bytes": 182847,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/46eb009ae9ee-1.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "46eb009ae9eea826e67b63ff4ccdac40da6035cec03acf3d6714e51b8f9bc251",
+      "file_size_bytes": 361213,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4529b4849189-1.10.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4529b4849189cd98f3cc08d4917b3021006fb2c2bb19dd4152703a95b6703168",
+      "file_size_bytes": 184351,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/77aaf5d32d47-1.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "77aaf5d32d4730f2401288e8c6b206c77253655b298a1e9ece14d3a2eca9a72c",
+      "file_size_bytes": 356239,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.41.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e507354a0c04-1.10.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e507354a0c048554a416bc734d46013aab188b7a488438db3a45d222350bed63",
+      "file_size_bytes": 365219,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9af9fc2a2540-1.10.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9af9fc2a254063bf6bfaea75fffb650d837e2b2c50d19fe01a9dacb1fac76ee6",
+      "file_size_bytes": 183252,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.43.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9bcc39dbdfd5-1.10.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9bcc39dbdfd51b63a21cc2fae4829d0a5b94edbdda9f91ad6a1c80c92f7425a3",
+      "file_size_bytes": 186372,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.10.90.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/996b3a84fc04-1.10.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "996b3a84fc0410a6a2c2ed8639e453f8969ae0e75a55b8312357ab01245856bf",
+      "file_size_bytes": 183359,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4a5d7b0ccb5b-1.11.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4a5d7b0ccb5b9c3af67dd1b5f1552fef95e21efc4542edf81345b647b84d0067",
+      "file_size_bytes": 383942,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4afe6951ef12-1.11.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4afe6951ef1235c5f7919ae313329008f13906c4f5a8d68239516c2395e822ea",
+      "file_size_bytes": 188462,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c21762b5c675-1.11.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c21762b5c675c9584e2d1a7da2ac99b44c067b63215cc865053f668d9f9f00b8",
+      "file_size_bytes": 189818,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3dedf4ef55bf-1.11.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3dedf4ef55bf7d91c3dfd0f965ff209b04745fa1688fefd268d23c89dc6ccb0e",
+      "file_size_bytes": 185539,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3623909dc1c7-1.11.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3623909dc1c7f765ef4516f5695ffd8752f5b10a3968222eee846e0f8b649213",
+      "file_size_bytes": 371826,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e24799fc55f2-1.11.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e24799fc55f2b34daf1e868b657080426040b63915d7467b68b9cd1d87cc8aa2",
+      "file_size_bytes": 2392,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f33a707fe96e-1.11.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f33a707fe96e66d6f0b97ff7d5269624877bb5d9117a398bece54d7254e7091b",
+      "file_size_bytes": 186344,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6c7476cb77db-1.11.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6c7476cb77db5969483e0ffaa9643b891d8c472acf597ef3839fdacf4dca4037",
+      "file_size_bytes": 2583,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0230c8b88999-1.11.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0230c8b88999380278819de6f161f3d363d0f3f7aab7d85df5a58ec41d8cc60f",
+      "file_size_bytes": 4270,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.11.79.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8e9a759379bd-1.11.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8e9a759379bdc498cf8ad9db0d07fc2e449f673af0a14be511ab59ba8f44134b",
+      "file_size_bytes": 2536,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.18.20.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d3050ae38782-1.18.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d3050ae3878262ef552107f35be661f1254450ed3454bc72ac0b9a4d3641b2c0",
+      "file_size_bytes": 365743,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.18.21.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e735cc2439ab-1.18.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e735cc2439ab2310e59b472f5e1e76f73c51c392ad99d03449ba2c8a16311493",
+      "file_size_bytes": 183915,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.18.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/067c0c27c5fd-1.18.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "067c0c27c5fd8974d6439e103e010947a591cc65ff24d56322f67cbdde7d3561",
+      "file_size_bytes": 178245,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.18.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/31e91ace7094-1.18.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "31e91ace70949e3761e2358961d6130518446b91c73ad9149e53879c6c60a042",
+      "file_size_bytes": 2988,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.18.90.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1447ce90c482-1.18.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1447ce90c4823f248d7dea9beb0862e99891133c2002e8ed69bc9ec290a8f685",
+      "file_size_bytes": 184345,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.20.20.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/cdf2daf176bf-1.20.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cdf2daf176bfe97356999b230e13526add5bc546846de91ed4fcf8be62cb095f",
+      "file_size_bytes": 180906,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.20.21.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2f0a10a160d2-1.20.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2f0a10a160d22a97d424da4d578918a4dbc54dfac9f9f5a290dc2b064f5bae52",
+      "file_size_bytes": 3708,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.20.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/620e3eb141fe-1.20.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "620e3eb141fe9939a30de1c1c8f16afed64963a6cdb9fcd20471bdaccc8599f1",
+      "file_size_bytes": 176408,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.20.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d16e106e25f8-1.20.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d16e106e25f89087f1da552af39be614ef6a5b6fb9593f87f9fcc5de26e649c2",
+      "file_size_bytes": 3419,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.30.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/67324c5b54f6-1.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "67324c5b54f6f1a2e22c5266e99de33d629132a19779b78d19f07df60c59ef8b",
+      "file_size_bytes": 344247,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.30.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/36a9c09d844b-1.30.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "36a9c09d844b37446379008fa9ede95eb4b890cc51cfc77fc264a3f9935fb84c",
+      "file_size_bytes": 176456,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.30.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/16d70bfcb72c-1.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "16d70bfcb72c1c8020f440a4b15f4205af68d6b25edc9e0206d5e220d57c4273",
+      "file_size_bytes": 351464,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.30.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/db185fdfa05a-1.30.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "db185fdfa05a6658a12981556a07b2e782efff040e1ec16cb574e5aff018c1fd",
+      "file_size_bytes": 173413,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.30.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bbe10a590ee0-1.30.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bbe10a590ee09832525bf57e60ea7cb53d7372f16dd1752eddeaf49668178cb0",
+      "file_size_bytes": 176346,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fac1155c509d-1.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fac1155c509d019578b0f39c044fb49a3b0c88494c19923f8301a12699f9e970",
+      "file_size_bytes": 356417,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4e75260ec183-1.35.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4e75260ec183555460e27ee25daa20bf582614a4f372cf5f01c2dc5697b4e1c6",
+      "file_size_bytes": 183851,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d2dbcc9b50a1-1.35.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d2dbcc9b50a17a113c1c4d90e3419d8ed3ed7e1c6fd69784f59ca07101758c8e",
+      "file_size_bytes": 176683,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.13.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/48205bf89577-1.35.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "48205bf89577ffca246d7534d4590590c55dcfd80de8a525354b7748fc1ebcad",
+      "file_size_bytes": 175202,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e02af94c5587-1.35.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e02af94c55871a79604af3da7e7f95e1199325570f51c4d1b27b042a5ce27046",
+      "file_size_bytes": 351571,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/57479ca29fc7-1.35.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "57479ca29fc7ca2742bff7fe62a791e69cb3cc682e7d20c1fac021c3a7da1bf9",
+      "file_size_bytes": 175940,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/faf6c6e45c15-1.35.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "faf6c6e45c15241512e8e9c6e2b521a568d7b9c6cb7cfbd1b8bc61da73cb1de7",
+      "file_size_bytes": 176984,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bd629a55bc77-1.35.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bd629a55bc77ff35c530f72f5ad69803affd477b3f8dd111f2691a8df3eda2eb",
+      "file_size_bytes": 178841,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.35.90.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/95bcf1b97c2c-1.35.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "95bcf1b97c2c40e63a950d66cab2e4d3c449ab5c27a131e8d81d37674239d607",
+      "file_size_bytes": 181674,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e1c2f233a9d1-1.36.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e1c2f233a9d1b4a59b5a6cb1430d7b80250beb3e9ee45b6dce56e434de93033e",
+      "file_size_bytes": 381054,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/039c8596d6c1-1.36.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "039c8596d6c19a9caf4ea4af371e8f7768556ac1b1020207ee37b195fe49e7c9",
+      "file_size_bytes": 3468,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/48b94b8b681a-1.36.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "48b94b8b681a6de9c4c0beeb57428b0d2bf5e4b641877aadae1a5a54e506fa4c",
+      "file_size_bytes": 3047,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2dadebfe80cb-1.36.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2dadebfe80cb2010d96aaf53173c53b1f11ca20188d7e3367f11d5191c9cad5d",
+      "file_size_bytes": 2492,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b14f2b463173-1.36.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b14f2b463173c3970e013bc2a976656e073db8d7e9abb76998c667d1c4bb51a7",
+      "file_size_bytes": 373624,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/51ff0ffa7227-1.36.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "51ff0ffa7227967fed4b7d8584c9bbd0d4fcd23a321f71a7517b9255c7bfdb10",
+      "file_size_bytes": 183609,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3408ffb92fd8-1.36.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3408ffb92fd8ebcdfe2381e04fbd3eb8c496292bb154963e3ae739140533aea0",
+      "file_size_bytes": 187391,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/205f264d9b3c-1.36.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "205f264d9b3c7a63633e4e1a4651ea65ee96fc6bfda92d45a202e921e82a1725",
+      "file_size_bytes": 181925,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e9a9cebdedee-1.36.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e9a9cebdedeea9cb19ca20cf508ca5b6b7625ac4bd32b3c06f803302b22eef63",
+      "file_size_bytes": 188725,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.36.79.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/eb38c317b41f-1.36.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "eb38c317b41f273a49b8f47186c6f2e5ffa960451d6a7dd074bd77300d178c33",
+      "file_size_bytes": 185494,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/961563e87f94-1.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "961563e87f94864c1ace610569c9b4e29539b34a829f4acb3d15f6bc6ac0b0a7",
+      "file_size_bytes": 187353,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/72153b66799d-1.40.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "72153b66799d9d9be2799795127a761ad7cbd2a9236a76faaf416124acbf60ba",
+      "file_size_bytes": 3159,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.13.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/39d541ae7268-1.40.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "39d541ae72681c49be3561ae59292b2e3ebf0e45da9247836b7e0cf3f7df01fe",
+      "file_size_bytes": 3284,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/a00044ed86fd-1.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a00044ed86fd5706809c5359b676d7a84e4cfe654cc348250bc7bbe554ae42b4",
+      "file_size_bytes": 181475,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/10b80a7514c3-1.40.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "10b80a7514c3b854b8da15318ef65f2192f81d3c96931c8044043c32daea008a",
+      "file_size_bytes": 3122,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2972a5ff45f7-1.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2972a5ff45f7dc62a92f9aea8c22de1588739f722fcbcef6bb0f0e9fc4a5d19a",
+      "file_size_bytes": 3090,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/831394c9f5e5-1.40.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "831394c9f5e527ae6c25516857d8ae8c2a31ff711ac954d687aed6c8863cb74c",
+      "file_size_bytes": 2642,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0e6820fa8820-1.40.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0e6820fa8820f3cce606ec0fb307cde9ce8f50abb90e8ee84aa76db034f38eac",
+      "file_size_bytes": 3411,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/211ee140aaf8-1.40.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "211ee140aaf8cbc7476e978605fe2b9b61139fa09fb4c77b5a0df440a6d46d47",
+      "file_size_bytes": 2998,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.41.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/62230f78eade-1.40.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "62230f78eadedddd09748d29b9f498f86bff4394893c037e61cc095a7a8cf3d6",
+      "file_size_bytes": 184764,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d0d2c820260f-1.40.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d0d2c820260fcbed013355dc49741fbc4a8c6b06cc5b05cd6e2cf7062c16e00e",
+      "file_size_bytes": 3527,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.40.43.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/29a5fec723ed-1.40.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "29a5fec723ed56a27f16982ca97e660f6f6ef3aa8cb1c8bb3e2ba98577c7093f",
+      "file_size_bytes": 3810,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/64a72e0432bf-1.41.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "64a72e0432bfe790487dd374817028051efdba6d5accae7b89673b2cde699568",
+      "file_size_bytes": 381611,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b004414b9f06-1.41.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b004414b9f06d44a5c4d6b6452f4b59373c01d463e27d5274297872885b598f1",
+      "file_size_bytes": 190216,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/aeac5be09f6e-1.41.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "aeac5be09f6ef330b6b7269944aacd3b1092af7280ee4d6a96fb362941daefcf",
+      "file_size_bytes": 188223,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/876381dbe8a0-1.41.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "876381dbe8a0a0497ab31f3bf2d8b29ec877f0f9eb881233ca44bb9454e673c2",
+      "file_size_bytes": 188616,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1d8f2e6ac5b6-1.41.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1d8f2e6ac5b6615a9f01da3f01fdd83e667fa8e2a7d06292aad219855d4daef5",
+      "file_size_bytes": 6125,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f9a613286bcd-1.41.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f9a613286bcd7374565272420ba1856bd0e50f2268d1c0384e6602c79a72348c",
+      "file_size_bytes": 2428,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/7a7d3ccfe2e3-1.41.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7a7d3ccfe2e32f8812beb8a5fd172a882ab2e760c4e728b4b954e780d7da7ba8",
+      "file_size_bytes": 3506,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e849147effb2-1.41.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e849147effb214149c3e86b2af3bacf6fd381e1bdb463b0db2ff911df321bdc1",
+      "file_size_bytes": 2117,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8d98928a98bd-1.41.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8d98928a98bdca7aafe1adcf53879dc47f959883be20ae78123c3fb906add8e5",
+      "file_size_bytes": 3334,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.41.79.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ad1b800787ae-1.41.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ad1b800787ae9aebaa33b255f6eb18c23308f1fbe8bd9e3c322018795ec62f00",
+      "file_size_bytes": 2314,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.42.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8a69f57f9fa2-1.42.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8a69f57f9fa24103c55cbcaf5e70eed6d00136a9cf6934099bca044561a38fd6",
+      "file_size_bytes": 376382,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.42.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b027fd3db47e-1.42.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b027fd3db47edc6772067c6adcf5c48debb8a1af192e3afccce8823b652bac04",
+      "file_size_bytes": 192052,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9861a86d2d2f-1.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9861a86d2d2f4f85bd4192ef34fcce85dfb910b3d92685f29c1dc300049ab8a9",
+      "file_size_bytes": 179305,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9fe5c954c9e5-1.60.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9fe5c954c9e59e3c3505f7d1cf6182940fffc520c52a91c306da724ed7786c0f",
+      "file_size_bytes": 3252,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0594943b8c7f-1.60.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0594943b8c7f9bbdf7d9de5bb17b8e107e39201af36bea787b2122f5dd03a73c",
+      "file_size_bytes": 3578,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3e5bd2095a8e-1.60.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3e5bd2095a8ea069080e0a75796d28688ab6bbe2b95ad4111f6107529520b323",
+      "file_size_bytes": 181226,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.41.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fe8e71646da5-1.60.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fe8e71646da507a96db3ffce0263e7bc20d5e7b38b59ca506b3c869a40306a19",
+      "file_size_bytes": 2809,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/12bc62fb7d21-1.60.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "12bc62fb7d21fba0cdbc80c0ee9dc8c3db14d5f5a7ed9026e7c199671bb546ba",
+      "file_size_bytes": 3158,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.60.43.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6ec21d734df9-1.60.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6ec21d734df9db249ca9ed322fad536012fd9ac90bdce9cc06bbbd5375f4d0fe",
+      "file_size_bytes": 3353,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/763f957caa4a-1.80.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "763f957caa4a50ab786b451e6ac7be30077dfc913d026909ae67c9545531713f",
+      "file_size_bytes": 180479,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/22a048a8654d-1.80.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "22a048a8654de690c48cd93056a8d67da8833cffbd3be1a4fbecda794c94e0e0",
+      "file_size_bytes": 6562,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4d3164e0b867-1.80.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4d3164e0b867a734ede7ea6b561a302d24ba594137806f71791d8bb49d1ca8ce",
+      "file_size_bytes": 180084,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.13.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/99208cfa2a7f-1.80.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "99208cfa2a7fbecd191a69814844e54844c9c1e1e790c4036d4b35d88c362d22",
+      "file_size_bytes": 3144,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/77914b18bb32-1.80.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "77914b18bb32e3eb59b02a76b261dd57ab79c9bfa4e6a9316bc4d188af9a02df",
+      "file_size_bytes": 359754,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0cf4707e78e1-1.80.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0cf4707e78e125c38e1d2183cb0b1e0ad576a6ccc674211ce8760886d7f647c3",
+      "file_size_bytes": 2939,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/dab28343fa64-1.80.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dab28343fa64b5aea0a9296554c15a06beaca46e9d2f1c750f2e59903ceaf7ff",
+      "file_size_bytes": 356784,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1dbb0352c953-1.80.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1dbb0352c9537ba39a7fa0e81d235a0a9cc2c3b510ebd480ea08a1857b865b27",
+      "file_size_bytes": 2851,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e19a1672574b-1.80.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e19a1672574b27638141c896c6d0c4b042fece77fe2a127f6d6897461c588651",
+      "file_size_bytes": 3103,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3eaed98d4472-1.80.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3eaed98d44724b9bd4aa0347ddabd604f6edd712d58afd6d56098aeae4974bee",
+      "file_size_bytes": 3162,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.41.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/60029df8373a-1.80.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "60029df8373a77953213f9fa3704432ac07164d5469a86fb9deace5b851d83da",
+      "file_size_bytes": 2774,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d7acd16473a1-1.80.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d7acd16473a123eab1bf989ea6b8e551f1ea33b586f61ef07d8c3906a10a4209",
+      "file_size_bytes": 3143,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.43.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/56df16fb4538-1.80.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "56df16fb453881ad792b4a03e4d24a52a3d9b446f9fe2b056c75c16a06c695d2",
+      "file_size_bytes": 2883,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/1.80.90.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/930156b9cf3b-1.80.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "930156b9cf3ba3e8810935d2777bd89c1fe421fbbcedfe60fa5e0691bb1f2669",
+      "file_size_bytes": 2673,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/edb3b04489a8-2.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "edb3b04489a8c9b4d276263d2a35f6a4f1d63358b5a4d0d779614247af0d38fd",
+      "file_size_bytes": 363194,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d4e70240241b-2.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d4e70240241b77c078741e1838ab003def5243c364851df7572adfb527259007",
+      "file_size_bytes": 183384,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ed5769e3db43-2.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ed5769e3db43d5d808fde313787f521801973de442bc34e5fe7440127403dba5",
+      "file_size_bytes": 183291,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.13.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4b65382036df-2.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4b65382036dfa032de7635673946ac99636be295441868ec22acff8433f8156b",
+      "file_size_bytes": 176099,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3aa09d448118-2.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3aa09d448118c48d6c058879d5b2d022444e610bf9b1fd365cd1d1194ddaa1e5",
+      "file_size_bytes": 365595,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0f2e1b1c71b7-2.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0f2e1b1c71b7d36a9585e85a5dd2eb5bfc0dd6f62d6339a5f43415d2cea5dd62",
+      "file_size_bytes": 357120,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fa26046e56fa-2.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fa26046e56fa6e71f8bf565c88dfe1698896729978c4d36bb31cd58cea343f85",
+      "file_size_bytes": 183559,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.17.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e9faa985e30a-2.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e9faa985e30a163fd2da7ebcd2a04ed68f897405e47346099721d78c7ba46f16",
+      "file_size_bytes": 180647,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.18.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1682c22bee40-2.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1682c22bee40a145183cef836483304e193f6868edc12ecb9769848128bb2b02",
+      "file_size_bytes": 180307,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.20.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/cc3d02cfd4a0-2.10.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cc3d02cfd4a06581b38f674a7b473db58eb9623e6a51662b3193a04414cc9b09",
+      "file_size_bytes": 353549,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.21.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ba20ebae90e4-2.10.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ba20ebae90e4ca91eaa673dcdc3d7987ff0b9326268a4a98d04710cdf69073b0",
+      "file_size_bytes": 177989,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/76981d3ff1a0-2.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "76981d3ff1a048dee518f53b8654f693518941427889458b0798057bced02a75",
+      "file_size_bytes": 354736,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0a7d24309451-2.10.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0a7d243094518c028e4638ca4522af4cdd5e0f7743e5e9f6965e87bb3c1bbb5f",
+      "file_size_bytes": 182227,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b2f6040437a5-2.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b2f6040437a504087340eefafd0261de1e4ba830c510a0e8ffb4b7d8f66f3a01",
+      "file_size_bytes": 178650,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.41.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c0d1bcba29d4-2.10.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c0d1bcba29d4cc719a220fbc9b4b0348f3cb17f6ecd594005f7606bb1e71f869",
+      "file_size_bytes": 177878,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/458f24f818db-2.10.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "458f24f818dbdf81694a321dfbce173e00528322be26d50f16424b6f5b680597",
+      "file_size_bytes": 181602,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.43.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bd5532ad02be-2.10.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bd5532ad02bebb547301550377a760398f350ed7f09fe17a51f5a03ec473218e",
+      "file_size_bytes": 179936,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.10.92.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/aeafabfdf5ea-2.10.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "aeafabfdf5ea31be565db192ad114ff16f829fd5530db05b7f058ef1e1f3f315",
+      "file_size_bytes": 179593,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/883ba4a4afd5-2.11.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "883ba4a4afd5c51bbca2ea26258cb619ca5159c7924a0502459e2b31371baa84",
+      "file_size_bytes": 365756,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.71.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/a9d12ca2c7ba-2.11.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a9d12ca2c7ba56fbb1971c560467d624c99a796e845133f22d128b8c9c290e91",
+      "file_size_bytes": 184074,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.72.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/90686b061e0b-2.11.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "90686b061e0b040b0e193b0ed790fa8954bd41d95a45e2927707ad0bfe3052e6",
+      "file_size_bytes": 182356,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.73.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/cc0a0eac10f4-2.11.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cc0a0eac10f4b22f8480aa27de3c04debd0135d56ca8a2a2db38988bdf5e9c5b",
+      "file_size_bytes": 184325,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8b0b83d1c333-2.11.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8b0b83d1c333b785f2ca7f14add9145b8066a21cfe15fff56a9594d8a7935c7f",
+      "file_size_bytes": 368084,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.75.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/940c1f079c14-2.11.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "940c1f079c14374f88849cdb5703b1a6291acce914d9a9c09b979ccca013a81b",
+      "file_size_bytes": 180815,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e1aaabe8ba7a-2.11.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e1aaabe8ba7a495a0c578c534c1957aa5cd8548f12172e7d3a16c80462ba9f41",
+      "file_size_bytes": 184092,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.77.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/720c5b7537c1-2.11.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "720c5b7537c1b840fde8bd30d0a7bdcac9a4082113153fe8f36930c23633620a",
+      "file_size_bytes": 183687,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b6eb16ef001e-2.11.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b6eb16ef001e4ca16d9a3d9605e6994c5b97801031f22f0191767bb8eff1d972",
+      "file_size_bytes": 183101,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.11.79.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/57d8195b1771-2.11.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "57d8195b177137c2f74f235285bfdf1f7a76111eec6d8edaf5735114820a6fbf",
+      "file_size_bytes": 184855,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.17.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/82b6815d86c9-2.17.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "82b6815d86c9cb53c63a44fbcbb32937804e87ce0ea6782ff64a644de40c604b",
+      "file_size_bytes": 3398,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.17.21.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fed23adc9563-2.17.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fed23adc9563ec3171725196ce0a07e4829344294a4841ae917cf431074802fa",
+      "file_size_bytes": 2590,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.18.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/5193ad4a815d-2.18.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5193ad4a815d666806ae4989a6a9dad68d9bc8a94d8a2cbb6d6345c01060d303",
+      "file_size_bytes": 3523,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.18.21.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fd12339ef378-2.18.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fd12339ef3784248c6d8c8c4728bc722cdbf7b22e978b8409ba235df80613856",
+      "file_size_bytes": 2586,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.20.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f6a079a2ae44-2.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f6a079a2ae447c2f37ff6af523048abead3e7985d643f5d32e09f4dc687eac76",
+      "file_size_bytes": 2937,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.20.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0a237b570ef9-2.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0a237b570ef935ba9fcd9399ab13cfc7dc8adab8fb5ca26ee76e296c474fff76",
+      "file_size_bytes": 178666,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.20.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/21cf1700b543-2.20.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "21cf1700b5431e6fb2ea236b3494fe34e894c7567cdbfcd89a5d431461323d48",
+      "file_size_bytes": 1941,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.20.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4fa6364bcbd8-2.20.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4fa6364bcbd88206dc6f76dc0fccc12378cbafc311b4ed72fe6f25175a48cf6f",
+      "file_size_bytes": 2450,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.20.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3688d94a1a78-2.20.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3688d94a1a78e5f5c8ad461d5ddaafc34557d5f0846c2aff13989b0235b5b8d1",
+      "file_size_bytes": 2477,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.21.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1192ede9feb4-2.21.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1192ede9feb436c5e4b807f2e307feb542367973faa184c1bf90416a3c9e5003",
+      "file_size_bytes": 360990,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.21.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c087600af3be-2.21.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c087600af3be33c5b480108035936f32bf602bd3311595c4ab1abb4d70e346a4",
+      "file_size_bytes": 181038,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.21.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bf7e2c6d84ef-2.21.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bf7e2c6d84efd5722f658945464497b6dba007b9bb28b250ad8c6907d92040b4",
+      "file_size_bytes": 183219,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.30.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d83afc392ce1-2.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d83afc392ce1feca7e6c15c1f5de0f870fbc2734652e2c590eb4ad32da0059ef",
+      "file_size_bytes": 182397,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.30.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c5fbf35562e5-2.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c5fbf35562e50a323e9bab41ffa7ce89c4ce62fa69e575d058be7f41fd9f8f8a",
+      "file_size_bytes": 3465,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.30.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fa6d71e8415e-2.30.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fa6d71e8415ea8acf6640471edcfbbeb05a970115258dc587a7b8a9cb77ba9ef",
+      "file_size_bytes": 2618,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ac99890d3b7a-2.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ac99890d3b7af4e5115d412e4bb971b4aa8f076390d3e1928efe74b7e8052c88",
+      "file_size_bytes": 181319,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/1f5a6c8d62b2-2.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1f5a6c8d62b2cae9f7e4350f7b0bf16159bd07d269a3c360484d111db85d631d",
+      "file_size_bytes": 2923,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8a743f1335b4-2.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8a743f1335b45d0b99e971005987f8c863984ae9e3330bda76f9544c5ff0a1d1",
+      "file_size_bytes": 181470,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.15.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/fd52807f538f-2.40.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fd52807f538f3f58833b6ca98c3b23c07032230eec0d3a262299ff202b3afeb3",
+      "file_size_bytes": 2989,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b95a5e6cbfd3-2.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b95a5e6cbfd3f05531068b70f6381598b374265b38d7881d62e5344c7f70e87b",
+      "file_size_bytes": 4440,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.30.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/671c966ece40-2.40.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "671c966ece40de1e2f618f0e8f485a03c6c8471b6bdf505a00d640fa2df16467",
+      "file_size_bytes": 179053,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.31.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4ab22a0adf17-2.40.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4ab22a0adf17b189fa3c8484cf42cc18be89c23523b399cbcc6ab726e8b33797",
+      "file_size_bytes": 3039,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/78e660a26ffa-2.40.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "78e660a26ffaed2dc72d0284cf0b2d133c4b2347a4014dc3514113811604a3cf",
+      "file_size_bytes": 2588,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.42.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c612a3a4ccb3-2.40.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c612a3a4ccb3dfcf62756f8b6a9de31a9f2c517871cad4803afbffa0309bf36e",
+      "file_size_bytes": 2865,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.43.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/24ef9ee8c172-2.40.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "24ef9ee8c172b6724373aaed774f886be2b0341878840ce97a24f42b7114a8de",
+      "file_size_bytes": 3092,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.40.92.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2f3abf519488-2.40.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2f3abf5194880f58f4fac4c3e545aa813c227e5c1b12c1b50c085df3908b7917",
+      "file_size_bytes": 2824,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.42.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/cb2b19a77483-2.42.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cb2b19a77483b56defff2822ff121ad05c5e2fd0dea14e3b65ff399357e915d4",
+      "file_size_bytes": 365648,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.42.74.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e8e04c7a3aa1-2.42.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e8e04c7a3aa117a09e108c8c7fbcb1812f8f291ec8e6f4888e7bf914f1ec49d7",
+      "file_size_bytes": 366116,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.42.76.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bbfc87816421-2.42.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bbfc87816421db0cc04e98bd0def6b55f83f64bd5b2ee0fda265b64493dc5b2b",
+      "file_size_bytes": 184789,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.42.78.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/60e02d76aa9f-2.42.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "60e02d76aa9f44a945de950ecf42368ecb5be3efc7b93140ba4eaa80e1d2958f",
+      "file_size_bytes": 181575,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.45.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0bc0e5b720ac-2.45.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0bc0e5b720ac64f44d49cae9d820f78bdb211b6a49079d26d112d0e5621b5434",
+      "file_size_bytes": 3624,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.45.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4f6eafee093a-2.45.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4f6eafee093a3754e2befd1829d6f87b04bd0df8efb99fab301a9e4d2af1dd2a",
+      "file_size_bytes": 2181,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.45.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/22a1a56beb07-2.45.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "22a1a56beb07e0ebe16a68f5e6f581040a10d45ec0aaeb59c86b083b80cfba78",
+      "file_size_bytes": 2737,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.45.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2a86dbc93a46-2.45.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2a86dbc93a46959cae3bfffc50d70ab5be1f5ac331461a3965ba2e1f54d750ac",
+      "file_size_bytes": 2778,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.53.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/de302b5a7eab-2.53.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "de302b5a7eaba980052ebc4060c5aa8bd20691685a08666ec905722e12c3cdac",
+      "file_size_bytes": 192809,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.53.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/efd30827b39c-2.53.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "efd30827b39c782394801caec51ba4be0324e11c8066de9850271d158de268f0",
+      "file_size_bytes": 5409,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.53.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d8014bdb442a-2.53.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d8014bdb442acab795eb32e7dbf92ae57f8fd28615ae53af9083e114cf7ea7bc",
+      "file_size_bytes": 6004,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.53.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f7511350d1fb-2.53.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f7511350d1fb8b63078112d538ee29883af40ecec6a7d4bfa1f64c3b65b5551e",
+      "file_size_bytes": 5108,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.55.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3b5aaeae1f47-2.55.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3b5aaeae1f47299e04ace99281e135da82790abde25707b2147d03a0e7e7a282",
+      "file_size_bytes": 184325,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.55.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d0c277bce10c-2.55.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d0c277bce10c06807bed2906244f5b3ca3924b4788a75a2d04ee3012617f66e5",
+      "file_size_bytes": 4172,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.55.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/89095b913232-2.55.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "89095b9132329764f2202413716fb629c97e24030d56f4e06d9d6b9d9b6da6de",
+      "file_size_bytes": 4453,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.55.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c06d977691b9-2.55.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c06d977691b9e35637ef30edf6ef7a353fdc5ef20970f8c901c08a1c7c641b05",
+      "file_size_bytes": 3819,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.58.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/331591f4fc38-2.58.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "331591f4fc3807aa3b06bd352d327782c5ea3c4a0331aaf141d18d50c968e8a9",
+      "file_size_bytes": 179684,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.58.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/da7909454286-2.58.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "da79094542861c4f5908192ac9d3ad001ec74403399def40c05d1c3b2ce4405e",
+      "file_size_bytes": 2936,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.58.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/94e090ef2033-2.58.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "94e090ef2033d4b6e0e1e10f4f9d6b7da75c6ade5776809fe810de5474c7ccae",
+      "file_size_bytes": 3439,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.58.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4923150622f6-2.58.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4923150622f61d4f2998f3dd4bbd1637a47296ba41b632e1d35bfacf0d131fe1",
+      "file_size_bytes": 3492,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.59.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3b8af124ad57-2.59.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3b8af124ad57c6097d7ad1a6ffc8d6a65fdb35ffc34de12ababb2d9f0d9fa385",
+      "file_size_bytes": 186287,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.59.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bb586b884d80-2.59.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bb586b884d8048ed406aff0c0ecea51c612527a7cd415110f343bfbc67563c7c",
+      "file_size_bytes": 4220,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.59.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/958f26df928b-2.59.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "958f26df928bc471417efff45ae909f6a5d23ce51abc462fa94904cf0298e33e",
+      "file_size_bytes": 4343,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.59.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/665e15ec5a28-2.59.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "665e15ec5a2816f51ec21b0abd3d73b8d0d13276ea72d4898aa2fb637fd6e371",
+      "file_size_bytes": 4059,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.60.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/a4460b27210f-2.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a4460b27210fe41ae150f808855b2e676edbea77d0787b3c6ba0066935c04374",
+      "file_size_bytes": 183547,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.60.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/338438bb2a49-2.60.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "338438bb2a4999170c2c2b5f8ed620b0d4e10d5c438b373add10cce57cff4ac6",
+      "file_size_bytes": 3647,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.60.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6d3a271ee76b-2.60.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6d3a271ee76bbd02602d4ada25dcc05babde560b856eee048dbdb35e6c316404",
+      "file_size_bytes": 3758,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.60.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/04f3989fd3f1-2.60.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "04f3989fd3f17fc24cc028c6db92aa3de7a730740a91951239237d362fd8a79c",
+      "file_size_bytes": 3206,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/2.90.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/e26e08cd2baa-2.90.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e26e08cd2baa1876bc2823ca4725bda493f5ac5e073c38fdfe8a617b9ffcd02e",
+      "file_size_bytes": 470513,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/4.10.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2123212cba8a-4.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2123212cba8a40d5a3b3637f6a21feb5f4057a7083e3f98a40b3ef6c0a43f9c3",
+      "file_size_bytes": 353354,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/4.20.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4522816d49ce-4.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4522816d49ce747b2c619068f8e79a47ebecfefe805cbb93dc2bca4c5bf5975d",
+      "file_size_bytes": 178594,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/4.20.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f23ffb0f766a-4.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f23ffb0f766aec660affa03d925dab64b965e6cd84ddd0f523ce71fb7977252d",
+      "file_size_bytes": 2865,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/4.25.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/46ee845fc99d-4.25.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "46ee845fc99de7c9a006814dfdd9229f5c0eb7c02a3a720a50af49f34bd819e1",
+      "file_size_bytes": 353799,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.10.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ab803c02b3ad-5.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ab803c02b3ad012883edd7edb268fcb6a0afeece4af1399fc3026c4c2d03ef8b",
+      "file_size_bytes": 176695,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.10.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4b84beffa425-5.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4b84beffa4250592b7d9f90094bac402028b4930c584409fd4095470789e4fd6",
+      "file_size_bytes": 175297,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.10.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2199155f08d3-5.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2199155f08d3878b134f9355f8f1c7a77281c29cbbe0f3719be43ff2943e1931",
+      "file_size_bytes": 354859,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.10.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/068e39659980-5.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "068e39659980fc728a8b463c8c632ee362fbc28183c473f1fd6a29c2852fe104",
+      "file_size_bytes": 176150,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.10.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/58c3e931f612-5.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "58c3e931f612fd366be7a4a0b507f04558e601f0fb3a0e9551cb5e0d243d47d9",
+      "file_size_bytes": 179473,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.20.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/40adb8f2d784-5.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "40adb8f2d7849bbed93f40f2bae5e483c1f04b142b3ce1bc3b3b922683a4400d",
+      "file_size_bytes": 181931,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.20.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/34fd9ddc9d43-5.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "34fd9ddc9d4385fad71b705507972b9033b5ad48e9c11567c7266a44a6919e6d",
+      "file_size_bytes": 2782,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.31.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/cdbf851ab3fa-5.31.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cdbf851ab3faa5867e721c02a2498b28488e9979bd4953d43d1c483db17a6c34",
+      "file_size_bytes": 352711,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.31.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/f235454dfea4-5.31.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f235454dfea4f94658e2340b5af571261fb43f08a4d3c71f7d991cbeb5c262f9",
+      "file_size_bytes": 176885,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_haupt_2023/5.31.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/70be2fdd90f8-5.31.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "70be2fdd90f84fe0c6647dec1c1bdc3264488216d0375a5dd5b3de78d329faf5",
+      "file_size_bytes": 178630,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_lm_bogen_2023.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/10ad8f5f3497-ergeb_lm_bogen_2023.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "10ad8f5f3497d8b66190c6aabf3c08e54398ec5111ee92ac1cde38fedd764f06",
+      "file_size_bytes": 1654594,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/1.56.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/67434dd4f7c1-1.56.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "67434dd4f7c134409d34f19ad154df4133d0ce2ad07ad502387052ae3153d781",
+      "file_size_bytes": 354932,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/1.58.10g.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/18f4f53ec714-1.58.10g.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "18f4f53ec7140539ff66190d5cb2c978bf9e7d5df932a33b3256e4b0e028dd26",
+      "file_size_bytes": 2483,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/1.58.12g.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8da35953ffe3-1.58.12g.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8da35953ffe3a2a74cfe4b38b519fe7f52f7464a31753f941e51dab3073fa542",
+      "file_size_bytes": 3289,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/1.58.12o.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/144fe6cf45f8-1.58.12o.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "144fe6cf45f8f454dacfc658808d4de5f3d2f8e3fc357528d92979eb3e0e4696",
+      "file_size_bytes": 3356,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.10.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c1839b47bb29-7.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c1839b47bb299cff324b55cda928f3cff738525805590db186a1082261728dd4",
+      "file_size_bytes": 11837,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.10.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/35518cc5a7c7-7.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "35518cc5a7c7d4f54a2897bf66e91247d0b32d2edc8acb8b24e4bc9e1149aa28",
+      "file_size_bytes": 6859,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.10.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/231016325ec6-7.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "231016325ec62f0e3feb24363411e6fca63ecfb8a5efc495652c7fec6217b396",
+      "file_size_bytes": 6694,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.10.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4dab9b3d0e4d-7.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4dab9b3d0e4d9ecfe81ba672012b13fce3b20f360d451c850097673fd3a53b7b",
+      "file_size_bytes": 9517,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.10.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/22ae841359ef-7.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "22ae841359efa8b33fe2ba94dcd3947ae004a8004460a4588f8d6eebebd22af9",
+      "file_size_bytes": 9991,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.15.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/df5313a2d882-7.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "df5313a2d882086e1ecf26a468c809d45b2b0bd6ae38d60423a7532d2628ad2c",
+      "file_size_bytes": 8965,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.15.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/7ebaed19c420-7.15.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7ebaed19c420d0158eb1c75c0440e2df3a879ec5b74877794e8a046141097d9e",
+      "file_size_bytes": 7261,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.20.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8ca570d3da50-7.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8ca570d3da50048daf5ac2ee940a4a599018f4bfbcd17d884dc5c15a882af59e",
+      "file_size_bytes": 7158,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.20.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/31878dba7085-7.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "31878dba7085828809a8a95a896e8f4ae6d3573e33d592e3decb8cd1d1453566",
+      "file_size_bytes": 9344,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.21.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6524898d9e45-7.21.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6524898d9e45d0a09a8bd187c1dd11b03f783c964ac025b3068df9d81fe3006d",
+      "file_size_bytes": 6963,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.30.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/2c1379f89a4d-7.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2c1379f89a4d01d51802e1804186f3fc31d77cfa3b867a88613cb237de389f41",
+      "file_size_bytes": 6727,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.30.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/dd9c662a9650-7.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dd9c662a9650d82eebe07881392b0b7f2a7286e237f5b2f2cfe05ef6d919e2dd",
+      "file_size_bytes": 7327,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.31.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4fe2baa65dbf-7.31.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4fe2baa65dbfad77f36e09dd28e94538cc7f78794a1e816602bcdaa94b770294",
+      "file_size_bytes": 7149,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.35.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/af3a524440d0-7.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "af3a524440d0805c8df2d3d94600d6f2dc6296f9538229aecd7c9f5a93908be9",
+      "file_size_bytes": 7142,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.40.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/3d22b8a3ee41-7.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3d22b8a3ee41e8eb7c853c3b3369e0745319485971f2c3315a49bdee68559bb9",
+      "file_size_bytes": 9004,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.40.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/bd5d46d6112f-7.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bd5d46d6112f085b0c097c229aa13d4cb96a9d0e7487c96a8eb467a9dc6f83fc",
+      "file_size_bytes": 7005,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.40.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/28b9478c1dc0-7.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "28b9478c1dc0eda500eebef4e99fbcba9cd2dab4deb62a3ed41678077a3b2b86",
+      "file_size_bytes": 6925,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.40.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/545a92583b4f-7.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "545a92583b4f91b5a8615460fb9b048b33c6cce87a14f7cd50f17214cf15505f",
+      "file_size_bytes": 9694,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.50.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/38afd29c0ac5-7.50.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "38afd29c0ac5595eff92056f7fcb31e7ab00a08b88bd2c98673be150f8fd054c",
+      "file_size_bytes": 10207,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.50.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/44f0977a04b4-7.50.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "44f0977a04b4241a563464737515a7b71cb08f759c1e0e7218423150556f40e2",
+      "file_size_bytes": 7002,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.50.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c58e17158629-7.50.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c58e17158629ebfe30d87c41575b4a230a36dd3e11add782187a4a1445926dcf",
+      "file_size_bytes": 6762,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.50.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9a4309ab8fae-7.50.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9a4309ab8fae7ea27d74d90ba368b4544dc722de5d2eba7190b98cf5497fad6f",
+      "file_size_bytes": 7237,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.50.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6f0cb3cdea24-7.50.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6f0cb3cdea24333a5f41cd4276f3960d2956a007c423d8406af9b1ccaa679e9a",
+      "file_size_bytes": 10990,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.60.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d92b4abc346d-7.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d92b4abc346dd8b94977e361d8a2ab79088868cb340113e7706099f0352035a7",
+      "file_size_bytes": 6755,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.60.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d860ff5e3463-7.60.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d860ff5e3463d58fa20f9572995ed1243a9b1881ae7cb74f8a4cf79fe3fc0292",
+      "file_size_bytes": 9677,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.71.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4940607b5345-7.71.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4940607b53458b87c35a5067b4f5a08baaf674923e21d1f6c8489a51544fc1e8",
+      "file_size_bytes": 8785,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/7.72.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/509c437326c9-7.72.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "509c437326c963772945cf2db0735cc8b7413b3c5dc8ae987fbb73ca169d1310",
+      "file_size_bytes": 8668,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/n1.46.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0b10ece6eb1d-n1.46.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0b10ece6eb1d2115803666da925b4a69e6cb10e1afcb57900e2b67e17a6644bf",
+      "file_size_bytes": 11502,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/n1.56.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ec5da5ade4f1-n1.56.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ec5da5ade4f17d61b8435a7ba5f1ec9007cb36d3bd3604fd0cc1aaff42b89e58",
+      "file_size_bytes": 11912,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/n1.57.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/7625c3319dbd-n1.57.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7625c3319dbdb90bfebec7d35330f7aa1b46aa32c33955bbe8c26669d381f3de",
+      "file_size_bytes": 9112,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_vorderlader2023/n9.70.70.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/a15cbfafb1d0-n9.70.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a15cbfafb1d0ca8765e1091481b7b65d63d0377d34162890ae0e90567e83f39d",
+      "file_size_bytes": 9956,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/4b09d4165b01-3.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4b09d4165b01dd350b1e98f4d03ca0edef5dca0353c7e5ac632bf62570378ff7",
+      "file_size_bytes": 462521,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/9469db10b520-3.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9469db10b520d5f0d2763d40d8996ab7372be96a56b923c56b2cee29db795ae5",
+      "file_size_bytes": 174448,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/b3561f3e9486-3.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b3561f3e9486f20f22cec2523aa127b5d43ce9aed1196a1e0d265d08495c3840",
+      "file_size_bytes": 172296,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.13.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/5ab258b29a34-3.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5ab258b29a347cb41a7a0145365d10ec30063790497b4ca98cec62a5491822da",
+      "file_size_bytes": 176545,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/6f1a56714dc7-3.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6f1a56714dc75e7a0d2ae355f455e2bb0e8d4de1f3462c5756a137dfdeeb0718",
+      "file_size_bytes": 351827,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/79a74efaf170-3.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "79a74efaf170405e55574410837a1809f386aead4cd015151c99cb6b53eb7ed2",
+      "file_size_bytes": 177213,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.10.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/754e16a8ddd1-3.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "754e16a8ddd1ffbb1c3b510a20d375dfdf55a457fb41eee0e3cbcc1eabdffc0e",
+      "file_size_bytes": 172428,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.15.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/cd607130c981-3.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cd607130c9819c51ead329785e058fbf271df9b7f616545bd287778769ced519",
+      "file_size_bytes": 458878,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.15.12.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/499db0deb790-3.15.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "499db0deb790254b506f6184bb51b4d0428d9daf84118a155569c3a01955a6b6",
+      "file_size_bytes": 173556,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.15.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/0cdd392ad514-3.15.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0cdd392ad5146d19f42884815d3ddc19b0f0c69ce706ffa4ac699955ab37f716",
+      "file_size_bytes": 352132,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.15.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/16e3c5e497eb-3.15.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "16e3c5e497eb0780beaf52451482804b496357c1c60b10289c166c11b4355066",
+      "file_size_bytes": 179027,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.15.40.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d294cb8832b3-3.15.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d294cb8832b3e0b66bfe3ef4ba7a20ebe1e50910674a4ead4a3c6b05aa8c93e8",
+      "file_size_bytes": 171458,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.20.10.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/c21cf35e052b-3.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c21cf35e052bb74349df23e1b4dced291148432dccc00232d467ad7643c9211d",
+      "file_size_bytes": 228918,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.20.11.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/14b210101356-3.20.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "14b210101356dd9c2ca028dcc97ca8de12d5113a8c4180b7df0f1ccc0ea7ab3f",
+      "file_size_bytes": 347703,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.20.14.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ce029d28393b-3.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ce029d28393bd61b9da2950c67c84fec76e5898f3db9aa7033e9a5fa63bc8719",
+      "file_size_bytes": 175717,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.20.16.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/ad7a0c783e27-3.20.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ad7a0c783e276c321c4497deeb51cc5c764b2c14191a6d670431348a4ae77f70",
+      "file_size_bytes": 176421,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/ergebnisse/ergeb_wurfscheibe_2023/3.20.41.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/d5900e83add8-3.20.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d5900e83add80e73d9e1cfe435d802f2ffb5a471f8878fe413656caf26a3a7c4",
+      "file_size_bytes": 177559,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/limit/limit_haupt_2023.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/7d29a6f98d30-limit_haupt_2023.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7d29a6f98d301ef1d66a422395807f21fc09f91e4dae150d37307a8454ede7ea",
+      "file_size_bytes": 151274,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/limit/limitliste_auflage2023.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/8bd2dc554d13-limitliste_auflage2023.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8bd2dc554d133301a840211d5d5758b20d275e17b33f4865c2a1e6a729d922bd",
+      "file_size_bytes": 58183,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2023/limit/limitliste_vorderlader2023.pdf": {
+      "local_path": "data/archive/2023/landesmeisterschaften/downloads/73f822969351-limitliste_vorderlader2023.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "73f8229693511ca03b158d53de9bf3b5c6842e328a298d18d4e4eccf840eecf4",
+      "file_size_bytes": 25173,
+      "last_seen_at": "2026-09-05T17:51:56.986627Z"
+    }
+  }
+}

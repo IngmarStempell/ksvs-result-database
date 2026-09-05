@@ -1,3 +1,4 @@
+mod club_management;
 mod database;
 mod models;
 mod repository;

@@ -293,6 +293,9 @@ Stand der Umsetzung:
 - der kanonische Verein bleibt getrennt vom Mannschaftsnamen
 - Roh- und Parser-Schreibweisen von Vereinen werden beim Import als `club_aliases` am kanonischen Verein gespeichert
 - Vereinsaliase koennen per CLI und Weboberflaeche angezeigt, angelegt und deaktiviert werden
+- unter `/clubs` und auf Vereinsdetailseiten koennen Vereinsnamen und Aliase direkt bearbeitet werden; Umbenennungen behalten Vereins-ID und Ergebniszuordnung bei, bewahren den alten Namen als Alias und protokollieren den Eingriff als `manual_overrides` mit Status `applied`
+- der Vereinseditor verhindert Namenskonflikte mit anderen Vereinen; weitergehende automatische Zusammenfuehrungen bleiben offen
+- Vereine koennen im Vereinseditor in einen bestehenden Zielverein zusammengefuehrt werden; Ergebnisse, Mannschaften und Aliase werden uebertragen, der bisherige Name als Alias erhalten und der Vorgang als `applied` protokolliert
 
 Offene Punkte: siehe zentrale Priorisierung, Spaeter 10-13 fuer Mannschaftsdetails.
 

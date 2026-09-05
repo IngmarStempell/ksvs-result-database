@@ -74,6 +74,10 @@
     .empty {
       color: var(--muted);
     }
+    .club-editor { padding: 18px; margin: 16px 0; border: 1px solid var(--line); background: var(--panel); }
+    .club-editor h2 { margin: 0; }
+    .club-editor [role="alert"] { color: #9f1239; }
+    .club-editor [role="status"] { color: var(--accent); }
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -99,6 +103,10 @@
     }
     tbody tr:hover {
       background: var(--hover);
+    }
+    .group-heading td {
+      background: var(--accent-soft);
+      border-top: 2px solid var(--accent);
     }
     .num {
       text-align: right;

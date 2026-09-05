@@ -9,7 +9,7 @@ use super::models::{
 };
 
 pub struct StorageRepository<'a> {
-    pool: &'a SqlitePool,
+    pub(super) pool: &'a SqlitePool,
 }
 
 #[derive(sqlx::FromRow)]

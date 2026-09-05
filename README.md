@@ -1,426 +1,268 @@
-# ksvs-result-database
-The Kreisschützenverband Stormarn is providing a tool to read the data provided by the umbrealla association and display it as html
-
 # PDF Explorer
 
-Rust workspace for parsing PDFs. The first milestone is plain text extraction from digital PDFs. The structure leaves room for OCR, web scraping, storage, and a UI without mixing those concerns into the parser.
+Rust-Anwendung für den Kreisschützenverband Stormarn zum Crawlen, Parsen und Verwalten von Schützenergebnissen aus PDFs. Die Ergebnisse werden in SQLite gespeichert, über eine lokale Weboberfläche zugänglich gemacht und als HTML oder JSON exportiert.
 
-## Run
+Unterstützt werden DAVID21+-Ergebnislisten, Einzel- und Mannschaftsergebnisse sowie der Abgleich von LM-Medaillen mit DM-Teilnahmen. Importläufe, Parser-Rohdaten und manuelle Namenskorrekturen bleiben nachvollziehbar.
 
-```bash
-cargo run -- parse ./examples/document.pdf
-```
+## Inhalt
 
-JSON output:
+- [Anwendung starten](#anwendung-starten)
+- [Ergebnisse laden und importieren](#ergebnisse-laden-und-importieren)
+- [Weboberfläche bedienen](#weboberfläche-bedienen)
+- [Reports exportieren](#reports-exportieren)
+- [Weitere CLI-Befehle](#weitere-cli-befehle)
+- [Dateien und Datenhaltung](#dateien-und-datenhaltung)
+- [Entwicklung](#entwicklung)
 
-```bash
-cargo run -- parse ./examples/document.pdf --format json
-```
+## Anwendung starten
 
-Structured DAVID21+ sport result output:
+### 1. Voraussetzungen prüfen
 
-```bash
-cargo run -- parse-sport ./Data/_sport2025_ergebnisse_ergeb_haupt_2025_1.10.10.pdf
-```
-
-Follow a page, download linked PDFs, detect changes, classify formats, and write a JSON report:
+Benötigt werden eine Rust-Toolchain mit Cargo, ein nativer C/C++-Compiler für den Build und ein Webbrowser. Unter macOS liefern die Xcode Command Line Tools die Build-Werkzeuge (`xcode-select --install`, falls noch nicht installiert).
 
 ```bash
-cargo run -- crawl-report "https://example.org/results"
+rustc --version
+cargo --version
 ```
 
-For the current NDSB source:
+Beim ersten Build lädt Cargo die Abhängigkeiten herunter; dafür ist Internetzugang erforderlich. Das erste Kompilieren kann einige Minuten dauern. Ein separater Datenbankserver ist nicht erforderlich.
+
+### 2. Projektverzeichnis öffnen
+
+Alle folgenden Befehle im Terminal aus diesem Verzeichnis ausführen:
 
 ```bash
-cargo run -- crawl-report "https://www.ndsb-sh.de/sport/landesmeisterschaften" --source-name landesmeisterschaften --year 2025 --focus Stormarn --focus-association-code OD --report reports/ndsb-2025-crawl-report.json --html-report reports/ndsb-2025-crawl-report.html
+cd "/Users/ingmar/Documents/Rust - pdf explorer"
 ```
 
-For the German championships source:
-
-```bash
-cargo run -- crawl-report "https://www.ndsb-sh.de/sport/deutsche-meisterschaften" --source-name deutsche-meisterschaften --year 2025 --focus "Deutsche Meisterschaften" --focus-association-code OD --report reports/ndsb-2025-dm-crawl-report.json --html-report reports/ndsb-2025-dm-crawl-report.html --max-depth 0 --max-pages 1
-```
-
-When `--year` is set and no custom report/download paths are provided, the crawler writes into a year/source archive automatically. The source is inferred for known NDSB URLs if `--source-name` is omitted:
-
-```bash
-cargo run -- crawl-report "https://www.ndsb-sh.de/sport/landesmeisterschaften" --year 2026 --focus Stormarn --focus-association-code OD
-```
-
-Single result PDFs that are not linked from the overview page can be added to the same archived run:
-
-```bash
-cargo run -- crawl-report "https://www.kschv-rdeck.de/fileadmin/user_upload/ksv/NDSB_TEMP/LM-Dinge/Ergebnisse/LM-Ergebnisslisten2026.html" --source-name landesmeisterschaften --year 2026 --focus Stormarn --focus-association-code OD --extra-pdf-url "https://www.kschv-rdeck.de/fileadmin/user_upload/ksv/NDSB_TEMP/LM-Dinge/Ergebnisse/VW112_K40_260516_1045_Finale_10.pdf"
-```
-
-Run the full 2026 state championship chain from download/crawl to podium JSON and HTML:
-
-```bash
-make lm-2026-podium
-```
-
-This creates paths such as:
-
-```text
-reports/archive/2026/landesmeisterschaften/crawl-report.html
-reports/archive/2026/landesmeisterschaften/crawl-report.json
-reports/archive/2026/landesmeisterschaften/podium-export.html
-reports/archive/2026/landesmeisterschaften/podium-export.json
-data/archive/2026/landesmeisterschaften/downloads/
-data/archive/2026/landesmeisterschaften/manual-review/
-```
-
-The crawler stores a source/year-specific manifest with ETag, `Last-Modified`, SHA-256, local path, and last-seen timestamp in `.pdf-explorer/`. DAVID21+ PDFs are parsed automatically. Other formats are copied to `data/manual-review/` and listed in the JSON and HTML reports under `reports/`.
-
-If a PDF produces very little text, the result is marked as `needs_ocr`. That gives the next phase a simple handoff point for Tesseract, OCRmyPDF, or a cloud OCR service.
-
-Create a filtered podium export from an existing crawl report:
-
-```bash
-cargo run -- export-podium --crawl-report reports/ndsb-2025-crawl-report.json --output reports/ndsb-2025-podium-export.json --html-output reports/ndsb-2025-podium-export.html --focus-association-code OD --max-place 3
-```
-
-Create a German championship participation export by matching known focus clubs from the state championship data against the German championship PDFs:
-
-```bash
-cargo run -- export-participation --club-source-report reports/ndsb-2025-crawl-report.json --results-report reports/ndsb-2025-dm-crawl-report.json --output reports/ndsb-2025-dm-participation-export.json --html-output reports/ndsb-2025-dm-participation-export.html --focus-association-code OD
-```
-
-Combine podium results and German championship participation matches into one club-oriented export:
-
-```bash
-cargo run -- export-combined --podium-export reports/ndsb-2025-podium-export.json --participation-export reports/ndsb-2025-dm-participation-export.json --output reports/ndsb-2025-combined-export.json --html-output reports/ndsb-2025-combined-export.html
-```
-
-## Datenbank-Workflow
-
-Die Datenbank liegt standardmaessig unter `data/pdf-explorer.sqlite`. Alle Befehle koennen mit `--database <pfad>` auf eine andere SQLite-Datei zeigen.
-
-### Paket 1: Datenbank-Grundlage
-
-Datenbankdatei anlegen:
-
-```bash
-cargo run -- db init
-```
-
-Migrationen ausfuehren:
-
-```bash
-cargo run -- db migrate
-```
-
-In der Praxis reicht meist `db migrate`, weil die SQLite-Datei bei Bedarf angelegt wird.
-
-### Paket 2: Kernschema
-
-Das Kernschema wird durch die Migrationen angelegt. Es umfasst aktuell Quellen, Importlaeufe, Wettbewerbe, Vereine, Sportler, Disziplinen und Ergebnisse.
+### 3. Datenbank vorbereiten
 
 ```bash
 cargo run -- db migrate --database data/pdf-explorer.sqlite
 ```
 
-### Paket 3: Import aus vorhandenem Export
+Der Befehl legt die SQLite-Datei bei Bedarf an und führt ausstehende Migrationen aus. Eine vorhandene Datenbank wird weiterverwendet.
 
-Einen vorhandenen `podium-export.json` in die Datenbank importieren:
+### 4. Optional: Ergebnisse importieren
 
-```bash
-cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
-```
+Für eine gefüllte Oberfläche den Abschnitt [Ergebnisse laden und importieren](#ergebnisse-laden-und-importieren) ausführen. Sind bereits Daten importiert oder soll zunächst die leere Oberfläche geöffnet werden, direkt mit Schritt 5 fortfahren.
 
-Der Import speichert Wettbewerb, Vereine, Sportler, Disziplinen, Ergebnisse und einen Importlauf. Wiederholte Importe derselben Datei werden ueber Hashes/Fingerprints duplikatfrei behandelt.
-
-### Paket 4: Parserlaeufe als Datenquelle
-
-Der gleiche `import-podium`-Aufruf erzeugt zusaetzlich einen Parserlauf und einzelne Parser-Ergebniszeilen:
-
-```bash
-cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
-```
-
-Dabei bleiben drei Schichten getrennt:
-
-```text
-PDF/Export-Rohdaten -> Parserzeilen -> kanonische Ergebnisse
-```
-
-Parserzeilen behalten die urspruenglichen Werte. Kanonische Ergebnisse verweisen auf die Parserzeile und koennen Konflikte markieren, wenn ein spaeterer Lauf andere Daten fuer dasselbe fachliche Ergebnis liefert.
-
-### Paket 5: Manuelle Korrekturen
-
-Eine Vereinskorrektur speichern:
-
-```bash
-cargo run -- manual-override add-club --from "Schützenverein Reinfeld" --to "Schützenverein Reinfeld e.V."
-```
-
-Eine Sportlerkorrektur speichern:
-
-```bash
-cargo run -- manual-override add-athlete --from "R hl, Eberhard" --to "Rühl, Eberhard"
-```
-
-Aktive Korrekturen anzeigen:
-
-```bash
-cargo run -- manual-override list
-```
-
-Beim Datenbankimport werden aktive Korrekturen automatisch auf kanonische Vereins- und Sportlernamen angewendet:
-
-```bash
-cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
-```
-
-Auch der Podiumsreport kann die Korrekturen schon im JSON-/HTML-Zwischenschritt verwenden:
-
-```bash
-cargo run -- export-podium --crawl-report reports/archive/2026/landesmeisterschaften/crawl-report.json --output reports/archive/2026/landesmeisterschaften/podium-export.json --html-output reports/archive/2026/landesmeisterschaften/podium-export.html --focus-association-code OD --max-place 3 --override-database data/pdf-explorer.sqlite
-```
-
-Wichtig: Manuelle Korrekturen veraendern nicht die Parser-Rohdaten. Sie wirken auf die kanonische Sicht und optional auf den lesbaren Export.
-
-### Paket 6: Mannschaften
-
-Die Mannschaftstabellen werden per Migration angelegt:
-
-```bash
-cargo run -- db migrate --database data/pdf-explorer.sqlite
-```
-
-Danach reicht der normale Import eines Podiums-Exports. Mannschaftszeilen werden automatisch in `teams`, `team_members` und `team_result_members` ueberfuehrt:
-
-```bash
-cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
-```
-
-Dabei wird die Mannschaftsnummer aus dem Roh-Vereinsnamen getrennt gespeichert. Aus `Ahrensburger SchG I` wird also ein kanonischer Verein und eine Mannschaft mit `team_number = I`.
-
-Roh- und Parser-Schreibweisen von Vereinen werden zusaetzlich als aktive Aliase in `club_aliases` gespeichert. Dadurch kann ein spaeterer DM-/KM-Abgleich bekannte Schreibvarianten gegen den kanonischen Verein aufloesen, ohne Parser-Rohdaten zu veraendern.
-
-Eine einfache Kontrolle per SQLite:
-
-```bash
-sqlite3 data/pdf-explorer.sqlite "SELECT canonical_name, team_number, rank, medal FROM teams ORDER BY canonical_name;"
-```
-
-Gespeicherte Vereinsaliase kontrollieren:
-
-```bash
-sqlite3 data/pdf-explorer.sqlite "SELECT club_aliases.alias, clubs.canonical_name FROM club_aliases JOIN clubs ON clubs.id = club_aliases.club_id ORDER BY clubs.canonical_name, club_aliases.alias;"
-```
-
-Vereinsalias per CLI pflegen:
-
-```bash
-cargo run -- club-alias add --alias "SchV Reinfeld 1" --club "Schützenverein Reinfeld" --association-code OD
-cargo run -- club-alias list
-cargo run -- club-alias list --all
-cargo run -- club-alias deactivate 12
-```
-
-In der lokalen Weboberflaeche koennen Aliase ebenfalls gepflegt werden:
-
-```text
-http://127.0.0.1:7878/club-aliases
-```
-
-### Wettbewerbsmodell
-
-Das Wettbewerbsmodell ist fuer KM, LM, DM, WM und Olympia vorbereitet. Neben `competitions.scope` gibt es jetzt Organisationen:
-
-```text
-organizations
-organization_aliases
-```
-
-Competitions koennen ueber `organizer_organization_id` auf den Veranstalter zeigen. Ergebnisse koennen ueber `representing_organization_id` und `start_context` spaeter unterscheiden, ob ein Sportler fuer Verein, Kreisverband, Landesverband, Nation oder eine andere Organisation startet.
-
-Beim Speichern bekannter Wettbewerbe wird der Veranstalter automatisch vorbereitet:
-
-```text
-KM      -> OD
-LM      -> NDSB
-DM      -> DSB
-WM      -> ISSF
-Olympia -> IOC
-```
-
-Mannschaftsmedaillen pro Sportler:
-
-```bash
-sqlite3 data/pdf-explorer.sqlite "SELECT athletes.canonical_name, teams.canonical_name, teams.rank, team_result_members.medal FROM team_result_members JOIN teams ON teams.id = team_result_members.team_id LEFT JOIN athletes ON athletes.id = team_result_members.athlete_id ORDER BY athletes.canonical_name;"
-```
-
-### Paket 7: Deutsche Meisterschaften und Teilnahme
-
-Zuerst werden wie bisher die LM- und DM-Reports erzeugt:
-
-```bash
-cargo run -- crawl-report "https://www.ndsb-sh.de/sport/landesmeisterschaften" --source-name landesmeisterschaften --year 2026 --focus Stormarn --focus-association-code OD
-cargo run -- crawl-report "https://www.ndsb-sh.de/sport/deutsche-meisterschaften" --source-name deutsche-meisterschaften --year 2026 --focus "Deutsche Meisterschaften" --focus-association-code OD --max-depth 0 --max-pages 1
-```
-
-Dann den LM-Podiumsreport und den DM-Teilnahmereport erzeugen:
-
-```bash
-cargo run -- export-podium --crawl-report reports/archive/2026/landesmeisterschaften/crawl-report.json --output reports/archive/2026/landesmeisterschaften/podium-export.json --html-output reports/archive/2026/landesmeisterschaften/podium-export.html --focus-association-code OD --max-place 3 --override-database data/pdf-explorer.sqlite
-cargo run -- export-participation --club-source-report reports/archive/2026/landesmeisterschaften/crawl-report.json --results-report reports/archive/2026/deutsche-meisterschaften/crawl-report.json --output reports/archive/2026/deutsche-meisterschaften/participation-export.json --html-output reports/archive/2026/deutsche-meisterschaften/participation-export.html --focus-association-code OD
-```
-
-Beide Exporte in die Datenbank importieren:
-
-```bash
-cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
-cargo run -- import-participation --input reports/archive/2026/deutsche-meisterschaften/participation-export.json --database data/pdf-explorer.sqlite
-```
-
-`import-participation` legt die Deutsche Meisterschaft als eigene `competition` mit `scope = DM` an. Die Treffer werden als Ergebnisse mit `participation_only = 1` gespeichert. Wenn im Teilnahmereport Schützennamen erkannt wurden, werden diese mit Sportlern verknüpft; ansonsten bleibt die Teilnahme auf Verein/Quelle nachvollziehbar.
-
-Kombinierte Auswertung LM-Medaille zu DM-Teilnahme:
-
-```bash
-sqlite3 data/pdf-explorer.sqlite "SELECT athlete_name, club_name, year, lm_medal, lm_rank, has_dm_participation FROM lm_medals_with_dm_participation ORDER BY club_name, athlete_name;"
-```
-
-Die View `lm_medals_with_dm_participation` zeigt LM-Medaillen und markiert, ob fuer denselben Sportler und Verein im selben Jahr eine DM-Teilnahme importiert wurde.
-
-### Paket 8: HTML-/JSON-Reports aus Datenbank
-
-Die bisherigen Datei-Exporte bleiben bestehen. Zusaetzlich koennen Podiums- und kombinierte Reports aus der Datenbank erzeugt werden.
-
-Podiumsreport aus kanonischen DB-Ergebnissen:
-
-```bash
-cargo run -- export-db-podium --database data/pdf-explorer.sqlite --year 2026 --competition-scope LM --focus-association-code OD --max-place 3 --output reports/archive/2026/landesmeisterschaften/db-podium-export.json --html-output reports/archive/2026/landesmeisterschaften/db-podium-export.html
-```
-
-Kombinierter LM-/DM-Report aus der Datenbank:
-
-```bash
-cargo run -- export-db-combined --database data/pdf-explorer.sqlite --year 2026 --focus-association-code OD --max-place 3 --output reports/archive/2026/db-combined-export.json --html-output reports/archive/2026/db-combined-export.html
-```
-
-Die Filter `--year`, `--competition-scope`, `--focus-association-code` und `--max-place` werden direkt als Datenbankfilter angewendet. Die erzeugten JSON-Strukturen bleiben kompatibel zu den bestehenden Exportformaten:
-
-```text
-export-db-podium   -> PodiumExport
-export-db-combined -> CombinedExport
-```
-
-### Paket 9: GUI-Grundlage
-
-Technische Basis:
-
-- Rust Backend
-- lokale Weboberflaeche
-- serverseitig gerendertes HTML
-- SQLite als Datenquelle
-
-Die erste GUI ist lesend. Der Einstiegspunkt sind Importlaeufe; von dort aus fuehrt die Navigation weiter zu Ergebnissen, Sportlern, Vereinen und spaeter Ehrungen. Ehrungen sind in Paket 9 zunaechst nur als Platzhalter vorgesehen.
-
-Lokale Weboberflaeche starten:
+### 5. Weboberfläche starten
 
 ```bash
 cargo run -- serve --database data/pdf-explorer.sqlite --bind 127.0.0.1:7878
 ```
 
-Danach im Browser oeffnen:
+Warten, bis `web UI running at http://127.0.0.1:7878` im Terminal erscheint. Das Terminal bleibt während der Nutzung geöffnet. `serve` führt ebenfalls ausstehende Migrationen aus.
+
+### 6. Anwendung im Browser öffnen
+
+[Lokale Weboberfläche öffnen](http://127.0.0.1:7878/import-runs). Die Startansicht zeigt die Importläufe; über die Navigation sind Ergebnisse, Sportler, Vereine und weitere Ansichten erreichbar.
+
+### 7. Beenden und erneut starten
+
+Zum Beenden im Server-Terminal `Ctrl+C` drücken. Die Daten bleiben in `data/pdf-explorer.sqlite` gespeichert. Beim nächsten Mal genügen Schritt 2, Schritt 5 und das Öffnen der Browseradresse.
+
+Falls Port 7878 bereits belegt ist, mit `--bind 127.0.0.1:7879` starten und im Browser ebenfalls Port 7879 verwenden. Bei einer anderen Datenbankdatei für Migration, Import und Server immer denselben `--database`-Pfad angeben.
+
+## Ergebnisse laden und importieren
+
+Der Datenfluss besteht aus drei Schritten:
 
 ```text
-http://127.0.0.1:7878/import-runs
+Webseite/PDFs → Crawl-Report → JSON-Export → SQLite
 ```
 
-Verfuegbare lesende Ansichten:
+Crawling und Export erzeugen Dateien. Erst der anschließende Import übernimmt die Ergebnisse in die Datenbank und macht sie in der Weboberfläche sichtbar.
 
-```text
-/import-runs
-/import-runs/<id>/results
-/results?q=&year=&scope=&kreis=&wertung=
-/athletes?q=&verein=&year=
-/athletes/<id>
-/clubs?q=&kreis=&year=
-/clubs/<id>
-/teams?q=&year=&scope=&kreis=&page=&page_size=
-/teams/<id>
-/sources
-/sources/<id>
-/parser-runs
-/parser-runs/<id>
-/combined?q=&year=&verein=
-/corrections
-/corrections/issues
-/honors
+### Landesmeisterschaften
+
+Der vorbereitete Workflow lädt die LM-2026-Quelle und erstellt einen Podiumsreport als JSON und HTML. Er benötigt `make` und Internetzugang:
+
+```bash
+make lm-2026-podium
 ```
 
-Die Filter laufen serverseitig gegen SQLite. Die Parameter bleiben in der URL erhalten und koennen weitergegeben werden.
-Grosse Listen koennen ueber `page` und `page_size` geblaettert werden; die Weboberflaeche bietet dafuer Vor/Zurueck und eine Seitengroessen-Auswahl.
+Standardmäßig enthält der Podiumsreport alle Kreisverbände. Für einen auf Stormarn (`OD`) begrenzten Export stattdessen ausführen:
 
-### Paket 10: UI fuer Korrekturen
-
-Die lokale Weboberflaeche enthaelt jetzt erste Schreibaktionen fuer manuelle Korrekturen. Parserdaten werden dabei nicht veraendert; Korrekturen werden als `manual_overrides` gespeichert.
-
-Korrekturen oeffnen:
-
-```text
-http://127.0.0.1:7878/corrections
+```bash
+make lm-2026-podium PODIUM_FOCUS_CODE=OD
 ```
 
-Parserfaelle mit Konfliktstatus oder fehlender Normalisierung:
+Anschließend importieren; liegt die Exportdatei bereits vor, genügt dieser Befehl:
 
-```text
-http://127.0.0.1:7878/corrections/issues
+```bash
+cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
 ```
 
-Moeglich ist aktuell:
+Der Import speichert Ergebnisse, Sportler, Vereine, Mannschaften sowie Import- und Parserläufe. Wiederholte Importe derselben Datei werden über Hashes und Fingerprints duplikatfrei behandelt.
 
-- globale Korrektur fuer Vereinsnamen speichern
-- globale Korrektur fuer Sportlernamen speichern
-- Zielwerte gegen vorhandene Sportler- und Vereinsnamen vorschlagen lassen
-- aktive Korrekturen zuruecknehmen
-- Korrekturhistorie ansehen
-- auffaellige Parserzeilen ansehen und Rohwerte ins Korrekturformular uebernehmen
+### Deutsche Meisterschaften
 
-Die Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen. Echte ID-basierte Merge-Aktionen bleiben ein spaeterer Ausbau.
+Der Teilnahmeabgleich nutzt bekannte Vereine aus dem LM-Crawl-Report. Deshalb zuerst den LM-Workflow ausführen. Danach die DM-Quelle crawlen:
 
-Start over with a clean generated data foundation:
+```bash
+cargo run -- crawl-report "https://www.ndsb-sh.de/sport/deutsche-meisterschaften" --source-name deutsche-meisterschaften --year 2026 --focus "Deutsche Meisterschaften" --focus-association-code OD --max-depth 0 --max-pages 1
+```
+
+Teilnahmereport erzeugen und importieren:
+
+```bash
+cargo run -- export-participation --club-source-report reports/archive/2026/landesmeisterschaften/crawl-report.json --results-report reports/archive/2026/deutsche-meisterschaften/crawl-report.json --output reports/archive/2026/deutsche-meisterschaften/participation-export.json --html-output reports/archive/2026/deutsche-meisterschaften/participation-export.html --focus-association-code OD
+cargo run -- import-participation --input reports/archive/2026/deutsche-meisterschaften/participation-export.json --database data/pdf-explorer.sqlite
+```
+
+Erkannte Schützennamen werden mit Sportlern verknüpft. Treffer ohne erkannten Namen bleiben über Verein und Quelle nachvollziehbar. Die kombinierte Auswertung zeigt LM-Medaillen mit DM-Teilnahmen desselben Sportlers und Vereins im selben Jahr.
+
+### Andere Quellen und Jahre
+
+Beispiel für einen eigenen Crawl-Aufruf:
+
+```bash
+cargo run -- crawl-report "https://www.ndsb-sh.de/sport/landesmeisterschaften" --source-name landesmeisterschaften --year 2026 --focus Stormarn --focus-association-code OD
+```
+
+Mit `--year` und ohne eigene Ausgabe- oder Downloadpfade legt der Crawler ein Archiv je Jahr und Quelle an. Einzelne, nicht verlinkte PDFs lassen sich über `--extra-pdf-url "<PDF-URL>"` ergänzen. Weitere Optionen zeigt `cargo run -- crawl-report --help`.
+
+DAVID21+-PDFs werden automatisch geparst. Andere Formate werden zur manuellen Prüfung abgelegt und in den Reports aufgeführt. PDFs mit sehr wenig extrahierbarem Text erhalten den Status `needs_ocr`; eine automatische OCR-Verarbeitung ist noch nicht umgesetzt.
+
+## API
+
+| Bereich | Pfad | Funktion |
+| --- | --- | --- |
+| Importläufe | `/import-runs` | Importe und zugehörige Ergebnisse öffnen |
+| Ergebnisse | `/results` | Nach Suchtext, Jahr, Wettbewerb, Kreis und Wertung filtern sowie nach Verein oder Sportler gruppieren |
+| Sportler | `/athletes` | Sportler suchen und Ergebnisverläufe ansehen |
+| Vereine | `/clubs` | Vereine suchen, Namen und Aliase direkt bearbeiten und Vereine zusammenführen |
+| Mannschaften | `/teams` | Mannschaften und Mitglieder prüfen |
+| Quellen | `/sources` | PDF-Quellen und zugehörige Ergebnisse ansehen |
+| Parserläufe | `/parser-runs` | Parserstatus, Rohdaten und auffällige Zeilen prüfen |
+| Kombinierte Auswertung | `/combined` | LM-Medaillen mit DM-Teilnahmen abgleichen |
+| Korrekturen | `/corrections` | Namenskorrekturen anlegen, zurücknehmen und Historie ansehen |
+| Auffällige Parserzeilen | `/corrections/issues` | Konflikte und fehlende Normalisierung prüfen |
+| Vereinsaliase | `/club-aliases` | Schreibvarianten anlegen und deaktivieren |
+| Ehrungen | `/honors` | Platzhalter für die geplante Ehrungslogik |
+
+Filter und Seitenwahl bleiben in der URL erhalten. Große Listen bieten eine Seitengrößenauswahl und Vor-/Zurück-Navigation. Detailseiten sind aus den jeweiligen Listen erreichbar.
+
+In der Vereinsliste öffnet **Bearbeiten** den Editor direkt auf derselben Seite. Auch die Vereinsdetailseite bietet **Name und Aliase bearbeiten**. Dort lassen sich Namen sofort ändern sowie Aliase anlegen, bearbeiten und deaktivieren. Der bisherige Vereinsname bleibt nach einer Umbenennung als Alias erhalten; die Änderung wird in der Korrekturhistorie als `applied` protokolliert. Bereits belegte Namen werden abgewiesen.
+
+Eine falsch angelegte Vereinsentität kann dort außerdem in einen bestehenden Zielverein zusammengeführt werden. Dabei werden Ergebnisse, Mannschaften und Aliase auf den Zielverein übertragen; die Vereins-ID der Ergebnisse bleibt fachlich über den Zielverein erhalten. Der bisherige Name wird als Alias übernommen und der Vorgang in der Korrekturhistorie protokolliert. Eine Zusammenführung ist endgültig und sollte vor dem Speichern geprüft werden.
+
+Korrekturen unter `/corrections` gelten global für Vereins- und Sportlernamen. Aktive Korrekturen werden beim Import auf kanonische Namen angewendet; Parser-Rohdaten bleiben unverändert. Echte ID-basierte Zusammenführungen sind noch nicht umgesetzt.
+
+## Reports exportieren
+
+### Aus der Datenbank
+
+Podiumsreport aus den kanonischen LM-Ergebnissen:
+
+```bash
+cargo run -- export-db-podium --database data/pdf-explorer.sqlite --year 2026 --competition-scope LM --focus-association-code OD --max-place 3 --output reports/archive/2026/landesmeisterschaften/db-podium-export.json --html-output reports/archive/2026/landesmeisterschaften/db-podium-export.html
+```
+
+Kombinierter LM-/DM-Report:
+
+```bash
+cargo run -- export-db-combined --database data/pdf-explorer.sqlite --year 2026 --focus-association-code OD --max-place 3 --output reports/archive/2026/db-combined-export.json --html-output reports/archive/2026/db-combined-export.html
+```
+
+Die Filter werden direkt in den Datenbankabfragen angewendet. Die JSON-Ausgaben bleiben kompatibel zu den dateibasierten Exportformaten.
+
+### Aus vorhandenen Reports
+
+Ein Podiumsreport lässt sich auch direkt aus einem Crawl-Report erzeugen. `--override-database` bezieht aktive Namenskorrekturen ein; die Option kann entfallen, wenn keine Korrekturen angewendet werden sollen.
+
+```bash
+cargo run -- export-podium --crawl-report reports/archive/2026/landesmeisterschaften/crawl-report.json --output reports/archive/2026/landesmeisterschaften/podium-export.json --html-output reports/archive/2026/landesmeisterschaften/podium-export.html --focus-association-code OD --max-place 3 --override-database data/pdf-explorer.sqlite
+```
+
+Vorhandene Podiums- und Teilnahmereports zusammenführen:
+
+```bash
+cargo run -- export-combined --podium-export reports/archive/2026/landesmeisterschaften/podium-export.json --participation-export reports/archive/2026/deutsche-meisterschaften/participation-export.json --output reports/archive/2026/combined-export.json --html-output reports/archive/2026/combined-export.html
+```
+
+## Weitere CLI-Befehle
+
+### Einzelne PDFs prüfen
+
+Den Beispielpfad durch eine vorhandene PDF-Datei ersetzen:
+
+```bash
+cargo run -- parse ./pfad/zum/dokument.pdf
+cargo run -- parse ./pfad/zum/dokument.pdf --format json
+cargo run -- parse-sport ./pfad/zur/ergebnisliste.pdf
+```
+
+### Korrekturen und Vereinsaliase pflegen
+
+```bash
+cargo run -- manual-override add-club --from "Schützenverein Reinfeld" --to "Schützenverein Reinfeld e.V."
+cargo run -- manual-override add-athlete --from "R hl, Eberhard" --to "Rühl, Eberhard"
+cargo run -- manual-override list
+cargo run -- club-alias add --alias "SchV Reinfeld 1" --club "Schützenverein Reinfeld" --association-code OD
+cargo run -- club-alias list --all
+```
+
+Einen Alias mit `cargo run -- club-alias deactivate <ID>` deaktivieren; die ID stammt aus der Aliasliste.
+
+### Generierte Dateien entfernen
 
 ```bash
 cargo run -- clean
 ```
 
-This removes `.pdf-explorer/`, `data/downloads/`, `data/manual-review/`, `data/archive/`, `reports/`, and `tmp/`.
+Dieser Befehl löscht `.pdf-explorer/`, `data/downloads/`, `data/manual-review/`, `data/archive/`, `reports/` und `tmp/`. Die standardmäßige SQLite-Datei bleibt erhalten.
 
-## Current Structure
+Alle Befehle und ihre Optionen lassen sich mit `cargo run -- --help` beziehungsweise `cargo run -- <befehl> --help` anzeigen.
 
-- `src/application.rs`: application/query layer shared by web, GUI, and future CLI exports
-- `src/export.rs`: filtered JSON and HTML exports for downstream processing
-- `src/pdf.rs`: PDF extraction core
-- `src/ingest.rs`: URL crawling, PDF change detection, format classification, and reporting
-- `src/sport_results.rs`: first parser for DAVID21+ result lists
-- `src/storage.rs`: SQLite database, migrations, repositories, and persistence models
-- `src/web.rs`: local server-side rendered HTML interface
-- `src/main.rs`: CLI wrapper
-- `src/lib.rs`: shared library entry point for future OCR, scraper, storage, or UI layers
+## Dateien und Datenhaltung
 
-## Development Checks
+| Pfad | Inhalt |
+| --- | --- |
+| `data/pdf-explorer.sqlite` | Standarddatenbank |
+| `.pdf-explorer/` | Crawl-Manifeste mit ETag, Änderungszeit, Hash und lokalem Dateipfad |
+| `data/archive/<jahr>/<quelle>/downloads/` | Heruntergeladene PDFs eines archivierten Laufs |
+| `data/archive/<jahr>/<quelle>/manual-review/` | PDFs zur manuellen Prüfung |
+| `reports/archive/<jahr>/<quelle>/` | Crawl-Reports und Exporte als JSON und HTML |
+
+Die Datenhaltung trennt PDF-/Export-Rohdaten, Parserzeilen und kanonische Ergebnisse. Ergebnisse verweisen auf ihre Parserherkunft; abweichende spätere Läufe können Konflikte markieren. Vereinsaliase und manuelle Korrekturen ergänzen die kanonische Sicht.
+
+Das Schema enthält außerdem Organisationen und Startkontexte als Grundlage für weitere Wettbewerbsebenen. Fachliche Anforderungen, Umsetzungsstand und offene Aufgaben stehen zentral in [Datenbank-Anforderungen und Lücken](docs/datenbank-anforderungen-und-luecken.md).
+
+## Entwicklung
+
+### Projektstruktur
+
+| Pfad | Zuständigkeit |
+| --- | --- |
+| `src/main.rs`, `src/cli.rs`, `src/app.rs` | Einstieg, CLI-Argumente und Ablaufsteuerung |
+| `src/pdf.rs` | PDF-Textextraktion |
+| `src/sport_results/` | Sportfachliches Datenmodell und DAVID21+-Parser |
+| `src/ingest/` | Crawling, Downloads und Crawl-Reports |
+| `src/import/` | Import von Exportdateien in die Datenbank |
+| `src/storage/`, `migrations/` | SQLite-Verbindungen, Modelle, Repositories und Migrationen |
+| `src/application/query.rs` | Lesende GUI-Abfragen |
+| `src/web.rs` | Lokaler Webserver und HTML-Ansichten |
+| `src/export/` | Datei- und Datenbankexporte |
+| `templates/` | HTML-Templates für Weboberfläche und Reports |
+| `tests/` | Integrationstests |
+
+### Prüfungen
 
 ```bash
 make verify
 ```
 
-This runs formatting, tests, `cargo check`, and Clippy with pedantic and nursery lints:
+Führt Formatierung, Tests, `cargo check` und Clippy aus. Clippy immer mit diesen Optionen starten:
 
 ```bash
 cargo clippy --all-targets --all-features -- -W clippy::pedantic -W clippy::nursery -D warnings
 ```
 
-## Planned Extensions
+### Weiterführende Dokumentation
 
-- OCR fallback for scanned or image-heavy PDFs
-- Page-level extraction and confidence metadata
-- Batch processing for folders
-- Web scraper input pipeline
-- Database persistence
-- UI for reviewing documents and extracted fields
-- Re-consumable JSON/CSV exports for steering later import and review workflows
+- [Anforderungen, Datenmodell und Priorisierung](docs/datenbank-anforderungen-und-luecken.md)
+- [DAVID21+-Formatanalyse](docs/david21-format-analysis.md)
+- [NDSB-Bogen-Formatanalyse](docs/ndsb-bogen-format-analysis.md)

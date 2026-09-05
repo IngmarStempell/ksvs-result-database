@@ -1,0 +1,10 @@
+<form class="form-grid" method="post" action="{{action}}">
+  <input type="hidden" name="alias_id" value="{{alias_id}}">
+  <label>Alias
+    <input name="name" value="{{alias}}" required>
+  </label>
+  <div class="actions">
+    <button type="submit" name="operation" value="alias-save">Speichern</button>
+    <button type="submit" name="operation" value="alias-deactivate" formnovalidate>Deaktivieren</button>
+  </div>
+</form>

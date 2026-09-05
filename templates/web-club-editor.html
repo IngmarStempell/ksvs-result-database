@@ -1,0 +1,34 @@
+<section class="club-editor" id="club-editor" aria-labelledby="club-editor-title">
+  <div class="page-head">
+    <h2 id="club-editor-title">{{club_name}} bearbeiten</h2>
+    <a href="{{close_url}}">Schließen</a>
+  </div>
+  {{notice}}
+  <form class="form-grid" method="post" action="{{action}}">
+    <input type="hidden" name="operation" value="rename">
+    <label>Vereinsname
+      <input name="name" value="{{name_value}}" required>
+    </label>
+    <div class="actions"><button type="submit">Umbenennen</button></div>
+  </form>
+  <h3>In bestehenden Verein zusammenführen</h3>
+  <p class="muted">Alle Ergebnisse und Mannschaften dieses Vereins werden dem Zielverein zugeordnet. Der bisherige Name bleibt dort als Alias erhalten.</p>
+  <form class="form-grid" method="post" action="{{action}}" onsubmit="return confirm('Verein wirklich zusammenführen?');">
+    <input type="hidden" name="operation" value="merge">
+    <label>Zielverein
+      <select name="target_id" required><option value="">Bitte auswählen</option>{{merge_options}}</select>
+    </label>
+    <div class="actions"><button type="submit">Zusammenführen</button></div>
+  </form>
+  <p class="muted">Der Name wird sofort geändert. Der bisherige Name bleibt als Alias erhalten; Ergebnisse bleiben diesem Verein zugeordnet.</p>
+  <h3>Aliase</h3>
+  <p class="muted">Alternative Schreibweisen für diesen Verein. Sie werden bei künftigen Importen zugeordnet.</p>
+  {{aliases}}
+  <form class="form-grid" method="post" action="{{action}}">
+    <input type="hidden" name="operation" value="alias-save">
+    <label>Neuer Alias
+      <input name="name" value="{{alias_value}}" placeholder="Alternative Schreibweise" required>
+    </label>
+    <div class="actions"><button type="submit">Alias hinzufügen</button></div>
+  </form>
+</section>

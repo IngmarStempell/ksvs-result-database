@@ -1,0 +1,2252 @@
+{
+  "pdfs": {
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/9.58.68G.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/83bfc217463b-9.58.68G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "83bfc217463b1b2c844931aae940c6b3b20447d95f6f4aa63e3b4554614c276f",
+      "file_size_bytes": 20305,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/9.58.68O.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a29c6a317078-9.58.68O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a29c6a31707897f1d0b459b1feae135833ef0bb305970f8b5c08eb3904a23fa8",
+      "file_size_bytes": 12382,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.68.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8ba703df48ab-N9.10.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8ba703df48abc76b170f8bb5bb1eb945d47f8da9047cdc1e820d520ee3de98a8",
+      "file_size_bytes": 5387,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.69.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5c018aef37f3-N9.10.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5c018aef37f3f564fd6dcc35540c71ebc4cc19198ee0e0d4ab5f07ab01619afd",
+      "file_size_bytes": 6826,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8cc404f61439-N9.10.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8cc404f61439707eaa2a7b52d21c16ad9fbf99a66162ccb4e36bcd516eaec6a2",
+      "file_size_bytes": 385736,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4e379ca275c3-N9.10.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4e379ca275c39834167711e534ddeee336ab01a51249c0fc422c8344328ba6a4",
+      "file_size_bytes": 8366,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0ab89eb778e7-N9.10.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0ab89eb778e7516ec33b260d3b9ef06b64169798c5b48710e222bf15613089e8",
+      "file_size_bytes": 187709,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/779a7c1f7f99-N9.10.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "779a7c1f7f99a8dd91fb49bd76e65ab1ba1833de0798fa87b04d2b79428be853",
+      "file_size_bytes": 4766,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/722d82cb1f7e-N9.10.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "722d82cb1f7e8b9a71ca337909763acab761d4d07abfc8e0b5842896065efe7b",
+      "file_size_bytes": 376124,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.75.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5a2e94d76def-N9.10.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5a2e94d76def244d1d71db8c1d41a3f04eaf2abedde98e1621979e31b7533c1b",
+      "file_size_bytes": 5544,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f17e9407bcbf-N9.10.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f17e9407bcbf3ccf6c879ae1e17a01daa1dfe3914e8504f2bf9be48468ceace3",
+      "file_size_bytes": 187074,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8fb61fc0dd9d-N9.10.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8fb61fc0dd9d295e635148f3f58f9fd0a164102294ed585c44f2fcb24a7ca714",
+      "file_size_bytes": 4084,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1aab04f6d50d-N9.10.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1aab04f6d50d2d6c24e3d9492c2a70ce3bf523c411aa7e313cae0ef6709c4489",
+      "file_size_bytes": 191547,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.10.79.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/6c10916674ed-N9.10.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6c10916674ed058734e55c4d15e4104f35174aa4f3a64901e21cc320b954a8be",
+      "file_size_bytes": 4045,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.30.68.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b6789be12bea-N9.30.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b6789be12bea48e51cd4e027dfc215eee5681a7a07cd423f9f9cb8a3a9726315",
+      "file_size_bytes": 2290,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.30.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e5ab27c9dc91-N9.30.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e5ab27c9dc91320359ac359c8f0ca7dfd27386a8e069cd809dcaa8accfdd3183",
+      "file_size_bytes": 2252,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.30.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2168c37bd347-N9.30.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2168c37bd347470b7c18466f0c3774e8feb84fc296fb34ff995eeae977afd925",
+      "file_size_bytes": 2630,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.68.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/82747a836945-N9.35.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "82747a836945ebd1203bad2739b80ae33ff6bed785fb6bd7d47e9ff3e6b672b6",
+      "file_size_bytes": 367909,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.69.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bb6bb9cd3170-N9.35.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bb6bb9cd31708f10190c9e10733e8386ed053bb207dc5f554e8ed0f1dececeb1",
+      "file_size_bytes": 365277,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/990ec91f0558-N9.35.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "990ec91f05583b7e401bca1409db3a9308a61663859211da5e0c54b25b86c52f",
+      "file_size_bytes": 8691,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c17bd496d84b-N9.35.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c17bd496d84bb7cb99a7ea495271c02e7dc0001d6b03332dff9339b2ac1742a4",
+      "file_size_bytes": 188911,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/6aa39f655c79-N9.35.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6aa39f655c79a6f0ee725e1d5204f16517255262afdd32f02d0ba57ca29265d4",
+      "file_size_bytes": 3689,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/370441971c79-N9.35.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "370441971c792f7d3ebf90e5bbccbed7c23217b40d5468e7f5ba640d4ae42dda",
+      "file_size_bytes": 186877,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/59a547668931-N9.35.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "59a5476689313ccb80a6b229d2839aebf4bfb549510ce116acb1e14537bc9606",
+      "file_size_bytes": 7639,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.75.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/833de524533a-N9.35.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "833de524533a75d05d216da53c5fbb533b1a092baf7410c15bc138f3ec5341a4",
+      "file_size_bytes": 181998,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/13c9634df6b5-N9.35.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "13c9634df6b5712517602f9d2aa35e95cecf030fb4a9fe7033b4fac0c258fc3c",
+      "file_size_bytes": 5826,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.35.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0d1d39d2eb1d-N9.35.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0d1d39d2eb1de6fa33f8919cfbbde69e1fabb5dc9d47ee4eb28af88c758d9404",
+      "file_size_bytes": 185119,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.68.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f4124e98d44b-N9.40.68.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f4124e98d44ba662c0c8fa76ced290d5ebb1e894c9c990f20f4b402facee3073",
+      "file_size_bytes": 5678,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.69.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/eaf124983460-N9.40.69.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "eaf1249834601d8de9798d8934c073a6d7fa298ac386bb5197ba1cfa5e0436b8",
+      "file_size_bytes": 5720,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a91bf88aadd2-N9.40.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a91bf88aadd25f9c77dd6e0c502a70659a180883827144a9c2009ed6e734098a",
+      "file_size_bytes": 382440,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/01f5c5b06839-N9.40.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "01f5c5b06839f15606541e429c0f0edf9e10072259ef67caa4d60da704a7dc06",
+      "file_size_bytes": 4966,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/826825d74b82-N9.40.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "826825d74b82ce23c8af3d1aaf5d336c3ba395b066f53767e0d667dba9807012",
+      "file_size_bytes": 187947,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/6ee4ea73c8db-N9.40.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6ee4ea73c8db05da64612ceffad9ae64399e2c262a8d8a5c721fabaa86976723",
+      "file_size_bytes": 3803,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/34e9dc3e0c68-N9.40.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "34e9dc3e0c680338f872734ad6c2ac1d515ef511118561372f5d67f3c6bc96c3",
+      "file_size_bytes": 379068,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.75.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/7fbdd3904650-N9.40.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7fbdd390465079766a50ac7197594c385d7bf850cffb0265917405217f15e031",
+      "file_size_bytes": 3270,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2c6c21451bc5-N9.40.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2c6c21451bc57ed60f5a1ef73bcfbe8a0fbd58a5b34eb114430551172f0dd625",
+      "file_size_bytes": 186700,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/73ea7f91464f-N9.40.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "73ea7f91464ff3325214d76f1a4cac0f3537b675f6d45f0062c6fe26fb8fe25d",
+      "file_size_bytes": 3201,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/108e90597db1-N9.40.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "108e90597db14b63c6c9ee0b300ac4ce561068eef2e89f1d56115a360a8e478a",
+      "file_size_bytes": 189401,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_auflage_2022/N9.40.79.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4682b8ae6832-N9.40.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4682b8ae68326e3911b6cd71e3625d2a131433f06617d21c07c223de745ac964",
+      "file_size_bytes": 3220,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/47bff0ee9fd2-1.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "47bff0ee9fd2ad7570f32e00af8e82f5b6b8e03a86e1858f716fc653dfdf4a9b",
+      "file_size_bytes": 359664,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/90981b6b99d3-1.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "90981b6b99d372995a3e3d9e2768d64048a1c91d252b31c7786719c400117ab9",
+      "file_size_bytes": 368086,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a59401e2c383-1.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a59401e2c383395bff62e85e626e8941025f8a4df35df71db3d9e8d866b90216",
+      "file_size_bytes": 179065,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.13.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2a9045bc9068-1.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2a9045bc9068af256baf586e91086f3bc6bf63808e6db9bc262703f00c6a22cd",
+      "file_size_bytes": 178494,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0b2e66a2caef-1.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0b2e66a2caeff78154d79e7c83e933a25979847e9856914f130ae49367623510",
+      "file_size_bytes": 4299,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.15.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/7207f4a4fe2c-1.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7207f4a4fe2c10650555c37182e0d383b363eb678f507044bd19f4fafafad70b",
+      "file_size_bytes": 178276,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/04ba1beaff15-1.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "04ba1beaff15347d6a86e4b9e98834702e090779c956cb73863af705ae6b13c5",
+      "file_size_bytes": 3486,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.17.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/af0ed701832b-1.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "af0ed701832b7f9443daacf63fb24c5e63e3cf2265798be5bc7ed4f940f611b1",
+      "file_size_bytes": 174609,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.18.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/36e59926dd74-1.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "36e59926dd74ca75d0bcaa66f0655f31c195069f9e755dcfc0cbc0cb140cf7ae",
+      "file_size_bytes": 2022,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.20.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/889f4035a502-1.10.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "889f4035a502757a386c448f83506c823eca36a261001a965e3f4c61ba497d07",
+      "file_size_bytes": 363961,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.21.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c4514de4fff1-1.10.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c4514de4fff13c5877e607d9e2d2d4aa59b6c0d67c9940a52bf04ab54b263515",
+      "file_size_bytes": 184575,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0cac5bba4d10-1.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0cac5bba4d1053240cdd3d15b8517310b2276ec6e6e86fb1bd9bbb362a51be6b",
+      "file_size_bytes": 353116,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.31.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/249f971f79f3-1.10.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "249f971f79f3a730ba97e9187750a056030973df06f37b38f0ccecc26e9b7ee4",
+      "file_size_bytes": 182497,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/77e8e69a48d1-1.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "77e8e69a48d126321f4214a3b8eb9c86798348ef3eed7754fae0c8c80cfb14fc",
+      "file_size_bytes": 181285,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.41.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1cc877df9b1a-1.10.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1cc877df9b1a885bdf5b716429c307fb4724402bc534c7da14f0d6c938cb9154",
+      "file_size_bytes": 363988,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.42.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/986fc046694e-1.10.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "986fc046694e8b71b940a4f52a43867150df39adcd56bc8721e9d69c350f2fc5",
+      "file_size_bytes": 184180,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.43.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e04606a4c86f-1.10.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e04606a4c86f335e7fdafd27c2e50cbea1f649d523b6f6a83f2bbd2c9444f62f",
+      "file_size_bytes": 184404,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.10.90.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/83af9f69c243-1.10.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "83af9f69c2432b5c9e7330651fe57dbbe8f0b261cbba36f9df0f48f624d82ccc",
+      "file_size_bytes": 180485,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/68bde31ebf18-1.11.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "68bde31ebf18945203674e8c6f19b58f3d1130c78e587e2b34c8c997fa1159f9",
+      "file_size_bytes": 379619,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f8e91c362251-1.11.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f8e91c362251fc48aeda99c8f8617c2df3196f8846f158478e76ce59e959beaf",
+      "file_size_bytes": 187229,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ac53cd4f7911-1.11.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ac53cd4f79112747f24d3aac2d706bbeb4c8b064a22394d11e9a61bb0374ddb3",
+      "file_size_bytes": 185074,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/23a2a24723dd-1.11.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "23a2a24723ddfc339f999d415601e8c6d86c3b86a9a3774c802c18d38546a508",
+      "file_size_bytes": 185785,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e5656dc46701-1.11.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e5656dc4670141cd73ac08bfb36ac6c5ec60c9e2eb2cc1749a8715439eb30087",
+      "file_size_bytes": 376154,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.75.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f72ebad39934-1.11.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f72ebad39934f9a67c260e34201ad32846a1cd524f9f98aad23274bcf755503a",
+      "file_size_bytes": 184299,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/be92cce8e20c-1.11.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "be92cce8e20c94d37eee64ee81a254bc9d0fc913f25e66080b5a59d9c15f5919",
+      "file_size_bytes": 184871,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b1df67a55b7f-1.11.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b1df67a55b7f73d4e262a47babe18cf5b1ebd8cf5b8239aac0752d48ecbfc272",
+      "file_size_bytes": 184645,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/38bb3c0e67e9-1.11.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "38bb3c0e67e9d55ba979b5245e8867f783fecbffe093dd3afae22740972ce2ea",
+      "file_size_bytes": 186265,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.11.79.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/3b10d3dbcebb-1.11.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3b10d3dbcebb824fbd31c009377f5987c1ba6a2c4a2e4063f2baf80c11217875",
+      "file_size_bytes": 182329,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.18.90.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a3d095ac7aba-1.18.90.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a3d095ac7abab8b9b8f3ab4e2bff88f504475db735bf4446a800717c3fbc09f5",
+      "file_size_bytes": 182427,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.20.20.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bf9bd04f1b8a-1.20.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bf9bd04f1b8a8e39e02d5a863ee21f789d91c9cfa8dcef426b697738db0a2893",
+      "file_size_bytes": 181706,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.20.21.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/369c9ee4482b-1.20.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "369c9ee4482b0f09ff8846d2ecea89db465c4849ac9bc4d75f250a41bd437363",
+      "file_size_bytes": 2979,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.30.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/09f30a80d74e-1.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "09f30a80d74e3c6b5cabd6a5f0cbb3fe0b113590529985aff79c37b68432736a",
+      "file_size_bytes": 347369,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.30.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/07d2cf653453-1.30.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "07d2cf653453ac3ef4748ec07e63fa1c2d048d419e0aa82449abd154c064767e",
+      "file_size_bytes": 175518,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.30.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e40b13d2ce8c-1.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e40b13d2ce8c6c31f399a14bbc11ede9f5ca47891d87df8c9057804d1a01296c",
+      "file_size_bytes": 350247,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.30.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0fa25c90ca8f-1.30.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0fa25c90ca8fa63474493086fbad67521a384c575a8485738facb2379da5594d",
+      "file_size_bytes": 175903,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2d72b6ac5907-1.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2d72b6ac5907b18e0562644527b79212ad2ba159d168c5e72f0f6e345f97927d",
+      "file_size_bytes": 360641,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e1fd656f67f3-1.35.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e1fd656f67f3454e3b17da83e6b771d0eb08e638ce222ffc92df5ef2fb449152",
+      "file_size_bytes": 182052,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bbf674314424-1.35.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bbf67431442482538bc44f2566e299ebe166355d5bb39e1f8d237d88915299c6",
+      "file_size_bytes": 172536,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.13.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4a2b496e05fe-1.35.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4a2b496e05fe8473b30f7aa12d02497cd7ddd5159d43daafda9cc8ff3254c8fc",
+      "file_size_bytes": 173929,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/dec408dcdc04-1.35.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dec408dcdc043d52f27aa822658d9c2863b4c1d4e39f8efd70f0bb6feab7552c",
+      "file_size_bytes": 354793,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.15.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8c974022b13c-1.35.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8c974022b13c65bacfca974d1840a53337b0a0a65af0f7538bdcbb9d654951e4",
+      "file_size_bytes": 174715,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.35.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/275e9f3b5ca1-1.35.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "275e9f3b5ca16e35a8fae05dbe1592e5c66ec397b71c137d82f1a130a4c88fae",
+      "file_size_bytes": 176139,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ebe1ebd84ddf-1.36.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ebe1ebd84ddf6feddf89b19229cb9c1a293203a82ccb4ee40d13e36403fcf4f5",
+      "file_size_bytes": 379924,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/df1cbe230b4f-1.36.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "df1cbe230b4ff461de7e14f8d9390612d2808704abdf3a11b6676d31b2b67d2b",
+      "file_size_bytes": 188952,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9d16ede93a38-1.36.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9d16ede93a3888bb6ff1b7a26da8e9e5224bf76a31942df2b310e19d1689f6de",
+      "file_size_bytes": 187967,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2b8ddbfece8d-1.36.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2b8ddbfece8d6b95ab0999bfe0abb052fa1ad0a414db798db3e3b65c74717ed6",
+      "file_size_bytes": 186951,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/78b63be6b3fb-1.36.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "78b63be6b3fb9d22ff174b7664f9b95f9f0ad6754044cd3f7602cf0213ea2a24",
+      "file_size_bytes": 375677,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.75.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2f00fd9899cd-1.36.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2f00fd9899cd2266027eb93b6f11f0fad5c33605df888710990aaf71372eaf73",
+      "file_size_bytes": 183761,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ad87294b0982-1.36.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ad87294b09820a0d92733ff79b5b19dcba35980cd976ab73d940a9534025e58c",
+      "file_size_bytes": 186315,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e8b1595023cc-1.36.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e8b1595023ccce9174fed6f2774e003f040257cd4de21f27612727a7085854e8",
+      "file_size_bytes": 183705,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b87d97a5022c-1.36.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b87d97a5022c56fb7a39d2a605d2e52cc656b1e8c640c378314e29827f1577e7",
+      "file_size_bytes": 186823,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.36.79.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/7c82bb2774a0-1.36.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7c82bb2774a01e4d502d37adc489336b6761e0122764fb273e096788ff4b4f2f",
+      "file_size_bytes": 184984,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b909d50791fc-1.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b909d50791fc9ad4a2b21e091776aea8169d7d6cc3b4329a5e98c98c17d56bdb",
+      "file_size_bytes": 3063,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1fae21c5786f-1.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1fae21c5786f31dcb857da2c73c7d2f09e4876dd57914a6e3f3d5a54a479696a",
+      "file_size_bytes": 187416,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8022c8025cf7-1.40.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8022c8025cf76d9b643ace4823e2818bf13b356e6af33bc8d16b283364ac4f60",
+      "file_size_bytes": 2933,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.13.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2bb91caf1ab6-1.40.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2bb91caf1ab6f85834dfdbeb9e51b1a779618b7fbd2d9c980f88f6f302dcd139",
+      "file_size_bytes": 3141,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0c600b13e6a8-1.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0c600b13e6a8c8f9a96a92f7da4fd4d5ad998f23ec9e34c2bea540df1391acf9",
+      "file_size_bytes": 181518,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.15.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/347fb68b9f2c-1.40.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "347fb68b9f2cc5c6fc64418d3fcf66d65be52fe2470542002d78623e670dfadb",
+      "file_size_bytes": 2669,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/7b93fa36ae6c-1.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7b93fa36ae6c9781bfb3f04522832048b56a4e7d6394148ab2a2e114dcaea52b",
+      "file_size_bytes": 2640,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9695ddd0b444-1.40.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9695ddd0b444a2767baf62524e8efadab9354bd020b800ecb7e0e13540234219",
+      "file_size_bytes": 2536,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.31.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/6d7e7abc5b55-1.40.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6d7e7abc5b550ee2338bf7da0510a326dac0f247956b08c0eaf48a7a7b6b96fe",
+      "file_size_bytes": 3007,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5b69b98c60da-1.40.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5b69b98c60da1a82f49922b04b8c8ca45e8fc9d6b459d86df448de0115e42c8a",
+      "file_size_bytes": 2823,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.41.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/93f9ce1586d1-1.40.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "93f9ce1586d18a5ccd92b448d86be2074745c10b0bc41f130743d28f58a73cfc",
+      "file_size_bytes": 184572,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.42.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/68c97f9063d4-1.40.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "68c97f9063d4c397d4e56db4036e561a251c55b7d51b24e6c2b1d25b061062c2",
+      "file_size_bytes": 3698,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.40.43.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/75dbe3f93947-1.40.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "75dbe3f939477e1d4333b32a5b890635e5149c8691ebd8c3bd1e7de2ea183f95",
+      "file_size_bytes": 3380,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2d3b9139ef87-1.41.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2d3b9139ef87e999d722dd1da6bf0420780270dbcc28003dd3dab1513aa0355f",
+      "file_size_bytes": 381240,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/60b1a526e1b4-1.41.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "60b1a526e1b4dba865fdc362fbded775857b9124c62a80d799f71de49042e42c",
+      "file_size_bytes": 189542,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b76125f3206b-1.41.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b76125f3206b2ef5f5b89d735e63a4f6b87c5edb405f08a9689f4af17a377ef8",
+      "file_size_bytes": 188214,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f61a93613672-1.41.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f61a93613672b6de0de3e199c2e7ddf37d25a88482ab499461e2cb59744e9701",
+      "file_size_bytes": 189370,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f9e3a8a8ccd9-1.41.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f9e3a8a8ccd9df8e12938fe6b2280de01d3eb82b736284ea3a3599388f595258",
+      "file_size_bytes": 374858,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.75.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a7966cbc5ea0-1.41.75.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a7966cbc5ea0c147d989c76c46537be2178f385ba797fe42f19cfe337717bf58",
+      "file_size_bytes": 186901,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a04fe1b7f1b7-1.41.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a04fe1b7f1b7d74f8e6d4a0ee59e6bf0a147373543db841ebaa65e2dad072d8d",
+      "file_size_bytes": 187885,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/32069491d2f7-1.41.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "32069491d2f7c08b67ea782d17b0a84da26f22fded73d1bcaeac3dcf2db184a6",
+      "file_size_bytes": 184549,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/11de81275257-1.41.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "11de812752578adb1618601736a58fa28b73f425fabad610d63ac351bc65dfe1",
+      "file_size_bytes": 187185,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.41.79.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/63255ea7dc3c-1.41.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "63255ea7dc3c1a1304d2f80ae3a31ae203487db3d8581195480514203ab8a160",
+      "file_size_bytes": 185262,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.42.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/83840a9681ad-1.42.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "83840a9681ad1481128675e3332930c4840864106e6034bf8ec74755b9041a7b",
+      "file_size_bytes": 378348,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.42.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1314136cb50c-1.42.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1314136cb50c72ab9b45d77e8a4a040a55564e6c8cc857ae520eb88789d660e1",
+      "file_size_bytes": 187614,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.56.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e7e5204a3dac-1.56.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e7e5204a3dac06c9acd6ee5bd5799f0ae4cf8e018adbda50497ab1a0f2000532",
+      "file_size_bytes": 175876,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/090bfddedb82-1.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "090bfddedb820d329133149be12276ebc4fc90ecf6c9b5cdd7bf50232ab52952",
+      "file_size_bytes": 180340,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/dc7ef64753ec-1.60.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dc7ef64753ec34c557b0cba6bfb739db774a97b9900c9106284f31d665fd4db4",
+      "file_size_bytes": 3449,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/220956f521fc-1.60.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "220956f521fcebd7c12a84867ee47d1c8b71e49d794c7a404591b0da9535b4fb",
+      "file_size_bytes": 3188,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/42ad49658224-1.60.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "42ad49658224d204e39af10d226c2484d4be3ad27ad9e5c1f802977d7b9279d8",
+      "file_size_bytes": 178580,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.41.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/fb619e079051-1.60.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fb619e07905112a4e27bcfe758545955b45ec19a5ae7856bb5f3786cd89b5b26",
+      "file_size_bytes": 3018,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.42.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/150faac5dd80-1.60.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "150faac5dd80b492ae1f309db5364f6a559283b3e85fdc3c27f41c1edd5431b9",
+      "file_size_bytes": 3193,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.60.43.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cef2b165be4c-1.60.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cef2b165be4c660b01db486bfb56f0fbe6134a60f14d6a73fe14389c9bc2c35a",
+      "file_size_bytes": 3018,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/902f9b4e7a57-1.80.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "902f9b4e7a57f65d64134b0cf2354c309f1c61d2842229581f7c9bb85fce95d3",
+      "file_size_bytes": 3482,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/54ce211897b5-1.80.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "54ce211897b580d880fc607309e89eca69cbe132e64318374b57755dd75bd486",
+      "file_size_bytes": 184489,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cb63c16121fa-1.80.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cb63c16121faebba59e8dd2b5cceb92dacece7db7ac5f360feb6063f6fa34795",
+      "file_size_bytes": 2890,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.13.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e1f6d7a6e5ad-1.80.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e1f6d7a6e5ad20d175a4acd91e8355e2424e2bc91f3e27587be0125a0ef8629f",
+      "file_size_bytes": 2903,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/db0b56b316fa-1.80.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "db0b56b316fab19ec5db3bc720b9ee78bc8b615e036c7f1ef104d446896eb1b4",
+      "file_size_bytes": 5684,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.15.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/83049ad43409-1.80.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "83049ad434093112963a38d1f0facc8de1997c4b40ff0e3efaa629a688404f77",
+      "file_size_bytes": 2662,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c805d92d8b35-1.80.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c805d92d8b357b831ee1def8c580c0297d76e63a9925431606e4c808b67db3a5",
+      "file_size_bytes": 3081,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/fd54d242c9f0-1.80.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fd54d242c9f07918452dad6904dbf7bdd60e1c29ed3b0958fbffd79841fef10e",
+      "file_size_bytes": 2520,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.31.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2a7ecbf0934e-1.80.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2a7ecbf0934e5cc54d6397c28dd83cb5d15a016d7229dd5624c508d727fbe557",
+      "file_size_bytes": 2650,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/05ab520b79db-1.80.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "05ab520b79db3bc7d2933e39a8df3bf245ebc1ecda74add10a6d1487c5f9830b",
+      "file_size_bytes": 178604,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.41.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b0e3483c0616-1.80.41.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b0e3483c06163a01ccc1876210dd2e442974a887e603bb57ddab64107ce3e43c",
+      "file_size_bytes": 186527,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.42.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/80374f9faeb8-1.80.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "80374f9faeb8b130811c545844d3570f7bed32abd93fb4fed51d012833fc14e0",
+      "file_size_bytes": 3483,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/1.80.43.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bcee3fb8a185-1.80.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bcee3fb8a1857d4652ea73af28bd61f126af400dacc9f6e183f5fccfc71e88ad",
+      "file_size_bytes": 3236,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9dd89c54f7e7-2.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9dd89c54f7e746b4c50635e1a85b2450747770a3c44703d598b7f7dfd0fe055b",
+      "file_size_bytes": 5741,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/edd83042b69f-2.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "edd83042b69fc0ab743b971dc49d8ff8790465a0624bc8acae8585bcd7d9b289",
+      "file_size_bytes": 180669,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/07117a25f4fd-2.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "07117a25f4fdc4a2fb485a1ac72ec6bd69583ee574ecc5d391c169dfe8cfc666",
+      "file_size_bytes": 3724,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.13.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/36f428159f46-2.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "36f428159f46278c53063536bddbeaef815680eeadbc7ca5aa23c16d7283cb57",
+      "file_size_bytes": 177025,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/defaedb3661c-2.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "defaedb3661c3e868c03c1da7a13157954a7974b9bd8e99fa65b937e4141f7bf",
+      "file_size_bytes": 362778,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.15.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/de670fa61922-2.10.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "de670fa61922162a8a51d65807beecea21165fb36e6866eea5da248c4f84e0d0",
+      "file_size_bytes": 3464,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8ed8ccb2d1cc-2.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8ed8ccb2d1cce4b02c417b1cea3e6e3ffc0b445703d184352bd6ab4e14a6adb0",
+      "file_size_bytes": 184378,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.17.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/33999ffe77ee-2.10.17.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "33999ffe77ee8abf033d020923825e0ef3357207b7b2fd0293ea7ae89d10e614",
+      "file_size_bytes": 1922,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.18.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2405f0225f72-2.10.18.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2405f0225f72af913f879345e8bd1d7f4e38863e1ff68628e50af8e240c615ac",
+      "file_size_bytes": 178908,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.20.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cc21b2a8f73b-2.10.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cc21b2a8f73b148becf6eac2dba2f2ba6a809cdcfa57d68c34769094ed65e688",
+      "file_size_bytes": 355414,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.21.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5f55bd3276c2-2.10.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5f55bd3276c22d34bfea07276c62213a982993fadfb0d81779f391e945beff23",
+      "file_size_bytes": 177287,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0e8440ad8452-2.10.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0e8440ad8452e7c4bc9052dd8c7622489948841d7edd4ffecd3fd74853554ae7",
+      "file_size_bytes": 359739,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.31.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/72872e9b050d-2.10.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "72872e9b050d58530276b71bc2390d969d16a6fb45c93b8c6c785e7d48398b0b",
+      "file_size_bytes": 182678,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/99702837a4ce-2.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "99702837a4ceda3c4b259c0a1972ef73240bdc0a78cba7d2c8a4a033a03233d1",
+      "file_size_bytes": 352209,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.42.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/75b930f61b68-2.10.42.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "75b930f61b68abbb787ccd392b98813900918c2fca32caa5b2f9ff569963666b",
+      "file_size_bytes": 175403,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.43.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/44d9f00fb514-2.10.43.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "44d9f00fb514e0f0f37fd25dffba4ca4093df04baf9e664e667447b251c47089",
+      "file_size_bytes": 180062,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.10.92.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8cfc4204c4f7-2.10.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8cfc4204c4f781cba36d281717b03b312856996fef8b75f7d3ed348b305fd448",
+      "file_size_bytes": 1808,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8a8240a0fba0-2.11.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8a8240a0fba0397ea8558ad0332b0547053c968682e574068d9db03fce147286",
+      "file_size_bytes": 366319,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.71.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/557944487bf0-2.11.71.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "557944487bf06d8d1cc31969df3ef668f0baa7ea19439f95e1c2b280f745ebe0",
+      "file_size_bytes": 181196,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.72.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/57adf569e875-2.11.72.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "57adf569e8759d6c1c739da3f571a64e9301bc5d0b6296754b18cfa50982e1f2",
+      "file_size_bytes": 182511,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.73.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/493b071196fa-2.11.73.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "493b071196fa27f0ac77e6c496cd88016b53ace3ab58c236f5f564df89b9d71c",
+      "file_size_bytes": 183297,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f591b9d7d34c-2.11.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f591b9d7d34c3f0715e58115529e1cda3d0ae7026f69e80ffecbf9ac21fd4ea9",
+      "file_size_bytes": 360873,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ebed8b5036a5-2.11.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ebed8b5036a5c4e67b9529b8a29c2330deaea3c9782db69abc65eb1d16444810",
+      "file_size_bytes": 181706,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.77.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/29e6a159b55b-2.11.77.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "29e6a159b55b29feda9d44fd42939203231bdc0250058ddc5d5fc3f3baa3b6d8",
+      "file_size_bytes": 182451,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5698215b6167-2.11.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5698215b6167defdde8520ac2015205c98e2a1a2b181586a584e4472e0c6989d",
+      "file_size_bytes": 185651,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.11.79.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/3bb0778c709c-2.11.79.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "3bb0778c709c5cd3bb5990b91e55cd086739297e40207c1f467ddc2fd42e5381",
+      "file_size_bytes": 186103,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.17.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/71b494c5d50d-2.17.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "71b494c5d50d12d1125dc1092ee9cd46551d2a48b8a89bdd816072d633839c5c",
+      "file_size_bytes": 187471,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.17.20.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/143b1de19c1b-2.17.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "143b1de19c1bcaea4edc87f46ea88ac5600128e944aee62ba31a7b1e0dbedcaf",
+      "file_size_bytes": 181528,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.17.21.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e7b4c6e5f39a-2.17.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e7b4c6e5f39a8967117a7ed3f114cb7b5f5f9cc3861026674f3064fbb9d2982c",
+      "file_size_bytes": 185526,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.18.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/49a31016641e-2.18.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "49a31016641ef32d060fb13b5284dd273ee33fbe9b47eed5269d9d6216293314",
+      "file_size_bytes": 185855,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.18.21.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/491cfd574dd4-2.18.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "491cfd574dd48af640f4fdd62a9cf16481b1f85541a68a9a30cc0d9de02ebcf0",
+      "file_size_bytes": 183287,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.20.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d0be3984cf55-2.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d0be3984cf5535fdb5f50d1da3ec9076d2dc45ee7a53b195cb99664629f6eb39",
+      "file_size_bytes": 2548,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.20.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/aef5c35713dd-2.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "aef5c35713ddc8c4ca7a57b3d156c78d0459808f11b8d365b8283fcf8da57bdf",
+      "file_size_bytes": 3940,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.20.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9ff52cbd7f49-2.20.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9ff52cbd7f493286d6bb4a6d785f3384b9ed01de0b15990df73e652d706fff77",
+      "file_size_bytes": 2346,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.20.92.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4b3122fef4a4-2.20.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4b3122fef4a474af5af8a6dc2adddf0088ae22bf961ec954ed44e4e80fd8d0f6",
+      "file_size_bytes": 1853,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.21.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/fa96ef13f0fd-2.21.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fa96ef13f0fd55d823a1ed28091c8133312812fa754820be6db5d168b6716211",
+      "file_size_bytes": 182868,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.21.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d7d0858a8876-2.21.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d7d0858a8876967a34d6fe60502d6d5fc17d03841e772f3785a9b0585adc2b97",
+      "file_size_bytes": 181543,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.21.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/65e0e11fd825-2.21.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "65e0e11fd8259fd7f713114023112cbf97f2572cd45c09a020a668820fd3360d",
+      "file_size_bytes": 181113,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.30.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b4ccd7f865ea-2.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b4ccd7f865ea40e854259cee6e19f97045d31f6818fbbd75fa12a5ffc6313ee0",
+      "file_size_bytes": 4834,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.30.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2e5fd7620c74-2.30.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2e5fd7620c749113294a9c553fae2d91b0b2f201517ff1be158b12fea95adaad",
+      "file_size_bytes": 3568,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.30.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/11bcce1e06a2-2.30.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "11bcce1e06a25f5b2f26c2581a83f27f6b29a8f426a693a0805743d9b4be0174",
+      "file_size_bytes": 2438,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/0fa5b3d0eb92-2.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "0fa5b3d0eb9298925e042d25adb7fb99a9f4f0efe95d9320c9b2864a8397585c",
+      "file_size_bytes": 181150,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/7460d2f9a1a9-2.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7460d2f9a1a94fe0125623b21dc20fe947078c3301389a559a7c0994a4c139e2",
+      "file_size_bytes": 2723,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/38d48a92908e-2.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "38d48a92908ea3193ed808c4e61713b40e05e92b0caace82aaa68a4462c36165",
+      "file_size_bytes": 181935,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.15.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1503ad4b659d-2.40.15.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1503ad4b659d9c34fde4d91d8b23bf0f44a923e66205d40bd45faab5aa159fe4",
+      "file_size_bytes": 2799,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cada3ae9c6f1-2.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cada3ae9c6f1c6ef4e0f1c73b45062a56f148ca2f7874a1177388219022db29d",
+      "file_size_bytes": 4216,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b8b65089b274-2.40.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b8b65089b2743f0f0292f2426d2be40956e091afbd90ef26ef3a4ece5bfd5640",
+      "file_size_bytes": 2588,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.31.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/93367168210e-2.40.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "93367168210ea6df9c4bc13548190c4db28b3b2b86c57b1e8ac46fdaa44c93b3",
+      "file_size_bytes": 2627,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b9a6c3031edb-2.40.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b9a6c3031edbe93411a2c7c5148c366a05ea5c8ac341a4b4a0ad54233f0f97ae",
+      "file_size_bytes": 2531,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.40.92.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ae24e97c76ac-2.40.92.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ae24e97c76acfa6ec0e30400b3f99504afc363193b16099c6476e503ef7bd50b",
+      "file_size_bytes": 3058,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.42.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8f8f82b5305e-2.42.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8f8f82b5305ed7168b2b42cc86850c144a3592014f60f9a7e07539b3f2cd0f20",
+      "file_size_bytes": 180884,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.42.74.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c5e0d67e8024-2.42.74.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c5e0d67e802469911ec0a9da242040a13bf8a2f49367ff28486a5ede7e628404",
+      "file_size_bytes": 180735,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.42.76.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/10de935c3a7a-2.42.76.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "10de935c3a7aecbb5b89b864fb19f0411ffee8b9b000cb6af841550a1f01c47e",
+      "file_size_bytes": 2672,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.42.78.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/285557675c47-2.42.78.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "285557675c4771ae7709c2f05b8ae37892d516c83da69cf86dc33a68f8a8aa72",
+      "file_size_bytes": 2559,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.45.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/7ca185de94a1-2.45.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "7ca185de94a1051f128e9b439347ea97e36edfb9680ab4706ae104d93230be70",
+      "file_size_bytes": 185014,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.45.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cab332f90d64-2.45.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cab332f90d644b8364ffa68c58b8c1a627c136fb73cd7efb2a00f76353ce016c",
+      "file_size_bytes": 3013,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.45.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/dbcba36e41ce-2.45.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "dbcba36e41cee7ae496efa1733cd3ddeac3a70cb37adb4245a3eba948f9222ca",
+      "file_size_bytes": 3291,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.45.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/99f76cee4ad4-2.45.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "99f76cee4ad4df26eb9fbbe4b922e7d0f6b14e6a5df6dc5fb282a59de3185a8d",
+      "file_size_bytes": 4141,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.53.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2332fec0b1f6-2.53.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2332fec0b1f6a6b8341f055bb450fbc210d5d184b50a7d2ef49760d86e6ee9fb",
+      "file_size_bytes": 373391,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.53.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/737081c1f2a5-2.53.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "737081c1f2a5ad12ff6989ab959f67832293bc825e761fe685812133d1e6d081",
+      "file_size_bytes": 188868,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.53.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/590829d591d4-2.53.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "590829d591d41a08ae6fa14008329a1c634f0a3a30c8de6c6777ff1a3d732f69",
+      "file_size_bytes": 190608,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.53.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a632d940457a-2.53.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a632d940457ad0604f9b657a1e2fb79a5c69e5404b155cda38aa1e50956682b2",
+      "file_size_bytes": 189988,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.55.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c39eb04e4711-2.55.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c39eb04e4711761f25ac537f9b0912e80d8220d56e56793dc55231515f666fab",
+      "file_size_bytes": 185627,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.55.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f6efbf7f419c-2.55.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f6efbf7f419cb4e6df29330c49669945422f97e6879874c514b1e98befa6cb7d",
+      "file_size_bytes": 4164,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.55.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/393aec6c37e7-2.55.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "393aec6c37e7f67650eeb2e504185f593ef82cb8b41b53f662c9762b5703b913",
+      "file_size_bytes": 3732,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.55.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/918a6a59eb87-2.55.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "918a6a59eb87a33e03132c4446499c2759e070c782fa442f86dd22c9908d2cd4",
+      "file_size_bytes": 4408,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.58.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b3859358dfc9-2.58.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b3859358dfc92157530567aca96f9e8b886082790c8727e23a5dfeedb14b8b68",
+      "file_size_bytes": 352921,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.58.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/48b360c8d22e-2.58.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "48b360c8d22e0478ab088f4ffebb385ec1614e1a6730496c684cd631f94ec4b6",
+      "file_size_bytes": 180706,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.58.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2169df2a4adc-2.58.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2169df2a4adc3ef694799ea80ab16423049c39427c1857e47e107bade810e2c9",
+      "file_size_bytes": 183258,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.58.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cbfd129c9f8c-2.58.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cbfd129c9f8c097c6f7a3ed50c3ea4bbcc87f6c9e642547fc0bc9d6e8977fd70",
+      "file_size_bytes": 186467,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.59.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1b5a2a29efc1-2.59.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1b5a2a29efc111f5ed2e8616ae493119c9b30773386c082e421c0aae03fd1288",
+      "file_size_bytes": 185276,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.59.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d5fe415df7c6-2.59.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d5fe415df7c666386163de2fbe3ddb2e103075356adc915bd7cc0d1d239ff299",
+      "file_size_bytes": 3993,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.59.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ed1e88c17730-2.59.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ed1e88c1773055d45601f4480e6930e534fdb31cece54e9ba3347ad3db591ead",
+      "file_size_bytes": 3891,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.59.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9d9b41fbf6c9-2.59.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9d9b41fbf6c93ad288c22e267d4db4df60823584c4da89e6870f6f2af8f9dbd2",
+      "file_size_bytes": 4130,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.60.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/78d25aa6cf1c-2.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "78d25aa6cf1c539f37f0a273a812a601fc4666718b21f953630f59a50e661971",
+      "file_size_bytes": 185576,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.60.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e3aebb82a8f4-2.60.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e3aebb82a8f41b7a9f56aa7e6e746894fa9f93bbc7e58d1c5c9e95ce831a7f18",
+      "file_size_bytes": 3133,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.60.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bce2eb642493-2.60.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bce2eb6424938e66ed5dd6fc96d6f759883ba7e436b29c03f3b9558fdec92c98",
+      "file_size_bytes": 3380,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/2.60.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cc466bac4a58-2.60.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cc466bac4a58dc2a28826f84697905117b9fa59efb1fa832411aeb3b24cbde88",
+      "file_size_bytes": 3434,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/4.20.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/90784df58aab-4.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "90784df58aab9bb6357cc284abe055657b38a2622e8b3c16cab1739f7c0a5199",
+      "file_size_bytes": 177474,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/4.20.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f51aa0329a12-4.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f51aa0329a12fa3767648827bf9b315e2748a1711ad016082e4de37b4602c617",
+      "file_size_bytes": 2859,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/4.25.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/fe23841e18e3-4.25.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fe23841e18e35432702386a393a85e74c1d56217b565db341ea1673bb54e0426",
+      "file_size_bytes": 353500,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.10.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a3fcbb717826-5.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a3fcbb717826043ff543c7c61216e26ceac3d358b512e4cd0116f05442666b88",
+      "file_size_bytes": 175900,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.10.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/327168c89dd2-5.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "327168c89dd23d87e8d827731aed1a0f5592aaa4ef1818b8ae10bf5c9d77f6d5",
+      "file_size_bytes": 178189,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.10.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/300645215b2a-5.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "300645215b2abb2172d0df3f17396ef3ca8ba44336ae0f9b5316f95a0ba51473",
+      "file_size_bytes": 175375,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.10.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d73233e97cad-5.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d73233e97cad2b26022183a3f814a079b5fe42d51c326ead216695c48bf88dd9",
+      "file_size_bytes": 177463,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.20.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bc5dfb745880-5.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bc5dfb745880129d24e1cd7bfbc471b4b7ede7968c1a421b43ad7c000fc2960f",
+      "file_size_bytes": 186536,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.20.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/36ddcae73dfc-5.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "36ddcae73dfc7b5b598ae8e5e400e5a1853ddcfc1a976cacb043764db24333e3",
+      "file_size_bytes": 187131,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.31.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a1611685b9e8-5.31.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a1611685b9e8ea72c1781590b53d21397f99a3dbec167b7072c3ca2c80e2d30a",
+      "file_size_bytes": 176503,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/5.31.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4cd19c56323c-5.31.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4cd19c56323c0bf94eb33f22b86490fd9ee884f375ffb30c8ce56be5d9bd383c",
+      "file_size_bytes": 178143,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N1.18.20.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d29be6e886b7-N1.18.20.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d29be6e886b776908ce3b5856ecc962fc4ba7563ebbf87967ac539822002bbe4",
+      "file_size_bytes": 364504,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N1.18.21.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c105d2b8bfb9-N1.18.21.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c105d2b8bfb9d11af8904ccee07506da65bdb7c15b4bd2154712c9a53fea6488",
+      "file_size_bytes": 183127,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N1.18.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/422443f89351-N1.18.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "422443f89351363f43e51f7590244959d9b8fc59c15179785bb80c6fbe80b3c4",
+      "file_size_bytes": 178031,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N1.18.31.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a1cbbe0739f4-N1.18.31.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a1cbbe0739f4f2af464fd30fb9d0fb0a39d10081ebe965ab4398fabd5e6140b0",
+      "file_size_bytes": 182940,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N1.35.30.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/23fabcce085d-N1.35.30.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "23fabcce085ddf2ae5e24c7015affc2e14f2a74460e6c447b54e75b6f48e20ac",
+      "file_size_bytes": 176423,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N2.35.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/187d24045a42-N2.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "187d24045a42c2d559465625cb388beb6027d94735dff2c9a783228678868fa3",
+      "file_size_bytes": 2600,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_haupt_2022/N2.90.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4ced31167fd0-N2.90.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4ced31167fd034a6b0a51b5d90e37ca00fa601805afe704e27651d7ca78e7f99",
+      "file_size_bytes": 537118,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/1.46.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b00f64349c71-1.46.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "b00f64349c7184dab819add312db02e43e0800b74c89e00029c7f34d41e73394",
+      "file_size_bytes": 370982,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/1.56.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/99d8c697fefe-1.56.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "99d8c697fefe91299cd54a61e10d5641383f9ffec5f5b4a46368b2de19433918",
+      "file_size_bytes": 369076,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/1.57.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1cf947500a33-1.57.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1cf947500a33834bd95a4ca780313a8eb935491d5aa07d0a44dff8f6d1dcb315",
+      "file_size_bytes": 360793,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/1.58.10O.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9e4d5b1e119a-1.58.10O.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9e4d5b1e119ab064491fd07dfc63b72ea8c6358ed9ca4d942dc45f97a39066a7",
+      "file_size_bytes": 362988,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/1.58.12G.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/76e2e00b7c63-1.58.12G.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "76e2e00b7c635fa351242f7e59805edff8c23d4b0a578b11ffebd561262f7397",
+      "file_size_bytes": 182945,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.10.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/bb85a235f543-7.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "bb85a235f543a392210f9e3be03fa5a3e14d8e7267378a91fd75f776013b1889",
+      "file_size_bytes": 358463,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.10.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1d65e5ee9dfc-7.10.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1d65e5ee9dfc9e3724c2134ccf822ef51a1a7de1fd183ed21aa2e79ae8e476c8",
+      "file_size_bytes": 178210,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.10.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/81bc0a11b011-7.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "81bc0a11b0113c3019e3de858e934ad9a29a251bef2f99ad67dea31f97924ad5",
+      "file_size_bytes": 179776,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.10.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/565233cd3639-7.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "565233cd3639fb9d45779a12188da3ad45e6c5c4b39ff0c1f7027e284979f62b",
+      "file_size_bytes": 182899,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.15.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5ec45a512628-7.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5ec45a512628e23c46718d410e42e5e0f9c437d4f5b6a316ce2dec39a01607f6",
+      "file_size_bytes": 360592,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.15.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/39828cdb7aac-7.15.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "39828cdb7aacca9bc5864017320ace60bd62bb5e60178a31ac0db359f970e6ef",
+      "file_size_bytes": 183213,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.20.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8b9be2ae178c-7.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8b9be2ae178c0f9bdfdd7b5fffa11dbbc43ff6b29918c0cd1df9e5701df4de5e",
+      "file_size_bytes": 363727,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.30.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/85d743f59ab5-7.30.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "85d743f59ab531fc9e133362dc0a5284d4b0c0842ff367144cb9775391c2325a",
+      "file_size_bytes": 537732,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.31.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c34b0f50a53a-7.31.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c34b0f50a53a30df00fc4ff3cbe1ba6163c55ff2a913e2a25d08563075e96a43",
+      "file_size_bytes": 2777,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.35.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/408da97d6df3-7.35.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "408da97d6df3c12b53fc33cbb5ff9f0dedddd31adbaeb7340b4e3d378c7cd094",
+      "file_size_bytes": 2710,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.40.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/886a48a33e50-7.40.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "886a48a33e50fa4b6cbb2fc94ccd4879665a2e2971ec8b447eb3576b36e34bd1",
+      "file_size_bytes": 352235,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.40.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/61d7a28aa60a-7.40.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "61d7a28aa60a9940c00d624140eb4174b0d83368ebda8869fcdbaeffc8f7f66f",
+      "file_size_bytes": 177445,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.40.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a3b10378ebbf-7.40.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a3b10378ebbfe5af32a99db7c4357d3af407e104d09524133f941ed770e2d2bd",
+      "file_size_bytes": 177855,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.40.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ecaf451bb315-7.40.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ecaf451bb31546d70891336bb0577556398dc3e63de8f3a0c2ce83d18c26d02b",
+      "file_size_bytes": 182699,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.50.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f567806423a6-7.50.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f567806423a61e6a6982cc5913d0948b71b2f8a19b3463ef4bba7688e088fda2",
+      "file_size_bytes": 352719,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.50.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/48badc723604-7.50.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "48badc723604bb21bccde2c0c3e2c1d5fe71c31911efa30d8ebcc862b9b9ad80",
+      "file_size_bytes": 177927,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.50.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d280b03013c1-7.50.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "d280b03013c164d171d0a43119e35d8e75057dd11f47b364d25b0d5bad58af99",
+      "file_size_bytes": 178055,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.50.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/1b53a145469c-7.50.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "1b53a145469c9dbd6948b6e8a2a3042f025fa70a542cc723860c91c59d0374c2",
+      "file_size_bytes": 181921,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.60.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/c96a22284ad5-7.60.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "c96a22284ad513b61a967a98bc56fad75b88e949230355c6b92aeef076ff6bbf",
+      "file_size_bytes": 359182,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.71.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ecafc518e5e6-7.71.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ecafc518e5e69c16cb1d7b769b961b5f2515d79f07652a0c56f8fff77ee1c76c",
+      "file_size_bytes": 355184,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/7.72.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/23107a25082c-7.72.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "23107a25082c0cb78ca7442874aa46e9ed74bac2d0f0e720d7c53953312d912a",
+      "file_size_bytes": 356054,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/N1.56.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/e60ef34e2401-N1.56.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "e60ef34e2401884a90afce4d780c5a0aff8d5d01dcbc5eecef4b2c3a317b3fbf",
+      "file_size_bytes": 187056,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_vorderlader2022/N9.70.70.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/f0c1e6a2ad68-N9.70.70.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "f0c1e6a2ad68a052c23e984cb948ba002a0d7fb0ccd9c598a7fd81c915d76cfd",
+      "file_size_bytes": 185516,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.10.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/341e53bd61e4-3.10.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "341e53bd61e4331d5b8f11203ea67038fc6c081fc5180b88226cd24bab8f0b77",
+      "file_size_bytes": 460154,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.10.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/895b8cbd989a-3.10.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "895b8cbd989a1ee204c704761280e6e3f5882515fdab8368aac531b2e8b5ba92",
+      "file_size_bytes": 172434,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.10.13.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/6f4ca8366806-3.10.13.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "6f4ca8366806fe19f0ffd0b0a250710d111ff8ae7225659b76c493b44923e4d6",
+      "file_size_bytes": 172394,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.10.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/ce09d51d46a0-3.10.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "ce09d51d46a0d9420b1e9659ded5c19ba0dfb6a7cf3f5b4ab464f65b1bf95d33",
+      "file_size_bytes": 351777,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.10.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4dcb434efc5a-3.10.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4dcb434efc5a072be5c62804ec058f50c6f4bddb6cbe40cac5f6e2883886f588",
+      "file_size_bytes": 177374,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.10.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/a2f5e9f17c1e-3.10.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "a2f5e9f17c1ea3c24959cf2d1cd0f958bf1e81f56d38fc14ab3cebc15d08cbac",
+      "file_size_bytes": 173577,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.15.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/5b05eebbc499-3.15.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "5b05eebbc499bf58e0d42fc1d9008aaa4c6649b2013f9fe62ee459dcaf3b3e0c",
+      "file_size_bytes": 461645,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.15.12.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8d0cd610ba85-3.15.12.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8d0cd610ba85cb9a1103ab8361c9cd419869f853dc28a60a114d07e52ee45cde",
+      "file_size_bytes": 171048,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.15.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2ed97bd58f0a-3.15.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2ed97bd58f0a66f61aed002e337d2bda80177dd9b2f32621a56c81e9437ae0f5",
+      "file_size_bytes": 351489,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.15.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/02d78e5b0a39-3.15.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "02d78e5b0a3944e05a73e641f7ceae0006a368ccd12606b794ed7b2780a8214c",
+      "file_size_bytes": 177810,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.15.40.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/4eaa9da1c2e7-3.15.40.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "4eaa9da1c2e76b634aeec3d2522dc010496e9528693448572606bd0226b6df46",
+      "file_size_bytes": 174261,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.20.10.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/fadc63f450fb-3.20.10.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "fadc63f450fbb56b46917d45fb8fc72f2b0b606cd8777f709937ce05c4adecf4",
+      "file_size_bytes": 460557,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.20.11.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/8c0d1bd45ef2-3.20.11.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "8c0d1bd45ef2335db5f81f5b605e43461a277938554149b65cd2e02d6f975ee5",
+      "file_size_bytes": 346889,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.20.14.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/76b9bac67253-3.20.14.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "76b9bac67253bc47b1e4090c82f97fd764b9f0483747e0b4537698714f282649",
+      "file_size_bytes": 350398,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/ergeb_wurfscheibe_2022/3.20.16.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/9e1ee1fe4f63-3.20.16.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "9e1ee1fe4f638466b0b907fd873f0913cd592f4354206c455f91102bb49e66fb",
+      "file_size_bytes": 176755,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/ergebnisse/lm_bogen_2022.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/2a2ae8482659-lm_bogen_2022.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "2a2ae8482659f15666359708c10466cd505895b822e2e86810848d0b64aef905",
+      "file_size_bytes": 1341183,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/download_/sport2022/limit/limitliste_UH_ORD_VL.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/cad63df4451a-limitliste_UH_ORD_VL.pdf",
+      "etag": null,
+      "last_modified": null,
+      "sha256": "cad63df4451a9b0ca37e62387de52faea21b9dd3f4ba3015a7d6e1cee2039856",
+      "file_size_bytes": 29557,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/fileadmin/pdf/sport2022/limit/limit_haupt_2022.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/08c3dfc8d8ea-limit_haupt_2022.pdf",
+      "etag": "\"62757749-1fa07\"",
+      "last_modified": "Fri, 06 May 2022 19:30:17 GMT",
+      "sha256": "08c3dfc8d8eab48134b2ded66c7fa688003414e36bbfe28bbf7fc3e38f7e3f78",
+      "file_size_bytes": 129543,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/fileadmin/pdf/sport2022/limit/limit_wurfscheibe.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/b8ad38c4a834-limit_wurfscheibe.pdf",
+      "etag": "\"629515af-3a7e\"",
+      "last_modified": "Mon, 30 May 2022 19:06:23 GMT",
+      "sha256": "b8ad38c4a834e6a783e47ea4a7dde4153c814461ae363b5ea3203667ceb71208",
+      "file_size_bytes": 14974,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    },
+    "https://www.ndsb-sh.de/fileadmin/pdf/sport2022/limit/limitliste_auflage2022.pdf": {
+      "local_path": "data/archive/2022/landesmeisterschaften/downloads/d34ef90974de-limitliste_auflage2022.pdf",
+      "etag": "\"62d8f55a-a51c\"",
+      "last_modified": "Thu, 21 Jul 2022 06:42:34 GMT",
+      "sha256": "d34ef90974de610d2bc082d9aeca2579ce51ea4b5c00c5b57bd2e54e817e2921",
+      "file_size_bytes": 42268,
+      "last_seen_at": "2026-09-05T17:52:22.656058Z"
+    }
+  }
+}
