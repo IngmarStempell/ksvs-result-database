@@ -52,29 +52,29 @@ impl PdfExtractor {
         let extraction = catch_unwind(AssertUnwindSafe(|| pdf_extract::extract_text(path)));
         panic::set_hook(previous_panic_hook);
 
-        let mut text = match extraction {
-            Ok(Ok(text)) => text,
-            Ok(Err(error)) => extract_text_with_pdftotext(path).with_context(|| {
-                format!(
-                    "could not extract text from {}; pdf_extract failed: {error}",
-                    path.display()
-                )
-            })?,
-            Err(panic) => {
-                let panic_message = panic_message(&panic);
-                extract_text_with_pdftotext(path).with_context(|| {
-                    format!(
+        // `pdf_extract` can silently apply incorrect glyph mappings for
+        // embedded CID fonts. Prefer Poppler's extraction whenever it is
+        // available; retain the Rust extractor as a portable fallback.
+        let text = if let Ok(poppler_text) = extract_text_with_pdftotext(path) {
+            poppler_text
+        } else {
+            match extraction {
+                Ok(Ok(text)) => text,
+                Ok(Err(error)) => {
+                    return Err(anyhow!(
+                        "could not extract text from {}; pdf_extract failed: {error}",
+                        path.display()
+                    ));
+                }
+                Err(panic) => {
+                    let panic_message = panic_message(&panic);
+                    return Err(anyhow!(
                         "could not extract text from {}; pdf_extract panicked: {panic_message}",
                         path.display()
-                    )
-                })?
+                    ));
+                }
             }
         };
-        if has_suspicious_control_characters(&text)
-            && let Ok(fallback_text) = extract_text_with_pdftotext(path)
-        {
-            text = fallback_text;
-        }
         let text_char_count = text.chars().count();
 
         Ok(PdfDocument {
@@ -111,12 +111,6 @@ const fn is_ocr_candidate(text_char_count: usize, min_text_chars: usize) -> bool
     text_char_count < min_text_chars
 }
 
-fn has_suspicious_control_characters(text: &str) -> bool {
-    text.chars().any(|character| {
-        character.is_control() && !matches!(character, '\n' | '\r' | '\t' | '\x0c')
-    })
-}
-
 fn panic_message(panic: &Box<dyn std::any::Any + Send>) -> String {
     panic.downcast_ref::<&str>().map_or_else(
         || {
@@ -130,18 +124,12 @@ fn panic_message(panic: &Box<dyn std::any::Any + Send>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{has_suspicious_control_characters, is_ocr_candidate};
+    use super::is_ocr_candidate;
 
     #[test]
     fn marks_sparse_text_as_ocr_candidate() {
         assert!(is_ocr_candidate(20, 80));
         assert!(!is_ocr_candidate(80, 80));
         assert!(!is_ocr_candidate(120, 80));
-    }
-
-    #[test]
-    fn identifies_null_bytes_as_suspicious_extraction_artifacts() {
-        assert!(has_suspicious_control_characters("Eberhard R\0hl"));
-        assert!(!has_suspicious_control_characters("Eberhard Rühl\n"));
     }
 }
