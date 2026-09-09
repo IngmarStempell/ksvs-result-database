@@ -568,7 +568,7 @@ async fn source_detail_page(pool: &sqlx::SqlitePool, source_id: i64) -> Result<S
                 ("sha256", escape_optional(source.sha256.as_deref())),
                 ("result_count", source.result_count.to_string()),
                 ("parser_row_count", source.parser_row_count.to_string()),
-                ("rows", empty_rows(result_rows_html(&rows), 10)),
+                ("rows", empty_rows(result_rows_html(&rows), 11)),
             ],
         ),
     ))
@@ -593,7 +593,7 @@ async fn athlete_detail_page(pool: &sqlx::SqlitePool, athlete_id: i64) -> Result
                 ("athlete_id", athlete_id.to_string()),
                 ("athlete_name", escape_html(&athlete_name)),
                 ("result_count", rows.len().to_string()),
-                ("rows", empty_rows(result_rows_html(&rows), 10)),
+                ("rows", empty_rows(result_rows_html(&rows), 11)),
             ],
         ),
     ))
@@ -633,7 +633,7 @@ async fn club_detail_page(
                 ("editor", editor),
                 ("club_name", escape_html(&club_name)),
                 ("result_count", rows.len().to_string()),
-                ("rows", empty_rows(result_rows_html(&rows), 10)),
+                ("rows", empty_rows(result_rows_html(&rows), 11)),
             ],
         ),
     ))
@@ -944,7 +944,7 @@ fn result_rows_html(rows: &[ResultRow]) -> String {
     for row in rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td></tr>",
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
             row.id,
             detail_link("/athletes", row.athlete_id, row.athlete_name.as_deref()),
             detail_link("/clubs", row.club_id, row.club_name.as_deref()),
@@ -954,6 +954,7 @@ fn result_rows_html(rows: &[ResultRow]) -> String {
             escape_optional(row.discipline.as_deref()),
             row.rank.map_or_else(String::new, |rank| rank.to_string()),
             row.score.map_or_else(String::new, format_score),
+            result_kind_label(&row.result_kind),
             result_type_label(row),
             source_detail_link(row.source_document_id, row.source_url.as_deref())
         );
