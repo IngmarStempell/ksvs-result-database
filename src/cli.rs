@@ -389,6 +389,10 @@ pub struct ClubAliasDeactivateArgs {
 #[derive(Debug, Parser)]
 #[allow(clippy::struct_field_names)]
 pub struct CleanArgs {
+    /// Also remove the `SQLite` database and its WAL sidecar files.
+    #[arg(long)]
+    pub database: Option<PathBuf>,
+
     /// Directory containing crawler state and the manifest.
     #[arg(long, default_value = ".pdf-explorer")]
     pub state_dir: PathBuf,

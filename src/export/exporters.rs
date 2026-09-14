@@ -98,6 +98,10 @@ impl PodiumExporter {
             &parser,
             &self.config.focus_association_code,
         )?;
+        let known_club_names = known_clubs.iter().cloned().collect::<BTreeSet<_>>();
+        for item in &mut items {
+            item.canonical_club = resolve_truncated_club(&item.canonical_club, &known_club_names);
+        }
         for pdf in crawl_report
             .pdfs
             .iter()

@@ -185,8 +185,16 @@ impl PodiumImporter {
 }
 
 fn read_podium_export(path: &Path) -> Result<(PodiumExport, String)> {
-    let bytes = fs::read(path)
-        .with_context(|| format!("could not read podium export {}", path.display()))?;
+    let bytes = fs::read(path).with_context(|| {
+        if path.exists() {
+            format!("Podium-Export konnte nicht gelesen werden: {}", path.display())
+        } else {
+            format!(
+                "Podium-Export fehlt: {}. Zuerst `export-podium` mit dem zugehoerigen `crawl-report.json` ausfuehren.",
+                path.display()
+            )
+        }
+    })?;
     let input_hash = sha256_hex(&bytes);
     let export: PodiumExport =
         serde_json::from_slice(&bytes).context("could not parse podium export JSON")?;

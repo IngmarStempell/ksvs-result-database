@@ -95,6 +95,16 @@ Anschließend importieren; liegt die Exportdatei bereits vor, genügt dieser Bef
 cargo run -- import-podium --input reports/archive/2026/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
 ```
 
+Für andere Jahrgänge besteht der Ablauf immer aus drei getrennten Befehlen. Nach `crawl-report` muss zuerst `export-podium` ausgeführt werden; erst dann existiert die Eingabedatei für `import-podium`:
+
+```bash
+cargo run -- crawl-report "https://www.ndsb-sh.de/sport/landesmeisterschaften" --source-name landesmeisterschaften --year 2022 --focus Stormarn --focus-association-code OD
+cargo run -- export-podium --crawl-report reports/archive/2022/landesmeisterschaften/crawl-report.json --output reports/archive/2022/landesmeisterschaften/podium-export.json --html-output reports/archive/2022/landesmeisterschaften/podium-export.html --focus-association-code OD --max-place 9999
+cargo run -- import-podium --input reports/archive/2022/landesmeisterschaften/podium-export.json --database data/pdf-explorer.sqlite
+```
+
+Wenn der Import meldet `Podium-Export fehlt`, wurde der mittlere Schritt noch nicht ausgeführt oder der Pfad stimmt nicht. Mit `ls reports/archive/2022/landesmeisterschaften/` lässt sich prüfen, ob `crawl-report.json` und `podium-export.json` vorhanden sind.
+
 Der Import speichert Ergebnisse, Sportler, Vereine, Mannschaften sowie Import- und Parserläufe. Wiederholte Importe derselben Datei werden über Hashes und Fingerprints duplikatfrei behandelt.
 
 ### Deutsche Meisterschaften
@@ -130,7 +140,7 @@ DAVID21+-PDFs werden automatisch geparst. Andere Formate werden zur manuellen Pr
 
 | Bereich | Pfad | Funktion |
 | --- | --- | --- |
-| Importläufe | `/import-runs` | Importe und zugehörige Ergebnisse öffnen |
+| Importläufe | `/import-runs` | Importe, zugehörige Ergebnisse und den Podium-HTML-Report direkt aus der Liste öffnen |
 | Ergebnisse | `/results` | Nach Suchtext, Jahr, Wettbewerb, Kreis und Wertung filtern sowie nach Verein oder Sportler gruppieren |
 | Sportler | `/athletes` | Sportler suchen und Ergebnisverläufe ansehen |
 | Vereine | `/clubs` | Vereine suchen, Namen und Aliase direkt bearbeiten und Vereine zusammenführen |
@@ -213,7 +223,15 @@ Einen Alias mit `cargo run -- club-alias deactivate <ID>` deaktivieren; die ID s
 cargo run -- clean
 ```
 
-Dieser Befehl löscht `.pdf-explorer/`, `data/downloads/`, `data/manual-review/`, `data/archive/`, `reports/` und `tmp/`. Die standardmäßige SQLite-Datei bleibt erhalten.
+Dieser Befehl löscht `.pdf-explorer/`, `data/downloads/`, `data/manual-review/`, `data/archive/`, `reports/` und `tmp/`. Die SQLite-Datei bleibt standardmäßig erhalten.
+
+Für einen vollständigen Neustart inklusive Datenbank die Datenbank ausdrücklich angeben:
+
+```bash
+cargo run -- clean --database data/pdf-explorer.sqlite
+```
+
+Dabei werden auch die SQLite-WAL-Dateien entfernt. Anschließend die Datenbank mit `cargo run -- db migrate` neu anlegen.
 
 Alle Befehle und ihre Optionen lassen sich mit `cargo run -- --help` beziehungsweise `cargo run -- <befehl> --help` anzeigen.
 

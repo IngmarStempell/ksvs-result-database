@@ -68,6 +68,7 @@ struct HttpRequest {
 
 enum WebResponse {
     Html(String),
+    RawHtml(String),
     Redirect(String),
     NotFound,
     MethodNotAllowed,
@@ -137,6 +138,7 @@ async fn route_get(
 ) -> Result<WebResponse> {
     match path {
         "/" => Ok(WebResponse::Redirect("/import-runs".to_owned())),
+        "/report" => local_report_page(query).map(WebResponse::RawHtml),
         "/import-runs" => import_runs_page(pool).await.map(WebResponse::Html),
         "/results" => results_page(pool, query).await.map(WebResponse::Html),
         "/athletes" => athletes_page(pool, query).await.map(WebResponse::Html),
@@ -244,7 +246,7 @@ async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
     for row in &rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td><a href=\"/import-runs/{}/results\">#{}</a></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td></tr>",
+            "<tr><td><a href=\"/import-runs/{}/results\">#{}</a></td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td></tr>",
             row.id,
             row.id,
             escape_html(&row.source_name),
@@ -252,6 +254,7 @@ async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
             parser_label(row.parser_name.as_deref(), row.parser_version.as_deref()),
             escape_html(&row.status),
             escape_optional(row.input_path.as_deref()),
+            podium_report_link(row.input_path.as_deref()),
             escape_html(&format_time_range(
                 &row.started_at,
                 row.finished_at.as_deref()
@@ -263,11 +266,16 @@ async fn import_runs_page(pool: &sqlx::SqlitePool) -> Result<String> {
     Ok(render_page(
         "Importlaeufe",
         "import-runs",
-        render_template(IMPORT_RUNS_TEMPLATE, &[("rows", empty_rows(rows_html, 8))]),
+        render_template(IMPORT_RUNS_TEMPLATE, &[("rows", empty_rows(rows_html, 9))]),
     ))
 }
 
 async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) -> Result<String> {
+    let import_run = ApplicationService::new(pool)
+        .import_runs()
+        .await?
+        .into_iter()
+        .find(|run| run.id == import_run_id);
     let rows = ApplicationService::new(pool)
         .results(&ResultFilters {
             import_run_id: Some(import_run_id),
@@ -282,10 +290,65 @@ async fn import_run_results_page(pool: &sqlx::SqlitePool, import_run_id: i64) ->
             IMPORT_RUN_RESULTS_TEMPLATE,
             &[
                 ("import_run_id", import_run_id.to_string()),
+                (
+                    "podium_report_link",
+                    podium_report_link(
+                        import_run
+                            .as_ref()
+                            .and_then(|run| run.input_path.as_deref()),
+                    ),
+                ),
                 ("rows", empty_rows(rows_html, 10)),
             ],
         ),
     ))
+}
+
+fn podium_report_link(input_path: Option<&str>) -> String {
+    let Some(input_path) = input_path else {
+        return String::new();
+    };
+    let path = std::path::Path::new(input_path);
+    if path.file_name().and_then(|name| name.to_str()) != Some("podium-export.json") {
+        return String::new();
+    }
+    let html_path = path.with_extension("html");
+    if !html_path.is_file() {
+        return "<span class=\"muted\">Podium-HTML nicht gefunden</span>".to_owned();
+    }
+    let mut serializer = form_urlencoded::Serializer::new(String::new());
+    serializer.append_pair("path", &html_path.to_string_lossy());
+    let url = format!("/report?{}", serializer.finish());
+    format!(
+        "<a href=\"{}\" target=\"_blank\">Podium-HTML öffnen</a>",
+        escape_html(&url)
+    )
+}
+
+fn local_report_page(query: &BTreeMap<String, String>) -> Result<String> {
+    let requested = query.get("path").context("Report-Pfad fehlt")?;
+    let reports_root = std::env::current_dir()?
+        .join("reports")
+        .canonicalize()
+        .context("Report-Verzeichnis konnte nicht gefunden werden")?;
+    let report_path = std::env::current_dir()?
+        .join(requested)
+        .canonicalize()
+        .context("Podium-HTML konnte nicht gefunden werden")?;
+    if !report_path.starts_with(&reports_root)
+        || report_path
+            .extension()
+            .and_then(|extension| extension.to_str())
+            != Some("html")
+    {
+        anyhow::bail!("Ungueltiger Report-Pfad");
+    }
+    std::fs::read_to_string(&report_path).with_context(|| {
+        format!(
+            "Podium-HTML konnte nicht gelesen werden: {}",
+            report_path.display()
+        )
+    })
 }
 
 async fn results_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
@@ -1490,7 +1553,7 @@ fn request_body(request: &str) -> &str {
 
 fn write_response(stream: &mut TcpStream, response: WebResponse) -> Result<()> {
     let (status, headers, body) = match response {
-        WebResponse::Html(body) => ("200 OK", String::new(), body),
+        WebResponse::Html(body) | WebResponse::RawHtml(body) => ("200 OK", String::new(), body),
         WebResponse::Redirect(location) => (
             "303 See Other",
             format!("Location: {location}\r\n"),

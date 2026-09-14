@@ -397,6 +397,12 @@ fn clean_generated_data(args: &CleanArgs) -> anyhow::Result<()> {
     ] {
         remove_path_if_exists(path)?;
     }
+    if let Some(database) = &args.database {
+        remove_path_if_exists(database)?;
+        remove_path_if_exists(&database.with_extension("sqlite-wal"))?;
+        remove_path_if_exists(&database.with_extension("sqlite-shm"))?;
+        println!("removed database {}", database.display());
+    }
     Ok(())
 }
 
