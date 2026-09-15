@@ -69,6 +69,10 @@ struct HttpRequest {
 enum WebResponse {
     Html(String),
     RawHtml(String),
+    Binary {
+        body: Vec<u8>,
+        content_type: &'static str,
+    },
     Redirect(String),
     NotFound,
     MethodNotAllowed,
@@ -139,6 +143,10 @@ async fn route_get(
     match path {
         "/" => Ok(WebResponse::Redirect("/import-runs".to_owned())),
         "/report" => local_report_page(query).map(WebResponse::RawHtml),
+        "/source-file" => local_source_file(query).map(|body| WebResponse::Binary {
+            body,
+            content_type: "application/pdf",
+        }),
         "/import-runs" => import_runs_page(pool).await.map(WebResponse::Html),
         "/results" => results_page(pool, query).await.map(WebResponse::Html),
         "/athletes" => athletes_page(pool, query).await.map(WebResponse::Html),
@@ -350,6 +358,23 @@ fn local_report_page(query: &BTreeMap<String, String>) -> Result<String> {
             report_path.display()
         )
     })
+}
+
+fn local_source_file(query: &BTreeMap<String, String>) -> Result<Vec<u8>> {
+    let requested = query.get("path").context("Dateipfad fehlt")?;
+    let current_dir = std::env::current_dir()?;
+    let data_root = current_dir.join("data").canonicalize()?;
+    let file_path = current_dir.join(requested).canonicalize()?;
+    if !file_path.starts_with(&data_root)
+        || file_path
+            .extension()
+            .and_then(|extension| extension.to_str())
+            != Some("pdf")
+    {
+        anyhow::bail!("Ungueltiger PDF-Pfad");
+    }
+    std::fs::read(&file_path)
+        .with_context(|| format!("PDF konnte nicht gelesen werden: {}", file_path.display()))
 }
 
 async fn results_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -> Result<String> {
@@ -602,7 +627,7 @@ async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
             PARSER_ISSUES_TEMPLATE,
             &[
                 ("issue_count", rows.len().to_string()),
-                ("rows", empty_rows(parser_issue_rows_html(&rows), 10)),
+                ("rows", empty_rows(parser_issue_rows_html(&rows), 11)),
             ],
         ),
     ))
@@ -656,7 +681,10 @@ async fn source_detail_page(pool: &sqlx::SqlitePool, source_id: i64) -> Result<S
             &[
                 ("source_id", source.id.to_string()),
                 ("source_name", escape_html(&source.source_name)),
-                ("source_url", source_link(Some(&source.url))),
+                (
+                    "source_url",
+                    source_document_links(source.local_path.as_deref(), Some(&source.url)),
+                ),
                 ("local_path", escape_optional(source.local_path.as_deref())),
                 ("classification", escape_html(&source.classification)),
                 ("sha256", escape_optional(source.sha256.as_deref())),
@@ -854,7 +882,7 @@ async fn parser_run_detail_page(pool: &sqlx::SqlitePool, parser_run_id: i64) -> 
                 ("issue_count", row.issue_count.to_string()),
                 (
                     "issue_rows",
-                    empty_rows(parser_issue_rows_html(&issues), 10),
+                    empty_rows(parser_issue_rows_html(&issues), 11),
                 ),
             ],
         ),
@@ -1010,7 +1038,7 @@ fn parser_issue_rows_html(rows: &[ParsedIssueRow]) -> String {
     for row in rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
             row.id,
             escape_html(&row.source_name),
             escape_html(&row.competition_scope),
@@ -1026,7 +1054,8 @@ fn parser_issue_rows_html(rows: &[ParsedIssueRow]) -> String {
             ),
             discipline_issue_cell(row),
             escape_optional(row.event_name.as_deref()),
-            source_link(row.pdf_url.as_deref()),
+            source_document_links(row.pdf_local_path.as_deref(), row.pdf_url.as_deref()),
+            escape_html(&row.correction_status),
             correction_prefill_links(row)
         );
     }
@@ -1093,31 +1122,33 @@ fn result_filters(query: &BTreeMap<String, String>, page: PageState) -> ResultFi
 }
 
 fn grouped_result_rows_html(rows: &[ResultRow], group_by: Option<&str>) -> String {
-    let Some(group_by) = group_by.filter(|value| matches!(*value, "club" | "athlete")) else {
+    let Some(group_by) = group_by.filter(|value| matches!(*value, "club" | "athlete" | "year"))
+    else {
         return result_rows_html(rows);
     };
     let mut groups: BTreeMap<String, Vec<ResultRow>> = BTreeMap::new();
     for row in rows {
-        let label = if group_by == "club" {
-            row.club_name.as_deref().unwrap_or("Ohne Verein")
-        } else {
-            row.athlete_name.as_deref().unwrap_or("Ohne Sportler")
+        let label = match group_by {
+            "club" => row.club_name.as_deref().unwrap_or("Ohne Verein").to_owned(),
+            "athlete" => row
+                .athlete_name
+                .as_deref()
+                .unwrap_or("Ohne Sportler")
+                .to_owned(),
+            _ => row.competition_year.to_string(),
         };
-        groups
-            .entry(label.to_owned())
-            .or_default()
-            .push(row.clone());
+        groups.entry(label).or_default().push(row.clone());
     }
     let mut html = String::new();
     for (label, group_rows) in groups {
-        let heading = if group_by == "club" {
-            "Verein"
-        } else {
-            "Sportler"
+        let heading = match group_by {
+            "club" => "Verein",
+            "athlete" => "Sportler",
+            _ => "Jahr",
         };
         let _ = writeln!(
             html,
-            "<tr class=\"group-heading\"><td colspan=\"10\"><strong>{heading}: {}</strong> <span class=\"muted\">({} Ergebnisse)</span></td></tr>",
+            "<tr class=\"group-heading\"><td colspan=\"11\"><strong>{heading}: {}</strong> <span class=\"muted\">({} Ergebnisse)</span></td></tr>",
             escape_html(&label),
             group_rows.len()
         );
@@ -1184,6 +1215,7 @@ fn result_filter_form(
     <option value="">Keine</option>
     <option value="club" {club_group_selected}>Verein</option>
     <option value="athlete" {athlete_group_selected}>Sportler</option>
+    <option value="year" {year_group_selected}>Jahr</option>
   </select></label>
   <input type="hidden" name="page_size" value="{page_size}">
   <div class="actions"><button type="submit">Filtern</button><a href="{action}">Zuruecksetzen</a></div>
@@ -1198,6 +1230,7 @@ fn result_filter_form(
         team_selected = selected_str(filters.result_kind.as_deref(), "team"),
         club_group_selected = selected_str(group_by, "club"),
         athlete_group_selected = selected_str(group_by, "athlete"),
+        year_group_selected = selected_str(group_by, "year"),
         page_size = page.page_size,
     )
 }
@@ -1583,39 +1616,51 @@ fn request_body(request: &str) -> &str {
 }
 
 fn write_response(stream: &mut TcpStream, response: WebResponse) -> Result<()> {
-    let (status, headers, body) = match response {
-        WebResponse::Html(body) | WebResponse::RawHtml(body) => ("200 OK", String::new(), body),
+    let (status, headers, content_type, body) = match response {
+        WebResponse::Html(body) | WebResponse::RawHtml(body) => (
+            "200 OK",
+            String::new(),
+            "text/html; charset=utf-8",
+            body.into_bytes(),
+        ),
+        WebResponse::Binary { body, content_type } => ("200 OK", String::new(), content_type, body),
         WebResponse::Redirect(location) => (
             "303 See Other",
             format!("Location: {location}\r\n"),
-            String::new(),
+            "text/html; charset=utf-8",
+            Vec::new(),
         ),
         WebResponse::NotFound => (
             "404 Not Found",
             String::new(),
-            render_page("Nicht gefunden", "", "<h1>Nicht gefunden</h1>".to_string()),
+            "text/html; charset=utf-8",
+            render_page("Nicht gefunden", "", "<h1>Nicht gefunden</h1>".to_string()).into_bytes(),
         ),
         WebResponse::MethodNotAllowed => (
             "405 Method Not Allowed",
             String::new(),
-            "Method not allowed".to_string(),
+            "text/plain; charset=utf-8",
+            b"Method not allowed".to_vec(),
         ),
         WebResponse::InternalError(error) => (
             "500 Internal Server Error",
             String::new(),
+            "text/html; charset=utf-8",
             render_page(
                 "Fehler",
                 "",
                 format!("<h1>Fehler</h1><p>{}</p>", escape_html(&error)),
-            ),
+            )
+            .into_bytes(),
         ),
     };
     let response = format!(
-        "HTTP/1.1 {status}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: {}\r\nConnection: close\r\n{headers}\r\n{body}",
+        "HTTP/1.1 {status}\r\nContent-Type: {content_type}\r\nContent-Length: {}\r\nConnection: close\r\n{headers}\r\n",
         body.len()
     );
     stream
         .write_all(response.as_bytes())
+        .and_then(|()| stream.write_all(&body))
         .context("could not write response")
 }
 
@@ -1781,8 +1826,13 @@ fn correction_prefill_links(row: &ParsedIssueRow) -> String {
 }
 
 fn prefill_link(entity_type: &str, old_value: &str) -> String {
+    let label = match entity_type {
+        "club" => "Verein korrigieren",
+        "athlete" => "Sportler korrigieren",
+        _ => "Korrektur öffnen",
+    };
     format!(
-        "<a href=\"/corrections?entity_type={}&old_value={}\">Korrigieren</a>",
+        "<a href=\"/corrections?entity_type={}&old_value={}\">{label}</a>",
         escape_html(entity_type),
         url_encode(old_value)
     )
@@ -1794,6 +1844,24 @@ fn source_link(source_url: Option<&str>) -> String {
         .map_or_else(String::new, |url| {
             format!("<a href=\"{}\">PDF</a>", escape_html(url))
         })
+}
+
+fn source_document_links(local_path: Option<&str>, source_url: Option<&str>) -> String {
+    let local = local_path.map_or_else(String::new, |path| {
+        let mut serializer = form_urlencoded::Serializer::new(String::new());
+        serializer.append_pair("path", path);
+        format!(
+            "<a href=\"/source-file?{}\" target=\"_blank\">Lokales PDF öffnen</a>",
+            escape_html(&serializer.finish())
+        )
+    });
+    let remote = source_link(source_url);
+    match (local.is_empty(), remote.is_empty()) {
+        (false, false) => format!("{local} · {remote}"),
+        (false, true) => local,
+        (true, false) => remote,
+        (true, true) => String::new(),
+    }
 }
 
 fn source_detail_link(source_document_id: Option<i64>, source_url: Option<&str>) -> String {

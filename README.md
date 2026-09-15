@@ -141,7 +141,7 @@ DAVID21+-PDFs werden automatisch geparst. Andere Formate werden zur manuellen Pr
 | Bereich | Pfad | Funktion |
 | --- | --- | --- |
 | Importläufe | `/import-runs` | Importe, zugehörige Ergebnisse und den Podium-HTML-Report direkt aus der Liste öffnen |
-| Ergebnisse | `/results` | Nach Suchtext, Jahr, Wettbewerb, Kreis und Wertung filtern sowie nach Verein oder Sportler gruppieren |
+| Ergebnisse | `/results` | Nach Suchtext, Jahr, Wettbewerb, Kreis und Wertung filtern sowie nach Verein, Sportler oder Jahr gruppieren |
 | Sportler | `/athletes` | Sportler suchen und Ergebnisverläufe ansehen |
 | Vereine | `/clubs` | Vereine suchen, Namen und Aliase direkt bearbeiten und Vereine zusammenführen |
 | Mannschaften | `/teams` | Mannschaften und Mitglieder prüfen |

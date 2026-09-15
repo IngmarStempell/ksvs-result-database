@@ -138,6 +138,8 @@ pub struct ParsedIssueRow {
     pub class_name: Option<String>,
     pub event_name: Option<String>,
     pub pdf_url: Option<String>,
+    pub pdf_local_path: Option<String>,
+    pub correction_status: String,
 }
 
 #[derive(Debug, sqlx::FromRow)]
@@ -438,16 +440,30 @@ impl<'a> ApplicationService<'a> {
         sqlx::query_as::<_, ParsedIssueRow>(
             r"
             SELECT
-                id, source_name, competition_year, competition_scope, conflict_status,
-                raw_shooter_name, normalized_shooter_name, raw_club_name,
-                normalized_club_name, raw_discipline, discipline_code, class_name,
-                event_name, pdf_url
+                parsed_result_rows.id, parsed_result_rows.source_name, parsed_result_rows.competition_year,
+                parsed_result_rows.competition_scope, parsed_result_rows.conflict_status,
+                parsed_result_rows.raw_shooter_name, parsed_result_rows.normalized_shooter_name,
+                parsed_result_rows.raw_club_name, parsed_result_rows.normalized_club_name,
+                parsed_result_rows.raw_discipline, parsed_result_rows.discipline_code,
+                parsed_result_rows.class_name, parsed_result_rows.event_name, parsed_result_rows.pdf_url,
+                source_documents.local_path AS pdf_local_path,
+                CASE WHEN EXISTS (
+                    SELECT 1 FROM manual_overrides
+                    WHERE manual_overrides.status = 'active'
+                      AND (manual_overrides.parsed_result_row_id = parsed_result_rows.id
+                           OR (manual_overrides.entity_type = 'club'
+                               AND manual_overrides.old_value = parsed_result_rows.raw_club_name)
+                           OR (manual_overrides.entity_type = 'athlete'
+                               AND manual_overrides.old_value = parsed_result_rows.raw_shooter_name))
+                ) THEN 'Korrektur hinterlegt' ELSE 'Keine Korrektur' END AS correction_status
             FROM parsed_result_rows
-            WHERE conflict_status <> 'none'
-                OR normalized_shooter_name IS NULL
-                OR normalized_club_name IS NULL
-                OR normalized_discipline IS NULL
-            ORDER BY competition_year DESC, source_name, id DESC
+            LEFT JOIN source_documents ON source_documents.id = parsed_result_rows.source_document_id
+            WHERE parsed_result_rows.conflict_status <> 'none'
+                OR parsed_result_rows.normalized_shooter_name IS NULL
+                OR parsed_result_rows.normalized_club_name IS NULL
+                OR parsed_result_rows.normalized_discipline IS NULL
+            ORDER BY parsed_result_rows.competition_year DESC, parsed_result_rows.source_name,
+                parsed_result_rows.id DESC
             ",
         )
         .fetch_all(self.pool)
@@ -577,19 +593,33 @@ impl<'a> ApplicationService<'a> {
         sqlx::query_as::<_, ParsedIssueRow>(
             r"
             SELECT
-                id, source_name, competition_year, competition_scope, conflict_status,
-                raw_shooter_name, normalized_shooter_name, raw_club_name,
-                normalized_club_name, raw_discipline, discipline_code, class_name,
-                event_name, pdf_url
+                parsed_result_rows.id, parsed_result_rows.source_name, parsed_result_rows.competition_year,
+                parsed_result_rows.competition_scope, parsed_result_rows.conflict_status,
+                parsed_result_rows.raw_shooter_name, parsed_result_rows.normalized_shooter_name,
+                parsed_result_rows.raw_club_name, parsed_result_rows.normalized_club_name,
+                parsed_result_rows.raw_discipline, parsed_result_rows.discipline_code,
+                parsed_result_rows.class_name, parsed_result_rows.event_name, parsed_result_rows.pdf_url,
+                source_documents.local_path AS pdf_local_path,
+                CASE WHEN EXISTS (
+                    SELECT 1 FROM manual_overrides
+                    WHERE manual_overrides.status = 'active'
+                      AND (manual_overrides.parsed_result_row_id = parsed_result_rows.id
+                           OR (manual_overrides.entity_type = 'club'
+                               AND manual_overrides.old_value = parsed_result_rows.raw_club_name)
+                           OR (manual_overrides.entity_type = 'athlete'
+                               AND manual_overrides.old_value = parsed_result_rows.raw_shooter_name))
+                ) THEN 'Korrektur hinterlegt' ELSE 'Keine Korrektur' END AS correction_status
             FROM parsed_result_rows
-            WHERE parser_run_id = ?
+            LEFT JOIN source_documents ON source_documents.id = parsed_result_rows.source_document_id
+            WHERE parsed_result_rows.parser_run_id = ?
                 AND (
-                    conflict_status <> 'none'
-                    OR normalized_shooter_name IS NULL
-                    OR normalized_club_name IS NULL
-                    OR normalized_discipline IS NULL
+                    parsed_result_rows.conflict_status <> 'none'
+                    OR parsed_result_rows.normalized_shooter_name IS NULL
+                    OR parsed_result_rows.normalized_club_name IS NULL
+                    OR parsed_result_rows.normalized_discipline IS NULL
                 )
-            ORDER BY competition_year DESC, source_name, id DESC
+            ORDER BY parsed_result_rows.competition_year DESC, parsed_result_rows.source_name,
+                parsed_result_rows.id DESC
             ",
         )
         .bind(parser_run_id)
