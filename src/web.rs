@@ -206,6 +206,7 @@ async fn route_get(
 
 async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
     match request.path.as_str() {
+        "/clubs/merge" => club_editor::merge_selected(request, pool).await,
         path if path.starts_with("/clubs/") && path.ends_with("/edit") => {
             club_editor::post(request, pool).await
         }
@@ -431,6 +432,7 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
         String::new()
     };
     let mut rows_html = String::new();
+    let mut merge_options = String::new();
     for row in &rows {
         let mut edit_query = query.clone();
         edit_query
@@ -439,7 +441,9 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
         let edit_url = format!("{}#club-editor", club_editor::url("/clubs", &edit_query));
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td><a href=\"{}\">Bearbeiten</a></td></tr>",
+            "<tr><td><input type=\"checkbox\" name=\"club_id\" value=\"{}\" aria-label=\"{} auswählen\"></td><td class=\"num\">{}</td><td><a href=\"/clubs/{}\">{}</a></td><td>{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td><td><a href=\"{}\">Bearbeiten</a></td></tr>",
+            row.id,
+            escape_html(&row.canonical_name),
             row.id,
             row.id,
             escape_html(&row.canonical_name),
@@ -450,7 +454,28 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
                 .map_or_else(String::new, |year| year.to_string()),
             escape_html(&edit_url)
         );
+        let _ = writeln!(
+            merge_options,
+            "<option value=\"{}\">{}</option>",
+            row.id,
+            escape_html(&row.canonical_name)
+        );
     }
+
+    let context_fields = ["q", "kreis", "year", "page", "page_size"]
+        .iter()
+        .filter_map(|key| {
+            query.get(*key).map(|value| {
+                format!(
+                    "<input type=\"hidden\" name=\"{key}\" value=\"{}\">",
+                    escape_html(value)
+                )
+            })
+        })
+        .collect::<String>();
+    let merge_controls = format!(
+        "<strong>Vereine zusammenführen</strong><label for=\"merge-target\">Kanonischer Verein</label><select id=\"merge-target\" name=\"target_id\" required><option value=\"\">Bitte auswählen</option>{merge_options}</select>{context_fields}<button type=\"submit\">Zusammenführen</button><span class=\"muted\">Mindestens zwei Vereine auswählen.</span>"
+    );
 
     Ok(render_page(
         "Vereine",
@@ -459,8 +484,14 @@ async fn clubs_page(pool: &sqlx::SqlitePool, query: &BTreeMap<String, String>) -
             CLUBS_TEMPLATE,
             &[
                 ("editor", editor),
+                (
+                    "merge_form_open",
+                    "<form class=\"actions\" method=\"post\" action=\"/clubs/merge\">".to_owned(),
+                ),
+                ("merge_controls", merge_controls),
+                ("merge_form_close", "</form>".to_owned()),
                 ("filters", club_filter_form(&filters, "/clubs", page)),
-                ("rows", empty_rows(rows_html, 7)),
+                ("rows", empty_rows(rows_html, 8)),
                 (
                     "pagination",
                     pagination_controls("/clubs", query, page, rows.len(), has_next),
@@ -1631,6 +1662,15 @@ fn parse_form_urlencoded(body: &str) -> BTreeMap<String, String> {
         .filter_map(|pair| {
             let (key, value) = pair.split_once('=')?;
             Some((decode_form_value(key), decode_form_value(value)))
+        })
+        .collect()
+}
+
+fn form_values(body: &str, key: &str) -> Vec<String> {
+    body.split('&')
+        .filter_map(|pair| {
+            let (raw_key, raw_value) = pair.split_once('=')?;
+            (decode_form_value(raw_key) == key).then(|| decode_form_value(raw_value))
         })
         .collect()
 }

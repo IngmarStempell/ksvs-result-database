@@ -173,6 +173,39 @@ pub(super) async fn post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Resu
     }
 }
 
+pub(super) async fn merge_selected(
+    request: &HttpRequest,
+    pool: &sqlx::SqlitePool,
+) -> Result<WebResponse> {
+    let form = parse_form_urlencoded(&request.body);
+    let target_id = form_value(&form, "target_id")?.parse::<i64>()?;
+    let selected_ids = super::form_values(&request.body, "club_id")
+        .into_iter()
+        .map(|value| value.parse::<i64>())
+        .collect::<std::result::Result<Vec<_>, _>>()?;
+    anyhow::ensure!(
+        selected_ids.len() >= 2,
+        "Bitte mindestens zwei Vereine auswählen."
+    );
+    anyhow::ensure!(
+        selected_ids.contains(&target_id),
+        "Der kanonische Verein muss ausgewählt sein."
+    );
+
+    let repository = StorageRepository::new(pool);
+    for source_id in selected_ids {
+        if source_id != target_id {
+            repository.merge_club(source_id, target_id).await?;
+        }
+    }
+    let query = form
+        .iter()
+        .filter(|(key, _)| matches!(key.as_str(), "q" | "kreis" | "year" | "page" | "page_size"))
+        .map(|(key, value)| (key.clone(), value.clone()))
+        .collect();
+    Ok(WebResponse::Redirect(url("/clubs", &query)))
+}
+
 async fn save(pool: &sqlx::SqlitePool, id: i64, form: &BTreeMap<String, String>) -> Result<()> {
     let repository = StorageRepository::new(pool);
     let alias_id = form
