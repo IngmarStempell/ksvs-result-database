@@ -87,6 +87,7 @@ pub struct ResultRow {
     pub event_class: Option<String>,
     pub source_document_id: Option<i64>,
     pub source_url: Option<String>,
+    pub source_local_path: Option<String>,
 }
 
 #[derive(Debug, sqlx::FromRow)]
@@ -292,7 +293,8 @@ impl<'a> ApplicationService<'a> {
                 results.participation_only,
                 results.event_class,
                 results.source_document_id,
-                source_documents.url AS source_url
+                source_documents.url AS source_url,
+                source_documents.local_path AS source_local_path
             FROM results
             JOIN competitions ON competitions.id = results.competition_id
             LEFT JOIN athletes ON athletes.id = results.athlete_id

@@ -87,6 +87,24 @@ pub struct NewAthlete {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NewAthleteAlias {
+    pub athlete_id: i64,
+    pub alias: String,
+    pub source: Option<String>,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, sqlx::FromRow)]
+pub struct AthleteAlias {
+    pub id: i64,
+    pub athlete_id: i64,
+    pub alias: String,
+    pub canonical_name: String,
+    pub source: Option<String>,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct NewDiscipline {
     pub code: Option<String>,
     pub name: String,

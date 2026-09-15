@@ -5,10 +5,18 @@
   </div>
 </div>
 {{filters}}
+<form class="actions" method="post" action="/athletes/merge">
+  <strong>Sportler zusammenführen</strong>
+  <label for="merge-athlete-target">Kanonischer Sportler</label>
+  <select id="merge-athlete-target" name="target_id" required><option value="">Bitte auswählen</option>{{merge_options}}</select>
+  {{context_fields}}
+  <button type="submit">Zusammenführen</button>
+  <span class="muted">Mindestens zwei Sportler auswählen.</span>
 <div class="table-wrap">
   <table>
     <thead>
       <tr>
+        <th>Auswahl</th>
         <th>ID</th>
         <th>Name</th>
         <th>Ergebnisse</th>
@@ -21,4 +29,5 @@
     </tbody>
   </table>
 </div>
+</form>
 {{pagination}}

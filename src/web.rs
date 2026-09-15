@@ -15,7 +15,8 @@ use crate::application::{
     ParsedIssueRow, ResultFilters, ResultRow, TeamFilters, TeamMemberRow, TeamRow,
 };
 use crate::storage::{
-    Database, DatabaseConfig, NewClub, NewClubAlias, NewManualOverride, StorageRepository,
+    Database, DatabaseConfig, NewAthleteAlias, NewClub, NewClubAlias, NewManualOverride,
+    StorageRepository,
 };
 use crate::template::render_template;
 
@@ -38,6 +39,7 @@ const PARSER_RUNS_TEMPLATE: &str = include_str!("../templates/web-parser-runs.ht
 const PARSER_RUN_DETAIL_TEMPLATE: &str = include_str!("../templates/web-parser-run-detail.html");
 const COMBINED_TEMPLATE: &str = include_str!("../templates/web-combined.html");
 const CLUB_ALIASES_TEMPLATE: &str = include_str!("../templates/web-club-aliases.html");
+const ATHLETE_ALIASES_TEMPLATE: &str = include_str!("../templates/web-athlete-aliases.html");
 const DEFAULT_PAGE_SIZE: usize = 100;
 const PAGE_SIZE_OPTIONS: &[usize] = &[50, 100, 250, 500, 1_000];
 
@@ -156,6 +158,7 @@ async fn route_get(
         "/parser-runs" => parser_runs_page(pool).await.map(WebResponse::Html),
         "/combined" => combined_page(pool, query).await.map(WebResponse::Html),
         "/club-aliases" => club_aliases_page(pool).await.map(WebResponse::Html),
+        "/athlete-aliases" => athlete_aliases_page(pool).await.map(WebResponse::Html),
         "/corrections" => corrections_page(pool, query).await.map(WebResponse::Html),
         "/corrections/issues" => parser_issues_page(pool).await.map(WebResponse::Html),
         "/honors" => Ok(WebResponse::Html(honors_page())),
@@ -215,6 +218,7 @@ async fn route_get(
 async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<WebResponse> {
     match request.path.as_str() {
         "/clubs/merge" => club_editor::merge_selected(request, pool).await,
+        "/athletes/merge" => merge_selected_athletes(request, pool).await,
         path if path.starts_with("/clubs/") && path.ends_with("/edit") => {
             club_editor::post(request, pool).await
         }
@@ -225,6 +229,20 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
         "/club-aliases" => {
             create_club_alias(pool, &request.body).await?;
             Ok(WebResponse::Redirect("/club-aliases".to_owned()))
+        }
+        "/athlete-aliases" => {
+            create_athlete_alias(pool, &request.body).await?;
+            Ok(WebResponse::Redirect("/athlete-aliases".to_owned()))
+        }
+        path if path.starts_with("/athlete-aliases/") && path.ends_with("/deactivate") => {
+            let id = path
+                .trim_start_matches("/athlete-aliases/")
+                .trim_end_matches("/deactivate")
+                .parse::<i64>()?;
+            StorageRepository::new(pool)
+                .deactivate_athlete_alias(id)
+                .await?;
+            Ok(WebResponse::Redirect("/athlete-aliases".to_owned()))
         }
         path if path.starts_with("/club-aliases/") && path.ends_with("/deactivate") => {
             let id = path
@@ -414,10 +432,13 @@ async fn athletes_page(
     let has_next = trim_page_rows(&mut rows, page);
 
     let mut rows_html = String::new();
+    let mut merge_options = String::new();
     for row in &rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td><a href=\"/athletes/{}\">{}</a></td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            "<tr><td><input type=\"checkbox\" name=\"athlete_id\" value=\"{}\" aria-label=\"{} auswählen\"></td><td class=\"num\">{}</td><td><a href=\"/athletes/{}\">{}</a></td><td class=\"num\">{}</td><td class=\"num\">{}</td><td class=\"num\">{}</td></tr>",
+            row.id,
+            escape_html(&row.canonical_name),
             row.id,
             row.id,
             escape_html(&row.canonical_name),
@@ -426,7 +447,25 @@ async fn athletes_page(
             row.latest_year
                 .map_or_else(String::new, |year| year.to_string())
         );
+        let _ = writeln!(
+            merge_options,
+            "<option value=\"{}\">{}</option>",
+            row.id,
+            escape_html(&row.canonical_name)
+        );
     }
+
+    let context_fields = ["q", "verein", "year", "page", "page_size"]
+        .iter()
+        .filter_map(|key| {
+            query.get(*key).map(|value| {
+                format!(
+                    "<input type=\"hidden\" name=\"{key}\" value=\"{}\">",
+                    escape_html(value)
+                )
+            })
+        })
+        .collect::<String>();
 
     Ok(render_page(
         "Sportler",
@@ -435,7 +474,9 @@ async fn athletes_page(
             ATHLETES_TEMPLATE,
             &[
                 ("filters", athlete_filter_form(&filters, "/athletes", page)),
-                ("rows", empty_rows(rows_html, 5)),
+                ("merge_options", merge_options),
+                ("context_fields", context_fields),
+                ("rows", empty_rows(rows_html, 6)),
                 (
                     "pagination",
                     pagination_controls("/athletes", query, page, rows.len(), has_next),
@@ -965,6 +1006,80 @@ async fn club_aliases_page(pool: &sqlx::SqlitePool) -> Result<String> {
     ))
 }
 
+async fn athlete_aliases_page(pool: &sqlx::SqlitePool) -> Result<String> {
+    let aliases = StorageRepository::new(pool).all_athlete_aliases().await?;
+    let mut rows = String::new();
+    for alias in aliases {
+        let action = if alias.status == "active" {
+            format!(
+                "<form class=\"inline\" method=\"post\" action=\"/athlete-aliases/{}/deactivate\"><button type=\"submit\">Deaktivieren</button></form>",
+                alias.id
+            )
+        } else {
+            String::new()
+        };
+        let _ = writeln!(
+            rows,
+            "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            alias.id,
+            escape_html(&alias.alias),
+            alias.athlete_id,
+            escape_html(&alias.canonical_name),
+            escape_html(&alias.status),
+            action
+        );
+    }
+    Ok(render_page(
+        "Sportleraliase",
+        "athlete-aliases",
+        render_template(ATHLETE_ALIASES_TEMPLATE, &[("rows", empty_rows(rows, 6))]),
+    ))
+}
+
+async fn create_athlete_alias(pool: &sqlx::SqlitePool, body: &str) -> Result<()> {
+    let form = parse_form_urlencoded(body);
+    StorageRepository::new(pool)
+        .upsert_athlete_alias(&NewAthleteAlias {
+            athlete_id: form_value(&form, "athlete_id")?.parse()?,
+            alias: form_value(&form, "alias")?,
+            source: Some("web".to_owned()),
+            status: "active".to_owned(),
+        })
+        .await?;
+    Ok(())
+}
+
+async fn merge_selected_athletes(
+    request: &HttpRequest,
+    pool: &sqlx::SqlitePool,
+) -> Result<WebResponse> {
+    let form = parse_form_urlencoded(&request.body);
+    let target_id = form_value(&form, "target_id")?.parse::<i64>()?;
+    let selected = form_values(&request.body, "athlete_id")
+        .into_iter()
+        .map(|value| value.parse::<i64>())
+        .collect::<std::result::Result<Vec<_>, _>>()?;
+    anyhow::ensure!(
+        selected.len() >= 2,
+        "Bitte mindestens zwei Sportler auswählen."
+    );
+    anyhow::ensure!(
+        selected.contains(&target_id),
+        "Der kanonische Sportler muss ausgewählt sein."
+    );
+    let repository = StorageRepository::new(pool);
+    for source_id in selected {
+        if source_id != target_id {
+            repository.merge_athlete(source_id, target_id).await?;
+        }
+    }
+    let query = form
+        .into_iter()
+        .filter(|(key, _)| matches!(key.as_str(), "q" | "verein" | "year" | "page" | "page_size"))
+        .collect();
+    Ok(WebResponse::Redirect(club_editor::url("/athletes", &query)))
+}
+
 fn honors_page() -> String {
     render_page("Ehrungen", "honors", render_template(HONORS_TEMPLATE, &[]))
 }
@@ -1079,10 +1194,18 @@ fn result_rows_html(rows: &[ResultRow]) -> String {
             row.score.map_or_else(String::new, format_score),
             result_kind_label(&row.result_kind),
             result_type_label(row),
-            source_detail_link(row.source_document_id, row.source_url.as_deref())
+            result_source_link(row)
         );
     }
     rows_html
+}
+
+fn result_source_link(row: &ResultRow) -> String {
+    if row.source_local_path.is_some() {
+        source_document_links(row.source_local_path.as_deref(), row.source_url.as_deref())
+    } else {
+        source_detail_link(row.source_document_id, row.source_url.as_deref())
+    }
 }
 
 fn render_page(title: &str, active: &str, content: String) -> String {
@@ -1099,6 +1222,10 @@ fn render_page(title: &str, active: &str, content: String) -> String {
             ("active_parser_runs", active_class(active, "parser-runs")),
             ("active_combined", active_class(active, "combined")),
             ("active_club_aliases", active_class(active, "club-aliases")),
+            (
+                "active_athlete-aliases",
+                active_class(active, "athlete-aliases"),
+            ),
             ("active_corrections", active_class(active, "corrections")),
             ("active_honors", active_class(active, "honors")),
             ("content", content),
@@ -1956,6 +2083,7 @@ mod tests {
                 event_class: None,
                 source_document_id: None,
                 source_url: None,
+                source_local_path: None,
             },
             super::ResultRow {
                 id: 2,
@@ -1975,6 +2103,7 @@ mod tests {
                 event_class: None,
                 source_document_id: None,
                 source_url: None,
+                source_local_path: None,
             },
         ];
         let html = grouped_result_rows_html(&rows, Some("club"));

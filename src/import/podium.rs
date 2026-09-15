@@ -89,6 +89,13 @@ impl ManualOverrideSet {
             .await?
             .into_iter()
             .map(|manual_override| (manual_override.old_value, manual_override.new_value))
+            .chain(
+                repository
+                    .active_athlete_aliases()
+                    .await?
+                    .into_iter()
+                    .map(|alias| (alias.alias, alias.canonical_name)),
+            )
             .collect();
         Ok(Self { clubs, athletes })
     }

@@ -1,6 +1,6 @@
 # Datenbank, Ergebnisverlaeufe und fachliche Luecken
 
-Stand: 2026-09-03
+Stand: 2026-09-16
 
 ## Zielbild
 
@@ -33,6 +33,7 @@ Die Anwendung kann aktuell:
 - bekannte Kreisvereine fuer Stormarn ueber den Kreiscode OD ableiten
 - Podiums-/Ergebnisreports als JSON und HTML erzeugen
 - HTML-Reports filtern und gruppieren
+- lokale PDFs aus der Weboberflaeche heraus oeffnen
 - Templates fuer HTML-Seiten aus externen Template-Dateien laden
 - eine lokale SQLite-Datenbank initialisieren und migrieren
 - Kernschema fuer Quellen, Importlaeufe, Wettbewerbe, Vereine, Sportler, Disziplinen und Ergebnisse anlegen
@@ -42,7 +43,9 @@ Die Anwendung kann aktuell:
 - Rohwerte, normalisierte Parserwerte und kanonische Ergebnis-IDs trennen
 - wiederholte Importe derselben Exportdatei reproduzierbar und duplikatfrei ausfuehren
 - Konflikte zwischen vorhandenen kanonischen Ergebnissen und neuen Parserlaeufen markieren
+- auffaellige Parserzeilen mit Korrekturstatus und konkreten Korrekturaktionen anzeigen
 - manuelle Korrekturen fuer Vereins- und Sportlernamen in SQLite speichern
+- Sportleraliase in SQLite speichern, ueber die Weboberflaeche pflegen und beim Import zur Aufloesung verwenden
 - Importe und optionale Exporte mit aktiven manuellen Korrekturen kanonisieren
 - Parser-Rohdaten trotz Korrekturen unveraendert erhalten
 - Mannschaften, Mannschaftsmitglieder und Mannschaftsmedaillen pro Mitglied in SQLite speichern
@@ -52,6 +55,7 @@ Die Anwendung kann aktuell:
 - LM-Medaillen mit DM-Teilnahmen ueber eine Datenbank-View kombinieren
 - Podiums- und kombinierte HTML-/JSON-Reports optional aus der Datenbank erzeugen
 - Reportfilter wie Jahr, Wettbewerbsebene, Kreis und Platzierung direkt in Datenbankabfragen anwenden
+- Ergebnislisten nach Verein, Sportler oder Jahr gruppieren
 
 Die Modulgrenzen sind aktuell grob:
 
@@ -294,8 +298,8 @@ Stand der Umsetzung:
 - Roh- und Parser-Schreibweisen von Vereinen werden beim Import als `club_aliases` am kanonischen Verein gespeichert
 - Vereinsaliase koennen per CLI und Weboberflaeche angezeigt, angelegt und deaktiviert werden
 - unter `/clubs` und auf Vereinsdetailseiten koennen Vereinsnamen und Aliase direkt bearbeitet werden; Umbenennungen behalten Vereins-ID und Ergebniszuordnung bei, bewahren den alten Namen als Alias und protokollieren den Eingriff als `manual_overrides` mit Status `applied`
-- der Vereinseditor verhindert Namenskonflikte mit anderen Vereinen; weitergehende automatische Zusammenfuehrungen bleiben offen
-- Vereine koennen im Vereinseditor in einen bestehenden Zielverein zusammengefuehrt werden; Ergebnisse, Mannschaften und Aliase werden uebertragen, der bisherige Name als Alias erhalten und der Vorgang als `applied` protokolliert
+- der Vereinseditor verhindert Namenskonflikte mit anderen Vereinen
+- Vereine koennen in der Vereinsliste per Mehrfachauswahl in einen bestehenden Zielverein zusammengefuehrt werden; Ergebnisse, Mannschaften und Aliase werden uebertragen, der bisherige Name als Alias erhalten und der Vorgang als `applied` protokolliert
 
 Offene Punkte: siehe zentrale Priorisierung, Spaeter 10-13 fuer Mannschaftsdetails.
 
@@ -366,6 +370,7 @@ Stand der Umsetzung:
 
 - `manual_overrides` ist vorhanden
 - aktive globale Korrekturen fuer `club.canonical_name` und `athlete.canonical_name` koennen per CLI angelegt und gelistet werden
+- `athlete_aliases` bildet Sportler-Schreibweisen auf stabile Sportler-IDs ab; aktive Aliase werden beim Podiums- und Teilnahmeimport beruecksichtigt
 - `podium-export.json`-Importe wenden aktive Korrekturen auf kanonische Vereine und Sportler an
 - `export-podium` kann aktive Korrekturen optional schon fuer JSON-/HTML-Reports anwenden
 - Parserzeilen behalten die urspruenglichen Rohwerte aus dem Export
@@ -432,7 +437,7 @@ Stand der Umsetzung:
 
 ### Grafische Bearbeitung
 
-Die zukuenftige GUI ist nicht nur ein Report, sondern eine Arbeitsoberflaeche zur Datenpflege.
+Die lokale GUI ist inzwischen eine Arbeitsoberflaeche zur Datenpflege; weitere fachliche Workflows werden darauf aufgebaut.
 
 Noetige Ansichten:
 
@@ -510,7 +515,7 @@ Das Regelwerk sollte zunaechst bewusst klein bleiben. Es muss nicht sofort eine 
 
 Die GUI soll zunaechst als lokale Weboberflaeche mit Rust Backend umgesetzt werden. Die Seiten werden serverseitig als HTML gerendert. Das passt gut zu SQLite, den bestehenden Report-Templates und dem CLI-orientierten Importfluss.
 
-Die erste GUI ist bewusst eine lesende Verwaltungsoberflaeche. Der Einstiegspunkt sind Importlaeufe. Von dort aus kann man zu den zugehoerigen Ergebnissen, Sportlern, Vereinen und spaeter zu Ehrungsvorschlaegen navigieren.
+Die GUI startete als lesende Verwaltungsoberflaeche mit Importlaeufen als Einstiegspunkt. Inzwischen sind begrenzte Schreibaktionen fuer Namenskorrekturen, Aliase und Vereinszusammenfuehrungen hinzugekommen; Ehrungsvorschlaege bleiben offen.
 
 Schreibende Korrekturen sind inzwischen in Paket 10 in begrenzter Form freigegeben. Weitergehende Merge-, Pruef- und Ruecknahmefunktionen bleiben ueber die zentrale Priorisierung gesteuert, damit Parserdaten, kanonische Werte und manuelle Eingriffe fachlich sauber getrennt bleiben.
 
@@ -520,23 +525,23 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 
 ### Sofort
 
-1. Mehr DB-Filter plus Filter/Suche in GUI-Listen - in Arbeit, erste serverseitige Filter fuer Ergebnisse, Sportler, Vereine und kombinierte Auswertung umgesetzt
-2. Stabile API-/Service-Schicht fuer CLI und GUI - in Arbeit, lesende Abfragen in `application::query` gebuendelt
-3. Detailseiten fuer Sportler, Vereine, Importlaeufe und Quellen - in Arbeit, Detailseiten fuer Sportler, Vereine, Quellen und Importlauf-Ergebnisse umgesetzt
-4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - in Arbeit, Parserlauf-Liste, Parserlauf-Detailseite und auffaellige Parserzeilen je Parserlauf umgesetzt
-5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - in Arbeit, Korrekturformular bietet vorhandene Namen als Vorschlaege an
-6. Vereinsabgleich ueber `club_aliases` als Datenbasis - in Arbeit, Tabelle, Repository-Funktionen, automatische Befuellung, CLI-Pflege und GUI-Pflege umgesetzt
-7. Kombinierte Auswertung als HTML-/GUI-Ansicht - in Arbeit, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
+1. Mehr DB-Filter plus Filter/Suche in GUI-Listen - weitgehend umgesetzt, serverseitige Filter fuer Ergebnisse, Sportler, Vereine und kombinierte Auswertung vorhanden
+2. Stabile API-/Service-Schicht fuer CLI und GUI - umgesetzt, lesende Abfragen in `application::query` gebuendelt
+3. Detailseiten fuer Sportler, Vereine, Importlaeufe und Quellen - umgesetzt
+4. Weitergehende Statusansichten fuer Parserlaeufe und manuelle Nachbearbeitung - teilweise umgesetzt, Parserlauf- und Parserfehleransichten mit Korrekturstatus vorhanden
+5. UI-Validierung gegen existierende Sportler- und Vereinsnamen - teilweise umgesetzt, Korrekturformular bietet vorhandene Namen als Vorschlaege an
+6. Vereinsabgleich ueber `club_aliases` als Datenbasis - umgesetzt, inklusive CLI- und GUI-Pflege
+7. Kombinierte Auswertung als HTML-/GUI-Ansicht - umgesetzt, `/combined` zeigt LM-Medaillen mit DM-Teilnahme aus der Datenbank
 8. Allgemeines Wettbewerbsmodell fuer DM, WM, Olympia usw. - in Arbeit, Organisationen, Organisationsaliase und Startkontext als Schema-Grundlage umgesetzt
-9. Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen - in Arbeit, Web-Listen nutzen `page` und `page_size`
-10. GUI-Ansichten fuer Mannschaften und Mitglieder - in Arbeit, `/teams` und `/teams/<id>` zeigen Mannschaften und Mitglieder aus der Datenbank
+9. Pagination oder bewusst steuerbare Seitengroessen fuer grosse Datenmengen - umgesetzt, Web-Listen nutzen `page` und `page_size`
+10. GUI-Ansichten fuer Mannschaften und Mitglieder - umgesetzt, `/teams` und `/teams/<id>` zeigen Mannschaften und Mitglieder aus der Datenbank
 
 ### Spaeter
 
 1. DB-Reports fuer reine Teilnahme- oder Konfliktlisten
 2. UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
 3. Teilnahme genauer nach Disziplin/Klasse modellieren
-4. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine
+4. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine - umgesetzt
 5. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
 6. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
 7. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
@@ -590,7 +595,7 @@ Umgesetzt ist zunaechst der Weg ueber `podium-export.json`. Der direkte Parserla
 - Anzeige-/Exportlogik auf kanonische Werte plus Overrides umstellen
 - Parserdaten unveraendert erhalten
 
-Umgesetzt ist zunaechst eine aktive globale Korrekturschicht fuer Vereins- und Sportlernamen. Die feinere fachliche Bearbeitung mit Statuswechseln, GUI-Pruefung, PDF-spezifischen Overrides und Alias-Tabellen bleibt Teil der folgenden Pakete.
+Umgesetzt ist eine aktive globale Korrekturschicht fuer Vereins- und Sportlernamen mit CLI- und GUI-Pflege, Historie und Ruecknahme. Parserfaelle zeigen den Korrekturstatus; PDF- und Parserzeilen-spezifische Overrides sowie ein vollstaendiger Pruefworkflow bleiben offen.
 
 ### Paket 6: Mannschaften - erledigt
 
@@ -698,9 +703,10 @@ Stand der Umsetzung:
 - die Tabelle zeigt aktive und zurueckgenommene Korrekturen als Historie
 - Anlage- und Aktualisierungszeit bleiben sichtbar
 - `/corrections/issues` zeigt auffaellige Parserzeilen mit Konfliktstatus oder fehlender Normalisierung
+- Parserzeilen zeigen den Status einer passenden aktiven Korrektur und verlinken das lokale PDF
 - Parserfaelle bieten Links, um Korrekturformulare mit Rohwerten vorzubelegen
 - das Korrekturformular bietet vorhandene Sportler- und Vereinsnamen als Vorschlaege an
-- Zusammenfuehrung von Sportlern und Vereinen erfolgt in diesem Paket zunaechst ueber Namenskorrekturen
+- Vereine und Sportler koennen ueber die jeweilige GUI-Liste per ID zusammengefuehrt werden; Alias- und Ergebniszuordnungen werden uebertragen
 - Parser-Rohdaten werden weiterhin nicht veraendert
 
 Offene Punkte: siehe zentrale Priorisierung, Sofort 5 fuer weitere Validierungsqualitaet sowie Spaeter 5-9. Der Pruefstatus ist bewusst auf auffaellige Parserfaelle begrenzt, nicht auf jede Parserzeile.
