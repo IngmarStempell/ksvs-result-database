@@ -956,7 +956,7 @@ async fn combined_page(
             COMBINED_TEMPLATE,
             &[
                 ("filters", combined_filter_form(&filters, "/combined", page)),
-                ("rows", empty_rows(combined_rows_html(&rows), 9)),
+                ("rows", empty_rows(combined_rows_html(&rows), 8)),
                 (
                     "pagination",
                     pagination_controls("/combined", query, page, rows.len(), has_next),
@@ -1089,7 +1089,7 @@ fn combined_rows_html(rows: &[CombinedEvaluationRow]) -> String {
     for row in rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td></tr>",
+            "<tr><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td><td>{}</td><td>{}</td><td class=\"num\">{}</td><td>{}</td></tr>",
             detail_link("/athletes", row.athlete_id, row.athlete_name.as_deref()),
             detail_link("/clubs", row.club_id, row.club_name.as_deref()),
             row.year,
@@ -1098,7 +1098,6 @@ fn combined_rows_html(rows: &[CombinedEvaluationRow]) -> String {
             result_kind_label(&row.lm_result_kind),
             row.lm_rank
                 .map_or_else(String::new, |rank| rank.to_string()),
-            escape_optional(row.lm_medal.as_deref()),
             yes_no(row.has_dm_participation == 1)
         );
     }
