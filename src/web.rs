@@ -668,7 +668,7 @@ async fn parser_issues_page(pool: &sqlx::SqlitePool) -> Result<String> {
             PARSER_ISSUES_TEMPLATE,
             &[
                 ("issue_count", rows.len().to_string()),
-                ("rows", empty_rows(parser_issue_rows_html(&rows), 11)),
+                ("rows", empty_rows(parser_issue_rows_html(&rows), 12)),
             ],
         ),
     ))
@@ -923,7 +923,7 @@ async fn parser_run_detail_page(pool: &sqlx::SqlitePool, parser_run_id: i64) -> 
                 ("issue_count", row.issue_count.to_string()),
                 (
                     "issue_rows",
-                    empty_rows(parser_issue_rows_html(&issues), 11),
+                    empty_rows(parser_issue_rows_html(&issues), 12),
                 ),
             ],
         ),
@@ -1152,7 +1152,7 @@ fn parser_issue_rows_html(rows: &[ParsedIssueRow]) -> String {
     for row in rows {
         let _ = writeln!(
             rows_html,
-            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+            "<tr><td class=\"num\">{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
             row.id,
             escape_html(&row.source_name),
             escape_html(&row.competition_scope),
@@ -1170,6 +1170,7 @@ fn parser_issue_rows_html(rows: &[ParsedIssueRow]) -> String {
             escape_optional(row.event_name.as_deref()),
             source_document_links(row.pdf_local_path.as_deref(), row.pdf_url.as_deref()),
             escape_html(&row.correction_status),
+            issue_comparison_cell(row),
             correction_prefill_links(row)
         );
     }
@@ -1949,6 +1950,26 @@ fn correction_prefill_links(row: &ParsedIssueRow) -> String {
         links.push(prefill_link("athlete", raw_shooter));
     }
     links.join(" ")
+}
+
+fn issue_comparison_cell(row: &ParsedIssueRow) -> String {
+    let value = |label: &str, value: Option<&str>| {
+        format!(
+            "<div><strong>{label}:</strong> {}</div>",
+            escape_optional(value)
+        )
+    };
+    format!(
+        "<details><summary>Details</summary><strong>Sportler</strong>{}{}{}{}<strong>Verein</strong>{}{}{}{}</details>",
+        value("Rohwert", row.raw_shooter_name.as_deref()),
+        value("Parserwert", row.normalized_shooter_name.as_deref()),
+        value("Override", row.override_shooter_name.as_deref()),
+        value("Kanonisch", row.canonical_shooter_name.as_deref()),
+        value("Rohwert", row.raw_club_name.as_deref()),
+        value("Parserwert", row.normalized_club_name.as_deref()),
+        value("Override", row.override_club_name.as_deref()),
+        value("Kanonisch", row.canonical_club_name.as_deref())
+    )
 }
 
 fn prefill_link(entity_type: &str, old_value: &str) -> String {

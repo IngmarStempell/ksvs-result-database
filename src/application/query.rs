@@ -141,6 +141,10 @@ pub struct ParsedIssueRow {
     pub pdf_url: Option<String>,
     pub pdf_local_path: Option<String>,
     pub correction_status: String,
+    pub canonical_shooter_name: Option<String>,
+    pub canonical_club_name: Option<String>,
+    pub override_shooter_name: Option<String>,
+    pub override_club_name: Option<String>,
 }
 
 #[derive(Debug, sqlx::FromRow)]
@@ -456,7 +460,11 @@ impl<'a> ApplicationService<'a> {
                                AND manual_overrides.old_value = parsed_result_rows.raw_club_name)
                            OR (manual_overrides.entity_type = 'athlete'
                                AND manual_overrides.old_value = parsed_result_rows.raw_shooter_name))
-                ) THEN 'Korrektur hinterlegt' ELSE 'Keine Korrektur' END AS correction_status
+                ) THEN 'Korrektur hinterlegt' ELSE 'Keine Korrektur' END AS correction_status,
+                (SELECT canonical_name FROM athletes WHERE canonical_name = parsed_result_rows.normalized_shooter_name LIMIT 1) AS canonical_shooter_name,
+                (SELECT canonical_name FROM clubs WHERE canonical_name = parsed_result_rows.normalized_club_name LIMIT 1) AS canonical_club_name,
+                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'athlete' AND old_value = parsed_result_rows.raw_shooter_name LIMIT 1) AS override_shooter_name,
+                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'club' AND old_value = parsed_result_rows.raw_club_name LIMIT 1) AS override_club_name
             FROM parsed_result_rows
             LEFT JOIN source_documents ON source_documents.id = parsed_result_rows.source_document_id
             WHERE parsed_result_rows.conflict_status <> 'none'
@@ -609,7 +617,11 @@ impl<'a> ApplicationService<'a> {
                                AND manual_overrides.old_value = parsed_result_rows.raw_club_name)
                            OR (manual_overrides.entity_type = 'athlete'
                                AND manual_overrides.old_value = parsed_result_rows.raw_shooter_name))
-                ) THEN 'Korrektur hinterlegt' ELSE 'Keine Korrektur' END AS correction_status
+                ) THEN 'Korrektur hinterlegt' ELSE 'Keine Korrektur' END AS correction_status,
+                (SELECT canonical_name FROM athletes WHERE canonical_name = parsed_result_rows.normalized_shooter_name LIMIT 1) AS canonical_shooter_name,
+                (SELECT canonical_name FROM clubs WHERE canonical_name = parsed_result_rows.normalized_club_name LIMIT 1) AS canonical_club_name,
+                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'athlete' AND old_value = parsed_result_rows.raw_shooter_name LIMIT 1) AS override_shooter_name,
+                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'club' AND old_value = parsed_result_rows.raw_club_name LIMIT 1) AS override_club_name
             FROM parsed_result_rows
             LEFT JOIN source_documents ON source_documents.id = parsed_result_rows.source_document_id
             WHERE parsed_result_rows.parser_run_id = ?

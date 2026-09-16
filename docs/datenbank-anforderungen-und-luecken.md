@@ -542,7 +542,7 @@ Diese Liste ist die fuehrende Arbeitsliste fuer offene Fragen aus den Paketen. L
 2. UI-Ansichten, die dieselben DB-Abfragen interaktiv nutzen
 3. Teilnahme genauer nach Disziplin/Klasse modellieren
 4. Echte ID-basierte Merge-Aktionen fuer Sportler und Vereine - umgesetzt
-5. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override
+5. Detailansichten zum Vergleich von Rohwert, Parserwert, kanonischem Wert und Override - teilweise umgesetzt in `/corrections/issues`; Disziplinen und zeilenbezogene Overrides bleiben offen
 6. Pruefstatus nur fuer auffaellige Parserfaelle, nicht fuer jede Parserzeile
 7. Konfliktaufloesung mit Bezug auf konkrete Quelle, PDF oder Parserzeile
 8. Ruecknahme mit Grund/Kommentar statt nur Statuswechsel
