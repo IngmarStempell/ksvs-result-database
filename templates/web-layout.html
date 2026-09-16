@@ -88,6 +88,19 @@
       border-collapse: collapse;
       min-width: 880px;
     }
+    .parser-issues-table {
+      min-width: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+    .parser-issues-wrap {
+      overflow-x: hidden;
+    }
+    .parser-issues-table th,
+    .parser-issues-table td {
+      min-width: 0;
+      word-break: break-word;
+    }
     th,
     td {
       padding: 9px 11px;
@@ -181,6 +194,20 @@
       padding: 4px 8px;
       background: #ffffff;
       color: var(--accent);
+    }
+    .parser-issues-table form.inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .parser-issues-table form.inline input {
+      box-sizing: border-box;
+      max-width: 140px;
+      min-width: 0;
+    }
+    .parser-issues-table form.inline button { white-space: normal; }
+    .parser-issues-table td {
+      overflow-wrap: anywhere;
     }
     .span-2 {
       grid-column: span 2;

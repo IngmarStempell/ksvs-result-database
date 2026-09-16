@@ -145,6 +145,8 @@ pub struct ParsedIssueRow {
     pub canonical_club_name: Option<String>,
     pub override_shooter_name: Option<String>,
     pub override_club_name: Option<String>,
+    pub review_status: String,
+    pub review_note: Option<String>,
 }
 
 #[derive(Debug, sqlx::FromRow)]
@@ -464,7 +466,8 @@ impl<'a> ApplicationService<'a> {
                 (SELECT canonical_name FROM athletes WHERE canonical_name = parsed_result_rows.normalized_shooter_name LIMIT 1) AS canonical_shooter_name,
                 (SELECT canonical_name FROM clubs WHERE canonical_name = parsed_result_rows.normalized_club_name LIMIT 1) AS canonical_club_name,
                 (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'athlete' AND old_value = parsed_result_rows.raw_shooter_name LIMIT 1) AS override_shooter_name,
-                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'club' AND old_value = parsed_result_rows.raw_club_name LIMIT 1) AS override_club_name
+                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'club' AND old_value = parsed_result_rows.raw_club_name LIMIT 1) AS override_club_name,
+                parsed_result_rows.review_status, parsed_result_rows.review_note
             FROM parsed_result_rows
             LEFT JOIN source_documents ON source_documents.id = parsed_result_rows.source_document_id
             WHERE parsed_result_rows.conflict_status <> 'none'
@@ -621,7 +624,8 @@ impl<'a> ApplicationService<'a> {
                 (SELECT canonical_name FROM athletes WHERE canonical_name = parsed_result_rows.normalized_shooter_name LIMIT 1) AS canonical_shooter_name,
                 (SELECT canonical_name FROM clubs WHERE canonical_name = parsed_result_rows.normalized_club_name LIMIT 1) AS canonical_club_name,
                 (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'athlete' AND old_value = parsed_result_rows.raw_shooter_name LIMIT 1) AS override_shooter_name,
-                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'club' AND old_value = parsed_result_rows.raw_club_name LIMIT 1) AS override_club_name
+                (SELECT new_value FROM manual_overrides WHERE status = 'active' AND entity_type = 'club' AND old_value = parsed_result_rows.raw_club_name LIMIT 1) AS override_club_name,
+                parsed_result_rows.review_status, parsed_result_rows.review_note
             FROM parsed_result_rows
             LEFT JOIN source_documents ON source_documents.id = parsed_result_rows.source_document_id
             WHERE parsed_result_rows.parser_run_id = ?

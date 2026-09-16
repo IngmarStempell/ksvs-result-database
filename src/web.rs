@@ -219,6 +219,9 @@ async fn route_post(request: &HttpRequest, pool: &sqlx::SqlitePool) -> Result<We
     match request.path.as_str() {
         "/clubs/merge" => club_editor::merge_selected(request, pool).await,
         "/athletes/merge" => merge_selected_athletes(request, pool).await,
+        path if path.starts_with("/corrections/issues/") && path.ends_with("/review") => {
+            review_parser_issue(request, pool).await
+        }
         path if path.starts_with("/clubs/") && path.ends_with("/edit") => {
             club_editor::post(request, pool).await
         }
@@ -1171,7 +1174,7 @@ fn parser_issue_rows_html(rows: &[ParsedIssueRow]) -> String {
             source_document_links(row.pdf_local_path.as_deref(), row.pdf_url.as_deref()),
             escape_html(&row.correction_status),
             issue_comparison_cell(row),
-            correction_prefill_links(row)
+            issue_actions_cell(row)
         );
     }
     rows_html
@@ -1970,6 +1973,56 @@ fn issue_comparison_cell(row: &ParsedIssueRow) -> String {
         value("Override", row.override_club_name.as_deref()),
         value("Kanonisch", row.canonical_club_name.as_deref())
     )
+}
+
+fn review_actions(row: &ParsedIssueRow) -> String {
+    format!(
+        "<div><strong>Prüfung: {}</strong>{}</div><form class=\"inline\" method=\"post\" action=\"/corrections/issues/{}/review\"><input name=\"note\" placeholder=\"Kommentar\"><button name=\"status\" value=\"confirmed\">Bestätigen</button><button name=\"status\" value=\"rejected\">Zurückweisen</button><button name=\"status\" value=\"open\">Offen</button></form>",
+        review_status_label(&row.review_status),
+        row.review_note
+            .as_deref()
+            .map_or_else(String::new, |note| format!(
+                " <span class=\"muted\">({})</span>",
+                escape_html(note)
+            )),
+        row.id
+    )
+}
+
+fn issue_actions_cell(row: &ParsedIssueRow) -> String {
+    format!(
+        "{}<div class=\"muted\">{}</div>",
+        review_actions(row),
+        correction_prefill_links(row)
+    )
+}
+
+fn review_status_label(status: &str) -> &str {
+    match status {
+        "confirmed" => "bestätigt",
+        "rejected" => "zurückgewiesen",
+        _ => "offen",
+    }
+}
+
+async fn review_parser_issue(
+    request: &HttpRequest,
+    pool: &sqlx::SqlitePool,
+) -> Result<WebResponse> {
+    let id = request
+        .path
+        .trim_start_matches("/corrections/issues/")
+        .trim_end_matches("/review")
+        .parse::<i64>()?;
+    let form = parse_form_urlencoded(&request.body);
+    let status = form_value(&form, "status")?;
+    anyhow::ensure!(
+        matches!(status.as_str(), "open" | "confirmed" | "rejected"),
+        "Ungueltiger Prüfstatus."
+    );
+    sqlx::query("UPDATE parsed_result_rows SET review_status = ?, review_note = NULLIF(?, ''), reviewed_at = CASE WHEN ? = 'open' THEN NULL ELSE CURRENT_TIMESTAMP END WHERE id = ?")
+        .bind(&status).bind(form.get("note").map(String::as_str).unwrap_or_default()).bind(&status).bind(id).execute(pool).await?;
+    Ok(WebResponse::Redirect("/corrections/issues".to_owned()))
 }
 
 fn prefill_link(entity_type: &str, old_value: &str) -> String {
